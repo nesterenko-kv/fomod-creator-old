@@ -1,7 +1,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Dependencies
+namespace FomodModel.Base.ModuleConfiguration.Dependencies
 {
     /// <summary>
     /// A condition flag upon which the type of a plugin depends.

@@ -1,7 +1,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Enums
+namespace FomodModel.Base.ModuleConfiguration.Enums
 {
     /// <summary>
     /// The relation of the contained dependencies.

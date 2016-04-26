@@ -1,10 +1,10 @@
 using System;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Enums;
-using FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups.Plugins;
+using FomodModel.Base.ModuleConfiguration.Enums;
+using FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups
+namespace FomodModel.Base.ModuleConfiguration.Steps.Groups
 {
     /// <summary>
     /// A group of plugins.

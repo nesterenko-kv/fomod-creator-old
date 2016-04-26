@@ -1,9 +1,9 @@
 using System;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups.Plugins;
+using FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Dependencies
+namespace FomodModel.Base.ModuleConfiguration.Dependencies
 {
     /// <summary>
     /// A pattern of mod files and condition flags that determine the type of a plugin.

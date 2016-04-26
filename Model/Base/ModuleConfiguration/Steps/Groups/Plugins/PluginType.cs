@@ -1,8 +1,8 @@
 using System;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Enums;
+using FomodModel.Base.ModuleConfiguration.Enums;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups.Plugins
+namespace FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins
 {
     /// <summary>
     /// The type of a given plugin.

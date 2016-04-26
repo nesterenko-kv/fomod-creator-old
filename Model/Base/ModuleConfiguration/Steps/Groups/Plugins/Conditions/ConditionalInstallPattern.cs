@@ -1,10 +1,10 @@
 using System;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Dependencies;
-using FOMOD_Creator.Models.ModuleConfiguration.Files;
+using FomodModel.Base.ModuleConfiguration.Dependencies;
+using FomodModel.Base.ModuleConfiguration.Files;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups.Plugins.Conditions
+namespace FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins.Conditions
 {
     /// <summary>
     /// A pattern of mod files and conditional flags that determine whether to instal specific files.

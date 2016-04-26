@@ -2,9 +2,9 @@ using System;
 using System.ComponentModel;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Enums;
+using FomodModel.Base.ModuleConfiguration.Enums;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Dependencies
+namespace FomodModel.Base.ModuleConfiguration.Dependencies
 {
     /// <summary>
     /// A specific pattern of mod files and condition flags against which to match the user's installation.

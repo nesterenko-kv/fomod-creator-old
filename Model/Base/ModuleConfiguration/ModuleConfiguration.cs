@@ -1,13 +1,13 @@
 using System;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Dependencies;
-using FOMOD_Creator.Models.ModuleConfiguration.Files;
-using FOMOD_Creator.Models.ModuleConfiguration.Header;
-using FOMOD_Creator.Models.ModuleConfiguration.Steps;
-using FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups.Plugins.Conditions;
+using FomodModel.Base.ModuleConfiguration.Dependencies;
+using FomodModel.Base.ModuleConfiguration.Files;
+using FomodModel.Base.ModuleConfiguration.Header;
+using FomodModel.Base.ModuleConfiguration.Steps;
+using FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins.Conditions;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration
+namespace FomodModel.Base.ModuleConfiguration
 {
     /// <summary>
     /// Describes the configuration of a module.

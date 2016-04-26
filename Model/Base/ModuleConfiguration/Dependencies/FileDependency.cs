@@ -1,8 +1,8 @@
 using System;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Enums;
+using FomodModel.Base.ModuleConfiguration.Enums;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Dependencies
+namespace FomodModel.Base.ModuleConfiguration.Dependencies
 {
     /// <summary>
     /// A mod upon which the type of a plugin depends.

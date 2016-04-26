@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Files
+namespace FomodModel.Base.ModuleConfiguration.Files
 {
     [Serializable]
     public class FileSystemItem

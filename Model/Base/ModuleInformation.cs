@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace FOMOD_Creator.Models
+namespace FomodModel.Base
 {
     /// <summary>
     /// Contains all information about modification.

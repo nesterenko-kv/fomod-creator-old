@@ -1,10 +1,10 @@
 using System;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Files;
-using FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups.Plugins.Conditions;
+using FomodModel.Base.ModuleConfiguration.Files;
+using FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins.Conditions;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups.Plugins
+namespace FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins
 {
     /// <summary>
     /// A plugin.

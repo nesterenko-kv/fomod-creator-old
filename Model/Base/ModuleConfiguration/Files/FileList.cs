@@ -1,9 +1,9 @@
 using System;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Enums;
+using FomodModel.Base.ModuleConfiguration.Enums;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Files
+namespace FomodModel.Base.ModuleConfiguration.Files
 {
     /// <summary>
     /// A list of files and folders.

@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Header
+namespace FomodModel.Base.ModuleConfiguration.Header
 {
     /// <summary>
     /// An image.

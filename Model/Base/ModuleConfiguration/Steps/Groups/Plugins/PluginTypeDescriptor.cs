@@ -1,9 +1,9 @@
 using System;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Dependencies;
+using FomodModel.Base.ModuleConfiguration.Dependencies;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups.Plugins
+namespace FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins
 {
     /// <summary>
     /// Describes the type of a plugin.

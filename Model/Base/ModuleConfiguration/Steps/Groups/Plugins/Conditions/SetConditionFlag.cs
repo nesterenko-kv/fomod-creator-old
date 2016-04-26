@@ -1,7 +1,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups.Plugins.Conditions
+namespace FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins.Conditions
 {
     /// <summary>
     /// >A condition flag to set if a plugin is selected.

@@ -1,6 +1,6 @@
 using System;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Enums
+namespace FomodModel.Base.ModuleConfiguration.Enums
 {
     /// <summary>
     /// The possible plugin types.

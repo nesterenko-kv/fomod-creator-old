@@ -2,7 +2,7 @@ using System;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups.Plugins.Conditions
+namespace FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins.Conditions
 {
     /// <summary>
     /// A list of optional files that may optionally be installed for this module, base on condition flags.

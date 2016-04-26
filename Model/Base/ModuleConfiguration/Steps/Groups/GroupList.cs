@@ -2,9 +2,9 @@ using System;
 using System.ComponentModel;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Enums;
+using FomodModel.Base.ModuleConfiguration.Enums;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups
+namespace FomodModel.Base.ModuleConfiguration.Steps.Groups
 {
     /// <summary>
     /// A list of plugin groups.

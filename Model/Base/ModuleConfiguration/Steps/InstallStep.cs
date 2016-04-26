@@ -1,10 +1,10 @@
 using System;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Dependencies;
-using FOMOD_Creator.Models.ModuleConfiguration.Steps.Groups;
+using FomodModel.Base.ModuleConfiguration.Dependencies;
+using FomodModel.Base.ModuleConfiguration.Steps.Groups;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Steps
+namespace FomodModel.Base.ModuleConfiguration.Steps
 {
     /// <summary>
     /// A step in the install process containing groups of optional plugins.

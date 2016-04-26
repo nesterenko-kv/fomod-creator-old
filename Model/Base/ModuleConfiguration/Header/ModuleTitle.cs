@@ -1,9 +1,9 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using FOMOD_Creator.Models.ModuleConfiguration.Enums;
+using FomodModel.Base.ModuleConfiguration.Enums;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Header
+namespace FomodModel.Base.ModuleConfiguration.Header
 {
     /// <summary>
     /// Describes the display properties of the module title.

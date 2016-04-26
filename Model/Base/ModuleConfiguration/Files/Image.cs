@@ -1,7 +1,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace FOMOD_Creator.Models.ModuleConfiguration.Files
+namespace FomodModel.Base.ModuleConfiguration.Files
 {
     /// <summary>
     /// An image.
