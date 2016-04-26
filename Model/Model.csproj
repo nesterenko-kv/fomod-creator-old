@@ -40,6 +40,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\ModuleConfiguration\Dependencies\CompositeDependency.cs" />
+    <Compile Include="Base\ModuleConfiguration\Dependencies\DependencyPattern.cs" />
+    <Compile Include="Base\ModuleConfiguration\Dependencies\DependencyPluginType.cs" />
+    <Compile Include="Base\ModuleConfiguration\Dependencies\FileDependency.cs" />
+    <Compile Include="Base\ModuleConfiguration\Dependencies\FlagDependency.cs" />
+    <Compile Include="Base\ModuleConfiguration\Dependencies\VersionDependency.cs" />
+    <Compile Include="Base\ModuleConfiguration\Enums\CompositeDependencyOperator.cs" />
+    <Compile Include="Base\ModuleConfiguration\Enums\FileDependencyState.cs" />
+    <Compile Include="Base\ModuleConfiguration\Enums\GroupType.cs" />
+    <Compile Include="Base\ModuleConfiguration\Enums\ItemsChoiceType.cs" />
+    <Compile Include="Base\ModuleConfiguration\Enums\ItemsChoiceType1.cs" />
+    <Compile Include="Base\ModuleConfiguration\Enums\ModuleTitlePosition.cs" />
+    <Compile Include="Base\ModuleConfiguration\Enums\OrderEnum.cs" />
+    <Compile Include="Base\ModuleConfiguration\Enums\PluginTypeEnum.cs" />
+    <Compile Include="Base\ModuleConfiguration\Files\FileList.cs" />
+    <Compile Include="Base\ModuleConfiguration\Files\FileSystemItem.cs" />
+    <Compile Include="Base\ModuleConfiguration\Files\Image.cs" />
+    <Compile Include="Base\ModuleConfiguration\Header\HeaderImage.cs" />
+    <Compile Include="Base\ModuleConfiguration\Header\ModuleTitle.cs" />
+    <Compile Include="Base\ModuleConfiguration\ModuleConfiguration.cs" />
+    <Compile Include="Base\ModuleConfiguration\Steps\Groups\Group.cs" />
+    <Compile Include="Base\ModuleConfiguration\Steps\Groups\GroupList.cs" />
+    <Compile Include="Base\ModuleConfiguration\Steps\Groups\Plugins\Conditions\ConditionalFileInstallList.cs" />
+    <Compile Include="Base\ModuleConfiguration\Steps\Groups\Plugins\Conditions\ConditionalInstallPattern.cs" />
+    <Compile Include="Base\ModuleConfiguration\Steps\Groups\Plugins\Conditions\ConditionFlagList.cs" />
+    <Compile Include="Base\ModuleConfiguration\Steps\Groups\Plugins\Conditions\SetConditionFlag.cs" />
+    <Compile Include="Base\ModuleConfiguration\Steps\Groups\Plugins\Plugin.cs" />
+    <Compile Include="Base\ModuleConfiguration\Steps\Groups\Plugins\PluginList.cs" />
+    <Compile Include="Base\ModuleConfiguration\Steps\Groups\Plugins\PluginType.cs" />
+    <Compile Include="Base\ModuleConfiguration\Steps\Groups\Plugins\PluginTypeDescriptor.cs" />
+    <Compile Include="Base\ModuleConfiguration\Steps\InstallStep.cs" />
+    <Compile Include="Base\ModuleConfiguration\Steps\StepList.cs" />
+    <Compile Include="Base\ModuleInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
