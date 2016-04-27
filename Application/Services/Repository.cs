@@ -5,6 +5,7 @@ using FomodInfrastructure.Interface;
 using FomodModel.Base;
 using Gat.Controls;
 using Microsoft.Practices.ServiceLocation;
+using Prism.Logging;
 
 namespace MainApplication.Services
 {
@@ -15,10 +16,12 @@ namespace MainApplication.Services
         private ProjectRoot _projectRoot;
 
         private readonly IServiceLocator _serviceLocator;
+        private readonly ILoggerFacade _loggerFacade;
 
-        public Repository(IServiceLocator serviceLocator)
+        public Repository(IServiceLocator serviceLocator, ILoggerFacade loggerFacade)
         {
             _serviceLocator = serviceLocator;
+            _loggerFacade = loggerFacade;
         }
 
         #region IRepository
@@ -65,24 +68,24 @@ namespace MainApplication.Services
         {
             var folderPath = GetFolderPath();
             return folderPath != null ? LoadProjectFromPath(folderPath) : null;
-        }
+            }
         private ProjectRoot LoadProjectFromPath(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
                 throw new FileNotFoundException();
             if (!CheckFiles(path)) throw new FileNotFoundException();
             var projectRoot = _serviceLocator.GetInstance<ProjectRoot>();
-            try
-            {
+                try
+                {
                 projectRoot.ModuleInformation = DeserializeObject<ModuleInformation>(path + InfoSubPath);
                 projectRoot.ModuleConfiguration = DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
 
                 return projectRoot;
-            }
+                }
             catch (Exception)
-            {
-                //если ошибка то позже сделаем сервис оповещения об ошибках
-            }
+                {
+                    //если ошибка то позже сделаем сервис оповещения об ошибках
+                }
             throw new FileNotFoundException();
         }
 

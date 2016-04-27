@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="Boot\Bootstrapper.cs" />
     <Compile Include="Services\AppService.cs" />
+    <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\Repository.cs" />
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
