@@ -5,6 +5,7 @@ using Gat.Controls;
 using FomodModel.Base;
 using Microsoft.Practices.ServiceLocation;
 using FomodModel.Base.ModuleConfiguration;
+using Prism.Logging;
 
 namespace MainApplication.Services
 {
@@ -15,10 +16,12 @@ namespace MainApplication.Services
         private ProjectRoot ProjectRoot;
 
         private readonly IServiceLocator ServiceLocator;
+        private readonly ILoggerFacade LoggerFacade;
 
-        public Repository(IServiceLocator ServiceLocator)
+        public Repository(IServiceLocator ServiceLocator, ILoggerFacade LoggerFacade)
         {
             this.ServiceLocator = ServiceLocator;
+            this.LoggerFacade = LoggerFacade;
         }
 
 

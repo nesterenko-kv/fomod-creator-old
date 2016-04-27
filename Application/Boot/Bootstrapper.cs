@@ -4,6 +4,7 @@ using MainApplication.Services;
 using FomodInfrastructure.Interface;
 using Module.Welcome;
 using FomodModel.Base;
+using Prism.Logging;
 
 namespace MainApplication.Boot
 {
@@ -29,6 +30,11 @@ namespace MainApplication.Boot
             });
 
 
+        }
+
+        protected override ILoggerFacade CreateLogger()
+        {
+            return new Logger();
         }
 
         protected override void InitializeModules()
