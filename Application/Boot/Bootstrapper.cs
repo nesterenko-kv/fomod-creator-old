@@ -1,9 +1,9 @@
 ﻿using System.Windows;
-using Prism.StructureMap;
-using MainApplication.Services;
 using FomodInfrastructure.Interface;
-using Module.Welcome;
 using FomodModel.Base;
+using MainApplication.Services;
+using Module.Welcome;
+using Prism.StructureMap;
 
 namespace MainApplication.Boot
 {
@@ -27,8 +27,6 @@ namespace MainApplication.Boot
                 r.For<IAppService>().Use<AppService>().Singleton();
                 r.For<IRepository<ProjectRoot>>().Use<Repository>().Singleton();
             });
-
-
         }
 
         protected override void InitializeModules()

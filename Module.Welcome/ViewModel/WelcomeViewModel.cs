@@ -1,11 +1,5 @@
-﻿using FomodInfrastructure.Interface;
-using FomodInfrastructure.MvvmLibrary;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base;
 
@@ -14,24 +8,21 @@ namespace Module.Welcome.ViewModel
     public class WelcomeViewModel
     {
         #region Fields
-       
-        ICommand _closeApplication;
-        ICommand _openProject;
-        ICommand _createProject;
+
+        private ICommand _closeApplication;
+        private ICommand _openProject;
+        private ICommand _createProject;
 
         #endregion
 
-        private readonly IAppService AppService;
-        private readonly IRepository<ProjectRoot> Repository;
+        private readonly IAppService _appService;
+        private readonly IRepository<ProjectRoot> _repository;
 
-        public WelcomeViewModel(IAppService AppService, IRepository<ProjectRoot> Repository)
+        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository)
         {
-            this.AppService = AppService;
-            this.Repository = Repository;
+            _appService = appService;
+            _repository = repository;
         }
-
-
-
 
         #region Commands
 
@@ -40,10 +31,7 @@ namespace Module.Welcome.ViewModel
             get
             {
                 if (_closeApplication == null)
-                    _closeApplication = new RelayCommand((p) =>
-                    {
-                        this.AppService.CloseApp();
-                    });
+                    _closeApplication = new RelayCommand(p => _appService.CloseApp());
                 return _closeApplication;
             }
         }
@@ -52,9 +40,9 @@ namespace Module.Welcome.ViewModel
             get
             {
                 if (_openProject == null)
-                    _openProject = new RelayCommand((p) =>
+                    _openProject = new RelayCommand(p =>
                     {
-                        var Data = this.Repository.LoadData();
+                        var data = _repository.LoadData();
                     });
                 return _openProject;
             }
@@ -65,15 +53,13 @@ namespace Module.Welcome.ViewModel
             get
             {
                 if (_createProject == null)
-                    _createProject = new RelayCommand((p) =>
+                    _createProject = new RelayCommand(p =>
                     {
                         
                     });
                 return _createProject;
             }
-        } 
-
-
+        }
         #endregion
     }
 }

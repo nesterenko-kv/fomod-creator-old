@@ -1,5 +1,5 @@
-﻿using AspectInjector.Broker;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using AspectInjector.Broker;
 
 namespace FomodInfrastructure.Aspect
 {
@@ -18,7 +18,4 @@ namespace FomodInfrastructure.Aspect
                 handler(targetInstance, new PropertyChangedEventArgs(propertyName));
         }
     }
-
-
-
 }
