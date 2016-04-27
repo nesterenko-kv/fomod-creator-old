@@ -2,6 +2,8 @@
 using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base;
+using Prism.Regions;
+using FomodInfrastructure;
 
 namespace Module.Welcome.ViewModel
 {
@@ -16,12 +18,14 @@ namespace Module.Welcome.ViewModel
         #endregion
 
         private readonly IAppService _appService;
+        private readonly IRegionManager _regionManager;
         private readonly IRepository<ProjectRoot> _repository;
 
-        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository)
+        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository, IRegionManager regionManager)
         {
             _appService = appService;
             _repository = repository;
+            _regionManager = regionManager;
         }
 
         #region Commands
@@ -43,10 +47,24 @@ namespace Module.Welcome.ViewModel
                     _openProject = new RelayCommand(p =>
                     {
                         var data = _repository.LoadData();
+
+                        var param = new NavigationParameters();
+
+                        param.Add(nameof(ProjectRoot.ModuleInformation), data.ModuleInformation);
+                        param.Add(nameof(ProjectRoot.ModuleConfiguration), data.ModuleConfiguration);
+
+                        _regionManager.RequestNavigate(Names.MainContentRegion, "InfoEditorView", param);
+
+                        var views = _regionManager.Regions[Names.TopRegion].Views;
+                        foreach (var item in views)
+                        {
+                            _regionManager.Regions[Names.TopRegion].Remove(item);
+                        }
                     });
                 return _openProject;
             }
-        } 
+        }
+
 
         public ICommand CreateProject
         {
