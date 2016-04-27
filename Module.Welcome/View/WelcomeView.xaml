@@ -31,6 +31,10 @@
                            FontSize="18"
                            FontFamily="Segoe UI Light" />
                 <Button Margin="3"
+                        Content="Создать проект"
+                        Command="{Binding CreateProject}"
+                        Style="{DynamicResource GreenButton}" />
+                <Button Margin="3"
                         Content="Открыть проект"
                         Command="{Binding OpenProject}"
                         Style="{DynamicResource GreenButton}" />

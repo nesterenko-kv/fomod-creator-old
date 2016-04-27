@@ -80,6 +80,7 @@
     <Compile Include="Base\ModuleConfiguration\Steps\InstallStep.cs" />
     <Compile Include="Base\ModuleConfiguration\Steps\StepList.cs" />
     <Compile Include="Base\ModuleInformation.cs" />
+    <Compile Include="Base\ProjectRoot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@ using Prism.StructureMap;
 using MainApplication.Services;
 using FomodInfrastructure.Interface;
 using Module.Welcome;
+using FomodModel.Base;
 
 namespace MainApplication.Boot
 {
@@ -24,6 +25,7 @@ namespace MainApplication.Boot
             Container.Configure(r =>
             {
                 r.For<IAppService>().Use<AppService>().Singleton();
+                r.For<IRepository<ProjectRoot>>().Use<Repository>().Singleton();
             });
 
 

@@ -27,6 +27,7 @@ namespace Module.Welcome
             });
 
             _regionManager.Regions[Names.TopRegion].RequestNavigate(nameof(WelcomeView));
+            //_regionManager.Regions[Names.TopRegion].Add(_container.GetInstance<object>(nameof(WelcomeView)));
 
         }
     }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using FomodInfrastructure.MvvmLibrary.Commands;
+using FomodModel.Base;
 
 namespace Module.Welcome.ViewModel
 {
@@ -16,20 +17,18 @@ namespace Module.Welcome.ViewModel
        
         ICommand _closeApplication;
         ICommand _openProject;
+        ICommand _createProject;
 
         #endregion
 
         private readonly IAppService AppService;
+        private readonly IRepository<ProjectRoot> Repository;
 
-        public WelcomeViewModel(IAppService AppService)
+        public WelcomeViewModel(IAppService AppService, IRepository<ProjectRoot> Repository)
         {
             this.AppService = AppService;
+            this.Repository = Repository;
         }
-
-
-
-
-
 
 
 
@@ -55,11 +54,25 @@ namespace Module.Welcome.ViewModel
                 if (_openProject == null)
                     _openProject = new RelayCommand((p) =>
                     {
-
+                        var Data = this.Repository.LoadData();
                     });
                 return _openProject;
             }
         } 
+
+        public ICommand CreateProject
+        {
+            get
+            {
+                if (_createProject == null)
+                    _createProject = new RelayCommand((p) =>
+                    {
+                        
+                    });
+                return _createProject;
+            }
+        } 
+
 
         #endregion
     }
