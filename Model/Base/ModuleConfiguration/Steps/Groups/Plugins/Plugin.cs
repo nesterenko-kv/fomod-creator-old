@@ -10,6 +10,8 @@ namespace FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins
     /// A plugin.
     /// </summary>
     [Serializable]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+
     public class Plugin
     {
         /// <summary>

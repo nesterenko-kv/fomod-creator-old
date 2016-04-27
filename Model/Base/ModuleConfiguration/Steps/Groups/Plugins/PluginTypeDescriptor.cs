@@ -9,6 +9,8 @@ namespace FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins
     /// Describes the type of a plugin.
     /// </summary>
     [Serializable]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+
     public class PluginTypeDescriptor
     {
         [XmlElement("dependencyType", typeof(DependencyPluginType), Form = XmlSchemaForm.Unqualified)]

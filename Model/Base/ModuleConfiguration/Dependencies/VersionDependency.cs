@@ -7,6 +7,8 @@ namespace FomodModel.Base.ModuleConfiguration.Dependencies
     /// A required minimum version of an item.
     /// </summary>
     [Serializable]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+
     public class VersionDependency
     {
         /// <summary>

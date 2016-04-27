@@ -10,6 +10,8 @@ namespace FomodModel.Base.ModuleConfiguration.Dependencies
     /// A specific pattern of mod files and condition flags against which to match the user's installation.
     /// </summary>
     [Serializable]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+
     public class CompositeDependency
     {
         public CompositeDependency()

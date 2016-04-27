@@ -9,6 +9,7 @@ namespace FomodModel.Base.ModuleConfiguration.Steps
     /// <summary>
     /// A step in the install process containing groups of optional plugins.
     /// </summary>
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
     [Serializable]
     public class InstallStep
     {

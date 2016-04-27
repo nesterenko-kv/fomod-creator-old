@@ -7,6 +7,7 @@ namespace FomodModel.Base
     /// <summary>
     /// Contains all information about modification.
     /// </summary>
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
     [Serializable]
     [XmlRoot("fomod", Namespace = "", IsNullable = false)]
     public class ModuleInformation

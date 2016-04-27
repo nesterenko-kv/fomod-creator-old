@@ -8,6 +8,8 @@ namespace FomodModel.Base.ModuleConfiguration.Header
     /// An image.
     /// </summary>
     [Serializable]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+
     public class HeaderImage
     {
         public HeaderImage()

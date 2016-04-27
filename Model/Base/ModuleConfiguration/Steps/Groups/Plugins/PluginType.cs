@@ -8,6 +8,8 @@ namespace FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins
     /// The type of a given plugin.
     /// </summary>
     [Serializable]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+
     public class PluginType
     {
         /// <summary>

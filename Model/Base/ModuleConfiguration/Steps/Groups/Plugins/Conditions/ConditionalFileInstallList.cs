@@ -8,6 +8,8 @@ namespace FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins.Conditions
     /// A list of optional files that may optionally be installed for this module, base on condition flags.
     /// </summary>
     [Serializable]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+
     public class ConditionalFileInstallList
     {
         /// <summary>

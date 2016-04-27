@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using Prism.StructureMap;
+using MainApplication.Services;
+using FomodInfrastructure.Interface;
 
 namespace MainApplication.Boot
 {
@@ -20,12 +22,15 @@ namespace MainApplication.Boot
             base.ConfigureContainer();
             Container.Configure(r =>
             {
-
+                r.For<IAppService>().Use<AppService>().Singleton();
             });
+
+
         }
 
         protected override void InitializeModules()
         {
+            this.Container.GetInstance<ModuleRegister.WelcomeRegister>().Initialize();
         }
 
     }

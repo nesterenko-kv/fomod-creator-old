@@ -7,6 +7,8 @@ namespace FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins.Conditions
     /// >A condition flag to set if a plugin is selected.
     /// </summary>
     [Serializable]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+
     public class SetConditionFlag
     {
         /// <summary>

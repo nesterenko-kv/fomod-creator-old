@@ -9,6 +9,8 @@ namespace FomodModel.Base.ModuleConfiguration.Dependencies
     /// A pattern of mod files and condition flags that determine the type of a plugin.
     /// </summary>
     [Serializable]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+
     public class DependencyPattern
     {
         /// <summary>

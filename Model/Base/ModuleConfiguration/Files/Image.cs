@@ -7,6 +7,8 @@ namespace FomodModel.Base.ModuleConfiguration.Files
     /// An image.
     /// </summary>
     [Serializable]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+
     public class Image
     {
         /// <summary>

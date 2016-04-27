@@ -12,6 +12,7 @@ namespace FomodModel.Base.ModuleConfiguration
     /// <summary>
     /// Describes the configuration of a module.
     /// </summary>
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
     [Serializable]
     [XmlRoot("config", Namespace = "", IsNullable = false)]
     public class ModuleConfiguration

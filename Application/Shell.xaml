@@ -4,9 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainApplication"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        xmlns:region="http://prismlibrary.com/"
+        xmlns:names="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
+        Title="MainWindow"
+        Width="525"
+        Height="350"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        mc:Ignorable="d">
     <Grid>
-        
+        <ContentControl region:RegionManager.RegionName="{x:Static names:Names.TopRegion}" />
     </Grid>
 </Window>
