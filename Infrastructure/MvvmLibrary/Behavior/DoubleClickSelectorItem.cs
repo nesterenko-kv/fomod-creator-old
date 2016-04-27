@@ -16,17 +16,11 @@ namespace FomodInfrastructure.MvvmLibrary.Behavior
                 "DoubleClickItemCommand",
                 typeof(ICommand),
                 typeof(DoubleClickSelectorItem),
-                new PropertyMetadata(null, DoubleClickSelectorItem.OnDoubleClickItemCommand));
+                new PropertyMetadata(null, OnDoubleClickItemCommand));
         #endregion fields
 
         #region constructor
-        /// <summary>
-        /// Class constructor
-        /// </summary>
-        public DoubleClickSelectorItem()
-        {
 
-        }
         #endregion constructor
 
         #region properties
@@ -73,7 +67,7 @@ namespace FomodInfrastructure.MvvmLibrary.Behavior
             if (uiElement.SelectedIndex == -1)
                 return;
 
-            ICommand doubleclickCommand = DoubleClickSelectorItem.GetDoubleClickItemCommand(uiElement);
+            ICommand doubleclickCommand = GetDoubleClickItemCommand(uiElement);
 
             // There may not be a command bound to this after all
             if (doubleclickCommand == null)

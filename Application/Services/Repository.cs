@@ -1,66 +1,60 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml.Serialization;
 using FomodInfrastructure.Interface;
-using Gat.Controls;
 using FomodModel.Base;
+using Gat.Controls;
 using Microsoft.Practices.ServiceLocation;
-using FomodModel.Base.ModuleConfiguration;
 using Prism.Logging;
 
 namespace MainApplication.Services
 {
     public class Repository: IRepository<ProjectRoot>
     {
-        private string _infoSubPath = @"\fomod\info.xml";
-        private string _configurationSubPath = @"\fomod\ModuleConfig.xml";
-        private ProjectRoot ProjectRoot;
+        private const string InfoSubPath = @"\fomod\info.xml";
+        private const string ConfigurationSubPath = @"\fomod\ModuleConfig.xml";
+        private ProjectRoot _projectRoot;
 
-        private readonly IServiceLocator ServiceLocator;
-        private readonly ILoggerFacade LoggerFacade;
+        private readonly IServiceLocator _serviceLocator;
+        private readonly ILoggerFacade _loggerFacade;
 
-        public Repository(IServiceLocator ServiceLocator, ILoggerFacade LoggerFacade)
+        public Repository(IServiceLocator serviceLocator, ILoggerFacade loggerFacade)
         {
-            this.ServiceLocator = ServiceLocator;
-            this.LoggerFacade = LoggerFacade;
+            _serviceLocator = serviceLocator;
+            _loggerFacade = loggerFacade;
         }
-
 
         #region IRepository
 
         public ProjectRoot LoadData(string path = null)
         {
-            return this.ProjectRoot = (path != null ? this.LoadProjectFromPath(path) : this.LoadProjectIfPathNull());
+            return _projectRoot = path != null ? LoadProjectFromPath(path) : LoadProjectIfPathNull();
         }
 
         public bool SaveData(string path = null)
         {
-            return (path != null ? this.SaveProjectFromPath(path) : this.SaveProjectIfPathNull());
+            if (path != null) return SaveProjectFromPath(path);
+            return SaveProjectIfPathNull();
         }
 
-        public ProjectRoot GetData()
-        {
-            return ProjectRoot;
-        }
+        public ProjectRoot GetData() => _projectRoot;
 
         #endregion
 
 
-
         #region Private methmods
 
-        private bool SerializeObject<T>(T data, string path)
+        private void SerializeObject<T>(T data, string path)
         {
-            //if (data == null || !File.Exists(path)) return false;
+            if (data == null) return;
             using (var fs = File.Create(path))
             {
                 var xmlSerializer = new XmlSerializer(typeof(T));
                 xmlSerializer.Serialize(fs, data);
             }
-            return true;
         }
         private T DeserializeObject<T>(string path)
         {
-            //if (!File.Exists(path)) return default(T);
             using (var fs = File.OpenRead(path))
             {
                 var xmlSerializer = new XmlSerializer(typeof(T));
@@ -68,79 +62,54 @@ namespace MainApplication.Services
             }
         }
 
-        private bool CheckFiles(string FolderPath)
-        {
-            if (File.Exists(FolderPath + _infoSubPath) && File.Exists(FolderPath + _configurationSubPath))
-            {
-                return true;
-            }
-            return false;
-        }
+        private bool CheckFiles(string folderPath) => File.Exists(folderPath + InfoSubPath) && File.Exists(folderPath + ConfigurationSubPath);
 
         private ProjectRoot LoadProjectIfPathNull()
         {
-            var _folderPath = this.GetFolderPath();
-
-            if (_folderPath != null)
-            {
-                return this.LoadProjectFromPath(_folderPath);
+            var folderPath = GetFolderPath();
+            return folderPath != null ? LoadProjectFromPath(folderPath) : null;
             }
-            return null;
-        }
         private ProjectRoot LoadProjectFromPath(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
                 throw new FileNotFoundException();
-
-            if (CheckFiles(path))
-            {
-                var ProjectRoot = this.ServiceLocator.GetInstance<ProjectRoot>();
-
+            if (!CheckFiles(path)) throw new FileNotFoundException();
+            var projectRoot = _serviceLocator.GetInstance<ProjectRoot>();
                 try
                 {
-                    ProjectRoot.ModuleInformation = this.DeserializeObject<ModuleInformation>(path + _infoSubPath);
-                    ProjectRoot.ModuleConfiguration = this.DeserializeObject<ModuleConfiguration>(path + _configurationSubPath);
+                projectRoot.ModuleInformation = DeserializeObject<ModuleInformation>(path + InfoSubPath);
+                projectRoot.ModuleConfiguration = DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
 
-                    return ProjectRoot;
+                return projectRoot;
                 }
-                catch (System.Exception)
+            catch (Exception)
                 {
                     //если ошибка то позже сделаем сервис оповещения об ошибках
                 }
-            }
-
             throw new FileNotFoundException();
         }
 
         private bool SaveProjectIfPathNull()
         {
-            if (this.ProjectRoot == null)
+            if (_projectRoot == null)
                 throw new FileNotFoundException();
-
-            var _folderPath = this.GetFolderPath();
-
-            if (_folderPath != null)
-            {
-                return this.SaveProjectFromPath(_folderPath);
-            }
-
+            var folderPath = GetFolderPath();
+            if (folderPath != null)
+                return SaveProjectFromPath(folderPath);
             return false;
         }
         private bool SaveProjectFromPath(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
                 throw new FileNotFoundException();
-
             Directory.CreateDirectory(path + @"\fomod\");
-
             try
             {
-                this.SerializeObject<ModuleInformation>(ProjectRoot.ModuleInformation, path + _infoSubPath);
-                this.SerializeObject<ModuleConfiguration>(ProjectRoot.ModuleConfiguration, path + _configurationSubPath);
-
+                SerializeObject(_projectRoot.ModuleInformation, path + InfoSubPath);
+                SerializeObject(_projectRoot.ModuleConfiguration, path + ConfigurationSubPath);
                 return true;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -149,15 +118,12 @@ namespace MainApplication.Services
 
         private string GetFolderPath()
         {
-            OpenDialogView openDialog = new OpenDialogView();
-            OpenDialogViewModel vm = (OpenDialogViewModel)openDialog.DataContext;
+            var openDialog = new OpenDialogView();
+            var vm = (OpenDialogViewModel)openDialog.DataContext;
             vm.IsDirectoryChooser = true;
-
-            bool? result = vm.Show();
+            var result = vm.Show();
             if (result == true)
-            {
                 return vm.SelectedFolder.Path;
-            }
             return null;
         }
 

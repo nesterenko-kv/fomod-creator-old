@@ -1,13 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using AspectInjector.Broker;
+using FomodInfrastructure.Aspect;
 
 namespace FomodModel.Base
 {
     /// <summary>
     /// Contains all information about modification.
     /// </summary>
-    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.AspectINotifyPropertyChanged))]
+    [Aspect(typeof(AspectINotifyPropertyChanged))]
     [Serializable]
     [XmlRoot("fomod", Namespace = "", IsNullable = false)]
     public class ModuleInformation

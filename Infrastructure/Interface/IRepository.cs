@@ -3,7 +3,7 @@
     /// <summary>
     /// Интерфейс предназначенный для загрузки, сохранения и размещения в памяти данных 
     /// </summary>
-    public interface IRepository<T>
+    public interface IRepository<out T>
     {
         T LoadData(string path = null);
         bool SaveData(string path = null);
