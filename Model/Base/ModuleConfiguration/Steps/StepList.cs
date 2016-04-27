@@ -6,7 +6,7 @@ using FomodModel.Base.ModuleConfiguration.Enums;
 
 namespace FomodModel.Base.ModuleConfiguration.Steps
 {
-    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.AspectINotifyPropertyChanged))]
     [Serializable]
     public class StepList
     {

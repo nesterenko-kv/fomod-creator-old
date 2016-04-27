@@ -2,6 +2,7 @@
 using Prism.StructureMap;
 using MainApplication.Services;
 using FomodInfrastructure.Interface;
+using Module.Welcome;
 
 namespace MainApplication.Boot
 {
@@ -30,7 +31,7 @@ namespace MainApplication.Boot
 
         protected override void InitializeModules()
         {
-            this.Container.GetInstance<ModuleRegister.WelcomeRegister>().Initialize();
+            Container.GetInstance<WelcomeRegister>().Initialize();
         }
 
     }

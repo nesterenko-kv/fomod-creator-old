@@ -9,7 +9,7 @@ namespace FomodModel.Base.ModuleConfiguration.Files
     /// A list of files and folders.
     /// </summary>
     [Serializable]
-    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.AspectINotifyPropertyChanged))]
 
     public class FileList
     {

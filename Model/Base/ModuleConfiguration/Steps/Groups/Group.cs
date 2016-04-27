@@ -10,7 +10,7 @@ namespace FomodModel.Base.ModuleConfiguration.Steps.Groups
     /// A group of plugins.
     /// </summary>
     [Serializable]
-    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.AspectINotifyPropertyChanged))]
 
     public class Group
     {

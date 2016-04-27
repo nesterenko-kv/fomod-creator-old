@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace FomodInfrastructure.MvvmLibrary
+namespace FomodInfrastructure.MvvmLibrary.Behavior
 {
     /// <summary>
     /// This is an Attached Behavior and is intended for use with

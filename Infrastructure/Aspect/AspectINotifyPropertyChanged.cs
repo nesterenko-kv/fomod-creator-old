@@ -1,15 +1,10 @@
 ﻿using AspectInjector.Broker;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FomodInfrastructure.Aspect
 {
     [AdviceInterfaceProxy(typeof(INotifyPropertyChanged))]
-    public class Aspect_INotifyPropertyChanged : INotifyPropertyChanged
+    public class AspectINotifyPropertyChanged : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -20,9 +15,7 @@ namespace FomodInfrastructure.Aspect
         {
             var handler = PropertyChanged;
             if (handler != null)
-            {
                 handler(targetInstance, new PropertyChangedEventArgs(propertyName));
-            }
         }
     }
 

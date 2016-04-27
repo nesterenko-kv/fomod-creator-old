@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace FomodModel.Base.ModuleConfiguration.Files
 {
     [Serializable]
-    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.AspectINotifyPropertyChanged))]
 
     public class FileSystemItem
     {

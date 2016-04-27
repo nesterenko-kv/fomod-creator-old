@@ -10,7 +10,7 @@ namespace FomodModel.Base.ModuleConfiguration.Steps.Groups.Plugins.Conditions
     /// A pattern of mod files and conditional flags that determine whether to instal specific files.
     /// </summary>
     [Serializable]
-    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.AspectINotifyPropertyChanged))]
 
     public class ConditionalInstallPattern
     {

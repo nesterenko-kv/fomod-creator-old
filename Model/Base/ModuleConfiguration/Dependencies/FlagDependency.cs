@@ -7,7 +7,7 @@ namespace FomodModel.Base.ModuleConfiguration.Dependencies
     /// A condition flag upon which the type of a plugin depends.
     /// </summary>
     [Serializable]
-    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.AspectINotifyPropertyChanged))]
 
     public class FlagDependency
     {

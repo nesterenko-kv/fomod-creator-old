@@ -9,7 +9,7 @@ namespace FomodModel.Base.ModuleConfiguration.Header
     /// Describes the display properties of the module title.
     /// </summary>
     [Serializable]
-    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.Aspect_INotifyPropertyChanged))]
+    [AspectInjector.Broker.Aspect(typeof(FomodInfrastructure.Aspect.AspectINotifyPropertyChanged))]
 
     public class ModuleTitle
     {

@@ -4,34 +4,29 @@ using Module.Welcome.ViewModel;
 using Prism.Modularity;
 using Prism.Regions;
 using StructureMap;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ModuleRegister
+namespace Module.Welcome
 {
     public class WelcomeRegister : IModule
     {
-        private readonly IRegionManager RegionManager;
-        private readonly IContainer Container;
+        private readonly IRegionManager _regionManager;
+        private readonly IContainer _container;
 
-        public WelcomeRegister(IRegionManager RegionManager, IContainer Container)
+        public WelcomeRegister(IRegionManager regionManager, IContainer container)
         {
-            this.RegionManager = RegionManager;
-            this.Container = Container;
+            _regionManager = regionManager;
+            _container = container;
         }
 
 
         public void Initialize()
         {
-            Container.Configure(r =>
+            _container.Configure(r =>
             {
-                r.For<object>().Use<WelcomeView>().Named(nameof(WelcomeView)).SetProperty(p => p.DataContext = Container.GetInstance<WelcomeViewModel>());
+                r.For<object>().Use<WelcomeView>().Named(nameof(WelcomeView)).SetProperty(p => p.DataContext = _container.GetInstance<WelcomeViewModel>());
             });
 
-            this.RegionManager.Regions[Names.TopRegion].RequestNavigate(nameof(WelcomeView));
+            _regionManager.Regions[Names.TopRegion].RequestNavigate(nameof(WelcomeView));
 
         }
     }

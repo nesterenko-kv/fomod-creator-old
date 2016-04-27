@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FomodInfrastructure.Interface
+﻿namespace FomodInfrastructure.Interface
 {
     /// <summary>
     /// Интерфейс предназначенный для загрузки, сохранения и размещения в памяти данных 
@@ -12,7 +6,7 @@ namespace FomodInfrastructure.Interface
     public interface IRepository
     {
         T LoadData<T>(string path);
-        bool SaveData<T>(string path, T Data);
+        bool SaveData<T>(string path, T data);
 
         /// <summary>
         /// Получает ссылку на объект

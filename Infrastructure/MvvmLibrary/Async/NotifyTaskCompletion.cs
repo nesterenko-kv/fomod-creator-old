@@ -2,14 +2,13 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-
-namespace FomodInfrastructure.MvvmLibrary
+namespace FomodInfrastructure.MvvmLibrary.Async
 { 
     public static class NotifyTaskCompletionExtension
     {
-        public static NotifyTaskCompletion<T> AnyWork<T>(this NotifyTaskCompletion<T> task, Action<NotifyTaskCompletion<T>> Action)
+        public static NotifyTaskCompletion<T> AnyWork<T>(this NotifyTaskCompletion<T> task, Action<NotifyTaskCompletion<T>> action)
         {
-            Action.Invoke(task);
+            action.Invoke(task);
             return task;
         }
     }
@@ -34,6 +33,7 @@ namespace FomodInfrastructure.MvvmLibrary
             }
             catch
             {
+                // ignored
             }
             var propertyChanged = PropertyChanged;
             if (propertyChanged == null)
@@ -58,41 +58,17 @@ namespace FomodInfrastructure.MvvmLibrary
                 propertyChanged(this, new PropertyChangedEventArgs("Result"));
             }
         }
-        public Task<TResult> Task { get; private set; }
-        public TResult Result
-        {
-            get
-            {
-                return (Task.Status == TaskStatus.RanToCompletion) ? Task.Result : default(TResult);
-            }
-        }
-        public TaskStatus Status { get { return Task.Status; } }
-        public bool IsCompleted { get { return Task.IsCompleted; } }
-        public bool IsNotCompleted { get { return !Task.IsCompleted; } }
-        public bool IsSuccessfullyCompleted
-        {
-            get
-            {
-                return Task.Status == TaskStatus.RanToCompletion;
-            }
-        }
-        public bool IsCanceled { get { return Task.IsCanceled; } }
-        public bool IsFaulted { get { return Task.IsFaulted; } }
-        public AggregateException Exception { get { return Task.Exception; } }
-        public Exception InnerException
-        {
-            get
-            {
-                return (Exception == null) ? null : Exception.InnerException;
-            }
-        }
-        public string ErrorMessage
-        {
-            get
-            {
-                return (InnerException == null) ? null : InnerException.Message;
-            }
-        }
+        public Task<TResult> Task { get; }
+        public TResult Result => (Task.Status == TaskStatus.RanToCompletion) ? Task.Result : default(TResult);
+        public TaskStatus Status => Task.Status;
+        public bool IsCompleted => Task.IsCompleted;
+        public bool IsNotCompleted => !Task.IsCompleted;
+        public bool IsSuccessfullyCompleted => Task.Status == TaskStatus.RanToCompletion;
+        public bool IsCanceled => Task.IsCanceled;
+        public bool IsFaulted => Task.IsFaulted;
+        public AggregateException Exception => Task.Exception;
+        public Exception InnerException => Exception?.InnerException;
+        public string ErrorMessage => InnerException?.Message;
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

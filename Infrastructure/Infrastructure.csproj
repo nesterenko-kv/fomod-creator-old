@@ -51,9 +51,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aspect\Aspect_INotifyPropertyChanged.cs" />
+    <Compile Include="Aspect\AspectINotifyPropertyChanged.cs" />
     <Compile Include="Interface\IAppService.cs" />
-    <Compile Include="Interface\ILoadData.cs" />
+    <Compile Include="Interface\IRepository.cs" />
     <Compile Include="MvvmLibrary\Behavior\DoubleClickSelectorItem.cs" />
     <Compile Include="MvvmLibrary\Behavior\DropBehavior.cs" />
     <Compile Include="MvvmLibrary\Async\NotifyTaskCompletion.cs" />
