@@ -13,6 +13,13 @@
         WindowState="Maximized"
         mc:Ignorable="d">
     <Grid>
+        <TabControl region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
         <ContentControl region:RegionManager.RegionName="{x:Static names:Names.TopRegion}" />
     </Grid>
 </Window>

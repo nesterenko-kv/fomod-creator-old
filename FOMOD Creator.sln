@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{6CCD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Welcome", "Module.Welcome\Module.Welcome.csproj", "{194D7E2F-3290-47D0-94A9-11BD7AB3FA18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.InfoEditor", "Module.InfoEditor\Module.InfoEditor.csproj", "{2A085AE1-61C9-4614-A152-EEA917F2CEEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,11 +37,16 @@ Global
 		{194D7E2F-3290-47D0-94A9-11BD7AB3FA18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{194D7E2F-3290-47D0-94A9-11BD7AB3FA18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{194D7E2F-3290-47D0-94A9-11BD7AB3FA18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A085AE1-61C9-4614-A152-EEA917F2CEEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A085AE1-61C9-4614-A152-EEA917F2CEEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A085AE1-61C9-4614-A152-EEA917F2CEEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A085AE1-61C9-4614-A152-EEA917F2CEEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{194D7E2F-3290-47D0-94A9-11BD7AB3FA18} = {6CCD2A41-66FA-4428-A902-8FCA212F476D}
+		{2A085AE1-61C9-4614-A152-EEA917F2CEEE} = {6CCD2A41-66FA-4428-A902-8FCA212F476D}
 	EndGlobalSection
 EndGlobal

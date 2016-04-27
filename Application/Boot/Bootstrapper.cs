@@ -40,6 +40,7 @@ namespace MainApplication.Boot
         protected override void InitializeModules()
         {
             Container.GetInstance<WelcomeRegister>().Initialize();
+            Container.GetInstance<InfoEditorRegister>().Initialize();
         }
 
     }
