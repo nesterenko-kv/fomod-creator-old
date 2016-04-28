@@ -8,26 +8,16 @@
              xmlns:model="clr-namespace:FomodModel.Base;assembly=FomodModel"
              d:DesignHeight="300"
              d:DesignWidth="1000"
-             Background="White"
              mc:Ignorable="d">
-
-
-
-
     <UserControl.Resources>
         <HierarchicalDataTemplate DataType="{x:Type linq2Xml:XDocument}"
                                   ItemsSource="{Binding Elements}" />
-        
-        
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="247*" />
-            <ColumnDefinition Width="753*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
-
-        <TreeView DataContext="{Binding XmlDocument.Elements}" ItemsSource="{Binding XPath=@*}">
-            
-        </TreeView>
+        <TreeView DataContext="{Binding XmlDocument.Elements}" ItemsSource="{Binding XPath=@*}" />
     </Grid>
 </UserControl>

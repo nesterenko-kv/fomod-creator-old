@@ -6,37 +6,27 @@
              xmlns:local="clr-namespace:Module.Welcome.View"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             Background="White"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <DataTemplate x:Key="links">
-            <Button Content="{Binding FolderPath}" Margin="3"
-                    ToolTip="{Binding FolderPath}"
-                    Command="{Binding DataContext.GoTo, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                    CommandParameter="{Binding FolderPath}" />
-        </DataTemplate>
-    </UserControl.Resources>
-    <DockPanel Grid.Column="0">
-        <TextBlock Margin="9"
-                   TextTrimming="CharacterEllipsis"
-                   Text="FOMOD Creator"
-                   DockPanel.Dock="Top"
-                   TextAlignment="Left"
-                   FontFamily="Segoe UI Semibold"
-                   FontSize="30" />
-        <TextBlock Margin="9,-3,9,9"
-                   TextTrimming="CharacterEllipsis"
-                   Text="Последние:"
-                   DockPanel.Dock="Top"
-                   TextAlignment="Left"
-                   FontFamily="Segoe UI"
-                   FontSize="20" />
-
-
-
-        <ListBox Background="LightGray" ItemTemplate="{StaticResource links}"
-                 ItemsSource="{Binding ProjectLinkList.Links}" />
-
+    <DockPanel>
+        <TextBlock Text="FOMOD Creator" DockPanel.Dock="Top" FontWeight="Light" FontSize="30" />
+        <TextBlock Margin="0 0 0 6" Text="Последние:" DockPanel.Dock="Top" FontSize="18" />
+        <ListBox ItemsSource="{Binding ProjectLinkList.Links}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Button Margin="3" Style="{StaticResource LinkButton}" Content="{Binding FolderPath}" ToolTip="{Binding FolderPath}" Command="{Binding DataContext.GoTo, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" CommandParameter="{Binding FolderPath}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </DockPanel>
-
 </UserControl>

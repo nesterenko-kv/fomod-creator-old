@@ -15,15 +15,13 @@
                 VerticalAlignment="Center"
                 BorderThickness="1"
                 Padding="21,12"
-                BorderBrush="Gray"
-                CornerRadius="6"
-                Background="White">
+                Background="{DynamicResource AccentColorBrush}">
             <DockPanel>
                 <Button Margin="6,0"
                         Content="Ok"
                         Command="{Binding Ok}"
                         DockPanel.Dock="Bottom"
-                        Style="{DynamicResource GreenButton}" />
+                        Style="{DynamicResource SquareButtonStyle}" />
                 <TextBlock Margin="6,0,6,6"
                            Text="{Binding Msg}"
                            DockPanel.Dock="Top"

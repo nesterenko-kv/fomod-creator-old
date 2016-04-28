@@ -1,30 +1,29 @@
-﻿<Window x:Class="MainApplication.Shell"
+﻿<controls:MetroWindow  x:Class="MainApplication.Shell"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainApplication"
+        mc:Ignorable="d"
         xmlns:region="http://prismlibrary.com/"
         xmlns:names="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         Title="MainWindow"
         Width="525"
         Height="350"
-        WindowStartupLocation="CenterScreen"
-        WindowState="Maximized"
-        mc:Ignorable="d">
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        RenderOptions.ClearTypeHint="Enabled"
+        TextOptions.TextFormattingMode="Display"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <TabControl region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}" />
+                    <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}" TextTrimming="CharacterEllipsis" MaxWidth="200"/>
                 </DataTemplate>
             </TabControl.ItemTemplate>
         </TabControl>
-
-        <ContentControl Panel.ZIndex="75"
-                        region:RegionManager.RegionName="{x:Static names:Names.TopRegion}" />
-
-        <ContentControl Panel.ZIndex="100"
-                        region:RegionManager.RegionName="{x:Static names:Names.UserMsgRegion}" />
+        <ContentControl Panel.ZIndex="75" region:RegionManager.RegionName="{x:Static names:Names.TopRegion}" />
+        <ContentControl Panel.ZIndex="100" region:RegionManager.RegionName="{x:Static names:Names.UserMsgRegion}" />
     </Grid>
-</Window>
+</controls:MetroWindow>

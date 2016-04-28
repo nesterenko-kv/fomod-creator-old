@@ -3,122 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:local="clr-namespace:Module.InfoEditor.View"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             Background="Coral"
              mc:Ignorable="d">
     <Grid DataContext="{Binding ModuleInformation}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-
-        </Grid.RowDefinitions>
-
-        <!--#region Headers-->
-        <TextBlock Grid.Row="0"
-                   Grid.Column="0"
-                   Margin="3"
-                   Text="Name" />
-        <TextBlock Grid.Row="1"
-                   Grid.Column="0"
-                   Margin="3"
-                   Text="Version" />
-        <TextBlock Grid.Row="2"
-                   Grid.Column="0"
-                   Margin="3"
-                   Text="LatestKnownVersion" />
-        <TextBlock Grid.Row="3"
-                   Grid.Column="0"
-                   Margin="3"
-                   Text="Id" />
-        <TextBlock Grid.Row="4"
-                   Grid.Column="0"
-                   Margin="3"
-                   Text="Author" />
-        <TextBlock Grid.Row="5"
-                   Grid.Column="0"
-                   Margin="3"
-                   Text="CategoryId" />
-        <TextBlock Grid.Row="6"
-                   Grid.Column="0"
-                   Margin="3"
-                   Text="CustomCategoryId" />
-        <TextBlock Grid.Row="7"
-                   Grid.Column="0"
-                   Margin="3"
-                   Text="Description" />
-        <TextBlock Grid.Row="8"
-                   Grid.Column="0"
-                   Margin="3"
-                   Text="UpdateWarningEnabled" />
-        <TextBlock Grid.Row="9"
-                   Grid.Column="0"
-                   Margin="3"
-                   Text="Website" />
-
-        <!--#endregion-->
-        <!--#region Values-->
-        <TextBox Grid.Row="0"
-                 Grid.Column="1"
-                 Margin="3"
-                 Text="{Binding Name}" />
-        <TextBox Grid.Row="1"
-                 Grid.Column="1"
-                 Margin="3"
-                 Text="{Binding Version}" />
-        <TextBox Grid.Row="2"
-                 Grid.Column="1"
-                 Margin="3"
-                 Text="{Binding LatestKnownVersion}" />
-        <TextBox Grid.Row="3"
-                 Grid.Column="1"
-                 Margin="3"
-                 Text="{Binding Id}" />
-        <TextBox Grid.Row="4"
-                 Grid.Column="1"
-                 Margin="3"
-                 Text="{Binding Author}" />
-        <TextBox Grid.Row="5"
-                 Grid.Column="1"
-                 Margin="3"
-                 Text="{Binding CategoryId}" />
-        <TextBox Grid.Row="6"
-                 Grid.Column="1"
-                 Margin="3"
-                 Text="{Binding CustomCategoryId}" />
-        <TextBox Grid.Row="7"
-                 Grid.Column="1"
-                 Margin="3"
-                 Text="{Binding Description}" />
-        <TextBox Grid.Row="8"
-                 Grid.Column="1"
-                 Margin="3"
-                 Text="{Binding UpdateWarningEnabled}" />
-        <TextBox Grid.Row="9"
-                 Grid.Column="1"
-                 Margin="3"
-                 Text="{Binding Website}" />
-
-        <!--#endregion-->
-
-        <Button Grid.Row="10"
-                Content="ClickMe"
-                Click="ClickMe" />
-
-
+        <StackPanel>
+            <!--#region Values-->
+            <TextBox Margin="3" Text="{Binding Name}" controls:TextBoxHelper.Watermark="Название" controls:TextBoxHelper.UseFloatingWatermark="True" controls:TextBoxHelper.ClearTextButton="True" MaxHeight="38" />
+            <TextBox Margin="3" Text="{Binding Version}" controls:TextBoxHelper.Watermark="Версия" controls:TextBoxHelper.UseFloatingWatermark="True" controls:TextBoxHelper.ClearTextButton="True" MaxHeight="38" />
+            <TextBox Margin="3" Text="{Binding Author}" controls:TextBoxHelper.Watermark="Автор" controls:TextBoxHelper.UseFloatingWatermark="True" controls:TextBoxHelper.ClearTextButton="True" MaxHeight="38" />
+            <TextBox Margin="3" Text="{Binding CategoryId}" controls:TextBoxHelper.Watermark="Категория" controls:TextBoxHelper.UseFloatingWatermark="True" controls:TextBoxHelper.ClearTextButton="True" MaxHeight="38"/>
+            <TextBox Margin="3" Text="{Binding Website}" controls:TextBoxHelper.Watermark="Веб-сайт" controls:TextBoxHelper.UseFloatingWatermark="True" controls:TextBoxHelper.ClearTextButton="True" MaxHeight="38" />
+            <TextBox Margin="3" Text="{Binding Description}" controls:TextBoxHelper.Watermark="Описание" controls:TextBoxHelper.UseFloatingWatermark="True" AcceptsReturn="True" TextWrapping="Wrap" MaxHeight="100" Height="100"/>
+            <!--#endregion-->
+            <Button Content="ClickMe" Click="ClickMe" HorizontalAlignment="Center" Width="100" />
+        </StackPanel>
     </Grid>
 </UserControl>
