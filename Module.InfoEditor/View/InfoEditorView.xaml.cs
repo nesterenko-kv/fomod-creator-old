@@ -1,4 +1,6 @@
-﻿namespace Module.InfoEditor.View
+﻿using System.Windows;
+
+namespace Module.InfoEditor.View
 {
     public partial class InfoEditorView
     {

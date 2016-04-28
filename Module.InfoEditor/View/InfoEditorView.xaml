@@ -103,7 +103,7 @@
         <TextBox Grid.Row="7"
                    Grid.Column="1"
                    Margin="3"
-                   Text="{Binding Description}" />
+                   Text="{Binding Description}" Height="18" />
         <TextBox Grid.Row="8"
                    Grid.Column="1"
                    Margin="3"

@@ -16,13 +16,13 @@ namespace Module.Welcome.ViewModel
     {
         private readonly IEventAggregator _eventAggregator;
 
-        private readonly string BasePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-        private readonly string SubPath = @"\FOMODplist.xml";
+        private readonly string _basePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+        private const string SubPath = @"\FOMODplist.xml";
 
         public ProjectLinkList ProjectLinkList { get; set; } = new ProjectLinkList();
 
 
-        //TO DO - сделать кликабельным список последник проектов
+        //TODO - сделать кликабельным список последник проектов
 
         public LastProjectsViewModel(IEventAggregator eventAggregator)
         {
@@ -53,13 +53,13 @@ namespace Module.Welcome.ViewModel
 
         private ProjectLinkList ReadProjectLinkListFile()
         {
-            if (File.Exists(BasePath + SubPath))
+            if (File.Exists(_basePath + SubPath))
             {
                 try
                 {
-                    return DeserializeObject<ProjectLinkList>(BasePath + SubPath);
+                    return DeserializeObject<ProjectLinkList>(_basePath + SubPath);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -69,11 +69,11 @@ namespace Module.Welcome.ViewModel
         }
         private bool SaveProjectLinkListFile()
         {
-            if (Directory.Exists(BasePath))
+            if (Directory.Exists(_basePath))
             {
                 try
                 {
-                    SerializeObject(ProjectLinkList, BasePath + SubPath);
+                    SerializeObject(ProjectLinkList, _basePath + SubPath);
                     return true;
                 }
                 catch (Exception e)
