@@ -1,4 +1,5 @@
 ﻿using FomodInfrastructure.Interface;
+using FomodInfrastructure.MvvmLibrary.Commands;
 using Module.Welcome.Model;
 using Module.Welcome.PrismEvent;
 using Prism.Events;
@@ -9,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Xml.Serialization;
 
 namespace Module.Welcome.ViewModel
@@ -23,8 +25,9 @@ namespace Module.Welcome.ViewModel
 
         public ProjectLinkList ProjectLinkList { get; set; } = new ProjectLinkList();
 
+        ICommand _goTo;
 
-        //TO DO - сделать кликабельным список последник проектов
+        //TODO - сделать кликабельным список последник проектов
 
         public LastProjectsViewModel(IEventAggregator eventAggregator, IDataService dataService)
         {
@@ -51,7 +54,15 @@ namespace Module.Welcome.ViewModel
             });
         }
 
-
+        public ICommand GoTo
+        {
+            get
+            {
+                if (_goTo == null)
+                    _goTo = new RelayCommand(p => _eventAggregator.GetEvent<OpenLink>().Publish(p.ToString()));
+                return _goTo;
+            }
+        }
 
 
         private ProjectLinkList ReadProjectLinkListFile()

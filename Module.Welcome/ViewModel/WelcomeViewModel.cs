@@ -32,6 +32,12 @@ namespace Module.Welcome.ViewModel
             _regionManager = regionManager;
             _userMsgService = userMsgService;
             _eventAggregator = eventAggregator;
+
+
+            _eventAggregator.GetEvent<OpenLink>().Subscribe(p =>
+            {
+                OpenProject.Execute(p);
+            });
         }
 
         #region Commands
@@ -52,7 +58,16 @@ namespace Module.Welcome.ViewModel
                 if (_openProject == null)
                     _openProject = new RelayCommand(p =>
                     {
-                        var data = _repository.LoadData();
+                        ProjectRoot data;
+                        if (p == null)
+                        {
+                            data = _repository.LoadData();
+                        }
+                        else
+                        {
+                            data = _repository.LoadData(p.ToString());
+                        }
+                         
                         if (data != null)
                         {
                             _appService.InitilizeBaseModules();
