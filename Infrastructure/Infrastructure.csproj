@@ -54,6 +54,7 @@
     <Compile Include="Aspect\AspectINotifyPropertyChanged.cs" />
     <Compile Include="Interface\IAppService.cs" />
     <Compile Include="Interface\IRepository.cs" />
+    <Compile Include="Interface\IUserMsgService.cs" />
     <Compile Include="MvvmLibrary\Behavior\DoubleClickSelectorItem.cs" />
     <Compile Include="MvvmLibrary\Behavior\DropBehavior.cs" />
     <Compile Include="MvvmLibrary\Async\NotifyTaskCompletion.cs" />

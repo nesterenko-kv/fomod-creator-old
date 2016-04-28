@@ -6,6 +6,8 @@
     public interface IAppService
     {
         void CloseApp();
-        
+
+        void InitilizeBaseModules();
+
     }
 }

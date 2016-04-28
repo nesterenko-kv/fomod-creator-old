@@ -4,5 +4,7 @@
     {
         public static string TopRegion { get; } = "TopRegion";
         public static string MainContentRegion { get; } = "MainContentRegion";
+        public static string UserMsgRegion { get; } = "UserMsgRegion";
+
     }
 }

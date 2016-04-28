@@ -20,12 +20,14 @@ namespace Module.Welcome.ViewModel
         private readonly IAppService _appService;
         private readonly IRegionManager _regionManager;
         private readonly IRepository<ProjectRoot> _repository;
+        private readonly IUserMsgService _userMsgService;
 
-        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository, IRegionManager regionManager)
+        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository, IRegionManager regionManager, IUserMsgService userMsgService)
         {
             _appService = appService;
             _repository = repository;
             _regionManager = regionManager;
+            _userMsgService = userMsgService;
         }
 
         #region Commands
@@ -48,18 +50,25 @@ namespace Module.Welcome.ViewModel
                     {
                         var data = _repository.LoadData();
 
-                        var param = new NavigationParameters();
-
-                        param.Add(nameof(ProjectRoot.ModuleInformation), data.ModuleInformation);
-                        param.Add(nameof(ProjectRoot.ModuleConfiguration), data.ModuleConfiguration);
-
-                        _regionManager.RequestNavigate(Names.MainContentRegion, "InfoEditorView", param);
-
-                        var views = _regionManager.Regions[Names.TopRegion].Views;
-                        foreach (var item in views)
+                        if (data!=null)
                         {
-                            _regionManager.Regions[Names.TopRegion].Remove(item);
+                            _appService.InitilizeBaseModules();
+
+                            var param = new NavigationParameters();
+
+                            param.Add(nameof(ProjectRoot.ModuleInformation), data.ModuleInformation);
+                            param.Add(nameof(ProjectRoot.ModuleConfiguration), data.ModuleConfiguration);
+
+                            _regionManager.RequestNavigate(Names.MainContentRegion, "InfoEditorView", param);
+
+                            foreach (var item in _regionManager.Regions[Names.TopRegion].Views)
+                                _regionManager.Regions[Names.TopRegion].Remove(item);
                         }
+                        else
+                        {
+                            _userMsgService.Send("Указанная папка не соответствует необходимым требованиям.");
+                        }
+                       
                     });
                 return _openProject;
             }

@@ -21,5 +21,8 @@
             </TabControl.ItemTemplate>
         </TabControl>
         <ContentControl region:RegionManager.RegionName="{x:Static names:Names.TopRegion}" />
+
+        <ContentControl Panel.ZIndex="100"
+                        region:RegionManager.RegionName="{x:Static names:Names.UserMsgRegion}" />
     </Grid>
 </Window>

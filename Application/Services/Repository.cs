@@ -73,7 +73,7 @@ namespace MainApplication.Services
         {
             if (string.IsNullOrWhiteSpace(path))
                 throw new FileNotFoundException();
-            if (!CheckFiles(path)) throw new FileNotFoundException();
+            if (!CheckFiles(path)) return null; //зделал возврат нулевой что бы можно было делать обработку в viewmodel
             var projectRoot = _serviceLocator.GetInstance<ProjectRoot>();
                 try
                 {
@@ -122,7 +122,7 @@ namespace MainApplication.Services
             var vm = (OpenDialogViewModel)openDialog.DataContext;
             vm.IsDirectoryChooser = true;
             var result = vm.Show();
-            if (result == true)
+            if (result == true && vm.SelectedFolder != null)
                 return vm.SelectedFolder.Path;
             return null;
         }

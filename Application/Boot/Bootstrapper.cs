@@ -27,6 +27,7 @@ namespace MainApplication.Boot
             {
                 r.For<IAppService>().Use<AppService>().Singleton();
                 r.For<IRepository<ProjectRoot>>().Use<Repository>().Singleton();
+                r.For<IUserMsgService>().Use<UserMsgService>().Singleton();
             });
         }
 
@@ -38,7 +39,7 @@ namespace MainApplication.Boot
         protected override void InitializeModules()
         {
             Container.GetInstance<WelcomeRegister>().Initialize();
-            Container.GetInstance<InfoEditorRegister>().Initialize();
+            Container.GetInstance<UserMsgRegister>().Initialize();
         }
 
     }
