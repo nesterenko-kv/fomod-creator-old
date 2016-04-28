@@ -17,11 +17,13 @@ namespace MainApplication.Services
 
         private readonly IServiceLocator _serviceLocator;
         private readonly ILoggerFacade _loggerFacade;
+        private readonly IDataService _dataService;
 
-        public Repository(IServiceLocator serviceLocator, ILoggerFacade loggerFacade)
+        public Repository(IServiceLocator serviceLocator, ILoggerFacade loggerFacade, IDataService dataService)
         {
             _serviceLocator = serviceLocator;
             _loggerFacade = loggerFacade;
+            _dataService = dataService;
         }
 
         #region IRepository
@@ -44,24 +46,6 @@ namespace MainApplication.Services
 
         #region Private methmods
 
-        private void SerializeObject<T>(T data, string path)
-        {
-            if (data == null) return;
-            using (var fs = File.Create(path))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                xmlSerializer.Serialize(fs, data);
-            }
-        }
-        private T DeserializeObject<T>(string path)
-        {
-            using (var fs = File.OpenRead(path))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                return (T)xmlSerializer.Deserialize(fs);
-            }
-        }
-
         private bool CheckFiles(string folderPath) => File.Exists(folderPath + InfoSubPath) && File.Exists(folderPath + ConfigurationSubPath);
 
         private ProjectRoot LoadProjectIfPathNull()
@@ -78,8 +62,8 @@ namespace MainApplication.Services
                 try
                 {
                 projectRoot.FolderPath = path;
-                projectRoot.ModuleInformation = DeserializeObject<ModuleInformation>(path + InfoSubPath);
-                projectRoot.ModuleConfiguration = DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
+                projectRoot.ModuleInformation = _dataService.DeserializeObject<ModuleInformation>(path + InfoSubPath);
+                projectRoot.ModuleConfiguration = _dataService.DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
 
                 return projectRoot;
                 }
@@ -106,8 +90,8 @@ namespace MainApplication.Services
             Directory.CreateDirectory(path + @"\fomod\");
             try
             {
-                SerializeObject(_projectRoot.ModuleInformation, path + InfoSubPath);
-                SerializeObject(_projectRoot.ModuleConfiguration, path + ConfigurationSubPath);
+                _dataService.SerializeObject(_projectRoot.ModuleInformation, path + InfoSubPath);
+                _dataService.SerializeObject(_projectRoot.ModuleConfiguration, path + ConfigurationSubPath);
                 return true;
             }
             catch (Exception)

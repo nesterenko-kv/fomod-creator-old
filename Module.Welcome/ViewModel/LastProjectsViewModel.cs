@@ -1,4 +1,5 @@
-﻿using Module.Welcome.Model;
+﻿using FomodInfrastructure.Interface;
+using Module.Welcome.Model;
 using Module.Welcome.PrismEvent;
 using Prism.Events;
 using Prism.Mvvm;
@@ -15,6 +16,7 @@ namespace Module.Welcome.ViewModel
     public class LastProjectsViewModel: BindableBase
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IDataService _dataService;
 
         private readonly string BasePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         private readonly string SubPath = @"\FOMODplist.xml";
@@ -24,9 +26,10 @@ namespace Module.Welcome.ViewModel
 
         //TO DO - сделать кликабельным список последник проектов
 
-        public LastProjectsViewModel(IEventAggregator eventAggregator)
+        public LastProjectsViewModel(IEventAggregator eventAggregator, IDataService dataService)
         {
             _eventAggregator = eventAggregator;
+            _dataService = dataService;
 
 
             var list = ReadProjectLinkListFile();
@@ -57,7 +60,7 @@ namespace Module.Welcome.ViewModel
             {
                 try
                 {
-                    return DeserializeObject<ProjectLinkList>(BasePath + SubPath);
+                    return _dataService.DeserializeObject<ProjectLinkList>(BasePath + SubPath);
                 }
                 catch (Exception e)
                 {
@@ -73,7 +76,7 @@ namespace Module.Welcome.ViewModel
             {
                 try
                 {
-                    SerializeObject(ProjectLinkList, BasePath + SubPath);
+                    _dataService.SerializeObject(ProjectLinkList, BasePath + SubPath);
                     return true;
                 }
                 catch (Exception e)
@@ -84,33 +87,6 @@ namespace Module.Welcome.ViewModel
 
             return false;
         }
-
-
-
-        #region MyRegion
-
-
-        private void SerializeObject<T>(T data, string path)
-        {
-            if (data == null) return;
-            using (var fs = File.Create(path))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                xmlSerializer.Serialize(fs, data);
-            }
-        }
-        private T DeserializeObject<T>(string path)
-        {
-            using (var fs = File.OpenRead(path))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                return (T)xmlSerializer.Deserialize(fs);
-            }
-        }
-
-        #endregion
-
-
       
     }
 }

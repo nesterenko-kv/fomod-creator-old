@@ -28,6 +28,7 @@ namespace MainApplication.Boot
                 r.For<IAppService>().Use<AppService>().Singleton();
                 r.For<IRepository<ProjectRoot>>().Use<Repository>().Singleton();
                 r.For<IUserMsgService>().Use<UserMsgService>().Singleton();
+                r.For<IDataService>().Use<DataService>().Singleton();
             });
         }
 
