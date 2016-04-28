@@ -1,11 +1,10 @@
-﻿using FomodInfrastructure;
-using Module.InfoEditor.View;
+﻿using Module.InfoEditor.View;
 using Module.InfoEditor.ViewModel;
 using Prism.Modularity;
 using Prism.Regions;
 using StructureMap;
 
-namespace Module.Welcome
+namespace Module.InfoEditor
 {
     public class InfoEditorRegister : IModule
     {

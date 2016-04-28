@@ -1,12 +1,6 @@
-﻿using MainApplication.Properties;
-using Prism.Logging;
+﻿using Prism.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MainApplication.Services
 {
@@ -14,8 +8,7 @@ namespace MainApplication.Services
     {
         public void Log(string message, Category category, Priority priority)
         {
-            string messageToLog = String.Format(DateTime.Now.ToShortTimeString(), category.ToString().ToUpper(), message, priority);
-
+            var messageToLog = string.Format(DateTime.Now.ToShortTimeString(), category.ToString().ToUpper(), message, priority);
             Debug.WriteLine(messageToLog);
         }
     }

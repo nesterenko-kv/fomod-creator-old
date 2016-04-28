@@ -53,16 +53,14 @@ namespace Module.Welcome.ViewModel
                     _openProject = new RelayCommand(p =>
                     {
                         var data = _repository.LoadData();
-
-                        if (data!=null)
+                        if (data != null)
                         {
                             _appService.InitilizeBaseModules();
-
-                            var param = new NavigationParameters();
-
-                            param.Add(nameof(ProjectRoot.ModuleInformation), data.ModuleInformation);
-                            param.Add(nameof(ProjectRoot.ModuleConfiguration), data.ModuleConfiguration);
-
+                            var param = new NavigationParameters
+                            {
+                                {nameof(ProjectRoot.ModuleInformation), data.ModuleInformation},
+                                {nameof(ProjectRoot.ModuleConfiguration), data.ModuleConfiguration}
+                            };
                             _regionManager.RequestNavigate(Names.MainContentRegion, "InfoEditorView", param);
 
                             _eventAggregator.GetEvent<OpenProjectEvent>().Publish(data.FolderPath);
@@ -71,10 +69,7 @@ namespace Module.Welcome.ViewModel
                                 _regionManager.Regions[Names.TopRegion].Remove(item);
                         }
                         else
-                        {
                             _userMsgService.Send("Указанная папка не соответствует необходимым требованиям.");
-                        }
-                       
                     });
                 return _openProject;
             }

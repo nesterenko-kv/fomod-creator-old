@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Aspect\AspectINotifyPropertyChanged.cs" />
     <Compile Include="Interface\IAppService.cs" />
+    <Compile Include="Interface\IFolderBrowserDialog.cs" />
     <Compile Include="Interface\IDataService.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\IUserMsgService.cs" />
