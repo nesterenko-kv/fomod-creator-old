@@ -115,10 +115,9 @@
 
         <!--#endregion-->
 
-        <!--<Button Grid.Row="10"
+        <Button Grid.Row="10" Grid.Column="0"
                 Content="ClickMe"
-                Click="ClickMe" />-->
-
+                Click="ClickMe" />
 
     </Grid>
 </UserControl>
