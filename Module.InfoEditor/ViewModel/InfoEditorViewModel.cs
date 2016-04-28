@@ -11,7 +11,16 @@ namespace Module.InfoEditor.ViewModel
 {
     public class InfoEditorViewModel: BindableBase, INavigationAware
     {
-        string _header = "ProjectInfo"; public string Header
+        #region Fields
+
+        string _header = "ProjectInfo";
+        ModuleInformation _moduleInformation; 
+
+        #endregion
+
+
+
+        public string Header
         {
             get
             {
@@ -22,8 +31,17 @@ namespace Module.InfoEditor.ViewModel
                 _header = value; OnPropertyChanged(nameof(Header));
             }
         }
-
-        public ModuleInformation ModuleInformation { get; set; }
+        public ModuleInformation ModuleInformation
+        {
+            get
+            {
+                return _moduleInformation;
+            }
+            set
+            {
+                _moduleInformation = value; OnPropertyChanged(nameof(ModuleInformation));
+            }
+        }
 
         public InfoEditorViewModel()
         {
