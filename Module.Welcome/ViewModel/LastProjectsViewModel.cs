@@ -5,13 +5,9 @@ using Module.Welcome.PrismEvent;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Xml.Serialization;
 
 namespace Module.Welcome.ViewModel
 {
@@ -20,12 +16,12 @@ namespace Module.Welcome.ViewModel
         private readonly IEventAggregator _eventAggregator;
         private readonly IDataService _dataService;
 
-        private readonly string BasePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-        private readonly string SubPath = @"\FOMODplist.xml";
+        private readonly string _basePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+        private const string SubPath = @"\FOMODplist.xml";
 
         public ProjectLinkList ProjectLinkList { get; set; } = new ProjectLinkList();
 
-        ICommand _goTo;
+        private ICommand _goTo;
 
 
         public LastProjectsViewModel(IEventAggregator eventAggregator, IDataService dataService)
@@ -45,11 +41,9 @@ namespace Module.Welcome.ViewModel
             _eventAggregator.GetEvent<OpenProjectEvent>().Subscribe( p =>
             {
                var project = ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p);
-                if (project==null)
-                {
-                    ProjectLinkList.Links.Add(new ProjectLinkModel{FolderPath = p});
-                    SaveProjectLinkListFile();
-                }
+                if (project != null) return;
+                ProjectLinkList.Links.Add(new ProjectLinkModel{FolderPath = p});
+                SaveProjectLinkListFile();
             });
         }
 
@@ -66,13 +60,13 @@ namespace Module.Welcome.ViewModel
 
         private ProjectLinkList ReadProjectLinkListFile()
         {
-            if (File.Exists(BasePath + SubPath))
+            if (File.Exists(_basePath + SubPath))
             {
                 try
                 {
-                    return _dataService.DeserializeObject<ProjectLinkList>(BasePath + SubPath);
+                    return _dataService.DeserializeObject<ProjectLinkList>(_basePath + SubPath);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     throw; //TODO обработать ошибки
                 }
@@ -82,14 +76,14 @@ namespace Module.Welcome.ViewModel
         }
         private bool SaveProjectLinkListFile()
         {
-            if (Directory.Exists(BasePath))
+            if (Directory.Exists(_basePath))
             {
                 try
                 {
-                    _dataService.SerializeObject(ProjectLinkList, BasePath + SubPath);
+                    _dataService.SerializeObject(ProjectLinkList, _basePath + SubPath);
                     return true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     throw; //TODO обработать ошибки
                 }
@@ -97,6 +91,6 @@ namespace Module.Welcome.ViewModel
 
             return false;
         }
-      
+
     }
 }
