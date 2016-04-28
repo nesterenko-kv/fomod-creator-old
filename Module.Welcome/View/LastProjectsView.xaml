@@ -8,6 +8,14 @@
              d:DesignWidth="300"
              Background="White"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <DataTemplate x:Key="links">
+            <Button Content="{Binding FolderPath}" Margin="3"
+                    ToolTip="{Binding FolderPath}"
+                    Command="{Binding DataContext.GoTo, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                    CommandParameter="{Binding FolderPath}" />
+        </DataTemplate>
+    </UserControl.Resources>
     <DockPanel Grid.Column="0">
         <TextBlock Margin="9"
                    TextTrimming="CharacterEllipsis"
@@ -23,7 +31,10 @@
                    TextAlignment="Left"
                    FontFamily="Segoe UI"
                    FontSize="20" />
-        <ListBox Background="LightGray"
+
+
+
+        <ListBox Background="LightGray" ItemTemplate="{StaticResource links}"
                  ItemsSource="{Binding ProjectLinkList.Links}" />
 
     </DockPanel>

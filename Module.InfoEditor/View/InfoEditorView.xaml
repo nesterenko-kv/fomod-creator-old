@@ -25,7 +25,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-           
+
         </Grid.RowDefinitions>
 
         <!--#region Headers-->
@@ -77,45 +77,47 @@
                  Margin="3"
                  Text="{Binding Name}" />
         <TextBox Grid.Row="1"
-                   Grid.Column="1"
-                   Margin="3"
-                   Text="{Binding Version}" />
+                 Grid.Column="1"
+                 Margin="3"
+                 Text="{Binding Version}" />
         <TextBox Grid.Row="2"
-                   Grid.Column="1"
-                   Margin="3"
-                   Text="{Binding LatestKnownVersion}" />
+                 Grid.Column="1"
+                 Margin="3"
+                 Text="{Binding LatestKnownVersion}" />
         <TextBox Grid.Row="3"
-                   Grid.Column="1"
-                   Margin="3"
-                   Text="{Binding Id}" />
+                 Grid.Column="1"
+                 Margin="3"
+                 Text="{Binding Id}" />
         <TextBox Grid.Row="4"
-                   Grid.Column="1"
-                   Margin="3"
-                   Text="{Binding Author}" />
+                 Grid.Column="1"
+                 Margin="3"
+                 Text="{Binding Author}" />
         <TextBox Grid.Row="5"
-                   Grid.Column="1"
-                   Margin="3"
-                   Text="{Binding CategoryId}" />
+                 Grid.Column="1"
+                 Margin="3"
+                 Text="{Binding CategoryId}" />
         <TextBox Grid.Row="6"
-                   Grid.Column="1"
-                   Margin="3"
-                   Text="{Binding CustomCategoryId}" />
+                 Grid.Column="1"
+                 Margin="3"
+                 Text="{Binding CustomCategoryId}" />
         <TextBox Grid.Row="7"
-                   Grid.Column="1"
-                   Margin="3"
-                   Text="{Binding Description}" Height="18" />
+                 Grid.Column="1"
+                 Margin="3"
+                 Text="{Binding Description}" />
         <TextBox Grid.Row="8"
-                   Grid.Column="1"
-                   Margin="3"
-                   Text="{Binding UpdateWarningEnabled}" />
+                 Grid.Column="1"
+                 Margin="3"
+                 Text="{Binding UpdateWarningEnabled}" />
         <TextBox Grid.Row="9"
-                   Grid.Column="1"
-                   Margin="3"
-                   Text="{Binding Website}" />
+                 Grid.Column="1"
+                 Margin="3"
+                 Text="{Binding Website}" />
 
         <!--#endregion-->
 
-        <Button Content="ClickMe" Grid.Row="10" Click="Button_Click"/>
+        <!--<Button Grid.Row="10"
+                Content="ClickMe"
+                Click="ClickMe" />-->
 
 
     </Grid>

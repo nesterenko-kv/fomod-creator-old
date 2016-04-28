@@ -30,6 +30,7 @@ namespace MainApplication.Boot
                 r.For<IRepository<ProjectRoot>>().Use<Repository>().Singleton();
                 r.For<IUserMsgService>().Use<UserMsgService>().Singleton();
                 r.For<IFolderBrowserDialog>().Use<FolderBrowserDialog>().Singleton();
+                r.For<IDataService>().Use<DataService>().Singleton();
             });
         }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Xml.Serialization;
 using FomodInfrastructure.Interface;
 using FomodModel.Base;
 using Microsoft.Practices.ServiceLocation;
@@ -17,11 +16,14 @@ namespace MainApplication.Services
         private readonly IServiceLocator _serviceLocator;
         private readonly ILoggerFacade _loggerFacade;
         private readonly IFolderBrowserDialog _folderBrowserDialog;
+        private readonly IDataService _dataService;
 
-        public Repository(IServiceLocator serviceLocator, ILoggerFacade loggerFacade, IFolderBrowserDialog folderBrowserDialog)
+        public Repository(IServiceLocator serviceLocator, ILoggerFacade loggerFacade, IFolderBrowserDialog folderBrowserDialog, IDataService dataService)
+        
         {
             _serviceLocator = serviceLocator;
             _loggerFacade = loggerFacade;
+            _dataService = dataService;
             _folderBrowserDialog = folderBrowserDialog;
         }
 
@@ -34,24 +36,6 @@ namespace MainApplication.Services
         #endregion
 
         #region Private methmods
-        private void SerializeObject<T>(T data, string path)
-        {
-            if (data == null) return;
-            using (var fs = File.Create(path))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                xmlSerializer.Serialize(fs, data);
-            }
-        }
-
-        private T DeserializeObject<T>(string path)
-        {
-            using (var fs = File.OpenRead(path))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                return (T)xmlSerializer.Deserialize(fs);
-            }
-        }
 
         private bool CheckFiles(string folderPath) => File.Exists(folderPath + InfoSubPath) && File.Exists(folderPath + ConfigurationSubPath);
 
@@ -59,7 +43,7 @@ namespace MainApplication.Services
         {
             var folderPath = GetFolderPath();
             return folderPath != null ? LoadProjectFromPath(folderPath) : null;
-        }
+            }
 
         private ProjectRoot LoadProjectFromPath(string path)
         {
@@ -67,16 +51,18 @@ namespace MainApplication.Services
                 throw new FileNotFoundException();
             if (!CheckFiles(path)) return null; //зделал возврат нулевой что бы можно было делать обработку в viewmodel
             var projectRoot = _serviceLocator.GetInstance<ProjectRoot>();
-            try
-            {
-                projectRoot.ModuleInformation = DeserializeObject<ModuleInformation>(path + InfoSubPath);
-                projectRoot.ModuleConfiguration = DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
+                try
+                {
+                projectRoot.FolderPath = path;
+                projectRoot.ModuleInformation = _dataService.DeserializeObject<ModuleInformation>(path + InfoSubPath);
+                projectRoot.ModuleConfiguration = _dataService.DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
+
                 return projectRoot;
-            }
+                }
             catch (Exception)
-            {
+                {
                 //TODO: если ошибка то позже сделаем сервис оповещения об ошибках
-            }
+                }
             throw new FileNotFoundException();
         }
 
@@ -95,8 +81,8 @@ namespace MainApplication.Services
             Directory.CreateDirectory(path + @"\fomod\");
             try
             {
-                SerializeObject(_projectRoot.ModuleInformation, path + InfoSubPath);
-                SerializeObject(_projectRoot.ModuleConfiguration, path + ConfigurationSubPath);
+                _dataService.SerializeObject(_projectRoot.ModuleInformation, path + InfoSubPath);
+                _dataService.SerializeObject(_projectRoot.ModuleConfiguration, path + ConfigurationSubPath);
                 return true;
             }
             catch (Exception)

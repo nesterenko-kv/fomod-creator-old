@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Model\ProjectLinkList.cs" />
     <Compile Include="Model\ProjectLinkModel.cs" />
+    <Compile Include="PrismEvent\OpenLink.cs" />
     <Compile Include="PrismEvent\OpenProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\LastProjectsViewModel.cs" />

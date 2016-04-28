@@ -1,4 +1,6 @@
-﻿using Module.Welcome.Model;
+﻿using FomodInfrastructure.Interface;
+using FomodInfrastructure.MvvmLibrary.Commands;
+using Module.Welcome.Model;
 using Module.Welcome.PrismEvent;
 using Prism.Events;
 using Prism.Mvvm;
@@ -8,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Xml.Serialization;
 
 namespace Module.Welcome.ViewModel
@@ -15,18 +18,21 @@ namespace Module.Welcome.ViewModel
     public class LastProjectsViewModel: BindableBase
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IDataService _dataService;
 
-        private readonly string _basePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-        private const string SubPath = @"\FOMODplist.xml";
+        private readonly string BasePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+        private readonly string SubPath = @"\FOMODplist.xml";
 
         public ProjectLinkList ProjectLinkList { get; set; } = new ProjectLinkList();
 
+        ICommand _goTo;
 
         //TODO - сделать кликабельным список последник проектов
 
-        public LastProjectsViewModel(IEventAggregator eventAggregator)
+        public LastProjectsViewModel(IEventAggregator eventAggregator, IDataService dataService)
         {
             _eventAggregator = eventAggregator;
+            _dataService = dataService;
 
 
             var list = ReadProjectLinkListFile();
@@ -48,18 +54,26 @@ namespace Module.Welcome.ViewModel
             });
         }
 
-
+        public ICommand GoTo
+        {
+            get
+            {
+                if (_goTo == null)
+                    _goTo = new RelayCommand(p => _eventAggregator.GetEvent<OpenLink>().Publish(p.ToString()));
+                return _goTo;
+            }
+        }
 
 
         private ProjectLinkList ReadProjectLinkListFile()
         {
-            if (File.Exists(_basePath + SubPath))
+            if (File.Exists(BasePath + SubPath))
             {
                 try
                 {
-                    return DeserializeObject<ProjectLinkList>(_basePath + SubPath);
+                    return _dataService.DeserializeObject<ProjectLinkList>(BasePath + SubPath);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     throw;
                 }
@@ -69,11 +83,11 @@ namespace Module.Welcome.ViewModel
         }
         private bool SaveProjectLinkListFile()
         {
-            if (Directory.Exists(_basePath))
+            if (Directory.Exists(BasePath))
             {
                 try
                 {
-                    SerializeObject(ProjectLinkList, _basePath + SubPath);
+                    _dataService.SerializeObject(ProjectLinkList, BasePath + SubPath);
                     return true;
                 }
                 catch (Exception e)
@@ -84,33 +98,6 @@ namespace Module.Welcome.ViewModel
 
             return false;
         }
-
-
-
-        #region MyRegion
-
-
-        private void SerializeObject<T>(T data, string path)
-        {
-            if (data == null) return;
-            using (var fs = File.Create(path))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                xmlSerializer.Serialize(fs, data);
-            }
-        }
-        private T DeserializeObject<T>(string path)
-        {
-            using (var fs = File.OpenRead(path))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                return (T)xmlSerializer.Deserialize(fs);
-            }
-        }
-
-        #endregion
-
-
       
     }
 }
