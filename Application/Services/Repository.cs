@@ -77,6 +77,7 @@ namespace MainApplication.Services
             var projectRoot = _serviceLocator.GetInstance<ProjectRoot>();
                 try
                 {
+                projectRoot.FolderPath = path;
                 projectRoot.ModuleInformation = DeserializeObject<ModuleInformation>(path + InfoSubPath);
                 projectRoot.ModuleConfiguration = DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
 

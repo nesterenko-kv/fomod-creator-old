@@ -56,11 +56,14 @@
                             SnapsToDevicePixels="true"
                             Background="{TemplateBinding Background}">
 
-                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                        <!--<StackPanel Orientation="Horizontal">-->
+                            <!--<TextBlock FontFamily="pack://application:,,,/UI/#FontAwesome" Text="&#xf069;" FontSize="16"/>-->
+                            <ContentPresenter Margin="{TemplateBinding Padding}"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           RecognizesAccessKey="True"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        <!--</StackPanel>-->
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

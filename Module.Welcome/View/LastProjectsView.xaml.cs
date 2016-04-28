@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Module.InfoEditor.View
+namespace Module.Welcome.View
 {
     /// <summary>
-    /// Логика взаимодействия для InfoEditorView.xaml
+    /// Логика взаимодействия для LastProjectsView.xaml
     /// </summary>
-    public partial class InfoEditorView : UserControl
+    public partial class LastProjectsView : UserControl
     {
-        public InfoEditorView()
+        public LastProjectsView()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            (this.DataContext as ViewModel.InfoEditorViewModel).ModuleInformation.Author = "***ИЗМЕНЕНИЯ ВНЕ МОДЕЛИ***";
         }
     }
 }
