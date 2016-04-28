@@ -4,6 +4,8 @@ using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base;
 using Prism.Regions;
 using FomodInfrastructure;
+using Prism.Events;
+using Module.Welcome.PrismEvent;
 
 namespace Module.Welcome.ViewModel
 {
@@ -21,13 +23,15 @@ namespace Module.Welcome.ViewModel
         private readonly IRegionManager _regionManager;
         private readonly IRepository<ProjectRoot> _repository;
         private readonly IUserMsgService _userMsgService;
+        private readonly IEventAggregator _eventAggregator;
 
-        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository, IRegionManager regionManager, IUserMsgService userMsgService)
+        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository, IRegionManager regionManager, IUserMsgService userMsgService, IEventAggregator eventAggregator)
         {
             _appService = appService;
             _repository = repository;
             _regionManager = regionManager;
             _userMsgService = userMsgService;
+            _eventAggregator = eventAggregator;
         }
 
         #region Commands
@@ -58,6 +62,9 @@ namespace Module.Welcome.ViewModel
                                 {nameof(ProjectRoot.ModuleConfiguration), data.ModuleConfiguration}
                             };
                             _regionManager.RequestNavigate(Names.MainContentRegion, "InfoEditorView", param);
+
+                            _eventAggregator.GetEvent<OpenProjectEvent>().Publish(data.FolderPath);
+
                             foreach (var item in _regionManager.Regions[Names.TopRegion].Views)
                                 _regionManager.Regions[Names.TopRegion].Remove(item);
                         }

@@ -4,15 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Module.Welcome.View"
+             xmlns:regions="http://prismlibrary.com/"
              d:DesignHeight="300"
-             d:DesignWidth="600"
+             d:DesignWidth="1000"
              Background="White"
              mc:Ignorable="d">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="251*" />
+            <ColumnDefinition Width="750*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Border x:Name="border"
+                Grid.Column="1"
                 MinWidth="250"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -31,9 +37,17 @@
                            FontSize="18"
                            FontFamily="Segoe UI Light" />
                 <Button Margin="3"
-                        Content="Создать проект"
                         Command="{Binding CreateProject}"
-                        Style="{DynamicResource GreenButton}" />
+                        Style="{DynamicResource GreenButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="3,0"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource FontAwesome}"
+                                   Text="&#xf0f6;"
+                                   FontSize="18" />
+                        <TextBlock Text="Создать проект" />
+                    </StackPanel>
+                </Button>
                 <Button Margin="3"
                         Content="Открыть проект"
                         Command="{Binding OpenProject}"
@@ -46,6 +60,14 @@
             </StackPanel>
         </Border>
 
+
+        <GridSplitter Width="4"
+                      Margin="0,0,-2,0"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Stretch"
+                      Panel.ZIndex="100" />
+        <ContentControl Grid.Column="0"
+                        regions:RegionManager.RegionName="RightRegion" />
 
 
 

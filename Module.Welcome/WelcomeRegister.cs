@@ -24,10 +24,12 @@ namespace Module.Welcome
             _container.Configure(r =>
             {
                 r.For<object>().Use<WelcomeView>().Named(nameof(WelcomeView)).SetProperty(p => p.DataContext = _container.GetInstance<WelcomeViewModel>());
+                r.For<object>().Use<LastProjectsView>().Named(nameof(LastProjectsView)).SetProperty(p => p.DataContext = _container.GetInstance<LastProjectsViewModel>());
+
             });
 
             _regionManager.Regions[Names.TopRegion].RequestNavigate(nameof(WelcomeView));
-            //_regionManager.Regions[Names.TopRegion].Add(_container.GetInstance<object>(nameof(WelcomeView)));
+            _regionManager.Regions["RightRegion"].RequestNavigate(nameof(LastProjectsView));
 
         }
     }

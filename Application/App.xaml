@@ -5,8 +5,10 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="UI/Fonts.xaml" />
                 <ResourceDictionary Source="UI/ListBox.xaml" />
                 <ResourceDictionary Source="UI/ColorButtons.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
