@@ -1,9 +1,4 @@
 ﻿using FomodInfrastructure.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MainApplication.Services
 {
@@ -15,6 +10,5 @@ namespace MainApplication.Services
         {
             ShowMsg?.Invoke(new UserMsgArgs { Msg = msg });
         }
-
     }
 }

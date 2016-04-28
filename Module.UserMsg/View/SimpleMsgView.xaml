@@ -32,7 +32,5 @@
                            FontSize="16" />
             </DockPanel>
         </Border>
-
-
     </Grid>
 </UserControl>

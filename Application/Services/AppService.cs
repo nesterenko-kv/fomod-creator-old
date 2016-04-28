@@ -1,7 +1,7 @@
-﻿using System;
+﻿using System.Windows;
 using FomodInfrastructure.Interface;
 using Microsoft.Practices.ServiceLocation;
-using Module.Welcome;
+using Module.InfoEditor;
 
 namespace MainApplication.Services
 {
@@ -14,10 +14,9 @@ namespace MainApplication.Services
             _serviceLocator = serviceLocator;
         }
 
-
         public void CloseApp()
         {
-            App.Current.MainWindow.Close();
+            Application.Current.MainWindow.Close();
         }
 
         public void InitilizeBaseModules()

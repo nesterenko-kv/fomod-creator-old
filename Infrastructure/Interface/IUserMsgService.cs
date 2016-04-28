@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FomodInfrastructure.Interface
+﻿namespace FomodInfrastructure.Interface
 {
     public interface IUserMsgService
     {
-        void Send(string Msg);
-
+        void Send(string msg);
 
         /// <summary>
         /// Событие  выполняется при отправке сервисом сообщений
@@ -18,7 +11,7 @@ namespace FomodInfrastructure.Interface
     }
 
 
-    public  delegate void UserMsgHandler(UserMsgArgs Args);
+    public delegate void UserMsgHandler(UserMsgArgs args);
 
     public class UserMsgArgs
     {

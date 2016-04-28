@@ -4,10 +4,6 @@ using FomodInfrastructure.MvvmLibrary.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Module.UserMsg.ViewModel
@@ -16,7 +12,6 @@ namespace Module.UserMsg.ViewModel
     {
         private readonly IUserMsgService _userMsgService;
         private readonly IRegionManager _regionManager;
-
 
         public SimpleMsgViewModel(IUserMsgService userMsgService, IRegionManager regionManager)
         {
@@ -32,20 +27,16 @@ namespace Module.UserMsg.ViewModel
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             var p = navigationContext.Parameters["Msg"].ToString();
-            if (!string.IsNullOrWhiteSpace(p))
-            {
-                Msg = p;
-                OnPropertyChanged(nameof(Msg));
-                return;
-            }
-
-            throw new NullReferenceException("В параметрах отсутствует сообщение или оно пустое");
+            if (string.IsNullOrWhiteSpace(p))
+                throw new NullReferenceException("В параметрах отсутствует сообщение или оно пустое");
+            Msg = p;
+            OnPropertyChanged(nameof(Msg));
         }
         #endregion
 
 
-        //TO DO - сделать что бы сообщения накапливались на случай если поочередно их кто то отправляет
-        ICommand _ok;
+        //TODO - сделать что бы сообщения накапливались на случай если поочередно их кто то отправляет
+        private ICommand _ok;
 
         public string Msg { get; private set; }
 
