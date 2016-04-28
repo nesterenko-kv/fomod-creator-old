@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.InfoEditor", "Module
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.UserMsg", "Module.UserMsg\Module.UserMsg.csproj", "{1365B403-7A70-4644-9274-96EFC3B1E80E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Editor", "Module.Editor\Module.Editor.csproj", "{4A96AC17-DBE0-499E-BE8B-09F5C6AAF20C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{1365B403-7A70-4644-9274-96EFC3B1E80E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1365B403-7A70-4644-9274-96EFC3B1E80E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1365B403-7A70-4644-9274-96EFC3B1E80E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A96AC17-DBE0-499E-BE8B-09F5C6AAF20C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A96AC17-DBE0-499E-BE8B-09F5C6AAF20C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A96AC17-DBE0-499E-BE8B-09F5C6AAF20C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A96AC17-DBE0-499E-BE8B-09F5C6AAF20C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,5 +61,6 @@ Global
 		{194D7E2F-3290-47D0-94A9-11BD7AB3FA18} = {6CCD2A41-66FA-4428-A902-8FCA212F476D}
 		{2A085AE1-61C9-4614-A152-EEA917F2CEEE} = {6CCD2A41-66FA-4428-A902-8FCA212F476D}
 		{1365B403-7A70-4644-9274-96EFC3B1E80E} = {6CCD2A41-66FA-4428-A902-8FCA212F476D}
+		{4A96AC17-DBE0-499E-BE8B-09F5C6AAF20C} = {6CCD2A41-66FA-4428-A902-8FCA212F476D}
 	EndGlobalSection
 EndGlobal

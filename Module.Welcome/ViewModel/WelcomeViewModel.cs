@@ -6,6 +6,7 @@ using Prism.Regions;
 using FomodInfrastructure;
 using Prism.Events;
 using Module.Welcome.PrismEvent;
+using System.Xml.Linq;
 
 namespace Module.Welcome.ViewModel
 {
@@ -22,17 +23,18 @@ namespace Module.Welcome.ViewModel
         private readonly IAppService _appService;
         private readonly IRegionManager _regionManager;
         private readonly IRepository<ProjectRoot> _repository;
+        private readonly IRepository<XElement> _repositoryXml;
         private readonly IUserMsgService _userMsgService;
         private readonly IEventAggregator _eventAggregator;
 
-        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository, IRegionManager regionManager, IUserMsgService userMsgService, IEventAggregator eventAggregator)
+        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository, IRepository<XElement> repositoryXml, IRegionManager regionManager, IUserMsgService userMsgService, IEventAggregator eventAggregator)
         {
             _appService = appService;
             _repository = repository;
             _regionManager = regionManager;
             _userMsgService = userMsgService;
             _eventAggregator = eventAggregator;
-
+            _repositoryXml = repositoryXml;
 
             _eventAggregator.GetEvent<OpenLink>().Subscribe(p =>
             {
@@ -59,6 +61,7 @@ namespace Module.Welcome.ViewModel
                     _openProject = new RelayCommand(p =>
                     {
                         ProjectRoot data;
+                        XElement X = null;
                         if (p == null)
                         {
                             data = _repository.LoadData();
@@ -66,6 +69,7 @@ namespace Module.Welcome.ViewModel
                         else
                         {
                             data = _repository.LoadData(p.ToString());
+                            X = _repositoryXml.LoadData(p.ToString());
                         }
                          
                         if (data != null)
@@ -74,14 +78,16 @@ namespace Module.Welcome.ViewModel
                             var param = new NavigationParameters
                             {
                                 {nameof(ProjectRoot.ModuleInformation), data.ModuleInformation},
-                                {nameof(ProjectRoot.ModuleConfiguration), data.ModuleConfiguration}
+                                {nameof(ProjectRoot.ModuleConfiguration), data.ModuleConfiguration},
+                                {"xml", X}
                             };
                             _regionManager.RequestNavigate(Names.MainContentRegion, "InfoEditorView", param);
+                            _regionManager.RequestNavigate(Names.MainContentRegion, "MainEditorView", param);
 
                             _eventAggregator.GetEvent<OpenProjectEvent>().Publish(data.FolderPath);
 
                             foreach (var item in _regionManager.Regions[Names.TopRegion].Views)
-                                _regionManager.Regions[Names.TopRegion].Remove(item);
+                                _regionManager.Regions[Names.TopRegion].Deactivate(item);
                         }
                         else
                             _userMsgService.Send("Указанная папка не соответствует необходимым требованиям.");

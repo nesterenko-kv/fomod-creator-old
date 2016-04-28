@@ -27,7 +27,6 @@ namespace Module.Welcome.ViewModel
 
         ICommand _goTo;
 
-        //TODO - сделать кликабельным список последник проектов
 
         public LastProjectsViewModel(IEventAggregator eventAggregator, IDataService dataService)
         {
@@ -75,7 +74,7 @@ namespace Module.Welcome.ViewModel
                 }
                 catch (Exception e)
                 {
-                    throw;
+                    throw; //TODO обработать ошибки
                 }
             }
 
@@ -92,7 +91,7 @@ namespace Module.Welcome.ViewModel
                 }
                 catch (Exception e)
                 {
-                    throw;
+                    throw; //TODO обработать ошибки
                 }
             }
 

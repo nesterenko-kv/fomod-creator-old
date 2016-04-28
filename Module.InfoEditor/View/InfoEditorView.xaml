@@ -115,9 +115,9 @@
 
         <!--#endregion-->
 
-        <!--<Button Grid.Row="10"
+        <Button Grid.Row="10"
                 Content="ClickMe"
-                Click="ClickMe" />-->
+                Click="ClickMe" />
 
 
     </Grid>

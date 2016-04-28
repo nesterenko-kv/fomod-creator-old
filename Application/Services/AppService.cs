@@ -2,6 +2,7 @@
 using FomodInfrastructure.Interface;
 using Microsoft.Practices.ServiceLocation;
 using Module.InfoEditor;
+using Module.Editor;
 
 namespace MainApplication.Services
 {
@@ -22,6 +23,7 @@ namespace MainApplication.Services
         public void InitilizeBaseModules()
         {
             _serviceLocator.GetInstance<InfoEditorRegister>().Initialize();
+            _serviceLocator.GetInstance<EditorRegister>().Initialize();
         }
     }
 }

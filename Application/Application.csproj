@@ -97,6 +97,7 @@
     <Compile Include="Services\FolderBrowserDialog.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\Repository.cs" />
+    <Compile Include="Services\RepositoryXml.cs" />
     <Compile Include="Services\UserMsgService.cs" />
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
@@ -155,6 +156,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{344abc62-3d14-4471-a8a0-d4d2ad7d3e99}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Module.Editor\Module.Editor.csproj">
+      <Project>{4a96ac17-dbe0-499e-be8b-09f5c6aaf20c}</Project>
+      <Name>Module.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="..\Module.InfoEditor\Module.InfoEditor.csproj">
       <Project>{2a085ae1-61c9-4614-a152-eea917f2ceee}</Project>
