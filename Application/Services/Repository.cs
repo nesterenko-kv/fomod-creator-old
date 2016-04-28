@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Xml.Serialization;
 using FomodInfrastructure.Interface;
 using FomodModel.Base;
 using Microsoft.Practices.ServiceLocation;

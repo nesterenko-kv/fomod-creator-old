@@ -1,4 +1,6 @@
-﻿namespace Module.InfoEditor.View
+﻿using System.Windows;
+
+namespace Module.InfoEditor.View
 {
     public partial class InfoEditorView
     {
@@ -7,7 +9,7 @@
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ClickMe(object sender, RoutedEventArgs e)
         {
             (this.DataContext as ViewModel.InfoEditorViewModel).ModuleInformation.Author = "***ИЗМЕНЕНИЯ ВНЕ МОДЕЛИ***";
         }
