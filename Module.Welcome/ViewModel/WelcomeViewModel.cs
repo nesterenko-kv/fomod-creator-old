@@ -79,7 +79,8 @@ namespace Module.Welcome.ViewModel
                             {
                                 {nameof(ProjectRoot.ModuleInformation), data.ModuleInformation},
                                 {nameof(ProjectRoot.ModuleConfiguration), data.ModuleConfiguration},
-                                {"xml", X}
+                                {"xml", X},
+                                {"folderPath", data.FolderPath}
                             };
                             _regionManager.RequestNavigate(Names.MainContentRegion, "InfoEditorView", param);
                             _regionManager.RequestNavigate(Names.MainContentRegion, "MainEditorView", param);

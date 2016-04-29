@@ -1,81 +1,10 @@
-<?xml version="1.0"?>
-<fomod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>The Hatchet - Not a book by Gary Paulsen - Hatchets 1.0.0 - The Reckoning</Name>
-  <Version>1.0.0</Version>
-  <LatestKnownVersion>1.0.0</LatestKnownVersion>
-  <Id>12215</Id>
-  <DownloadId>48555</DownloadId>
-  <Author>MikeMoore</Author>
-  <CategoryId>41</CategoryId>
-  <CustomCategoryId>-1</CustomCategoryId>
-  <Description>[color=#ff0000]This weapons mod is standalone, not a replacer. 
-
-[/color][right]
-Name: Hatchets
-Date: 4/21/2016
-Last Updated: 4/21/2016
-Category: Weapons
-Author: MikeMoore[/right]
-
-[size=6][font=Verdana][img]http://i.imgur.com/D9cm102.png[/img]
-[/font][/size]
-Hello there modder. Do you know what a hatchet is? It&amp;#39;s a small, one handed axe used for chopping things. Do you know how to spell axe? It&amp;#39;s right there, I just did it. There&amp;#39;s an &amp;#39;E&amp;#39; on the end. BUT GOOGLE SEEMS TO THINK, IN IT&amp;#39;S OMNIPOTENT GRACE THAT IT&amp;#39;S SPELLED &amp;#39;AX&amp;#39;. FUCKING DAMNIT. 
-
-DAMNIT AMERICA
-
-This mod adds two hatchets into the game, one modern, and one rustic. Both of which have the same base damage of 16, and both have two different heads to choose from, so it&amp;#39;s up to you what you want to use. No pressure or anything. 
-
-Both of these weapons are added to raider/gunner leveled lists at a fairly low level, but they can not cut trees, because this is not Runescape. 
-[img]http://i.imgur.com/KeyYolQ.png[/img]
-[center][youtube]S7Aay5mieWA[/youtube][/center]
-
-[img]http://i.imgur.com/mPnA6Ch.png[/img]
-
-I will be adding AWKCR support for all my weapons in the next few days. 
-
-I may also add a new axe to this pack in the future. 
-
-If you&amp;#39;re into unique variants and dungeons to get them, keep an eye on my youtube channel. When creation kit comes out I&amp;#39;ll be updating all my weapon mods to add unique weapon locations/dungeons to spice up your game. 
-
-[img]http://i.imgur.com/ILp74kS.png[/img]
-Please report any issues you have to me in the comments or bugs section right away, I&amp;#39;ll fix it I swear
-
-Also, user submitted screenshots are always welcome&amp;#33; I love getting this, and I&amp;#39;ll pop your name in the bottom right and put them in the official mod screenshots if they&amp;#39;re really pretty. 
-
-[img]http://i.imgur.com/amQTWx8.png[/img]
-
-[img]http://i.imgur.com/QbGWN6c.png?1[/img]
-- The handle is backwards
-
-- No it fucking isn&amp;#39;t
-
-[img]http://i.imgur.com/QbGWN6c.png?1[/img]
-- This weapon isn&amp;#39;t showing up, raiders don&amp;#39;t spawn with it, but they spawn with another weapon. 
-
-- You need to make a Bashed/Merged patch in FO4Edit, yo. [url=https://www.youtube.com/watch?v=0Xc5tQCiDvo]I&amp;#39;ve got a video for you.
-[/url][url=https://www.youtube.com/watch?v=0Xc5tQCiDvo]
-[/url][img]http://i.imgur.com/QbGWN6c.png?1[/img]
-- You swear a lot.
-
-- It&amp;#39;s my way of showing love. Damn.
-
-[img]http://i.imgur.com/QbGWN6c.png?1[/img]
-- This texture is too clean/too dirty
-
-- You&amp;#39;re too clean/too dirty
-
-[img]http://i.imgur.com/QbGWN6c.png?1[/img]
-- I love you so much that I want to support you in every way I can, but I also am poor. 
-
-- Check out my other mods, or my twitter/youtube pages. Give Nick and I some love, it&amp;#39;s much appreciated&amp;#33; :)
-
-[img]http://i.imgur.com/QbGWN6c.png?1[/img]
-- When will there be a throwing variant? 
-
-- When I can make the projectiles spin and not fly along a straight path. Check the video above for an example of how it looks right now. 
-
-
-[url=http://www.nexusmods.com/fallout4/users/4626144/?tb=mods&amp;pUp=1][img]http://i.imgur.com/CaylQtf.png[/img][/url][url=http://www.nexusmods.com/fallout4/users/5015415/?tb=mods&amp;pUp=1][img]http://i.imgur.com/GB63IhC.png[/img][/url][url=https://www.youtube.com/channel/UCqpsPQez-087WLASWk1Ai-w][img]http://i.imgur.com/IHqQ1KH.png[/img][/url][url=https://twitter.com/gambsmoore][img]http://i.imgur.com/VYtJx0G.png[/img][/url][url=https://www.reddit.com/r/gambsmoore][img]http://i.imgur.com/dnkisD6.png[/img][img]http://i.imgur.com/uKJvPDO.png[/img][/url]</Description>
-  <UpdateWarningEnabled>False</UpdateWarningEnabled>
-  <Website>http://www.nexusmods.com/fallout4/mods/12215</Website>
+<fomod>
+  <Name>Valdacil's Item Sorting</Name>
+  <Author>Valdacil</Author>
+  <Version>7.0.1</Version>
+  <Website>http://www.nexusmods.com/fallout4/mods/3877/?</Website>
+  <Description>This mod renames items with tag prefixes so that they will sort better in the inventory.</Description>
+  <Groups>
+    <element>User Interface</element>
+  </Groups>
 </fomod>
