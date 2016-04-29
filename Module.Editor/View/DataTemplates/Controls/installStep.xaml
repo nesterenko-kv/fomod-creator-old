@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Module.Editor.View.DataTemplates.Controls.installStep"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Module.Editor.View.DataTemplates.Controls"
+             xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <inf:Set x:Key="compositeDependencyOperator"
+                 x:Shared="false">
+            <sys:String>And</sys:String>
+            <sys:String>Or</sys:String>
+        </inf:Set>
+    </UserControl.Resources>
+    <!--  CompositeDependencyOperator  -->
+    <StackPanel>
+
+        <TextBox Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
+
+        <!--  visible  -->
+        <Border Margin="3"
+                Padding="3"
+                BorderBrush="Yellow"
+                BorderThickness="1"
+                CornerRadius="6"
+                DataContext="{Binding XPath=visible}">
+            <StackPanel>
+                <!--  And  -->
+                <ComboBox SelectedItem="{Binding XPath=dependencies/@operator, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                          ItemsSource="{StaticResource compositeDependencyOperator}" />
+                <TextBox Text="{Binding XPath=dependencies/flagDependency/@flag, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Text="{Binding XPath=dependencies/flagDependency/@value, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+        </Border>
+    </StackPanel>
+
+</UserControl>

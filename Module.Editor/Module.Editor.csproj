@@ -90,6 +90,9 @@
     <Compile Include="View\DataTemplates\Controls\group.xaml.cs">
       <DependentUpon>group.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DataTemplates\Controls\installStep.xaml.cs">
+      <DependentUpon>installStep.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DataTemplates\Controls\plugin.xaml.cs">
       <DependentUpon>plugin.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\DataTemplates\Controls\group.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DataTemplates\Controls\installStep.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
