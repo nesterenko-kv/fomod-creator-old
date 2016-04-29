@@ -63,15 +63,13 @@ namespace Module.Welcome.ViewModel
                     _openProject = new RelayCommand(p =>
                     {
                         ProjectRoot data;
-                        XmlDataProvider X = null;
+                        XmlDataProvider x = null;
                         if (p == null)
-                        {
                             data = _repository.LoadData();
-                        }
                         else
                         {
                             data = _repository.LoadData(p.ToString());
-                            X = _repositoryXml.LoadData(p.ToString());
+                            x = _repositoryXml.LoadData(p.ToString());
                         }
 
                         if (data != null)
@@ -81,7 +79,7 @@ namespace Module.Welcome.ViewModel
                             {
                                 {nameof(ProjectRoot.ModuleInformation), data.ModuleInformation},
                                 {nameof(ProjectRoot.ModuleConfiguration), data.ModuleConfiguration},
-                                {"xml", X},
+                                {"xml", x},
                                 {"folderPath", data.FolderPath}
                             };
                             _regionManager.RequestNavigate(Names.MainContentRegion, "InfoEditorView", param);
