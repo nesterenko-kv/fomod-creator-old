@@ -43,26 +43,25 @@ namespace MainApplication.Services
         {
             var folderPath = GetFolderPath();
             return folderPath != null ? LoadProjectFromPath(folderPath) : null;
-            }
+        }
 
         private ProjectRoot LoadProjectFromPath(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
                 throw new FileNotFoundException();
-            if (!CheckFiles(path)) return null; //зделал возврат нулевой что бы можно было делать обработку в viewmodel
+            if (!CheckFiles(path)) return null;
             var projectRoot = _serviceLocator.GetInstance<ProjectRoot>();
-                try
-                {
+            try
+            {
                 projectRoot.FolderPath = path;
                 projectRoot.ModuleInformation = _dataService.DeserializeObject<ModuleInformation>(path + InfoSubPath);
                 projectRoot.ModuleConfiguration = _dataService.DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
-
                 return projectRoot;
-                }
+            }
             catch (Exception)
-                {
-                //TODO: если ошибка то позже сделаем сервис оповещения об ошибках
-                }
+            {
+                //TODO: сделать сервис оповещения об ошибках
+            }
             throw new FileNotFoundException();
         }
 
