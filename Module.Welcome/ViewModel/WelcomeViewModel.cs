@@ -7,6 +7,7 @@ using FomodInfrastructure;
 using Prism.Events;
 using Module.Welcome.PrismEvent;
 using System.Xml.Linq;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Module.Welcome.ViewModel
 {
@@ -24,15 +25,15 @@ namespace Module.Welcome.ViewModel
         private readonly IRegionManager _regionManager;
         private readonly IRepository<ProjectRoot> _repository;
         private readonly IRepository<XElement> _repositoryXml;
-        private readonly IUserMsgService _userMsgService;
+        private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IEventAggregator _eventAggregator;
 
-        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository, IRepository<XElement> repositoryXml, IRegionManager regionManager, IUserMsgService userMsgService, IEventAggregator eventAggregator)
+        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository, IRepository<XElement> repositoryXml, IRegionManager regionManager, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator)
         {
             _appService = appService;
             _repository = repository;
             _regionManager = regionManager;
-            _userMsgService = userMsgService;
+            _dialogCoordinator = dialogCoordinator;
             _eventAggregator = eventAggregator;
             _repositoryXml = repositoryXml;
 
@@ -71,7 +72,7 @@ namespace Module.Welcome.ViewModel
                             data = _repository.LoadData(p.ToString());
                             X = _repositoryXml.LoadData(p.ToString());
                         }
-                         
+
                         if (data != null)
                         {
                             _appService.InitilizeBaseModules();
@@ -90,7 +91,8 @@ namespace Module.Welcome.ViewModel
                                 _regionManager.Regions[Names.TopRegion].Deactivate(item);
                         }
                         else
-                            _userMsgService.Send("Указанная папка не соответствует необходимым требованиям.");
+                            _dialogCoordinator.ShowMessageAsync(this, "Ошибка",
+                                "Указанная папка не соответствует необходимым требованиям.");
                     });
                 return _openProject;
             }

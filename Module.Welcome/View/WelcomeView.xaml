@@ -8,7 +8,10 @@
              xmlns:regions="http://prismlibrary.com/"
              d:DesignHeight="320"
              d:DesignWidth="1100"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             dialog:DialogParticipation.Register="{Binding}"
+             >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
