@@ -5,6 +5,7 @@
         <StackPanel>
             <TextBlock Text="{Binding XPath=installSteps/@order, UpdateSourceTrigger=PropertyChanged, StringFormat=[installSteps:order] is {0}}" />
             <TextBox Text="{Binding XPath=moduleName, UpdateSourceTrigger=PropertyChanged}" />
+            
             <StackPanel DataContext="{Binding XPath=ancestor::Project/fomod}">
                 <TextBox Text="{Binding XPath=Name}" />
                 <TextBox Text="{Binding XPath=Author}" />

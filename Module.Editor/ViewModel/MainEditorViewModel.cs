@@ -14,12 +14,11 @@ using System.Xml.Linq;
 
 namespace Module.Editor.ViewModel
 {
-    public class MainEditorViewModel: Prism.Mvvm.BindableBase
+    public class MainEditorViewModel: Prism.Mvvm.BindableBase /*, INavigationAware*/
     {
+
         XmlDataProvider _xmlData;
 
-        private const string InfoSubPath = @"\fomod\info.xml";
-        private const string ConfigurationSubPath = @"\fomod\ModuleConfig.xml";
 
         public XmlDataProvider XmlData
         {
@@ -32,7 +31,7 @@ namespace Module.Editor.ViewModel
         }
 
         [Aspect(typeof(AspectINotifyPropertyChanged))]
-        public string Header { get; set; }
+        public string Header { get; set; } = "Редактор";
 
         IRepository<XmlDataProvider> _repository;
 
@@ -41,7 +40,14 @@ namespace Module.Editor.ViewModel
             _repository = repository;
         }
 
+        //public void OnNavigatedTo(NavigationContext navigationContext)
+        //{
+        //}
 
-        
+        //public bool IsNavigationTarget(NavigationContext navigationContext) => true;
+
+        //public void OnNavigatedFrom(NavigationContext navigationContext)
+        //{
+        //}
     }
 }
