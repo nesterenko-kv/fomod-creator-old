@@ -8,6 +8,7 @@ using Prism.Events;
 using Module.Welcome.PrismEvent;
 using System.Xml.Linq;
 using MahApps.Metro.Controls.Dialogs;
+using System.Windows.Data;
 
 namespace Module.Welcome.ViewModel
 {
@@ -24,11 +25,11 @@ namespace Module.Welcome.ViewModel
         private readonly IAppService _appService;
         private readonly IRegionManager _regionManager;
         private readonly IRepository<ProjectRoot> _repository;
-        private readonly IRepository<XElement> _repositoryXml;
+        private readonly IRepository<XmlDataProvider> _repositoryXml;
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IEventAggregator _eventAggregator;
 
-        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository, IRepository<XElement> repositoryXml, IRegionManager regionManager, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator)
+        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository, IRepository<XmlDataProvider> repositoryXml, IRegionManager regionManager, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator)
         {
             _appService = appService;
             _repository = repository;
@@ -62,7 +63,7 @@ namespace Module.Welcome.ViewModel
                     _openProject = new RelayCommand(p =>
                     {
                         ProjectRoot data;
-                        XElement X = null;
+                        XmlDataProvider X = null;
                         if (p == null)
                         {
                             data = _repository.LoadData();

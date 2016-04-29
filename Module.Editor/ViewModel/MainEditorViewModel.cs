@@ -1,5 +1,6 @@
 ﻿using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
+using FomodInfrastructure.Interface;
 using FomodModel.Base;
 using Prism.Regions;
 using System;
@@ -13,64 +14,34 @@ using System.Xml.Linq;
 
 namespace Module.Editor.ViewModel
 {
-    public class MainEditorViewModel: INavigationAware
+    public class MainEditorViewModel: Prism.Mvvm.BindableBase
     {
+        XmlDataProvider _xmlData;
+
         private const string InfoSubPath = @"\fomod\info.xml";
         private const string ConfigurationSubPath = @"\fomod\ModuleConfig.xml";
 
-        [Aspect(typeof(AspectINotifyPropertyChanged))]
-        public XElement XmlDocumentA { get; set; }
-
-        [Aspect(typeof(AspectINotifyPropertyChanged))]
-        public XmlDataProvider XmlData { get; set; }
+        public XmlDataProvider XmlData
+        {
+            get
+            {
+                if (_xmlData == null)
+                    _xmlData = _repository.GetData();
+                return _xmlData;
+            }
+        }
 
         [Aspect(typeof(AspectINotifyPropertyChanged))]
         public string Header { get; set; }
 
+        IRepository<XmlDataProvider> _repository;
 
-        public MainEditorViewModel()
+        public MainEditorViewModel(IRepository<XmlDataProvider> repository)
         {
-
+            _repository = repository;
         }
 
 
-        #region INavigationAware
-
-        public bool IsNavigationTarget(NavigationContext navigationContext) => true;
-
-        public void OnNavigatedFrom(NavigationContext navigationContext)
-        {
-            //XmlDocument
-        }
-
-        public void OnNavigatedTo(NavigationContext navigationContext)
-        {
-            var folderPath = navigationContext.Parameters["folderPath"]?.ToString();
-            if (string.IsNullOrWhiteSpace(folderPath)) throw new NullReferenceException("В параметрах отсутствует нужный тип данных");
-
-            //XmlDocumentA = p;
-            //var ddd = XDocument.Parse(p.ToString());
-            //XmlDataProvider = new XmlDataProvider();
-            //XmlDataProvider.Document = (XmlDocument)ddd;
-            //XmlDataProvider.XPath = "node";
-            XmlData = new XmlDataProvider();
-            //XmlData.Source = new Uri(folderPath + ConfigurationSubPath);
-            XmlDocument ProjectXml = new XmlDocument();
-
-            var info = XElement.Load(folderPath + InfoSubPath).ToString();
-            var config = XElement.Load(folderPath + ConfigurationSubPath).ToString();
-            var project = "<Project>" + info + config + "</Project>";
-
-            ProjectXml.LoadXml(project);
-
-            //TODO при сохранении документа надо учитывать что у нас дублируется имя мода в конфиге и в инфо
-
-            //ProjectXml.Load(folderPath + ConfigurationSubPath);
-
-            XmlData.Document = ProjectXml;
-            Header = "ProjectEdit";
-        }
-
-        #endregion
+        
     }
 }

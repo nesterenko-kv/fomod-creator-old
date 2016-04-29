@@ -24,5 +24,15 @@ namespace Module.Editor.View
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var data = (this.tw.DataContext as XmlDataProvider);
+            var node = data.Document.ChildNodes[0].ChildNodes[0].ChildNodes[0];
+            node.InnerText += "AAAAA";
+
+
+            System.Windows.MessageBox.Show(node.InnerText);
+        }
     }
 }

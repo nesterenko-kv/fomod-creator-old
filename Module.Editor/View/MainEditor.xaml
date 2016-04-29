@@ -53,12 +53,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <TreeView x:Name="tw"
                   DataContext="{Binding XmlData}"
                   ItemsSource="{Binding XPath=Project/config}" />
 
-
+        <Button Content="aaaaa" Click="Button_Click" Grid.Column="2"/>
         <ContentControl Grid.Column="1"
                         Content="{Binding ElementName=tw, Path=SelectedItem}">
             <ContentControl.Resources>
@@ -66,7 +67,7 @@
                     <StackPanel>
                         <TextBox Text="{Binding XPath=moduleName, UpdateSourceTrigger=PropertyChanged}" />
                         <StackPanel DataContext="{Binding XPath=ancestor::node()/Project/fomod}">
-                            <!--<TextBox Text="{Binding XPath=Name}" />-->
+                            <TextBox Text="{Binding XPath=Name}" />
                             <TextBox Text="{Binding XPath=Author}" />
                             <TextBox Text="{Binding XPath=Version}" />
                             <TextBox Text="{Binding XPath=Website}" />
