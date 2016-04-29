@@ -1,36 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:uc="clr-namespace:Module.Editor.View.DataTemplates.Controls"
-                    xmlns:system="clr-namespace:System;assembly=mscorlib">
-
+                    xmlns:uc="clr-namespace:Module.Editor.View.DataTemplates.Controls">
     <DataTemplate DataType="config">
-        <StackPanel>
-            <TextBlock Text="{Binding XPath=installSteps/@order, UpdateSourceTrigger=PropertyChanged, StringFormat=[installSteps:order] is {0}}" />
-            <TextBox Text="{Binding XPath=moduleName, UpdateSourceTrigger=PropertyChanged}" />
-
-            <StackPanel DataContext="{Binding XPath=ancestor::Project/fomod}">
-                <TextBox Text="{Binding XPath=Name}" />
-                <TextBox Text="{Binding XPath=Author}" />
-                <TextBox Text="{Binding XPath=Version}" />
-                <TextBox Text="{Binding XPath=Website}" />
-                <TextBox Text="{Binding XPath=Description}" />
-                <ListBox ItemsSource="{Binding XPath=Groups}" />
-            </StackPanel>
-        </StackPanel>
+        <uc:config />
     </DataTemplate>
-
-
-
     <DataTemplate DataType="installStep">
         <uc:installStep />
     </DataTemplate>
-
-
     <DataTemplate DataType="group">
         <uc:group />
     </DataTemplate>
-
-
     <DataTemplate DataType="plugin">
         <uc:plugin />
     </DataTemplate>

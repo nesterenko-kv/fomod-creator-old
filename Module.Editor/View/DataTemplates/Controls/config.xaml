@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Module.Editor.View.DataTemplates.Controls.config"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Module.Editor.View.DataTemplates.Controls"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBox MaxHeight="38"
+                     controls:TextBoxHelper.Watermark="Имя модификации"
+                     controls:TextBoxHelper.UseFloatingWatermark="True"
+                     controls:TextBoxHelper.ClearTextButton="True"
+                     Text="{Binding XPath=moduleName, UpdateSourceTrigger=PropertyChanged}" />
+        <StackPanel DataContext="{Binding XPath=ancestor::Project/fomod}">
+            <TextBox controls:TextBoxHelper.Watermark="Название"
+                     controls:TextBoxHelper.UseFloatingWatermark="True"
+                     controls:TextBoxHelper.ClearTextButton="True" Text="{Binding XPath=Name}" />
+            <TextBox controls:TextBoxHelper.Watermark="Автор"
+                     controls:TextBoxHelper.UseFloatingWatermark="True"
+                     controls:TextBoxHelper.ClearTextButton="True" Text="{Binding XPath=Author}" />
+            <TextBox controls:TextBoxHelper.Watermark="Версия"
+                     controls:TextBoxHelper.UseFloatingWatermark="True"
+                     controls:TextBoxHelper.ClearTextButton="True" Text="{Binding XPath=Version}" />
+            <TextBox controls:TextBoxHelper.Watermark="Вебсайт"
+                     controls:TextBoxHelper.UseFloatingWatermark="True"
+                     controls:TextBoxHelper.ClearTextButton="True" Text="{Binding XPath=Website}" />
+            <TextBox Text="{Binding XPath=Description}" controls:TextBoxHelper.Watermark="Описание"
+                     controls:TextBoxHelper.UseFloatingWatermark="True"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -10,7 +10,6 @@
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-
     <UserControl.Resources>
         <inf:Set x:Key="pluginTypeEnum" x:Shared="false">
             <sys:String>Required</sys:String>
@@ -20,7 +19,6 @@
             <sys:String>CouldBeUsable</sys:String>
         </inf:Set>
     </UserControl.Resources>
-
     <StackPanel>
         <!--  Тут либо картинку с открытием диалога выбора пути при нажатии, либо просто текстбокс с валидацией  -->
         <TextBox MaxHeight="38"

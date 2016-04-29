@@ -3,23 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Module.Editor.View.DataTemplates.Controls"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-
-
     <UserControl.Resources>
-        <inf:Set x:Key="groupTypes"
-                 x:Shared="false">
+        <inf:Set x:Key="groupTypes" x:Shared="false">
             <sys:String>SelectAny</sys:String>
             <sys:String>SelectAtMostOne</sys:String>
         </inf:Set>
     </UserControl.Resources>
-
     <StackPanel>
         <TextBox MaxHeight="38"
                  controls:TextBoxHelper.Watermark="Имя группы"
@@ -30,6 +25,5 @@
                   controls:TextBoxHelper.UseFloatingWatermark="True"
                   ItemsSource="{StaticResource groupTypes}"
                   SelectedItem="{Binding XPath=./@type, Path=Value, UpdateSourceTrigger=PropertyChanged}" />
-
     </StackPanel>
 </UserControl>

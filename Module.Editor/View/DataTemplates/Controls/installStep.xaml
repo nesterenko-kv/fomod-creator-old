@@ -6,37 +6,29 @@
              xmlns:local="clr-namespace:Module.Editor.View.DataTemplates.Controls"
              xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-
     <UserControl.Resources>
-        <inf:Set x:Key="compositeDependencyOperator"
-                 x:Shared="false">
+        <inf:Set x:Key="compositeDependencyOperator" x:Shared="false">
             <sys:String>And</sys:String>
             <sys:String>Or</sys:String>
         </inf:Set>
     </UserControl.Resources>
     <!--  CompositeDependencyOperator  -->
     <StackPanel>
+        <TextBox Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}"
+                 controls:TextBoxHelper.Watermark="Имя шага"
+                 controls:TextBoxHelper.UseFloatingWatermark="True"
+                 controls:TextBoxHelper.ClearTextButton="True" />
 
-        <TextBox Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
-
-        <!--  visible  -->
-        <Border Margin="3"
-                Padding="3"
-                BorderBrush="Yellow"
-                BorderThickness="1"
-                CornerRadius="6"
-                DataContext="{Binding XPath=visible}">
-            <StackPanel>
-                <!--  And  -->
-                <ComboBox SelectedItem="{Binding XPath=dependencies/@operator, Path=Value, UpdateSourceTrigger=PropertyChanged}"
-                          ItemsSource="{StaticResource compositeDependencyOperator}" />
-                <TextBox Text="{Binding XPath=dependencies/flagDependency/@flag, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Text="{Binding XPath=dependencies/flagDependency/@value, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-        </Border>
+        <!--  TODO: это должен быть список  -->
+        <StackPanel DataContext="{Binding XPath=visible}">
+            <!--  And  -->
+            <ComboBox SelectedItem="{Binding XPath=dependencies/@operator, Path=Value, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{StaticResource compositeDependencyOperator}" />
+            <TextBox Text="{Binding XPath=dependencies/flagDependency/@flag, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding XPath=dependencies/flagDependency/@value, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
     </StackPanel>
-
 </UserControl>
