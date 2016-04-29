@@ -25,6 +25,7 @@
 
             <!--  optionalFileGroups  -->
             <Border Margin="3"
+                    Padding="3"
                     BorderBrush="Yellow"
                     BorderThickness="1"
                     CornerRadius="6"
@@ -37,13 +38,15 @@
 
             <!--  visible  -->
             <Border Margin="3"
+                    Padding="3"
                     BorderBrush="Yellow"
                     BorderThickness="1"
                     CornerRadius="6"
-                    DataContext="{Binding XPath=optionalFileGroups}">
+                    DataContext="{Binding XPath=visible}">
                 <StackPanel>
-                    <TextBox Text="{Binding XPath=@order, UpdateSourceTrigger=PropertyChanged}" />
-
+                    <TextBox Text="{Binding XPath=dependencies/@operator, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Text="{Binding XPath=dependencies/flagDependency/@flag, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Text="{Binding XPath=dependencies/flagDependency/@value, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </Border>
         </StackPanel>
