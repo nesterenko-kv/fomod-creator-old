@@ -1,5 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <DataTemplate DataType="config">
         <StackPanel>
@@ -54,4 +56,22 @@
     </DataTemplate>
 
 
+    <DataTemplate DataType="group">
+        <StackPanel>
+            <TextBox controls:TextBoxHelper.Watermark="Имя группы" controls:TextBoxHelper.UseFloatingWatermark="True" controls:TextBoxHelper.ClearTextButton="True" MaxHeight="38" Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
+            <!--TODO: Забиндить тип группы-->
+            <ComboBox controls:TextBoxHelper.Watermark="Тип группы" controls:TextBoxHelper.UseFloatingWatermark="True" />
+        </StackPanel>
+    </DataTemplate>
+
+    <!--TODO: Забиндить свойства плагина-->
+    <DataTemplate DataType="plugin">
+        <StackPanel>
+            <!--Тут либо картинку с открытием диалога выбора пути при нажатии, либо просто текстбокс с валидацией-->
+            <TextBox controls:TextBoxHelper.Watermark="Имя плагина" controls:TextBoxHelper.UseFloatingWatermark="True" controls:TextBoxHelper.ClearTextButton="True" MaxHeight="38" Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
+            <!--TODO: typeDescriptor-->
+            <ComboBox controls:TextBoxHelper.Watermark="Тип группы" controls:TextBoxHelper.UseFloatingWatermark="True" />
+            <TextBox controls:TextBoxHelper.Watermark="Описание" controls:TextBoxHelper.UseFloatingWatermark="True" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding XPath=@description, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+    </DataTemplate>
 </ResourceDictionary>

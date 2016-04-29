@@ -24,11 +24,8 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TreeView x:Name="tw"
-                  DataContext="{Binding XmlData}"
-                  ItemsSource="{Binding XPath=Project/config}" />
-        <ContentControl Grid.Column="1"
-                        Content="{Binding ElementName=tw, Path=SelectedItem}">
+        <TreeView x:Name="tw" DataContext="{Binding XmlData}" ItemsSource="{Binding XPath=Project/config}" />
+        <ContentControl Grid.Column="1" Content="{Binding ElementName=tw, Path=SelectedItem}">
             <ContentControl.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
