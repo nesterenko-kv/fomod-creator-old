@@ -86,7 +86,7 @@
     <Compile Include="EditorRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\XmlDocumentHelper.cs" />
-    <Compile Include="ViewModel\MainEditorViewModel.cs" />
+    <Compile Include="ViewModel\EditorViewModel.cs" />
     <Compile Include="View\DataTemplates\Controls\group.xaml.cs">
       <DependentUpon>group.xaml</DependentUpon>
     </Compile>
@@ -107,10 +107,6 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{d6ff4295-8252-49e7-9e97-eb998c7c25af}</Project>
       <Name>Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{344abc62-3d14-4471-a8a0-d4d2ad7d3e99}</Project>
-      <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -15,5 +15,10 @@
         /// <returns>Возращет объект, если он был загружен в память</returns>
         T GetData();
 
+        /// <summary>
+        /// Папка проекта загруженного в память.
+        /// </summary>
+        string CurrentPath { get; }
+
     }
 }

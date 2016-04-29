@@ -9,8 +9,12 @@ namespace Module.Welcome
 {
     public class WelcomeRegister : IModule
     {
+        #region Services
+
         private readonly IRegionManager _regionManager;
         private readonly IContainer _container;
+
+        #endregion
 
         public WelcomeRegister(IRegionManager regionManager, IContainer container)
         {
@@ -18,16 +22,13 @@ namespace Module.Welcome
             _container = container;
         }
 
-
         public void Initialize()
         {
             _container.Configure(r =>
             {
                 r.For<object>().Use<WelcomeView>().Named(nameof(WelcomeView)).SetProperty(p => p.DataContext = _container.GetInstance<WelcomeViewModel>());
                 r.For<object>().Use<LastProjectsView>().Named(nameof(LastProjectsView)).SetProperty(p => p.DataContext = _container.GetInstance<LastProjectsViewModel>());
-
             });
-
             _regionManager.Regions[Names.TopRegion].RequestNavigate(nameof(WelcomeView));
             _regionManager.Regions["RightRegion"].RequestNavigate(nameof(LastProjectsView));
 

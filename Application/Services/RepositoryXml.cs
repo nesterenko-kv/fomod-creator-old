@@ -15,6 +15,7 @@ namespace MainApplication.Services
 
         private readonly IFolderBrowserDialog _folderBrowserDialog;
 
+        public string CurrentPath { get; private set; }
         public RepositoryXml(IFolderBrowserDialog folderBrowserDialog)
         {
             _folderBrowserDialog = folderBrowserDialog;
@@ -27,6 +28,7 @@ namespace MainApplication.Services
         private XmlDataProvider LoadProjectIfPathNull()
         {
             var folderPath = GetFolderPath();
+            CurrentPath = folderPath;
             return folderPath != null ? LoadProjectFromPath(folderPath) : null;
         }
 
@@ -44,6 +46,7 @@ namespace MainApplication.Services
                 var projectXml = new XmlDocument();
                 projectXml.LoadXml(project);
                 _xmlData.Document = projectXml;
+                CurrentPath = path;
                 return _xmlData;
             }
             catch (Exception)
@@ -78,5 +81,6 @@ namespace MainApplication.Services
                 return _folderBrowserDialog.SelectedPath;
             return null;
         }
+
     }
 }

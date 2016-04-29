@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:Module.Editor.View"
              xmlns:linq2Xml="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq"
              xmlns:xmlsys="clr-namespace:System.Xml;assembly=System.Xml"
-             xmlns:model="clr-namespace:FomodModel.Base;assembly=FomodModel"
              d:DesignHeight="300"
              d:DesignWidth="1000"
              mc:Ignorable="d">
@@ -21,11 +20,11 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
-        <TreeView x:Name="tw" DataContext="{Binding XmlData}" ItemsSource="{Binding XPath=Project/config}" />
-        <ContentControl Grid.Column="1" Content="{Binding ElementName=tw, Path=SelectedItem}">
+        <TreeView x:Name="Tw" DataContext="{Binding XmlData}" ItemsSource="{Binding XPath=Project/config}" />
+        <ContentControl Grid.Column="1" Content="{Binding ElementName=Tw, Path=SelectedItem}">
             <ContentControl.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>

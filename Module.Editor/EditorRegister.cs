@@ -8,8 +8,12 @@ namespace Module.Editor
 {
     public class EditorRegister : IModule
     {
+        #region Services
+
         private readonly IRegionManager _regionManager;
         private readonly IContainer _container;
+        
+        #endregion
 
         public EditorRegister(IRegionManager regionManager, IContainer container)
         {
@@ -17,13 +21,9 @@ namespace Module.Editor
             _container = container;
         }
 
-
         public void Initialize()
         {
-            _container.Configure(r =>
-            {
-                r.For<object>().Use<MainEditorView>().Named(nameof(MainEditorView)).SetProperty(p => p.DataContext = _container.GetInstance<MainEditorViewModel>());
-            });
+            _container.Configure(r => r.For<object>().Use<MainEditorView>().Named(nameof(MainEditorView)).SetProperty(p => p.DataContext = _container.GetInstance<EditorViewModel>()));
         }
     }
 

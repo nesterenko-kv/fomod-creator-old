@@ -8,6 +8,5 @@
         void CloseApp();
 
         void InitilizeBaseModules();
-
     }
 }

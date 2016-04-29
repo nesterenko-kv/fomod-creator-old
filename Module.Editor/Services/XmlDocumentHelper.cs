@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
-
-namespace Module.Editor.Services
+﻿namespace Module.Editor.Services
 {
     public class XmlDocumentHelper
     {
-        private void pri()
+        private void Pri()
         {
-            //var data = (this.tw.DataContext as XmlDataProvider);
+            //var data = (this.Tw.DataContext as XmlDataProvider);
             //var node = data.Document.ChildNodes[0].ChildNodes[0].ChildNodes[0];
             //node.InnerText += "AAAAA";
         }
