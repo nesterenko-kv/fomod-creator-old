@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="EditorRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\XmlDocumentHelper.cs" />
     <Compile Include="ViewModel\MainEditorViewModel.cs" />
     <Compile Include="View\MainEditor.xaml.cs">
       <DependentUpon>MainEditor.xaml</DependentUpon>
@@ -94,6 +95,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\DataTemplates\ContentTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\DataTemplates\HierarchicalDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\MainEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -13,70 +13,28 @@
 
     <!--  xmlns:linq="clr-namespace:Linq2Sql;assembly=Linq2Sql"  -->
     <UserControl.Resources>
-
-        <HierarchicalDataTemplate DataType="config"
-                                  ItemsSource="{Binding XPath=installSteps/installStep}">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding XPath=moduleName, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="{Binding XPath=installSteps/@order, StringFormat=[Order: {0}]}" />
-            </StackPanel>
-        </HierarchicalDataTemplate>
-
-        <HierarchicalDataTemplate DataType="installStep"
-                                  ItemsSource="{Binding XPath=optionalFileGroups/group}">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="installStep: " />
-                <TextBlock Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="{Binding XPath=optionalFileGroups/@order, StringFormat=[Order: {0}]}" />
-            </StackPanel>
-        </HierarchicalDataTemplate>
-
-        <HierarchicalDataTemplate DataType="group"
-                                  ItemsSource="{Binding XPath=plugins/plugin}">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="group: " />
-                <TextBlock Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="{Binding XPath=@type, UpdateSourceTrigger=PropertyChanged, StringFormat=[Type: {0}]}" />
-                <TextBlock Text="{Binding XPath=plugins/@order, StringFormat=[plugins Order: {0}]}" />
-            </StackPanel>
-        </HierarchicalDataTemplate>
-
-        <HierarchicalDataTemplate DataType="plugin">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="plugin: " />
-                <TextBlock Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-        </HierarchicalDataTemplate>
-
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DataTemplates/HierarchicalDataTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <TreeView x:Name="tw"
                   DataContext="{Binding XmlData}"
                   ItemsSource="{Binding XPath=Project/config}" />
-
-        <Button Content="aaaaa" Click="Button_Click" Grid.Column="2"/>
         <ContentControl Grid.Column="1"
                         Content="{Binding ElementName=tw, Path=SelectedItem}">
             <ContentControl.Resources>
-                <DataTemplate DataType="config">
-                    <StackPanel>
-                        <TextBox Text="{Binding XPath=moduleName, UpdateSourceTrigger=PropertyChanged}" />
-                        <StackPanel DataContext="{Binding XPath=ancestor::node()/Project/fomod}">
-                            <TextBox Text="{Binding XPath=Name}" />
-                            <TextBox Text="{Binding XPath=Author}" />
-                            <TextBox Text="{Binding XPath=Version}" />
-                            <TextBox Text="{Binding XPath=Website}" />
-                            <TextBox Text="{Binding XPath=Description}" />
-
-                            <ListBox ItemsSource="{Binding XPath=Groups}" />
-                        </StackPanel>
-                    </StackPanel>
-                </DataTemplate>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="DataTemplates/ContentTemplate.xaml" />
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
             </ContentControl.Resources>
         </ContentControl>
     </Grid>
