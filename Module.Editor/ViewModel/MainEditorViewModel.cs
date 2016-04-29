@@ -37,7 +37,7 @@ namespace Module.Editor.ViewModel
 
         public MainEditorViewModel(IRepository<XmlDataProvider> repository)
         {
-            _repository = repository;
+            _repository = repository; 
         }
 
         //public void OnNavigatedTo(NavigationContext navigationContext)
