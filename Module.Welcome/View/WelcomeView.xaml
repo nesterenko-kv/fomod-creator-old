@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:Module.Welcome.View"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:regions="http://prismlibrary.com/"
-             mc:Ignorable="d" d:DesignHeight="320" d:DesignWidth="1100">
+             d:DesignHeight="320"
+             d:DesignWidth="1100"
+             mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -30,97 +32,49 @@
                 Padding="42,21,42,18"
                 BorderThickness="1"
                 BorderBrush="{DynamicResource AccentColorBrush}"
-                SnapsToDevicePixels="True" Height="216" Margin="204,42,217,42" Width="304">
+                SnapsToDevicePixels="True">
             <StackPanel>
-                <StackPanel.Resources>
-                    <Style x:Key="GreenButton" BasedOn="{StaticResource SquareButtonStyle}" TargetType="{x:Type Button}">
-                        <Style.Resources>
-                            <SolidColorBrush x:Key="IsPressedBackground" Color="#FF197819" />
-                            <SolidColorBrush x:Key="IsPressedBorderBrush" Color="#FF197819" />
-                            <SolidColorBrush x:Key="IsPressedForeground" Color="White" />
-
-                            <SolidColorBrush x:Key="IsMouseOverBackground" Color="#FF4DA44D" />
-                            <SolidColorBrush x:Key="IsMouseOverBorderBrush" Color="#FF4DA44D" />
-                            <SolidColorBrush x:Key="IsMouseOverForeground" Color="White" />
-                        </Style.Resources>
-                        <Style.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="{StaticResource IsPressedBackground}" />
-                                <Setter Property="BorderBrush" Value="{StaticResource IsPressedBorderBrush}" />
-                                <Setter Property="Foreground" Value="{StaticResource IsPressedForeground}" />
-                            </Trigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsMouseOver" Value="True" />
-                                    <Condition Property="IsPressed" Value="False" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Foreground" Value="{StaticResource IsMouseOverForeground}" />
-                                <Setter Property="BorderBrush" Value="{StaticResource IsMouseOverBorderBrush}" />
-                                <Setter Property="Background" Value="{StaticResource IsMouseOverBackground}" />
-                            </MultiTrigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="#ADADAD" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-
-                    <Style x:Key="RedButton" BasedOn="{StaticResource SquareButtonStyle}" TargetType="{x:Type Button}">
-                        <Style.Resources>
-                            <SolidColorBrush x:Key="IsPressedBackground" Color="#FFC72E2E" />
-                            <SolidColorBrush x:Key="IsPressedBorderBrush" Color="#FFF34747" />
-                            <SolidColorBrush x:Key="IsPressedForeground" Color="White" />
-
-                            <SolidColorBrush x:Key="IsMouseOverBackground" Color="#FFF34747" />
-                            <SolidColorBrush x:Key="IsMouseOverBorderBrush" Color="#FFF34747" />
-                            <SolidColorBrush x:Key="IsMouseOverForeground" Color="White" />
-                        </Style.Resources>
-
-                        <Style.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="{StaticResource IsPressedBackground}" />
-                                <Setter Property="BorderBrush" Value="{StaticResource IsPressedBorderBrush}" />
-                                <Setter Property="Foreground" Value="{StaticResource IsPressedForeground}" />
-                            </Trigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsMouseOver" Value="True" />
-                                    <Condition Property="IsPressed" Value="False" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Foreground" Value="{StaticResource IsMouseOverForeground}" />
-                                <Setter Property="BorderBrush" Value="{StaticResource IsMouseOverBorderBrush}" />
-                                <Setter Property="Background" Value="{StaticResource IsMouseOverBackground}" />
-                            </MultiTrigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="#ADADAD" />
-                            </Trigger>
-                        </Style.Triggers>
-
-                    </Style>
-                </StackPanel.Resources>
                 <TextBlock Margin="0,0,0,21"
                            HorizontalAlignment="Center"
                            Text="Добро пожаловать!"
                            DockPanel.Dock="Top"
                            FontSize="18"
                            FontFamily="Segoe UI Light" />
-                <Button Margin="3" Command="{Binding CreateProject}" Style="{DynamicResource GreenButton}" controls:ControlsHelper.ContentCharacterCasing="Normal">
+                <Button Margin="3"
+                        controls:ControlsHelper.ContentCharacterCasing="Normal"
+                        Command="{Binding CreateProject}"
+                        Style="{DynamicResource GreenButton}">
                     <StackPanel Orientation="Horizontal">
-                        <Rectangle Height="16" Width="16" Margin="0 0 5 0">
+                        <Rectangle Width="16"
+                                   Height="16"
+                                   Margin="0 0 5 0">
                             <Rectangle.Fill>
                                 <VisualBrush Visual="{StaticResource appbar_folder}" />
                             </Rectangle.Fill>
-                            </Rectangle>
-                          <TextBlock Text="Создать проект" />
+                        </Rectangle>
+                        <TextBlock Text="Создать проект" />
                     </StackPanel>
                 </Button>
-                <Button Margin="3" Content="Открыть проект" Command="{Binding OpenProject}" Style="{DynamicResource GreenButton}" controls:ControlsHelper.ContentCharacterCasing="Normal"/>
-                <Button Margin="3" Content="Выход из программы" Command="{Binding CloseApplication}" Style="{DynamicResource RedButton}" controls:ControlsHelper.ContentCharacterCasing="Normal" />
+                <Button Margin="3"
+                        controls:ControlsHelper.ContentCharacterCasing="Normal"
+                        Content="Открыть проект"
+                        Command="{Binding OpenProject}"
+                        Style="{DynamicResource GreenButton}" />
+                <Button Margin="3"
+                        controls:ControlsHelper.ContentCharacterCasing="Normal"
+                        Content="Выход из программы"
+                        Command="{Binding CloseApplication}"
+                        Style="{DynamicResource RedButton}" />
             </StackPanel>
         </Border>
-        <GridSplitter Grid.Column="0" Width="1"
+        <GridSplitter Grid.Column="0"
+                      Width="1"
                       HorizontalAlignment="Right"
                       VerticalAlignment="Stretch"
-                      Panel.ZIndex="100" Background="{DynamicResource AccentColorBrush}" />
-        <ContentControl Margin="6 6 6 6" Grid.Column="0" regions:RegionManager.RegionName="RightRegion" />
+                      Panel.ZIndex="100"
+                      Background="{DynamicResource AccentColorBrush}" />
+        <ContentControl Grid.Column="0"
+                        Margin="6 6 6 6"
+                        regions:RegionManager.RegionName="RightRegion" />
     </Grid>
 </UserControl>
