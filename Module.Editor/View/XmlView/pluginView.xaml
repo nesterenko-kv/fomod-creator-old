@@ -7,10 +7,12 @@
              xmlns:local="clr-namespace:Module.Editor.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Name="uc"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
     <UserControl.Resources>
+
         <inf:Set x:Key="pluginTypeEnum" x:Shared="false">
             <sys:String>Required</sys:String>
             <sys:String>Optional</sys:String>
@@ -27,22 +29,72 @@
                  controls:TextBoxHelper.ClearTextButton="True"
                  controls:TextBoxHelper.UseFloatingWatermark="True"
                  controls:TextBoxHelper.Watermark="Имя плагина" />
-        <!--  TODO: typeDescriptor  -->
-        <ComboBox ItemsSource="{StaticResource pluginTypeEnum}"
-                  Text="{Binding XPath=typeDescriptor/dependencyType/defaultType/@name,
-                                 Path=Value}"
-                  controls:TextBoxHelper.UseFloatingWatermark="True"
-                  controls:TextBoxHelper.Watermark="Тип группы dependencyType" />
-        <ComboBox ItemsSource="{StaticResource pluginTypeEnum}"
-                  Text="{Binding XPath=typeDescriptor/type/@name,
-                                 Path=Value}"
-                  controls:TextBoxHelper.UseFloatingWatermark="True"
-                  controls:TextBoxHelper.Watermark="Тип группы" />
+
         <TextBox AcceptsReturn="True"
                  Text="{Binding XPath=description,
                                 UpdateSourceTrigger=PropertyChanged}"
                  TextWrapping="Wrap"
                  controls:TextBoxHelper.UseFloatingWatermark="True"
                  controls:TextBoxHelper.Watermark="Описание" />
+
+        <ContentControl>
+            <ContentControl.Template>
+
+                <ControlTemplate>
+
+                    <StackPanel x:Name="grid" Background="Gray">
+                        <ToggleButton x:Name="toggle"
+                                      Margin="22"
+                                      Command="{Binding DataContext.ChangeTypeCommand,
+                                                        ElementName=uc}"
+                                      CommandParameter="{Binding XPath=.}"
+                                      Content="Change typeDescriptor" />
+
+
+                        <StackPanel x:Name="simpleType">
+                            <!--  TODO: typeDescriptor  -->
+                            <ComboBox ItemsSource="{StaticResource pluginTypeEnum}"
+                                      SelectedItem="{Binding XPath=typeDescriptor/type/@name,
+                                                             Path=Value}"
+                                      controls:TextBoxHelper.UseFloatingWatermark="True"
+                                      controls:TextBoxHelper.Watermark="Тип группы" />
+                        </StackPanel>
+
+                        <StackPanel x:Name="strongType">
+                            <ComboBox ItemsSource="{StaticResource pluginTypeEnum}"
+                                      SelectedItem="{Binding XPath=typeDescriptor/dependencyType/defaultType/@name,
+                                                             Path=Value}"
+                                      controls:TextBoxHelper.UseFloatingWatermark="True"
+                                      controls:TextBoxHelper.Watermark="Тип группы dependencyType" />
+                        </StackPanel>
+
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding XPath=typeDescriptor/dependencyType}" Value="{x:Null}">
+                            <Setter TargetName="toggle" Property="IsChecked" Value="false" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding XPath=typeDescriptor/type}" Value="{x:Null}">
+                            <Setter TargetName="toggle" Property="IsChecked" Value="true" />
+                        </DataTrigger>
+
+
+                        <Trigger SourceName="toggle" Property="IsChecked" Value="true">
+                            <Setter TargetName="simpleType" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="strongType" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger SourceName="toggle" Property="IsChecked" Value="false">
+                            <Setter TargetName="simpleType" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="strongType" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </ContentControl.Template>
+        </ContentControl>
+
+
+
     </StackPanel>
 </UserControl>
+
+
+

@@ -84,6 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EditorRegister.cs" />
+    <Compile Include="Model\nodePlugin.cs" />
+    <Compile Include="Model\XmlData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\XmlDocumentHelper.cs" />
     <Compile Include="ViewModel\baseViewModel.cs" />
