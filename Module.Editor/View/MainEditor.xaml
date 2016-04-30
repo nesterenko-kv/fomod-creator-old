@@ -1,11 +1,11 @@
 ﻿<UserControl x:Class="Module.Editor.View.MainEditorView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Module.Editor.View"
-             xmlns:linq2Xml="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq"
-             xmlns:xmlsys="clr-namespace:System.Xml;assembly=System.Xml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:regions="http://prismlibrary.com/"
+             xmlns:uc="clr-namespace:FomodInfrastructure.Controls;assembly=FomodInfrastructure"
              d:DesignHeight="300"
              d:DesignWidth="1000"
              mc:Ignorable="d">
@@ -14,7 +14,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="DataTemplates/HierarchicalDataTemplate.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Module.Editor;component/View/DataTemplates/HierarchicalDataTemplate.xaml" />
+                <!--<ResourceDictionary Source="DataTemplates/HierarchicalDataTemplate.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -23,15 +24,19 @@
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
-        <TreeView x:Name="Tw" DataContext="{Binding XmlData}" ItemsSource="{Binding XPath=Project/config}" />
-        <ContentControl Grid.Column="1" Content="{Binding ElementName=Tw, Path=SelectedItem}">
-            <ContentControl.Resources>
-                <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="DataTemplates/ContentTemplate.xaml" />
-                    </ResourceDictionary.MergedDictionaries>
-                </ResourceDictionary>
-            </ContentControl.Resources>
+        <uc:MyTreeView x:Name="Tw"
+                       DataContext="{Binding XmlData}"
+                       ItemsSource="{Binding XPath=Project/config}"
+                       SelectedItem="{Binding Path=DataContext.CurentSelectedXmlNode,
+                                              Mode=OneWayToSource,
+                                              RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                             AncestorType=UserControl}}" />
+        <ContentControl Grid.Column="1" regions:RegionManager.RegionName="NodeRegion">
+            <!--<TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock DataContext="{Binding Content.DataContext.XmlNode, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}" Text="{Binding XPath=@name}"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>-->
         </ContentControl>
     </Grid>
 </UserControl>

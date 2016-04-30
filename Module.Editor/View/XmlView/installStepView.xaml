@@ -1,12 +1,12 @@
-﻿<UserControl x:Class="Module.Editor.View.DataTemplates.Controls.installStep"
+﻿<UserControl x:Class="Module.Editor.View.installStepView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Module.Editor.View.DataTemplates.Controls"
-             xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
+             xmlns:local="clr-namespace:Module.Editor.View"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -17,16 +17,17 @@
         </inf:Set>
     </UserControl.Resources>
     <!--  CompositeDependencyOperator  -->
-    <StackPanel>
-        <TextBox Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}"
-                 controls:TextBoxHelper.Watermark="Имя шага"
+    <StackPanel DataContext="{Binding XmlNode}">
+        <TextBox Text="{Binding XPath=@name,
+                                UpdateSourceTrigger=PropertyChanged}"
+                 controls:TextBoxHelper.ClearTextButton="True"
                  controls:TextBoxHelper.UseFloatingWatermark="True"
-                 controls:TextBoxHelper.ClearTextButton="True" />
+                 controls:TextBoxHelper.Watermark="Имя шага" />
 
         <!--  TODO: это должен быть список  -->
         <StackPanel DataContext="{Binding XPath=visible}">
             <!--  And  -->
-            <ComboBox SelectedItem="{Binding XPath=dependencies/@operator, Path=Value, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{StaticResource compositeDependencyOperator}" />
+            <ComboBox ItemsSource="{StaticResource compositeDependencyOperator}" SelectedItem="{Binding XPath=dependencies/@operator, Path=Value, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Text="{Binding XPath=dependencies/flagDependency/@flag, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Text="{Binding XPath=dependencies/flagDependency/@value, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>

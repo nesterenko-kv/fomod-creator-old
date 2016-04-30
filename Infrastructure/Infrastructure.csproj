@@ -51,7 +51,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aspect\AcpectDebugLoger.cs" />
     <Compile Include="Aspect\AspectINotifyPropertyChanged.cs" />
+    <Compile Include="Controls\ExtendedTreeView.cs" />
     <Compile Include="Interface\IAppService.cs" />
     <Compile Include="Interface\IFolderBrowserDialog.cs" />
     <Compile Include="Interface\IDataService.cs" />

@@ -1,29 +1,28 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <HierarchicalDataTemplate DataType="config" ItemsSource="{Binding XPath=installSteps/installStep}">
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="{Binding XPath=moduleName, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="{Binding XPath=installSteps/@order, StringFormat=[Order: {0}]}" />
+            <!--<TextBlock Text="{Binding XPath=installSteps/@order, StringFormat=[Order: {0}]}" />-->
         </StackPanel>
     </HierarchicalDataTemplate>
     <HierarchicalDataTemplate DataType="installStep" ItemsSource="{Binding XPath=optionalFileGroups/group}">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="installStep: " />
+            <!--<TextBlock Text="installStep: " />-->
             <TextBlock Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="{Binding XPath=optionalFileGroups/@order, StringFormat=[Order: {0}]}" />
+            <!--<TextBlock Text="{Binding XPath=optionalFileGroups/@order, StringFormat=[Order: {0}]}" />-->
         </StackPanel>
     </HierarchicalDataTemplate>
     <HierarchicalDataTemplate DataType="group" ItemsSource="{Binding XPath=plugins/plugin}">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="group: " />
+            <!--<TextBlock Text="group: " />-->
             <TextBlock Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="{Binding XPath=@type, UpdateSourceTrigger=PropertyChanged, StringFormat=[Type: {0}]}" />
-            <TextBlock Text="{Binding XPath=plugins/@order, StringFormat=[plugins Order: {0}]}" />
+            <!--<TextBlock Text="{Binding XPath=@type, UpdateSourceTrigger=PropertyChanged, StringFormat=[Type: {0}]}" />
+            <TextBlock Text="{Binding XPath=plugins/@order, StringFormat=[plugins Order: {0}]}" />-->
         </StackPanel>
     </HierarchicalDataTemplate>
     <HierarchicalDataTemplate DataType="plugin">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="plugin: " />
+            <!--<TextBlock Text="plugin: " />-->
             <TextBlock Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
     </HierarchicalDataTemplate>
