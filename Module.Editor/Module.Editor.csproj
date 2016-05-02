@@ -84,16 +84,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EditorRegister.cs" />
-    <Compile Include="Model\nodePlugin.cs" />
-    <Compile Include="Model\XmlData.cs" />
+    <Compile Include="Model\nodeBase.cs" />
+    <Compile Include="Model\nodePluginFileHelper.cs" />
+    <Compile Include="Model\nodePluginTypeHelper.cs" />
+    <Compile Include="Model\nodePluginHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\XmlDocumentHelper.cs" />
     <Compile Include="ViewModel\baseViewModel.cs" />
+    <Compile Include="ViewModel\XmlViewModel\Plugin\pluginFileViewMode.cs" />
+    <Compile Include="ViewModel\XmlViewModel\Plugin\pluginTypeViewModel.cs" />
     <Compile Include="ViewModel\XmlViewModel\configViewModel.cs" />
     <Compile Include="ViewModel\EditorViewModel.cs" />
     <Compile Include="ViewModel\XmlViewModel\groupViewModel.cs" />
     <Compile Include="ViewModel\XmlViewModel\installStepViewModel.cs" />
-    <Compile Include="ViewModel\XmlViewModel\pluginViewModel.cs" />
+    <Compile Include="ViewModel\XmlViewModel\Plugin\pluginViewModel.cs" />
+    <Compile Include="View\XmlView\Plugin\pluginTypeView.xaml.cs">
+      <DependentUpon>pluginTypeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\XmlView\configView.xaml.cs">
       <DependentUpon>configView.xaml</DependentUpon>
     </Compile>
@@ -106,8 +113,11 @@
     <Compile Include="View\MainEditor.xaml.cs">
       <DependentUpon>MainEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\XmlView\pluginView.xaml.cs">
+    <Compile Include="View\XmlView\Plugin\pluginView.xaml.cs">
       <DependentUpon>pluginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\XmlView\Plugin\pluginFileView.xaml.cs">
+      <DependentUpon>pluginFileView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +127,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\XmlView\Plugin\pluginTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\XmlView\configView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,7 +151,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\XmlView\pluginView.xaml">
+    <Page Include="View\XmlView\Plugin\pluginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\XmlView\Plugin\pluginFileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,6 +163,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

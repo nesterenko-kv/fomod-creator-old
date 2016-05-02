@@ -16,18 +16,18 @@ namespace Module.Editor.ViewModel
             _curentParamName = this.GetType().Name.Replace("ViewModel", "");
         }
 
-        public bool IsNavigationTarget(NavigationContext navigationContext)
+        public virtual bool IsNavigationTarget(NavigationContext navigationContext)
         {
             var xml = navigationContext.Parameters[_curentParamName] as XmlElement;
             return xml == null ? true : xml == XmlNode;
         }
 
-        public void OnNavigatedFrom(NavigationContext navigationContext)
+        public virtual void OnNavigatedFrom(NavigationContext navigationContext)
         {
 
         }
 
-        public void OnNavigatedTo(NavigationContext navigationContext)
+        public virtual void OnNavigatedTo(NavigationContext navigationContext)
         {
             XmlNode = navigationContext.Parameters[_curentParamName] as XmlElement;
             if (XmlNode == null) throw new ArgumentNullException("При навигации обязательныо нужно передавать параметры");
