@@ -9,11 +9,12 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Name="uc"
              d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignWidth="600"
              mc:Ignorable="d">
     <UserControl.Resources>
 
-        <inf:Set x:Key="pluginTypeEnum" x:Shared="false">
+        <inf:Set x:Key="pluginTypeEnum"
+                 x:Shared="false">
             <sys:String>Required</sys:String>
             <sys:String>Optional</sys:String>
             <sys:String>Recommended</sys:String>
@@ -25,12 +26,12 @@
 
             <DockPanel>
                 <Button Margin="1"
-                        Command="{Binding DataContext.RemoveImage,
-                                          ElementName=uc}"
+                        Command="{Binding DataContext.RemoveImage, ElementName=uc}"
                         CommandParameter="{Binding}"
                         Content="X"
                         DockPanel.Dock="Right" />
-                <TextBlock DockPanel.Dock="Left" Text="{Binding XPath=@path}">
+                <TextBlock DockPanel.Dock="Left"
+                           Text="{Binding XPath=@path}">
                     <TextBlock.ToolTip>
                         <Image Source="{Binding XPath=@path}" />
                     </TextBlock.ToolTip>
@@ -39,38 +40,54 @@
         </DataTemplate>
 
     </UserControl.Resources>
-    <ScrollViewer>
-        <StackPanel DataContext="{Binding XmlNode}">
-            <!--  Тут либо картинку с открытием диалога выбора пути при нажатии, либо просто текстбокс с валидацией  -->
-            <TextBox MaxHeight="38"
-                 controls:TextBoxHelper.ClearTextButton="True"
-                 controls:TextBoxHelper.UseFloatingWatermark="True"
-                 controls:TextBoxHelper.Watermark="Имя плагина"
-                 Text="{Binding XPath=@name,
-                                UpdateSourceTrigger=PropertyChanged}" />
+    <TabControl>
 
-            <TextBox controls:TextBoxHelper.UseFloatingWatermark="True"
-                 controls:TextBoxHelper.Watermark="Описание"
-                 AcceptsReturn="True"
-                 Text="{Binding XPath=description,
-                                UpdateSourceTrigger=PropertyChanged}"
-                 TextWrapping="Wrap" />
-            <Button Margin="3"
-                Command="{Binding DataContext.AddImage,
-                                  ElementName=uc}"
-                CommandParameter="C:\Users\amarf\Desktop\Снимок.PNG"
-                Content="ADd image" />
-            <ListBox MinHeight="50" ItemsSource="{Binding XPath=image}" />
+        <TabItem Header="Info">
+            <StackPanel DataContext="{Binding XmlNode}">
+                <!--  Тут либо картинку с открытием диалога выбора пути при нажатии, либо просто текстбокс с валидацией  -->
+                <TextBox MaxHeight="38"
+                         controls:TextBoxHelper.ClearTextButton="True"
+                         controls:TextBoxHelper.UseFloatingWatermark="True"
+                         controls:TextBoxHelper.Watermark="Имя плагина"
+                         Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
 
-            <StackPanel DataContext="{Binding ElementName=uc}">
-                <local:pluginFileView DataContext="{Binding DataContext.pluginFileViewMode}" />
+                <TextBox controls:TextBoxHelper.UseFloatingWatermark="True"
+                         controls:TextBoxHelper.Watermark="Описание"
+                         AcceptsReturn="True"
+                         Text="{Binding XPath=description, UpdateSourceTrigger=PropertyChanged}"
+                         TextWrapping="Wrap" />
+                <Button Margin="3"
+                        Command="{Binding DataContext.AddImage, ElementName=uc}"
+                        CommandParameter="C:\Users\amarf\Desktop\Снимок.PNG"
+                        Content="ADd image" />
+                <ListBox MinHeight="50"
+                         ItemsSource="{Binding XPath=image}" />
 
-                <local:pluginTypeView DataContext="{Binding DataContext.pluginTypeViewModel}" />
             </StackPanel>
+        </TabItem>
+        <TabItem Header="Files, folder and flags"
+                 DataContext="{Binding ElementName=uc}">
+            <DockPanel>
+                <ToggleButton Margin="6"
+                              Content="Change state"
+                              DockPanel.Dock="Top"
+                              IsChecked="{Binding DataContext.IsFilesFoldersFlags}" />
+                <TabControl>
+                    <TabItem Header="File and folder">
+                        <local:pluginFileView DataContext="{Binding DataContext.pluginFileViewMode}" />
+                    </TabItem>
+                    <TabItem Header="Flags">
+                        <local:pluginFlagsView DataContext="{Binding DataContext.pluginFlagsViewModel}" />
+                    </TabItem>
+                </TabControl>
+            </DockPanel>
+        </TabItem>
 
-
-        </StackPanel>
-    </ScrollViewer>
+        <TabItem Header="Type"
+                 DataContext="{Binding ElementName=uc}">
+            <local:pluginTypeView DataContext="{Binding DataContext.pluginTypeViewModel}" />
+        </TabItem>
+    </TabControl>
 </UserControl>
 
 

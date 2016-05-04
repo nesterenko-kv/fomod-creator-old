@@ -2,7 +2,9 @@
 using FomodInfrastructure.Aspect;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using Microsoft.Practices.ServiceLocation;
+using Module.Editor.Events;
 using Module.Editor.Model;
+using Prism.Events;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
@@ -14,22 +16,24 @@ using System.Xml;
 
 namespace Module.Editor.ViewModel
 {
+    [Aspect(typeof(AspectINotifyPropertyChanged))]
     public class pluginViewModel : baseViewModel
     {
         IServiceLocator _serviceLocator;
-        public pluginViewModel(IServiceLocator serviceLocator)
+        IEventAggregator _eventAggregator;
+
+        public pluginViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator)
         {
             _serviceLocator = serviceLocator;
+            _eventAggregator = eventAggregator;
         }
 
 
         private nodePluginHelper _nodePluginHelper;
 
-        [Aspect(typeof(AspectINotifyPropertyChanged))]
         public pluginTypeViewModel pluginTypeViewModel { get; set; }
-
-        [Aspect(typeof(AspectINotifyPropertyChanged))]
         public pluginFileViewMode pluginFileViewMode { get; set; }
+        public pluginFlagsViewModel pluginFlagsViewModel { get; set; }
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
@@ -37,8 +41,30 @@ namespace Module.Editor.ViewModel
             _nodePluginHelper = new nodePluginHelper(XmlNode);
 
 
+            var files = XmlNode.SelectSingleNode("files");
+            var conditionFlags = XmlNode.SelectSingleNode("conditionFlags");
+
+            if ((conditionFlags != null & files != null) && conditionFlags.PreviousSibling.Name == "files")
+            {
+                //1 var
+                IsFilesFoldersFlags = true;
+            }
+            else if (conditionFlags != null && files == null)
+            {
+                //2 var
+                IsFilesFoldersFlags = false;
+            }
+            else if (conditionFlags == null && files != null)
+            {
+                //1 var
+                IsFilesFoldersFlags = true;
+            }
+
+
             factory(nameof(pluginTypeViewModel), "typeDescriptor");
             factory(nameof(pluginFileViewMode), "plugin");
+            factory(nameof(pluginFlagsViewModel), "plugin");
+
         }
 
         private void factory(string propertyName, string nodeName) 
@@ -88,5 +114,22 @@ namespace Module.Editor.ViewModel
                 });
             }
         }
+
+        bool _isFilesFoldersFlags;
+        public bool IsFilesFoldersFlags
+        {
+            get
+            {
+                return _isFilesFoldersFlags;
+            }
+            set
+            {
+                _isFilesFoldersFlags = value;
+                _eventAggregator.GetEvent<FilesFoldersFlagsChanged>().Publish(value);
+            }
+        }
+
+
+
     }
 }

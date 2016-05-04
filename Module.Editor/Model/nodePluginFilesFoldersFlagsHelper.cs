@@ -7,13 +7,13 @@ using System.Xml;
 
 namespace Module.Editor.Model
 {
-    public class nodePluginFileHelper:nodeBase
+    public class nodePluginFilesFoldersFlagsHelper : nodeBase
     {
         private readonly XmlNode _typeDescriptorNode;
 
-        public nodePluginFileHelper(XmlNode node):base(node)
+        public nodePluginFilesFoldersFlagsHelper(XmlNode node) : base(node)
         {
-            if (node.Name != "typeDescriptor") throw new ArgumentException();
+            if (node.Name != "plugin") throw new ArgumentException();
             _typeDescriptorNode = node;
         }
 

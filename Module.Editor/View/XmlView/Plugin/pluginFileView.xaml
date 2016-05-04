@@ -3,71 +3,65 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Module.Editor.View"
+             xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <DataTemplate DataType="conditionFlags">
-            <Border Margin="12,2,2,2"
-                    BorderBrush="Yellow"
+
+
+        <DataTemplate DataType="file">
+            <DockPanel>
+                <TextBlock Text="file: "
+                           DockPanel.Dock="Left" />
+                <Button Margin="3"
+                        Content="x"
+                        DockPanel.Dock="Right" />
+                <TextBlock Text="{Binding XPath=@source}"
+                           DockPanel.Dock="Left" />
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate DataType="folder">
+            <DockPanel>
+                <TextBlock Text="folder: "
+                           DockPanel.Dock="Left" />
+                <Button Margin="3"
+                        Content="x"
+                        DockPanel.Dock="Right" />
+                <TextBlock Text="{Binding XPath=@source}"
+                           DockPanel.Dock="Left" />
+            </DockPanel>
+        </DataTemplate>
+
+
+
+        <DataTemplate DataType="files">
+            <Border Margin="3"
+                    BorderBrush="LightGray"
                     BorderThickness="1"
                     CornerRadius="3">
                 <StackPanel>
-                    <Button Margin="2" Content="add flag" />
-                    <ListBox ItemsSource="{Binding XPath=./*}" />
+                    <TextBlock Margin="6"
+                               Text="Группа файлов/папок" />
+                    <ListBox Margin="6"
+                             ItemsSource="{Binding XPath=./*}" />
                 </StackPanel>
             </Border>
         </DataTemplate>
-        <DataTemplate DataType="flag">
-            <DockPanel>
-                <Button Margin="2"
-                        Content="remove flag"
-                        DockPanel.Dock="Right" />
-                <TextBlock DockPanel.Dock="Left">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} {1}">
-                            <Binding XPath="@name" />
-                            <Binding XPath="." />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-            </DockPanel>
-        </DataTemplate>
+
+
     </UserControl.Resources>
 
+
     <StackPanel>
-        <StackPanel x:Name="var1" DataContext="{Binding XmlNode}">
-            <!--  Набор содержащий файлы и папки может быть только один  -->
-            <!--  Наборов содержащих флаги может быть сколько угодно и вкаждом их них может быть сколько угодно флагов но не нуль  -->
-            <Button Content="add file" />
-            <ListBox x:Name="files"
-                     MinHeight="25"
-                     DisplayMemberPath="@source"
-                     ItemsSource="{Binding XPath=./files/file}" />
-            <Button Content="add folder" />
-            <ListBox x:Name="folders"
-                     MinHeight="25"
-                     ItemsSource="{Binding XPath=./files/folder}" />
-            <Button Content="add conditionFlags" />
-            <ListBox x:Name="conditionFlags"
-                     MinHeight="25"
-                     ItemsSource="{Binding XPath=./conditionFlags}" />
-        </StackPanel>
 
 
-        <StackPanel x:Name="var2" DataContext="{Binding XmlNode}">
-            <!--  Наборов содержащий флаги может быть только один и в нем может быть сколько угодно флагов но не нуль  -->
-            <!--  Наборов содержащих файлы и папки может быть сколько угодно  -->
+        <ItemsControl DataContext="{Binding XmlNode}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ItemsSource="{Binding XPath=files}" />
 
-            <Button Content="add file" />
-            <ListBox MinHeight="25"
-                     DisplayMemberPath="@source"
-                     ItemsSource="{Binding XPath=./files/file}" />
-            <Button Content="add folder" />
-            <ListBox MinHeight="25" ItemsSource="{Binding XPath=./files/folder}" />
-            <Button Content="add conditionFlags" />
-            <ListBox MinHeight="25" ItemsSource="{Binding XPath=./conditionFlags}" />
-        </StackPanel>
+
     </StackPanel>
 </UserControl>

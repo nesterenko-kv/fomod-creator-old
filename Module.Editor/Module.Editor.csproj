@@ -84,20 +84,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EditorRegister.cs" />
+    <Compile Include="Events\FilesFoldersFlagsChanged.cs" />
     <Compile Include="Model\nodeBase.cs" />
-    <Compile Include="Model\nodePluginFileHelper.cs" />
+    <Compile Include="Model\nodePluginFilesFoldersFlagsHelper.cs" />
     <Compile Include="Model\nodePluginTypeHelper.cs" />
     <Compile Include="Model\nodePluginHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\XmlDocumentHelper.cs" />
     <Compile Include="ViewModel\baseViewModel.cs" />
     <Compile Include="ViewModel\XmlViewModel\Plugin\pluginFileViewMode.cs" />
+    <Compile Include="ViewModel\XmlViewModel\Plugin\pluginFlagsViewModel.cs" />
     <Compile Include="ViewModel\XmlViewModel\Plugin\pluginTypeViewModel.cs" />
     <Compile Include="ViewModel\XmlViewModel\configViewModel.cs" />
     <Compile Include="ViewModel\EditorViewModel.cs" />
     <Compile Include="ViewModel\XmlViewModel\groupViewModel.cs" />
     <Compile Include="ViewModel\XmlViewModel\installStepViewModel.cs" />
     <Compile Include="ViewModel\XmlViewModel\Plugin\pluginViewModel.cs" />
+    <Compile Include="View\XmlView\Plugin\pluginFlagsView.xaml.cs">
+      <DependentUpon>pluginFlagsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\XmlView\Plugin\pluginTypeView.xaml.cs">
       <DependentUpon>pluginTypeView.xaml</DependentUpon>
     </Compile>
@@ -127,6 +132,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\XmlView\Plugin\pluginFlagsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\XmlView\Plugin\pluginTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
