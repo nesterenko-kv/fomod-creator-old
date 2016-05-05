@@ -5,12 +5,9 @@ using Microsoft.Practices.ServiceLocation;
 using Prism.Events;
 using Prism.Regions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
+using Module.Editor.Resource;
 
 namespace Module.Editor.ViewModel
 {
@@ -18,19 +15,19 @@ namespace Module.Editor.ViewModel
     /// Base plugin info
     /// </summary>
     [Aspect(typeof(AspectINotifyPropertyChanged))]
-    public partial class pluginViewModel : baseViewModel
+    public partial class PluginViewModel
     {
         IServiceLocator _serviceLocator;
         IEventAggregator _eventAggregator;
 
-        public pluginViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator)
+        public PluginViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator)
         {
             _serviceLocator = serviceLocator;
             _eventAggregator = eventAggregator;
-
             filesCtor();
             FlagsCtor();
-        }
+            CurentParamName = Names.PluginName;
+    }
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
@@ -68,13 +65,13 @@ namespace Module.Editor.ViewModel
     /// <summary>
     /// Files and folders
     /// </summary>
-    public partial class pluginViewModel : baseViewModel
+    public partial class PluginViewModel
     {
         public bool IsFilesFoldersFlags { get; set; }
         
         void filesCtor()
         {
-            thenSetXmlNode((xmlNode) =>
+            ThenSetXmlNode((xmlNode) =>
             {
                 if (chkFrament_var1(xmlNode))
                     IsFilesFoldersFlags = true;
@@ -174,9 +171,8 @@ namespace Module.Editor.ViewModel
     /// <summary>
     /// Flags
     /// </summary>
-    public partial class pluginViewModel : baseViewModel
+    public partial class PluginViewModel : BaseViewModel
     {
-
         void FlagsCtor()
         {
             

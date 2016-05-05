@@ -30,7 +30,7 @@ namespace Module.Welcome
                 r.For<object>().Use<LastProjectsView>().Named(nameof(LastProjectsView)).SetProperty(p => p.DataContext = _container.GetInstance<LastProjectsViewModel>());
             });
             _regionManager.Regions[Names.TopRegion].RequestNavigate(nameof(WelcomeView));
-            _regionManager.Regions["RightRegion"].RequestNavigate(nameof(LastProjectsView));
+            _regionManager.Regions[Names.RightRegion].RequestNavigate(nameof(LastProjectsView));
 
         }
     }

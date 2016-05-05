@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
+using Module.Editor.Resource;
 
 namespace Module.Editor.Model
 {
-    public class nodePluginHelper: nodeBase
+    public class NodePluginHelper: NodeBase
     {
         private readonly XmlElement _pluginNode;
 
-        public nodePluginHelper(XmlElement pluginNode) : base(pluginNode)
+        public NodePluginHelper(XmlElement pluginNode) : base(pluginNode)
         {
-            if (pluginNode.Name != "plugin") throw new ArgumentException();
+            if (pluginNode.Name != Names.PluginName) throw new ArgumentException();
             _pluginNode = pluginNode;
         }
-
-
 
         private XmlNode GetDescription()
         {
@@ -30,17 +25,11 @@ namespace Module.Editor.Model
         public void AddImage(string path)
         {
             var lastImage = _pluginNode.SelectSingleNode("image[last()]");
-            _pluginNode.InsertAfter(CreateNode("image", new xAttribute { Name = "path", Value = path }), lastImage ?? GetDescription());
+            _pluginNode.InsertAfter(CreateNode("image", new XAttribute { Name = "path", Value = path }), lastImage ?? GetDescription());
         }
-        public void RemoveImage(XmlNode Node)
+        public void RemoveImage(XmlNode node)
         {
-             _pluginNode.RemoveChild(Node);
+             _pluginNode.RemoveChild(node);
         }
-
-
-
     }
-
-
-  
 }

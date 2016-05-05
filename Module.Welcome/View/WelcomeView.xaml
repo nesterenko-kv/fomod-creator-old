@@ -3,13 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Module.Welcome.View"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:regions="http://prismlibrary.com/"
              d:DesignHeight="320"
              d:DesignWidth="1100"
              mc:Ignorable="d"
              xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:names="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
              dialog:DialogParticipation.Register="{Binding}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -78,6 +77,6 @@
             </StackPanel>
         </Border>
         <GridSplitter Grid.Column="0" Width="1" Background="{DynamicResource AccentColorBrush}" />
-        <ContentControl Grid.Column="0" Margin="6 6 6 6" regions:RegionManager.RegionName="RightRegion" />
+        <ContentControl Grid.Column="0" Margin="6 6 6 6" regions:RegionManager.RegionName="{x:Static names:Names.RightRegion}" />
     </Grid>
 </UserControl>

@@ -6,38 +6,28 @@ using System.Collections.Generic;
 
 namespace Module.Editor.ViewModel
 {
-    public class baseViewModel : BindableBase, INavigationAware
+    public class BaseViewModel : BindableBase, INavigationAware
     {
-        private string _curentParamName;
-
-
-        protected XmlElement _xmlNode;
+        protected string CurentParamName { get; set; }
+        private XmlElement _xmlNode;
         public XmlElement XmlNode
         {
             get
             {
                 return _xmlNode;
             }
-            protected set
+            private set
             {
                 _xmlNode = value;
-                foreach (var action in actionList)
-                {
+                foreach (var action in _actionList)
                     action.Invoke(value);
-                }
             }
-        }
-
-
-        public baseViewModel()
-        {
-            _curentParamName = this.GetType().Name.Replace("ViewModel", "");
         }
 
         public virtual bool IsNavigationTarget(NavigationContext navigationContext)
         {
-            var xml = navigationContext.Parameters[_curentParamName] as XmlElement;
-            return xml == null ? true : xml == XmlNode;
+            var xml = navigationContext.Parameters[CurentParamName] as XmlElement;
+            return xml == null || xml == XmlNode;
         }
 
         public virtual void OnNavigatedFrom(NavigationContext navigationContext)
@@ -47,13 +37,16 @@ namespace Module.Editor.ViewModel
 
         public virtual void OnNavigatedTo(NavigationContext navigationContext)
         {
-            XmlNode = navigationContext.Parameters[_curentParamName] as XmlElement;
-            if (XmlNode == null) throw new ArgumentNullException("При навигации обязательныо нужно передавать параметры");
-            if (XmlNode.Name != _curentParamName) throw new ArgumentException("Передан не верный параметр");
+            XmlNode = navigationContext.Parameters[CurentParamName] as XmlElement;
+            if (XmlNode == null) throw new ArgumentNullException(nameof(navigationContext), "При навигации обязательныо нужно передавать параметры");
+            if (XmlNode.Name != CurentParamName) throw new ArgumentException("Передан не верный параметр");
         }
 
+        private readonly List<Action<XmlElement>> _actionList = new List<Action<XmlElement>>();
 
-        private List<Action<XmlElement>> actionList = new List<Action<XmlElement>>();
-        protected void thenSetXmlNode(Action<XmlElement> action) { actionList.Add(action); }
+        public void ThenSetXmlNode(Action<XmlElement> action)
+        {
+            _actionList.Add(action);
+        }
     }
 }

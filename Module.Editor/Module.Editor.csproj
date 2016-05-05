@@ -84,17 +84,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EditorRegister.cs" />
-    <Compile Include="Model\nodeBase.cs" />
-    <Compile Include="Model\nodePluginFilesFoldersFlagsHelper.cs" />
+    <Compile Include="Model\NodeBase.cs" />
+    <Compile Include="Model\NodePluginFilesFoldersFlagsHelper.cs" />
     <Compile Include="Model\nodePluginTypeHelper.cs" />
     <Compile Include="Model\nodePluginHelper.cs" />
+    <Compile Include="Model\XAttribute.cs" />
+    <Compile Include="Model\XElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\baseViewModel.cs" />
-    <Compile Include="ViewModel\configViewModel.cs" />
+    <Compile Include="Resource\ParamNames.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ConfigViewModel.cs" />
     <Compile Include="ViewModel\EditorViewModel.cs" />
-    <Compile Include="ViewModel\groupViewModel.cs" />
-    <Compile Include="ViewModel\installStepViewModel.cs" />
-    <Compile Include="ViewModel\pluginViewModel.cs" />
+    <Compile Include="ViewModel\GroupViewModel.cs" />
+    <Compile Include="ViewModel\InstallStepViewModel.cs" />
+    <Compile Include="ViewModel\PluginViewModel.cs" />
     <Compile Include="View\Plugin\pluginFlagsView.xaml.cs">
       <DependentUpon>pluginFlagsView.xaml</DependentUpon>
     </Compile>

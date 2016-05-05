@@ -12,8 +12,6 @@ namespace Module.Editor.ViewModel
     {
         private XmlElement _node;
 
-
-
         #region Properties
 
         [Aspect(typeof(AspectINotifyPropertyChanged))]
@@ -25,7 +23,7 @@ namespace Module.Editor.ViewModel
         {
             get { return _node; }
             set
-            { //NodeRegion
+            { 
                 _node = value;
                 if (value == null) return;
 
@@ -49,16 +47,13 @@ namespace Module.Editor.ViewModel
         {
             _repository = repository;
             _regionManager = regionManager;
-
         }
        
-
         private XmlDataProvider _xmlData;
         public XmlDataProvider XmlData
         {
             get
-            {
-                
+            {  
                 if (_xmlData == null)
                     _xmlData = _repository.GetData();
                 return _xmlData;

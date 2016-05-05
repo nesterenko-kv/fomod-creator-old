@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace Module.Editor.Model
 {
-    public class nodePluginTypeHelper: nodeBase
+    public class nodePluginTypeHelper: NodeBase
     {
         private readonly XmlNode _typeDescriptorNode;
 
         private XmlNode _previewSimpleTypeDescriptor;
         private XmlNode _previewStrongeTypeDescriptor;
-        //private object typeDescriptor;
 
         public nodePluginTypeHelper(XmlNode pluginNode): base(pluginNode)
         {
@@ -57,14 +52,10 @@ namespace Module.Editor.Model
         public void ChangeTypeToSimpleType()
         {
             var typeDescriptor = GetTypeDescriptor();
-
             _previewStrongeTypeDescriptor = GetStrongType();
-
-            var newValue = _previewSimpleTypeDescriptor != null ? _previewSimpleTypeDescriptor : CreateNode("type", new xAttribute { Name = "name", Value = "NotUsable" });
+            var newValue = _previewSimpleTypeDescriptor ?? CreateNode("type", new XAttribute { Name = "name", Value = "NotUsable" });
             var oldValue = typeDescriptor.SelectSingleNode("dependencyType");
-
-
-            _typeDescriptorNode.ReplaceChild(newValue, oldValue);
+            if (oldValue != null) _typeDescriptorNode.ReplaceChild(newValue, oldValue);
         }
         public void ChangeTypeToCompositeType()
         {
@@ -77,7 +68,7 @@ namespace Module.Editor.Model
             if (newValue == null)
             {
                 var dependencyType = CreateNode("dependencyType");
-                var defaultType = CreateNode("defaultType", new xAttribute { Name = "name", Value = "Recommended" });
+                var defaultType = CreateNode("defaultType", new XAttribute { Name = "name", Value = "Recommended" });
                 dependencyType.AppendChild(defaultType);
                 newValue = dependencyType;
             }
@@ -87,10 +78,5 @@ namespace Module.Editor.Model
 
         #endregion
 
-
-      
-    }
-
-
-   
+    } 
 }

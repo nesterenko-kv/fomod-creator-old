@@ -3,15 +3,13 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure">
 
-    <inf:Set x:Key="compositeDependencyOperator"
-             x:Shared="false">
+    <inf:Set x:Key="compositeDependencyOperator" x:Shared="false">
         <sys:String>And</sys:String>
         <sys:String>Or</sys:String>
     </inf:Set>
 
 
-    <inf:Set x:Key="flagValueEnum"
-             x:Shared="false">
+    <inf:Set x:Key="flagValueEnum" x:Shared="false">
         <sys:String>On</sys:String>
         <sys:String>Off</sys:String>
     </inf:Set>

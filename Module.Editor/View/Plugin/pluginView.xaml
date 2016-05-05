@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Module.Editor.View.pluginView"
+﻿<UserControl x:Class="Module.Editor.View.Plugin.pluginView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:Module.Editor.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:plugin="clr-namespace:Module.Editor.View.Plugin"
              x:Name="uc"
              d:DesignHeight="300"
              d:DesignWidth="600"
@@ -51,7 +52,7 @@
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
                             <DockPanel x:Name="container" VerticalAlignment="Top" DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}}">
-                                <local:pluginFileView x:Name="files" />
+                                <plugin:pluginFileView x:Name="files" />
                                 <local:pluginFlagsView x:Name="flags" />
                             </DockPanel>
                             <DataTemplate.Triggers>

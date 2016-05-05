@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Module.Editor.Resource;
 
 namespace Module.Editor.ViewModel
 {
-    class groupViewModel : baseViewModel
+    public class GroupViewModel : BaseViewModel
     {
+        public GroupViewModel()
+        {
+            CurentParamName = Names.GroupName;
+        }
     }
 }
