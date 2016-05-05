@@ -1,4 +1,6 @@
-﻿using FomodInfrastructure.Interface;
+﻿using AspectInjector.Broker;
+using FomodInfrastructure.Aspect;
+using FomodInfrastructure.Interface;
 using System;
 using System.IO;
 using System.Windows.Data;
@@ -7,6 +9,7 @@ using System.Xml.Linq;
 
 namespace MainApplication.Services
 {
+    [Aspect(typeof(AspectINotifyPropertyChanged))]
     public class RepositoryXml : IRepository<XmlDataProvider>
     {
         private const string InfoSubPath = @"\fomod\info.xml";
@@ -36,7 +39,8 @@ namespace MainApplication.Services
         {
             if (string.IsNullOrWhiteSpace(path))
                 throw new FileNotFoundException();
-            if (!CheckFiles(path)) return null;
+            //if (!CheckFiles(path)) return null;
+            if (!File.Exists(path + InfoSubPath) | !File.Exists(path + ConfigurationSubPath)) return null;
             try
             {
                 _xmlData = new XmlDataProvider();

@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:regions="http://prismlibrary.com/"
+             xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:names="clr-namespace:Module.Welcome.Resources"
              d:DesignHeight="320"
              d:DesignWidth="1100"
-             mc:Ignorable="d"
-             xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-             xmlns:names="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
-             dialog:DialogParticipation.Register="{Binding}">
+             dialog:DialogParticipation.Register="{Binding}"
+             mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -42,7 +42,9 @@
                         Command="{Binding CreateProject}"
                         Style="{DynamicResource GreenButton}">
                     <StackPanel Orientation="Horizontal">
-                        <Rectangle Width="12.21" Height="16" Margin="0 0 5 0">
+                        <Rectangle Width="12.21"
+                                   Height="16"
+                                   Margin="0 0 5 0">
                             <Rectangle.Fill>
                                 <VisualBrush Visual="{StaticResource appbar_page_solid}" />
                             </Rectangle.Fill>
@@ -50,10 +52,14 @@
                         <TextBlock Text="Создать проект" />
                     </StackPanel>
                 </Button>
-                <Button Margin="3" Command="{Binding OpenProject}" Style="{DynamicResource GreenButton}">
+                <Button Margin="3"
+                        Command="{Binding OpenProject}"
+                        Style="{DynamicResource GreenButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <Rectangle Width="14.21" Height="16" Margin="0 0 5 0">
+                            <Rectangle Width="14.21"
+                                       Height="16"
+                                       Margin="0 0 5 0">
                                 <Rectangle.Fill>
                                     <VisualBrush Visual="{StaticResource appbar_page_solid_move}" />
                                 </Rectangle.Fill>
@@ -62,10 +68,14 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button Margin="3" Command="{Binding CloseApplication}" Style="{DynamicResource RedButton}">
+                <Button Margin="3"
+                        Command="{Binding CloseApplication}"
+                        Style="{DynamicResource RedButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <Rectangle Width="14" Height="14" Margin="0 0 5 0">
+                            <Rectangle Width="14"
+                                       Height="14"
+                                       Margin="0 0 5 0">
                                 <Rectangle.Fill>
                                     <VisualBrush Visual="{StaticResource appbar_close}" />
                                 </Rectangle.Fill>
@@ -76,7 +86,11 @@
                 </Button>
             </StackPanel>
         </Border>
-        <GridSplitter Grid.Column="0" Width="1" Background="{DynamicResource AccentColorBrush}" />
-        <ContentControl Grid.Column="0" Margin="6 6 6 6" regions:RegionManager.RegionName="{x:Static names:Names.RightRegion}" />
+        <GridSplitter Grid.Column="0"
+                      Width="1"
+                      Background="{DynamicResource AccentColorBrush}" />
+        <ContentControl Grid.Column="0"
+                        Margin="6 6 6 6"
+                        regions:RegionManager.RegionName="{x:Static names:localNames.LeftRegion}" />
     </Grid>
 </UserControl>

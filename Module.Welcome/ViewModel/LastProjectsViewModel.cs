@@ -41,7 +41,8 @@ namespace Module.Welcome.ViewModel
             get
             {
                 if (_goTo == null)
-                    _goTo = new RelayCommand(p => _eventAggregator.GetEvent<OpenLink>().Publish(p.ToString()));
+                    _goTo = new RelayCommand(p => 
+                    _eventAggregator.GetEvent<OpenLink>().Publish(p.ToString()));
                 return _goTo;
             }
         }
