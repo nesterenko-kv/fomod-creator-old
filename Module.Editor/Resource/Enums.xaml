@@ -14,4 +14,12 @@
         <sys:String>Off</sys:String>
     </inf:Set>
 
+    <inf:Set x:Key="pluginTypeEnum" x:Shared="false">
+        <sys:String>Required</sys:String>
+        <sys:String>Optional</sys:String>
+        <sys:String>Recommended</sys:String>
+        <sys:String>NotUsable</sys:String>
+        <sys:String>CouldBeUsable</sys:String>
+    </inf:Set>
+    
 </ResourceDictionary>  

@@ -3,7 +3,6 @@ using FomodInfrastructure.Aspect;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Events;
-using Prism.Regions;
 using System;
 using System.Windows.Input;
 using System.Xml;
@@ -14,64 +13,114 @@ namespace Module.Editor.ViewModel
     /// <summary>
     /// Base plugin info
     /// </summary>
+    /// 
     [Aspect(typeof(AspectINotifyPropertyChanged))]
     public partial class PluginViewModel
     {
-        IServiceLocator _serviceLocator;
-        IEventAggregator _eventAggregator;
+        #region Services
 
-        public PluginViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator)
-        {
-            _serviceLocator = serviceLocator;
-            _eventAggregator = eventAggregator;
-            filesCtor();
-            FlagsCtor();
-            CurentParamName = Names.PluginName;
-    }
+        private IServiceLocator _serviceLocator;
+        private IEventAggregator _eventAggregator;
 
-        public override void OnNavigatedTo(NavigationContext navigationContext)
-        {
-            base.OnNavigatedTo(navigationContext);
-        }
+        #endregion
+        
+        #region Commands
 
-        ICommand _addImage;
+        private ICommand _addImage;
+        private ICommand _removeImage;
+
         public ICommand AddImage
         {
             get
             {
                 //TODO сделать проверку передаваемого параметра
-                return _addImage != null ? _addImage : _addImage = new RelayCommand(p =>
-                    {
+                return _addImage ?? (_addImage = new RelayCommand(p =>
+                {
                     //_nodePluginHelper.AddImage(p.ToString());
-                });
+                }));
             }
         }
 
-        ICommand _removeImage;
         public ICommand RemoveImage
         {
             get
             {
                 //TODO сделать проверку передаваемого параметра или диалог выбора файлов (мнодественный) а также проверку форматов картинок (авось что то не то передадут)
-                return _removeImage != null ? _removeImage : _removeImage = new RelayCommand(p =>
+                return _removeImage ?? (_removeImage = new RelayCommand(p =>
                 {
                     //_nodePluginHelper.RemoveImage(p as XmlNode);
-                });
+                }));
             }
         }
 
+        #endregion
+
+        public PluginViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator)
+        {
+            _serviceLocator = serviceLocator;
+            _eventAggregator = eventAggregator;
+            FilesCtor();
+            FlagsCtor();
+            CurentParamName = Names.PluginName;
+        }
     }
 
     /// <summary>
-    /// Files and folders
+    /// Files & Folders
     /// </summary>
     public partial class PluginViewModel
     {
-        public bool IsFilesFoldersFlags { get; set; }
-        
-        void filesCtor()
+        #region Commands
+
+        private ICommand _addFileFolderGroup;
+        private ICommand _removeFileFolderGroup;
+        private ICommand _removeFile;
+        private ICommand _addFile;
+        private ICommand _addFolder;
+
+        public ICommand AddFileFolderGroup
         {
-            ThenSetXmlNode((xmlNode) =>
+            get
+            {
+                return _addFileFolderGroup ?? (_addFileFolderGroup = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! Added files group")));
+            }
+        }
+        public ICommand RemoveFileFolderGroup
+        {
+            get
+            {
+                return _removeFileFolderGroup ?? (_removeFileFolderGroup = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! Remove files group")));
+            }
+        }
+        public ICommand RemoveFile
+        {
+            get
+            {
+                return _removeFile ?? (_removeFile = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! Remove FILE/FOLDE")));
+            }
+        }
+        public ICommand AddFile
+        {
+            get
+            {
+                return _addFile ?? (_addFile = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! added file")));
+            }
+        }
+        public ICommand AddFolder
+        {
+            get
+            {
+                return _addFolder ?? (_addFolder = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! added folder")));
+            }
+        }
+        
+        #endregion
+
+        public bool IsFilesFoldersFlags { get; set; }
+
+        private void FilesCtor()
+        {
+            ThenSetXmlNode(xmlNode =>
             {
                 if (chkFrament_var1(xmlNode))
                     IsFilesFoldersFlags = true;
@@ -82,7 +131,7 @@ namespace Module.Editor.ViewModel
             });
         }
 
-        private bool chkFrament_var2(XmlNode xdoc)
+        private static bool chkFrament_var2(XmlNode xdoc)
         {
             var cFlags = xdoc.SelectNodes("conditionFlags");
             var files = xdoc.SelectNodes("files");
@@ -93,7 +142,7 @@ namespace Module.Editor.ViewModel
                 return false;
             return true;
         }
-        private bool chkFrament_var1(XmlNode pluginNode)
+        private static bool chkFrament_var1(XmlNode pluginNode)
         {
             var cFlags = pluginNode.SelectNodes("conditionFlags");
             var files = pluginNode.SelectNodes("files");
@@ -104,68 +153,6 @@ namespace Module.Editor.ViewModel
                 return false;
             return true;
         }
-
-
-
-        ICommand _addFileFolderGroup;
-        public ICommand AddFileFolderGroup
-        {
-            get
-            {
-                return _addFileFolderGroup != null ? _addFileFolderGroup : _addFileFolderGroup = new RelayCommand(p =>
-                {
-                    System.Windows.MessageBox.Show("Wow! Added files group");
-                });
-            }
-        }
-
-        ICommand _removeFileFolderGroup;
-        public ICommand RemoveFileFolderGroup
-        {
-            get
-            {
-                return _removeFileFolderGroup != null ? _removeFileFolderGroup : _removeFileFolderGroup = new RelayCommand(p =>
-                {
-                    System.Windows.MessageBox.Show("Wow! Remove files group");
-                });
-            }
-        }
-
-        ICommand _removeFile;
-        public ICommand RemoveFile
-        {
-            get
-            {
-                return _removeFile != null ? _removeFile : _removeFile = new RelayCommand(p =>
-                {
-                    System.Windows.MessageBox.Show("Wow! Remove FILE/FOLDE");
-                });
-            }
-        }
-        ICommand _addFile;
-        public ICommand AddFile
-        {
-            get
-            {
-                return _addFile != null ? _addFile : _addFile = new RelayCommand(p =>
-                {
-                    System.Windows.MessageBox.Show("Wow! added file");
-                });
-            }
-        }
-
-        ICommand _addFolder;
-        public ICommand AddFolder
-        {
-            get
-            {
-                return _addFolder != null ? _addFolder : _addFolder = new RelayCommand(p =>
-                {
-                    System.Windows.MessageBox.Show("Wow! added folder");
-                });
-            }
-        }
-
     }
 
     /// <summary>
@@ -173,58 +160,52 @@ namespace Module.Editor.ViewModel
     /// </summary>
     public partial class PluginViewModel : BaseViewModel
     {
-        void FlagsCtor()
-        {
-            
-        }
+        #region Commands
 
-        ICommand _addFlagsGroup;
+        private ICommand _addFlagsGroup;
+        private ICommand _removeFlagsGroup;
+        private ICommand _removeFlag;
+        private ICommand _addFlag;
+
         public ICommand AddFlagsGroup
         {
             get
             {
-                return _addFlagsGroup != null ? _addFlagsGroup : _addFlagsGroup = new RelayCommand(p =>
-                {
-                    System.Windows.MessageBox.Show("Wow! Added flags group");
-                });
+                return _addFlagsGroup ?? (_addFlagsGroup = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! Added flags group")));
             }
         }
 
-        ICommand _removeFlagsGroup;
         public ICommand RemoveFlagsGroup
         {
             get
             {
-                return _removeFlagsGroup != null ? _removeFlagsGroup : _removeFlagsGroup = new RelayCommand(p =>
-                {
-                    System.Windows.MessageBox.Show("Wow! Remove flags group");
-                });
+                return _removeFlagsGroup ?? (_removeFlagsGroup = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! Remove flags group")));
             }
         }
 
-        ICommand _removeFlag;
         public ICommand RemoveFlag
         {
             get
             {
-                return _removeFlag != null ? _removeFlag : _removeFlag = new RelayCommand(p =>
-                {
-                    System.Windows.MessageBox.Show("Wow! Remove FLAG");
-                });
+                return _removeFlag ?? (_removeFlag = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! Remove FLAG")));
             }
         }
-        ICommand _addFlag;
+
         public ICommand AddFlag
         {
             get
             {
-                return _addFlag != null ? _addFlag : _addFlag = new RelayCommand(p =>
-                {
-                    System.Windows.MessageBox.Show("Wow! added FLAG");
-                });
+                return _addFlag ?? (_addFlag = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! added FLAG")));
             }
         }
+        
+        #endregion
+
+        private void FlagsCtor()
+        {
+            
+        }
+        
     }
-
-
+    
 }

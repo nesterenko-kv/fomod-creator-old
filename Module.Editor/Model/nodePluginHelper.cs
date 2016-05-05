@@ -16,10 +16,9 @@ namespace Module.Editor.Model
 
         private XmlNode GetDescription()
         {
-            var descriptor = _pluginNode.SelectSingleNode("description");
-            if (descriptor == null) throw new ArgumentException();
-
-            return descriptor;
+            var description = _pluginNode.SelectSingleNode("description");
+            if (description == null) throw new ArgumentException();
+            return description;
         }
 
         public void AddImage(string path)

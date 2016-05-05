@@ -59,22 +59,17 @@ namespace Module.Welcome.ViewModel
             {
                 var project = ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p);
                 if (project != null) return;
-                ProjectLinkList.Links.Add(new ProjectLinkModel { FolderPath = p });
+                ProjectLinkList.Links.Add(new ProjectLinkModel {FolderPath = p});
                 SaveProjectLinkListFile();
             });
         }
 
-        private ProjectLinkList ReadProjectLinkListFile()
-        {
-            if (File.Exists(_basePath + SubPath))
-                return _dataService.DeserializeObject<ProjectLinkList>(_basePath + SubPath);
-            return null;
-        }
+        private ProjectLinkList ReadProjectLinkListFile() => File.Exists(_basePath + SubPath) ? _dataService.DeserializeObject<ProjectLinkList>(_basePath + SubPath) : null;
 
         private void SaveProjectLinkListFile()
         {
-            if (!Directory.Exists(_basePath)) return;
-            _dataService.SerializeObject(ProjectLinkList, _basePath + SubPath);
+            if (Directory.Exists(_basePath))
+                _dataService.SerializeObject(ProjectLinkList, _basePath + SubPath);
         }
     }
 }

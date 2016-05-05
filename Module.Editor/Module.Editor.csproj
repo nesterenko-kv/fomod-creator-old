@@ -86,12 +86,12 @@
     <Compile Include="EditorRegister.cs" />
     <Compile Include="Model\NodeBase.cs" />
     <Compile Include="Model\NodePluginFilesFoldersFlagsHelper.cs" />
-    <Compile Include="Model\nodePluginTypeHelper.cs" />
-    <Compile Include="Model\nodePluginHelper.cs" />
+    <Compile Include="Model\NodePluginTypeHelper.cs" />
+    <Compile Include="Model\NodePluginHelper.cs" />
     <Compile Include="Model\XAttribute.cs" />
     <Compile Include="Model\XElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource\ParamNames.cs" />
+    <Compile Include="Resource\Names.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ConfigViewModel.cs" />
     <Compile Include="ViewModel\EditorViewModel.cs" />

@@ -16,6 +16,7 @@ namespace MainApplication.Boot
             var shell = Container.GetInstance<Shell>();
             return shell;
         }
+
         protected override void InitializeShell()
         {
             Application.Current.MainWindow = (Window)Shell;
@@ -34,10 +35,7 @@ namespace MainApplication.Boot
             });
         }
 
-        protected override ILoggerFacade CreateLogger()
-        {
-            return new Logger();
-        }
+        protected override ILoggerFacade CreateLogger() => new Logger();
 
         protected override void InitializeModules()
         {

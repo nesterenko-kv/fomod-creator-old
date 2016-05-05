@@ -48,12 +48,12 @@ namespace Module.Editor.ViewModel
             _repository = repository;
             _regionManager = regionManager;
         }
-       
+
         private XmlDataProvider _xmlData;
         public XmlDataProvider XmlData
         {
             get
-            {  
+            {
                 if (_xmlData == null)
                     _xmlData = _repository.GetData();
                 return _xmlData;

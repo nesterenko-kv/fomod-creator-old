@@ -3,14 +3,14 @@ using System.Xml;
 
 namespace Module.Editor.Model
 {
-    public class nodePluginTypeHelper: NodeBase
+    public class NodePluginTypeHelper: NodeBase
     {
         private readonly XmlNode _typeDescriptorNode;
 
         private XmlNode _previewSimpleTypeDescriptor;
         private XmlNode _previewStrongeTypeDescriptor;
 
-        public nodePluginTypeHelper(XmlNode pluginNode): base(pluginNode)
+        public NodePluginTypeHelper(XmlNode pluginNode): base(pluginNode)
         {
             if (pluginNode.Name != "typeDescriptor") throw new ArgumentException();
             _typeDescriptorNode = pluginNode;
@@ -73,7 +73,7 @@ namespace Module.Editor.Model
                 newValue = dependencyType;
             }
 
-            _typeDescriptorNode.ReplaceChild(newValue, oldValue);
+            if (oldValue != null) _typeDescriptorNode.ReplaceChild(newValue, oldValue);
         }
 
         #endregion
