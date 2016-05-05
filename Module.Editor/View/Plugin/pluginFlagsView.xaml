@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="Module.Editor.View.pluginFlagsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Module.Editor.View"
+             xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Module.Editor;component/Resource/Enums.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="flag">
+                <DockPanel>
+                    <ComboBox Margin="0"
+                              ItemsSource="{StaticResource flagValueEnum}"
+                              SelectedValue="{Binding XPath=text()}"
+                              DockPanel.Dock="Left" />
+                    <Button Width="30"
+                            Content="x"
+                            DockPanel.Dock="Right"
+                            Command="{Binding DataContext.RemoveFlag, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor, AncestorLevel=3}}"
+                            CommandParameter="{Binding}" />
+                    <TextBox Margin="6,0"
+                             DockPanel.Dock="Left"
+                             Text="{Binding XPath=@name}" />
+                </DockPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <StackPanel>
+        <ContentControl>
+            <ContentControl.Resources>
+                <DataTemplate x:Key="NotRemoveFlagTemplate"
+                              DataType="conditionFlags">
+                    <Border Margin="3"
+                            BorderBrush="LightGray"
+                            BorderThickness="1"
+                            CornerRadius="3">
+                        <StackPanel>
+                            <DockPanel DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}">
+                                <TextBlock Margin="6"
+                                           Text="Группа флагов"
+                                           DockPanel.Dock="Left" />
+                            </DockPanel>
+                            <ListBox Margin="6"
+                                     ItemsSource="{Binding XPath=./*}" />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+
+                <DataTemplate x:Key="RemoveFlagTemplate"
+                              DataType="files">
+                    <Border Margin="3"
+                            BorderBrush="LightGray"
+                            BorderThickness="1"
+                            CornerRadius="3">
+                        <StackPanel>
+                            <DockPanel DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}">
+                                <Button Margin="6"
+                                        DockPanel.Dock="Right"
+                                        Content="Remove Flags Group"
+                                        Command="{Binding RemoveFlagsGroup}"
+                                        CommandParameter="{Binding}" />
+                                <Button Margin="6"
+                                        DockPanel.Dock="Right"
+                                        Content="Add flag"
+                                        Command="{Binding AddFlag}"
+                                        CommandParameter="{Binding}" />
+                                <TextBlock Margin="6"
+                                           Text="Группа флагов"
+                                           DockPanel.Dock="Left" />
+                            </DockPanel>
+                            <ListBox Margin="6"
+                                     ItemsSource="{Binding XPath=./*}" />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+
+            </ContentControl.Resources>
+            <ContentControl.Template>
+                <ControlTemplate>
+                    <StackPanel>
+                        <Button x:Name="FlagAddButton"
+                                Margin="3"
+                                Content="Add flags group"
+                                Command="{Binding AddFlagsGroup}" />
+
+                        <ItemsControl x:Name="FlagList"
+                                      DataContext="{Binding XmlNode}"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      ItemsSource="{Binding XPath=conditionFlags}" />
+
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}"
+                                     Value="false">
+                            <Setter TargetName="FlagList" Property="ItemTemplate" Value="{StaticResource NotRemoveFlagTemplate}" />
+                            <Setter TargetName="FlagAddButton" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}"
+                                     Value="true">
+                            <Setter TargetName="FlagList" Property="ItemTemplate" Value="{StaticResource RemoveFlagTemplate}" />
+                            <Setter TargetName="FlagAddButton" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </ContentControl.Template>
+        </ContentControl>
+
+
+
+    </StackPanel>
+</UserControl>

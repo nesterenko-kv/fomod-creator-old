@@ -84,44 +84,39 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EditorRegister.cs" />
-    <Compile Include="Events\FilesFoldersFlagsChanged.cs" />
     <Compile Include="Model\nodeBase.cs" />
     <Compile Include="Model\nodePluginFilesFoldersFlagsHelper.cs" />
     <Compile Include="Model\nodePluginTypeHelper.cs" />
     <Compile Include="Model\nodePluginHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\XmlDocumentHelper.cs" />
     <Compile Include="ViewModel\baseViewModel.cs" />
-    <Compile Include="ViewModel\XmlViewModel\Plugin\pluginFileViewMode.cs" />
-    <Compile Include="ViewModel\XmlViewModel\Plugin\pluginFlagsViewModel.cs" />
-    <Compile Include="ViewModel\XmlViewModel\Plugin\pluginTypeViewModel.cs" />
-    <Compile Include="ViewModel\XmlViewModel\configViewModel.cs" />
+    <Compile Include="ViewModel\configViewModel.cs" />
     <Compile Include="ViewModel\EditorViewModel.cs" />
-    <Compile Include="ViewModel\XmlViewModel\groupViewModel.cs" />
-    <Compile Include="ViewModel\XmlViewModel\installStepViewModel.cs" />
-    <Compile Include="ViewModel\XmlViewModel\Plugin\pluginViewModel.cs" />
-    <Compile Include="View\XmlView\Plugin\pluginFlagsView.xaml.cs">
+    <Compile Include="ViewModel\groupViewModel.cs" />
+    <Compile Include="ViewModel\installStepViewModel.cs" />
+    <Compile Include="ViewModel\pluginViewModel.cs" />
+    <Compile Include="View\Plugin\pluginFlagsView.xaml.cs">
       <DependentUpon>pluginFlagsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\XmlView\Plugin\pluginTypeView.xaml.cs">
-      <DependentUpon>pluginTypeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\XmlView\configView.xaml.cs">
+    <Compile Include="View\configView.xaml.cs">
       <DependentUpon>configView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\XmlView\groupView.xaml.cs">
+    <Compile Include="View\groupView.xaml.cs">
       <DependentUpon>groupView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\XmlView\installStepView.xaml.cs">
+    <Compile Include="View\installStepView.xaml.cs">
       <DependentUpon>installStepView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainEditor.xaml.cs">
       <DependentUpon>MainEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\XmlView\Plugin\pluginView.xaml.cs">
+    <Compile Include="View\Plugin\pluginTypeView.xaml.cs">
+      <DependentUpon>pluginTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Plugin\pluginView.xaml.cs">
       <DependentUpon>pluginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\XmlView\Plugin\pluginFileView.xaml.cs">
+    <Compile Include="View\Plugin\pluginFileView.xaml.cs">
       <DependentUpon>pluginFileView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -132,27 +127,27 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\XmlView\Plugin\pluginFlagsView.xaml">
+    <Page Include="Resource\Enums.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\XmlView\Plugin\pluginTypeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\XmlView\configView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\DataTemplates\HierarchicalDataTemplate.xaml">
+    <Page Include="View\Plugin\pluginFlagsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\XmlView\groupView.xaml">
+    <Page Include="View\configView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\XmlView\installStepView.xaml">
+    <Page Include="Resource\HierarchicalDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\groupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\installStepView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,11 +155,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\XmlView\Plugin\pluginView.xaml">
+    <Page Include="View\Plugin\pluginTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\XmlView\Plugin\pluginFileView.xaml">
+    <Page Include="View\Plugin\pluginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Plugin\pluginFileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

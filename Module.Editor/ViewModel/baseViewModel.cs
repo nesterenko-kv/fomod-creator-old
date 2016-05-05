@@ -2,13 +2,31 @@
 using Prism.Mvvm;
 using Prism.Regions;
 using System.Xml;
+using System.Collections.Generic;
 
 namespace Module.Editor.ViewModel
 {
     public class baseViewModel : BindableBase, INavigationAware
     {
         private string _curentParamName;
-        public XmlElement XmlNode { get; protected set; }
+
+
+        protected XmlElement _xmlNode;
+        public XmlElement XmlNode
+        {
+            get
+            {
+                return _xmlNode;
+            }
+            protected set
+            {
+                _xmlNode = value;
+                foreach (var action in actionList)
+                {
+                    action.Invoke(value);
+                }
+            }
+        }
 
 
         public baseViewModel()
@@ -33,5 +51,9 @@ namespace Module.Editor.ViewModel
             if (XmlNode == null) throw new ArgumentNullException("При навигации обязательныо нужно передавать параметры");
             if (XmlNode.Name != _curentParamName) throw new ArgumentException("Передан не верный параметр");
         }
+
+
+        private List<Action<XmlElement>> actionList = new List<Action<XmlElement>>();
+        protected void thenSetXmlNode(Action<XmlElement> action) { actionList.Add(action); }
     }
 }

@@ -41,10 +41,43 @@
 
     </UserControl.Resources>
     <TabControl>
+        <TabItem Header="Files, folder and flags">
+            <DockPanel>
+                <ToggleButton Margin="6"
+                              Content="Change state"
+                              DockPanel.Dock="Top"
+                              IsChecked="{Binding IsFilesFoldersFlags}" />
+                <ContentControl>
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <DockPanel x:Name="container" VerticalAlignment="Top" DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}}">
+                                <local:pluginFileView x:Name="files" />
+                                <local:pluginFlagsView x:Name="flags" />
+                            </DockPanel>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}"
+                                             Value="true">
+                                    <Setter TargetName="files" Property="DockPanel.Dock" Value="Top" />
+                                    <Setter TargetName="flags" Property="DockPanel.Dock" Value="Bottom" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}"
+                                             Value="false">
+                                    <Setter TargetName="files" Property="DockPanel.Dock" Value="Bottom" />
+                                    <Setter TargetName="flags" Property="DockPanel.Dock" Value="Top" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
 
-        <TabItem Header="Info">
+                </ContentControl>
+            </DockPanel>
+        </TabItem>
+
+        <!--<TabItem Header="Info">
             <StackPanel DataContext="{Binding XmlNode}">
-                <!--  Тут либо картинку с открытием диалога выбора пути при нажатии, либо просто текстбокс с валидацией  -->
+        -->
+        <!--  Тут либо картинку с открытием диалога выбора пути при нажатии, либо просто текстбокс с валидацией  -->
+        <!--
                 <TextBox MaxHeight="38"
                          controls:TextBoxHelper.ClearTextButton="True"
                          controls:TextBoxHelper.UseFloatingWatermark="True"
@@ -64,29 +97,12 @@
                          ItemsSource="{Binding XPath=image}" />
 
             </StackPanel>
-        </TabItem>
-        <TabItem Header="Files, folder and flags"
-                 DataContext="{Binding ElementName=uc}">
-            <DockPanel>
-                <ToggleButton Margin="6"
-                              Content="Change state"
-                              DockPanel.Dock="Top"
-                              IsChecked="{Binding DataContext.IsFilesFoldersFlags}" />
-                <TabControl>
-                    <TabItem Header="File and folder">
-                        <local:pluginFileView DataContext="{Binding DataContext.pluginFileViewMode}" />
-                    </TabItem>
-                    <TabItem Header="Flags">
-                        <local:pluginFlagsView DataContext="{Binding DataContext.pluginFlagsViewModel}" />
-                    </TabItem>
-                </TabControl>
-            </DockPanel>
-        </TabItem>
+        </TabItem>-->
 
-        <TabItem Header="Type"
+        <!--<TabItem Header="Type"
                  DataContext="{Binding ElementName=uc}">
             <local:pluginTypeView DataContext="{Binding DataContext.pluginTypeViewModel}" />
-        </TabItem>
+        </TabItem>-->
     </TabControl>
 </UserControl>
 

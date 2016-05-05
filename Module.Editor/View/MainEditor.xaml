@@ -14,7 +14,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Module.Editor;component/View/DataTemplates/HierarchicalDataTemplate.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Module.Editor;component/Resource/HierarchicalDataTemplate.xaml" />
                 <!--<ResourceDictionary Source="DataTemplates/HierarchicalDataTemplate.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -27,11 +27,9 @@
         <uc:MyTreeView x:Name="Tw"
                        DataContext="{Binding XmlData}"
                        ItemsSource="{Binding XPath=Project/config}"
-                       SelectedItem="{Binding Path=DataContext.CurentSelectedXmlNode,
-                                              Mode=OneWayToSource,
-                                              RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                             AncestorType=UserControl}}" />
-        <ContentControl Grid.Column="1" regions:RegionManager.RegionName="NodeRegion">
+                       SelectedItem="{Binding Path=DataContext.CurentSelectedXmlNode, Mode=OneWayToSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+        <ContentControl Grid.Column="1"
+                        regions:RegionManager.RegionName="NodeRegion">
             <!--<TabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock DataContext="{Binding Content.DataContext.XmlNode, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}" Text="{Binding XPath=@name}"/>

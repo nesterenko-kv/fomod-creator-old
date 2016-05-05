@@ -3,31 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
              xmlns:local="clr-namespace:Module.Editor.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <inf:Set x:Key="compositeDependencyOperator" x:Shared="false">
+        <inf:Set x:Key="compositeDependencyOperator"
+                 x:Shared="false">
             <sys:String>And</sys:String>
             <sys:String>Or</sys:String>
         </inf:Set>
     </UserControl.Resources>
     <!--  CompositeDependencyOperator  -->
     <StackPanel DataContext="{Binding XmlNode}">
-        <TextBox Text="{Binding XPath=@name,
-                                UpdateSourceTrigger=PropertyChanged}"
-                 controls:TextBoxHelper.ClearTextButton="True"
+        <TextBox controls:TextBoxHelper.ClearTextButton="True"
                  controls:TextBoxHelper.UseFloatingWatermark="True"
-                 controls:TextBoxHelper.Watermark="Имя шага" />
+                 controls:TextBoxHelper.Watermark="Имя шага"
+                 Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
 
         <!--  TODO: это должен быть список  -->
         <StackPanel DataContext="{Binding XPath=visible}">
             <!--  And  -->
-            <ComboBox ItemsSource="{StaticResource compositeDependencyOperator}" SelectedItem="{Binding XPath=dependencies/@operator, Path=Value, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox ItemsSource="{StaticResource compositeDependencyOperator}"
+                      SelectedItem="{Binding XPath=dependencies/@operator, Path=Value, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Text="{Binding XPath=dependencies/flagDependency/@flag, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Text="{Binding XPath=dependencies/flagDependency/@value, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
