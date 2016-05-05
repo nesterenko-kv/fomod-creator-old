@@ -49,6 +49,11 @@
                                 <TextBlock Margin="6"
                                            Text="Группа флагов"
                                            DockPanel.Dock="Left" />
+                                <Button Margin="6"
+                                        DockPanel.Dock="Right"
+                                        Content="Add flag"
+                                        Command="{Binding AddFlag}"
+                                        CommandParameter="{Binding}" />
                             </DockPanel>
                             <ListBox Margin="6"
                                      ItemsSource="{Binding XPath=./*}" />

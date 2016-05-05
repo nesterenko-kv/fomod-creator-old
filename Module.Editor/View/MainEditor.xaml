@@ -24,7 +24,7 @@
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
-        <uc:MyTreeView x:Name="Tw"
+        <uc:MyTreeView x:Name="Tw" ItemTemplate="{StaticResource config}"
                        DataContext="{Binding XmlData}"
                        ItemsSource="{Binding XPath=Project/config}"
                        SelectedItem="{Binding Path=DataContext.CurentSelectedXmlNode, Mode=OneWayToSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
