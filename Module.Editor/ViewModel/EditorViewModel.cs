@@ -5,10 +5,12 @@ using System.Windows.Data;
 using Prism.Mvvm;
 using System.Xml;
 using Prism.Regions;
+using System;
+using FomodInfrastructure;
 
 namespace Module.Editor.ViewModel
 {
-    public class EditorViewModel: BindableBase
+    public class EditorViewModel: BindableBase, INavigationAware
     {
         private XmlElement _node;
 
@@ -53,11 +55,35 @@ namespace Module.Editor.ViewModel
         public XmlDataProvider XmlData
         {
             get
-            {  
+            {
                 if (_xmlData == null)
                     _xmlData = _repository.GetData();
                 return _xmlData;
+                //return _repository.GetData();
+            }
+            set
+            {
+                _xmlData = value; OnPropertyChanged(nameof(XmlData));
             }
         }
+
+        #region INavigationAware
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+           
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            
+        } 
+
+        #endregion
     }
 }

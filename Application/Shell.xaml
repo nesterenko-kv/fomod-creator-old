@@ -19,11 +19,12 @@
         <TabControl region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}" TextTrimming="CharacterEllipsis" MaxWidth="200"/>
+                    <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}" TextTrimming="CharacterEllipsis"/>
                 </DataTemplate>
             </TabControl.ItemTemplate>
         </TabControl>
-        <ContentControl Panel.ZIndex="75" region:RegionManager.RegionName="{x:Static names:Names.TopRegion}" />
+        <!--<ContentControl Panel.ZIndex="75" region:RegionManager.RegionName="{x:Static names:Names.TopRegion}" />-->
+        <!--<ContentControl Panel.ZIndex="75" region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}" />-->
         <ContentControl Panel.ZIndex="100" region:RegionManager.RegionName="{x:Static names:Names.UserMsgRegion}" />
     </Grid>
 </controls:MetroWindow>

@@ -12,6 +12,9 @@ namespace Module.Welcome.ViewModel
 {
     public class WelcomeViewModel
     {
+        public string Header { get;  } = "Welcome";
+
+
         #region Services
 
         private readonly IAppService _appService;
@@ -48,18 +51,10 @@ namespace Module.Welcome.ViewModel
                         if (x != null)
                         {
                             _appService.InitilizeBaseModules();
-                            var param = new NavigationParameters
-                            {
-                                {"xml", x},
-                                {"folderPath", p?.ToString()}
-                            };
-                            _regionManager.RequestNavigate(Names.MainContentRegion, "InfoEditorView", param);
-                            _regionManager.RequestNavigate(Names.MainContentRegion, "MainEditorView", param);
-
                             _eventAggregator.GetEvent<OpenProjectEvent>().Publish(_repositoryXml.CurrentPath);
 
-                            foreach (var item in _regionManager.Regions[Names.TopRegion].Views)
-                                _regionManager.Regions[Names.TopRegion].Deactivate(item);
+                            //foreach (var item in _regionManager.Regions[Names.MainContentRegion].Views)
+                            //    _regionManager.Regions[Names.MainContentRegion].Deactivate(item);
                         }
                         else
                             _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Указанная папка не соответствует необходимым требованиям.");

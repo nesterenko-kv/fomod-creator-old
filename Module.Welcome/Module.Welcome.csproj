@@ -88,6 +88,7 @@
     <Compile Include="PrismEvent\OpenLink.cs" />
     <Compile Include="PrismEvent\OpenProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\localNames.cs" />
     <Compile Include="ViewModel\LastProjectsViewModel.cs" />
     <Compile Include="ViewModel\WelcomeViewModel.cs" />
     <Compile Include="View\LastProjectsView.xaml.cs">
