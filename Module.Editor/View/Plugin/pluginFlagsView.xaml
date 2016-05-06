@@ -21,7 +21,7 @@
                               DockPanel.Dock="Left" />
                     <Button Content="x"
                             DockPanel.Dock="Right"
-                            Command="{Binding DataContext.RemoveFlag, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor, AncestorLevel=3}}"
+                            Command="{Binding DataContext.RemoveFlag, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
                             CommandParameter="{Binding}"
                             Style="{DynamicResource SquareButtonStyle}"/>
                     <TextBox Text="{Binding XPath=@name, StringFormat='flag: {0}'}" DockPanel.Dock="Left" />
@@ -43,7 +43,7 @@
                 <DataTemplate x:Key="NotRemoveFlagTemplate" DataType="conditionFlags">
                     <GroupBox Margin="3">
                         <GroupBox.Header>
-                            <DockPanel DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}">
+                            <DockPanel DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
                                 <TextBlock Text="Группа флагов" DockPanel.Dock="Left"/>
                                 <Button DockPanel.Dock="Right"
                                         Content="Add flag"
@@ -58,7 +58,7 @@
                 <DataTemplate x:Key="RemoveFlagTemplate" DataType="conditionFlags">
                     <GroupBox Margin="3">
                         <GroupBox.Header>
-                            <DockPanel DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}">
+                            <DockPanel DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
                                 <TextBlock Text="Группа флагов" DockPanel.Dock="Left" />
                                 <Button DockPanel.Dock="Right"
                                         Content="Remove Flags Group"
@@ -90,11 +90,11 @@
                                       ItemsSource="{Binding XPath=conditionFlags}" />
                     </StackPanel>
                     <ControlTemplate.Triggers>
-                        <DataTrigger Value="false" Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}">
+                        <DataTrigger Value="false" Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
                             <Setter TargetName="FlagList" Property="ItemTemplate" Value="{StaticResource NotRemoveFlagTemplate}" />
                             <Setter TargetName="FlagAddButton" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
-                        <DataTrigger Value="true" Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}">
+                        <DataTrigger Value="true" Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
                             <Setter TargetName="FlagList" Property="ItemTemplate" Value="{StaticResource RemoveFlagTemplate}" />
                             <Setter TargetName="FlagAddButton" Property="Visibility" Value="Visible" />
                         </DataTrigger>

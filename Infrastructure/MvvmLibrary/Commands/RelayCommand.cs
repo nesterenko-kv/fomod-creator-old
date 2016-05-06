@@ -9,7 +9,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
         private readonly WeakAction _execute;
         private readonly WeakFunc<bool> _canExecute;
         public event EventHandler CanExecuteChanged;
-        public RelayCommand(Action execute) : this(execute, null)
+        public RelayCommand(Action execute): this(execute, null)
         {
 
         }
@@ -28,7 +28,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
             var eventHandler = CanExecuteChanged;
             eventHandler?.Invoke(this, EventArgs.Empty);
         }
-
+        
         public bool CanExecute(object parameter)
         {
             if (_canExecute == null)
@@ -45,7 +45,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
             _execute.Execute();
         }
     }
-    public class RelayCommand<T> : ICommand
+    public  class RelayCommand<T> : ICommand
     {
         private readonly WeakAction<T> _execute;
         private readonly WeakFunc<T, bool> _canExecute;
@@ -60,13 +60,13 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                 return;
             _canExecute = new WeakFunc<T, bool>(canExecute);
         }
-
+        
         public void RaiseCanExecuteChanged()
         {
             var eventHandler = CanExecuteChanged;
             eventHandler?.Invoke(this, EventArgs.Empty);
         }
-
+        
         public bool CanExecute(object parameter)
         {
             if (_canExecute == null)
@@ -78,7 +78,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                 return _canExecute.Execute((T)parameter);
             return false;
         }
-
+        
         public void Execute(object parameter)
         {
             var parameter1 = parameter;
@@ -89,7 +89,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                 if (typeof(T).GetTypeInfo().IsValueType)
                     _execute.Execute();
                 else
-                    // ReSharper disable once ExpressionIsAlwaysNull
+                // ReSharper disable once ExpressionIsAlwaysNull
                     _execute.Execute((T)parameter1);
             }
             else
