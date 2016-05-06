@@ -14,33 +14,40 @@ namespace MainApplication.Services
     {
         private const string InfoSubPath = @"\fomod\info.xml";
         private const string ConfigurationSubPath = @"\fomod\ModuleConfig.xml";
-        private XmlDataProvider _xmlData;
+        
+        #region Services 
 
         private readonly IFolderBrowserDialog _folderBrowserDialog;
+        
+        #endregion
+
+        #region IRepository
 
         public string CurrentPath { get; private set; }
+        
+        public XmlDataProvider GetData() => _xmlData;
+
+        public XmlDataProvider LoadData(string path = null) => _xmlData = path != null ? LoadProjectFromPath(path) : LoadProjectIfPathNull();
+        
+        #endregion
+
         public RepositoryXml(IFolderBrowserDialog folderBrowserDialog)
         {
             _folderBrowserDialog = folderBrowserDialog;
         }
 
-        public XmlDataProvider GetData() => _xmlData;
-
-        public XmlDataProvider LoadData(string path = null) => _xmlData = path != null ? LoadProjectFromPath(path) : LoadProjectIfPathNull();
-
+        private XmlDataProvider _xmlData;
         private XmlDataProvider LoadProjectIfPathNull()
         {
             var folderPath = GetFolderPath();
             CurrentPath = folderPath;
             return folderPath != null ? LoadProjectFromPath(folderPath) : null;
         }
-
         private XmlDataProvider LoadProjectFromPath(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
                 throw new FileNotFoundException();
-            //if (!CheckFiles(path)) return null;
-            if (!File.Exists(path + InfoSubPath) | !File.Exists(path + ConfigurationSubPath)) return null;
+            if (!CheckFiles(path)) return null;
             try
             {
                 _xmlData = new XmlDataProvider();
@@ -76,7 +83,11 @@ namespace MainApplication.Services
                 return false; //TODO: обработать ошибки
             }
         }
-        private bool CheckFiles(string folderPath) => File.Exists(folderPath + InfoSubPath) && File.Exists(folderPath + ConfigurationSubPath);
+        private bool CheckFiles(string folderPath)
+        {
+            return File.Exists(folderPath + InfoSubPath) && File.Exists(folderPath + ConfigurationSubPath);
+        }
+
         private string GetFolderPath()
         {
             _folderBrowserDialog.Reset();

@@ -1,36 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace FomodInfrastructure.Controls
 {
     public class MyTreeView : TreeView
     {
-        public MyTreeView() : base()
+        public MyTreeView()
         {
-            this.SelectedItemChanged += new RoutedPropertyChangedEventHandler<object>(SetSelectedItem);
+            SelectedItemChanged += SetSelectedItem;
         }
 
-        void SetSelectedItem(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void SetSelectedItem(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (base.SelectedItem != null)
-            {
                 SetValue(SelectedItemProperty, base.SelectedItem);
-            }
         }
 
         public new object SelectedItem
         {
-            get { return (object)GetValue(SelectedItemProperty); }
+            get { return GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
         }
 
-        public static new readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(object), typeof(MyTreeView), new FrameworkPropertyMetadata
+        public new static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(object), typeof(MyTreeView), new FrameworkPropertyMetadata
         {
             BindsTwoWayByDefault = true,
             //PropertyChangedCallback = new PropertyChangedCallback(CustomNestedValueChangedCallback)

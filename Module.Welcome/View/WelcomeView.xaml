@@ -91,6 +91,6 @@
                       Background="{DynamicResource AccentColorBrush}" />
         <ContentControl Grid.Column="0"
                         Margin="6 6 6 6"
-                        regions:RegionManager.RegionName="{x:Static names:localNames.LeftRegion}" />
+                        regions:RegionManager.RegionName="{x:Static names:LocalNames.LeftRegion}" />
     </Grid>
 </UserControl>

@@ -17,23 +17,31 @@ namespace Module.Welcome
 
         #endregion
 
-        public WelcomeRegister(IRegionManager regionManager, IContainer container)
-        {
-            _regionManager = regionManager;
-            _container = container;
-        }
+        #region IModule
 
         public void Initialize()
         {
             _container.Configure(r =>
             {
-                r.For<object>().Use<WelcomeView>().Named(nameof(WelcomeView)).SetProperty(p => p.DataContext = _container.GetInstance<WelcomeViewModel>());
-                r.For<object>().Use<LastProjectsView>().Named(nameof(LastProjectsView)).SetProperty(p => p.DataContext = _container.GetInstance<LastProjectsViewModel>());
+                r.For<object>()
+                    .Use<WelcomeView>()
+                    .Named(nameof(WelcomeView))
+                    .SetProperty(p => p.DataContext = _container.GetInstance<WelcomeViewModel>());
+                r.For<object>()
+                    .Use<LastProjectsView>()
+                    .Named(nameof(LastProjectsView))
+                    .SetProperty(p => p.DataContext = _container.GetInstance<LastProjectsViewModel>());
             });
             _regionManager.Regions[Names.MainContentRegion].RequestNavigate(nameof(WelcomeView));
-            _regionManager.Regions[localNames.LeftRegion].RequestNavigate(nameof(LastProjectsView));
+            _regionManager.Regions[LocalNames.LeftRegion].RequestNavigate(nameof(LastProjectsView));
+        }
 
+        #endregion
+
+        public WelcomeRegister(IRegionManager regionManager, IContainer container)
+        {
+            _regionManager = regionManager;
+            _container = container;
         }
     }
-
 }

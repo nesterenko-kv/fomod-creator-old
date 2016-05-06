@@ -7,7 +7,6 @@ using Prism.Mvvm;
 using System;
 using System.IO;
 using System.Linq;
-using System.Windows.Input;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
 
@@ -34,18 +33,7 @@ namespace Module.Welcome.ViewModel
 
         #region Commands
 
-        private ICommand _goTo;
-
-        public ICommand GoTo
-        {
-            get
-            {
-                if (_goTo == null)
-                    _goTo = new RelayCommand(p => 
-                    _eventAggregator.GetEvent<OpenLink>().Publish(p.ToString()));
-                return _goTo;
-            }
-        }
+        public RelayCommand<object> GoTo { get; private set; }
 
         #endregion
 
@@ -53,6 +41,7 @@ namespace Module.Welcome.ViewModel
         {
             _eventAggregator = eventAggregator;
             _dataService = dataService;
+            GoTo = new RelayCommand<object>(p => _eventAggregator.GetEvent<OpenLink>().Publish(p.ToString()));
             var list = ReadProjectLinkListFile();
             if (list != null)
                 ProjectLinkList = list;
@@ -65,7 +54,12 @@ namespace Module.Welcome.ViewModel
             });
         }
 
-        private ProjectLinkList ReadProjectLinkListFile() => File.Exists(_basePath + SubPath) ? _dataService.DeserializeObject<ProjectLinkList>(_basePath + SubPath) : null;
+        private ProjectLinkList ReadProjectLinkListFile()
+        {
+            if (File.Exists(_basePath + SubPath))
+                return _dataService.DeserializeObject<ProjectLinkList>(_basePath + SubPath);
+            return null;
+        }
 
         private void SaveProjectLinkListFile()
         {

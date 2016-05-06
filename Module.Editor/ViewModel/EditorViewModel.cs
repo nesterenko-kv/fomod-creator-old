@@ -1,23 +1,20 @@
-﻿using AspectInjector.Broker;
+﻿using System.Windows.Data;
+using System.Xml;
+using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
 using FomodInfrastructure.Interface;
-using System.Windows.Data;
 using Prism.Mvvm;
-using System.Xml;
 using Prism.Regions;
-using System;
-using FomodInfrastructure;
 
 namespace Module.Editor.ViewModel
 {
     public class EditorViewModel: BindableBase, INavigationAware
     {
-        private XmlElement _node;
+        public string Header { get;} = "Редактор";
 
         #region Properties
 
-        [Aspect(typeof(AspectINotifyPropertyChanged))]
-        public string Header { get; set; } = "Редактор";
+        private XmlElement _node;
 
         [Aspect(typeof(AcpectDebugLoger))]
         [Aspect(typeof(AspectINotifyPropertyChanged))]
@@ -36,6 +33,23 @@ namespace Module.Editor.ViewModel
                 _regionManager.Regions["NodeRegion"].RequestNavigate(value.Name + "View", param);
             }
         }
+
+        private XmlDataProvider _xmlData;
+        public XmlDataProvider XmlData
+        {
+            get
+            {
+                if (_xmlData == null)
+                    _xmlData = _repository.GetData();
+                return _xmlData; //return _repository.GetData();
+            }
+            set
+            {
+                _xmlData = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Services
@@ -45,33 +59,11 @@ namespace Module.Editor.ViewModel
 
         #endregion
 
-        public EditorViewModel(IRepository<XmlDataProvider> repository, IRegionManager regionManager)
-        {
-            _repository = repository;
-            _regionManager = regionManager;
-        }
-
-        private XmlDataProvider _xmlData;
-        public XmlDataProvider XmlData
-        {
-            get
-            {
-                if (_xmlData == null)
-                    _xmlData = _repository.GetData();
-                return _xmlData;
-                //return _repository.GetData();
-            }
-            set
-            {
-                _xmlData = value; OnPropertyChanged(nameof(XmlData));
-            }
-        }
-
         #region INavigationAware
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-           
+
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -81,9 +73,16 @@ namespace Module.Editor.ViewModel
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            
-        } 
+
+        }
 
         #endregion
+
+        public EditorViewModel(IRepository<XmlDataProvider> repository, IRegionManager regionManager)
+        {
+            _repository = repository;
+            _regionManager = regionManager;
+        }
+
     }
 }

@@ -25,7 +25,7 @@
                             Content="x"
                             DockPanel.Dock="Right"
                             Command="{Binding DataContext.RemoveFlag, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor, AncestorLevel=3}}"
-                            CommandParameter="{Binding}" />
+                            CommandParameter="{Binding}" Style="{DynamicResource SquareButtonStyle}"/>
                     <TextBox Margin="6,0"
                              DockPanel.Dock="Left"
                              Text="{Binding XPath=@name}" />
@@ -53,7 +53,8 @@
                                         DockPanel.Dock="Right"
                                         Content="Add flag"
                                         Command="{Binding AddFlag}"
-                                        CommandParameter="{Binding}" />
+                                        CommandParameter="{Binding}"
+                                        Style="{DynamicResource SquareButtonStyle}"/>
                             </DockPanel>
                             <ListBox Margin="6"
                                      ItemsSource="{Binding XPath=./*}" />
@@ -73,7 +74,8 @@
                                         DockPanel.Dock="Right"
                                         Content="Remove Flags Group"
                                         Command="{Binding RemoveFlagsGroup}"
-                                        CommandParameter="{Binding}" />
+                                        CommandParameter="{Binding}"
+                                        Style="{DynamicResource SquareButtonStyle}"/>
                                 <Button Margin="6"
                                         DockPanel.Dock="Right"
                                         Content="Add flag"
@@ -96,7 +98,8 @@
                         <Button x:Name="FlagAddButton"
                                 Margin="3"
                                 Content="Add flags group"
-                                Command="{Binding AddFlagsGroup}" />
+                                Command="{Binding AddFlagsGroup}"
+                                Style="{DynamicResource SquareButtonStyle}"/>
 
                         <ItemsControl x:Name="FlagList"
                                       DataContext="{Binding XmlNode}"
@@ -120,8 +123,5 @@
                 </ControlTemplate>
             </ContentControl.Template>
         </ContentControl>
-
-
-
     </StackPanel>
 </UserControl>

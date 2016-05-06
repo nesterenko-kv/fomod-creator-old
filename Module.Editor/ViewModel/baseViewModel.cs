@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Xml;
 using Prism.Mvvm;
 using Prism.Regions;
-using System.Xml;
-using System.Collections.Generic;
 
 namespace Module.Editor.ViewModel
 {

@@ -1,19 +1,18 @@
-﻿using AspectInjector.Broker;
+﻿using System;
+using System.Windows;
+using System.Xml;
+using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using Microsoft.Practices.ServiceLocation;
-using Prism.Events;
-using System;
-using System.Windows.Input;
-using System.Xml;
 using Module.Editor.Resource;
+using Prism.Events;
 
 namespace Module.Editor.ViewModel
 {
     /// <summary>
     /// Base plugin info
     /// </summary>
-    /// 
     [Aspect(typeof(AspectINotifyPropertyChanged))]
     public partial class PluginViewModel
     {
@@ -26,42 +25,20 @@ namespace Module.Editor.ViewModel
         
         #region Commands
 
-        private ICommand _addImage;
-        private ICommand _removeImage;
-
-        public ICommand AddImage
-        {
-            get
-            {
-                //TODO сделать проверку передаваемого параметра
-                return _addImage ?? (_addImage = new RelayCommand(p =>
-                {
-                    //_nodePluginHelper.AddImage(p.ToString());
-                }));
-            }
-        }
-
-        public ICommand RemoveImage
-        {
-            get
-            {
-                //TODO сделать проверку передаваемого параметра или диалог выбора файлов (мнодественный) а также проверку форматов картинок (авось что то не то передадут)
-                return _removeImage ?? (_removeImage = new RelayCommand(p =>
-                {
-                    //_nodePluginHelper.RemoveImage(p as XmlNode);
-                }));
-            }
-        }
+        public RelayCommand AddImage { get; private set; } 
+        public RelayCommand RemoveImage { get; private set; } 
 
         #endregion
 
         public PluginViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator)
         {
+            CurentParamName = Names.PluginName;
             _serviceLocator = serviceLocator;
             _eventAggregator = eventAggregator;
+            AddImage = new RelayCommand(() => { });  //TODO сделать проверку передаваемого параметра _nodePluginHelper.AddImage(p.ToString());
+            RemoveImage = new RelayCommand(() => { }); //TODO сделать проверку передаваемого параметра или диалог выбора файлов (мнодественный) а также проверку форматов картинок (авось что то не то передадут) _nodePluginHelper.RemoveImage(p as XmlNode);
             FilesCtor();
             FlagsCtor();
-            CurentParamName = Names.PluginName;
         }
     }
 
@@ -72,54 +49,24 @@ namespace Module.Editor.ViewModel
     {
         #region Commands
 
-        private ICommand _addFileFolderGroup;
-        private ICommand _removeFileFolderGroup;
-        private ICommand _removeFile;
-        private ICommand _addFile;
-        private ICommand _addFolder;
+        public RelayCommand AddFileFolderGroup { get; private set; } 
+        public RelayCommand RemoveFileFolderGroup { get; private set; }
+        public RelayCommand RemoveFile { get; private set; }
+        public RelayCommand AddFile { get; private set; }
+        public RelayCommand AddFolder { get; private set; } 
 
-        public ICommand AddFileFolderGroup
-        {
-            get
-            {
-                return _addFileFolderGroup ?? (_addFileFolderGroup = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! Added files group")));
-            }
-        }
-        public ICommand RemoveFileFolderGroup
-        {
-            get
-            {
-                return _removeFileFolderGroup ?? (_removeFileFolderGroup = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! Remove files group")));
-            }
-        }
-        public ICommand RemoveFile
-        {
-            get
-            {
-                return _removeFile ?? (_removeFile = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! Remove FILE/FOLDE")));
-            }
-        }
-        public ICommand AddFile
-        {
-            get
-            {
-                return _addFile ?? (_addFile = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! added file")));
-            }
-        }
-        public ICommand AddFolder
-        {
-            get
-            {
-                return _addFolder ?? (_addFolder = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! added folder")));
-            }
-        }
-        
         #endregion
 
         public bool IsFilesFoldersFlags { get; set; }
 
         private void FilesCtor()
         {
+            AddFileFolderGroup = new RelayCommand(() => MessageBox.Show("Wow! Added files group"));
+            RemoveFileFolderGroup = new RelayCommand(() => MessageBox.Show("Wow! Remove files group"));
+            RemoveFile = new RelayCommand(() => MessageBox.Show("Wow! Remove FILE/FOLDER"));
+            AddFile = new RelayCommand(() => MessageBox.Show("Wow! Added file"));
+            AddFolder = new RelayCommand(() => MessageBox.Show("Wow! Added folder"));
+
             ThenSetXmlNode(xmlNode =>
             {
                 if (chkFrament_var1(xmlNode))
@@ -131,28 +78,23 @@ namespace Module.Editor.ViewModel
             });
         }
 
+        // ReSharper disable PossibleNullReferenceException
         private static bool chkFrament_var2(XmlNode xdoc)
         {
             var cFlags = xdoc.SelectNodes("conditionFlags");
             var files = xdoc.SelectNodes("files");
-
-            if (cFlags.Count != 1)
-                return false;
-            if (files.Count > 0 && cFlags[0].NextSibling.Name != "files")
-                return false;
-            return true;
+            
+            return cFlags.Count == 1 && (files.Count <= 0 || cFlags[0].NextSibling.Name == "files");
         }
         private static bool chkFrament_var1(XmlNode pluginNode)
         {
             var cFlags = pluginNode.SelectNodes("conditionFlags");
             var files = pluginNode.SelectNodes("files");
 
-            if (files.Count != 1)
-                return false;
-            if (cFlags.Count > 0 && files[0].NextSibling.Name != "conditionFlags")
-                return false;
-            return true;
+            return files.Count == 1 && (cFlags.Count <= 0 || files[0].NextSibling.Name == "conditionFlags");
         }
+        // ReSharper restore PossibleNullReferenceException
+
     }
 
     /// <summary>
@@ -162,50 +104,19 @@ namespace Module.Editor.ViewModel
     {
         #region Commands
 
-        private ICommand _addFlagsGroup;
-        private ICommand _removeFlagsGroup;
-        private ICommand _removeFlag;
-        private ICommand _addFlag;
+        public RelayCommand AddFlagsGroup { get; private set; }
+        public RelayCommand RemoveFlagsGroup { get; private set; }
+        public RelayCommand RemoveFlag { get; private set; }
+        public RelayCommand AddFlag { get; private set; }
 
-        public ICommand AddFlagsGroup
-        {
-            get
-            {
-                return _addFlagsGroup ?? (_addFlagsGroup = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! Added flags group")));
-            }
-        }
-
-        public ICommand RemoveFlagsGroup
-        {
-            get
-            {
-                return _removeFlagsGroup ?? (_removeFlagsGroup = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! Remove flags group")));
-            }
-        }
-
-        public ICommand RemoveFlag
-        {
-            get
-            {
-                return _removeFlag ?? (_removeFlag = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! Remove FLAG")));
-            }
-        }
-
-        public ICommand AddFlag
-        {
-            get
-            {
-                return _addFlag ?? (_addFlag = new RelayCommand(p => System.Windows.MessageBox.Show("Wow! added FLAG")));
-            }
-        }
-        
         #endregion
 
         private void FlagsCtor()
         {
-            
+            AddFlagsGroup = new RelayCommand(() => MessageBox.Show("Wow! Added flags group"));
+            RemoveFlagsGroup = new RelayCommand(() => MessageBox.Show("Wow! Remove flags group"));
+            RemoveFlag = new RelayCommand(() => MessageBox.Show("Wow! Remove FLAG"));
+            AddFlag = new RelayCommand(() => MessageBox.Show("Wow! added FLAG"));
         }
-        
     }
-    
 }

@@ -6,6 +6,7 @@
              xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:xmlsys="clr-namespace:System.Xml;assembly=System.Xml"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d ">
@@ -14,10 +15,10 @@
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Module.Editor;component/Resource/Enums.xaml" />
-                <!--<ResourceDictionary Source="pack://application:,,,/Module.Editor;component/Resource/FilesFolders.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
 
-            <DataTemplate DataType="file">
+            <DataTemplate x:Key="fileTemplate"
+                          DataType="file">
                 <DockPanel>
                     <TextBlock Text="file: "
                                DockPanel.Dock="Left" />
@@ -32,7 +33,8 @@
                 </DockPanel>
             </DataTemplate>
 
-            <DataTemplate DataType="folder">
+            <DataTemplate x:Key="folderTemplate"
+                          DataType="folder">
                 <DockPanel>
                     <TextBlock Text="folder: "
                                DockPanel.Dock="Left" />
@@ -46,6 +48,27 @@
                                DockPanel.Dock="Left" />
                 </DockPanel>
             </DataTemplate>
+
+            <DataTemplate x:Key="XmlNodeTemplate"
+                          DataType="{x:Type xmlsys:XmlNode}">
+                <ContentControl x:Name="content"
+                                Content="{Binding}" />
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Name}"
+                                 Value="folder">
+                        <Setter TargetName="content" Property="ContentTemplate" Value="{StaticResource folderTemplate}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Name}"
+                                 Value="file">
+                        <Setter TargetName="content" Property="ContentTemplate" Value="{StaticResource fileTemplate}" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+
+
+
+
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -61,6 +84,7 @@
                         <TextBlock Margin="6"
                                    Text="Группа файлов/папок" />
                         <ListBox Margin="6"
+                                 ItemTemplate="{StaticResource XmlNodeTemplate}"
                                  ItemsSource="{Binding XPath=./*}" />
                     </StackPanel>
                 </Border>
@@ -95,6 +119,7 @@
 
                         </DockPanel>
                         <ListBox Margin="6"
+                                 ItemTemplate="{StaticResource XmlNodeTemplate}"
                                  ItemsSource="{Binding XPath=./*}" />
                     </StackPanel>
                 </Border>

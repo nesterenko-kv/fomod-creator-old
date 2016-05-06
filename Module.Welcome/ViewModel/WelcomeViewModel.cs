@@ -1,8 +1,6 @@
-﻿using System.Windows.Input;
-using FomodInfrastructure.Interface;
+﻿using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
-using Prism.Regions;
-using FomodInfrastructure;
+//using Prism.Regions;
 using Prism.Events;
 using Module.Welcome.PrismEvent;
 using MahApps.Metro.Controls.Dialogs;
@@ -12,13 +10,12 @@ namespace Module.Welcome.ViewModel
 {
     public class WelcomeViewModel
     {
-        public string Header { get;  } = "Welcome";
-
+        public string Header { get; } = "Welcome";
 
         #region Services
 
         private readonly IAppService _appService;
-        private readonly IRegionManager _regionManager;
+        //private readonly IRegionManager _regionManager;
         private readonly IRepository<XmlDataProvider> _repositoryXml;
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IEventAggregator _eventAggregator;
@@ -27,61 +24,34 @@ namespace Module.Welcome.ViewModel
 
         #region Commands
 
-        private ICommand _closeApplication;
-        private ICommand _openProject;
-        private ICommand _createProject;
-
-        public ICommand CloseApplication
-        {
-            get
-            {
-                if (_closeApplication == null)
-                    _closeApplication = new RelayCommand(p => _appService.CloseApp());
-                return _closeApplication;
-            }
-        }
-        public ICommand OpenProject
-        {
-            get
-            {
-                if (_openProject == null)
-                    _openProject = new RelayCommand(p =>
-                    {
-                        var x = p == null ? _repositoryXml.LoadData() : _repositoryXml.LoadData(p.ToString());
-                        if (x != null)
-                        {
-                            _appService.InitilizeBaseModules();
-                            _eventAggregator.GetEvent<OpenProjectEvent>().Publish(_repositoryXml.CurrentPath);
-
-                            //foreach (var item in _regionManager.Regions[Names.MainContentRegion].Views)
-                            //    _regionManager.Regions[Names.MainContentRegion].Deactivate(item);
-                        }
-                        else
-                            _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Указанная папка не соответствует необходимым требованиям.");
-                    });
-                return _openProject;
-            }
-        }
-
-        public ICommand CreateProject
-        {
-            get
-            {
-                if (_createProject == null)
-                    _createProject = new RelayCommand(p => {});
-                return _createProject;
-            }
-        }
+        public RelayCommand CloseApplication { get; private set; }
+        public RelayCommand<object> OpenProject { get; private set; }
+        public RelayCommand CreateProject { get; private set; }
 
         #endregion
 
-        public WelcomeViewModel(IAppService appService, IRepository<XmlDataProvider> repositoryXml, IRegionManager regionManager, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator)
+        public WelcomeViewModel(IAppService appService, IRepository<XmlDataProvider> repositoryXml, /*IRegionManager regionManager,*/ IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator)
         {
             _appService = appService;
-            _regionManager = regionManager;
+            //_regionManager = regionManager;
             _dialogCoordinator = dialogCoordinator;
             _eventAggregator = eventAggregator;
             _repositoryXml = repositoryXml;
+            CloseApplication = new RelayCommand(() => _appService.CloseApp());
+            OpenProject = new RelayCommand<object>(p =>
+            {
+                var x = p == null ? _repositoryXml.LoadData() : _repositoryXml.LoadData(p.ToString());
+                if (x != null)
+                {
+                    _appService.InitilizeBaseModules();
+                    _eventAggregator.GetEvent<OpenProjectEvent>().Publish(_repositoryXml.CurrentPath);
+                    //foreach (var item in _regionManager.Regions[Names.MainContentRegion].Views)
+                    //    _regionManager.Regions[Names.MainContentRegion].Deactivate(item);
+                }
+                else
+                    _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Указанная папка не соответствует необходимым требованиям.");
+            });
+            CreateProject = new RelayCommand(() => { });
             _eventAggregator.GetEvent<OpenLink>().Subscribe(p => OpenProject.Execute(p));
         }
 

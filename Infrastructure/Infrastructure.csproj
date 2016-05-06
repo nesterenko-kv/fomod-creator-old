@@ -61,7 +61,11 @@
     <Compile Include="MvvmLibrary\Behavior\DoubleClickSelectorItem.cs" />
     <Compile Include="MvvmLibrary\Behavior\DropBehavior.cs" />
     <Compile Include="MvvmLibrary\Async\NotifyTaskCompletion.cs" />
+    <Compile Include="MvvmLibrary\Commands\IExecuteWithObject.cs" />
+    <Compile Include="MvvmLibrary\Commands\IExecuteWithObjectAndResult.cs" />
     <Compile Include="MvvmLibrary\Commands\RelayCommand.cs" />
+    <Compile Include="MvvmLibrary\Commands\WeakAction.cs" />
+    <Compile Include="MvvmLibrary\Commands\WeakFunc.cs" />
     <Compile Include="Names.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Set.cs" />

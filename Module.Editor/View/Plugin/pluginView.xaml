@@ -43,13 +43,11 @@
                                 <local:pluginFlagsView x:Name="flags" />
                             </DockPanel>
                             <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}"
-                                             Value="true">
+                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}" Value="true">
                                     <Setter TargetName="files" Property="DockPanel.Dock" Value="Top" />
                                     <Setter TargetName="flags" Property="DockPanel.Dock" Value="Bottom" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}"
-                                             Value="false">
+                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}" Value="false">
                                     <Setter TargetName="files" Property="DockPanel.Dock" Value="Bottom" />
                                     <Setter TargetName="flags" Property="DockPanel.Dock" Value="Top" />
                                 </DataTrigger>
