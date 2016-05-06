@@ -45,7 +45,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
             _execute.Execute();
         }
     }
-    public sealed class RelayCommand<T> : ICommand
+    public  class RelayCommand<T> : ICommand
     {
         private readonly WeakAction<T> _execute;
         private readonly WeakFunc<T, bool> _canExecute;

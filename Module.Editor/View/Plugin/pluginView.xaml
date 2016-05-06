@@ -18,7 +18,7 @@
                         CommandParameter="{Binding}"
                         Content="X"
                         DockPanel.Dock="Right"
-                        Style="{DynamicResource SquareButtonStyle}"/>
+                        Style="{DynamicResource SquareButtonStyle}" />
                 <TextBlock DockPanel.Dock="Left"
                            Text="{Binding XPath=@path}">
                     <TextBlock.ToolTip>
@@ -38,16 +38,22 @@
                 <ContentControl>
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
-                            <DockPanel x:Name="container" VerticalAlignment="Top" DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}}">
-                                <plugin:pluginFileView x:Name="files" />
-                                <local:pluginFlagsView x:Name="flags" />
+                            <DockPanel x:Name="container"
+                                       VerticalAlignment="Top"
+                                       DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}}">
+                                <plugin:pluginFileView x:Name="files"
+                                                       DockPanel.Dock="Top" />
+                                <local:pluginFlagsView x:Name="flags"
+                                                       DockPanel.Dock="Bottom" />
                             </DockPanel>
                             <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}" Value="true">
+                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}"
+                                             Value="true">
                                     <Setter TargetName="files" Property="DockPanel.Dock" Value="Top" />
                                     <Setter TargetName="flags" Property="DockPanel.Dock" Value="Bottom" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}" Value="false">
+                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}"
+                                             Value="false">
                                     <Setter TargetName="files" Property="DockPanel.Dock" Value="Bottom" />
                                     <Setter TargetName="flags" Property="DockPanel.Dock" Value="Top" />
                                 </DataTrigger>
@@ -61,7 +67,7 @@
 
         <TabItem Header="Info">
             <StackPanel DataContext="{Binding XmlNode}">
-        <!--  Тут либо картинку с открытием диалога выбора пути при нажатии, либо просто текстбокс с валидацией  -->
+                <!--  Тут либо картинку с открытием диалога выбора пути при нажатии, либо просто текстбокс с валидацией  -->
                 <TextBox MaxHeight="38"
                          controls:TextBoxHelper.ClearTextButton="True"
                          controls:TextBoxHelper.UseFloatingWatermark="True"
@@ -83,10 +89,11 @@
             </StackPanel>
         </TabItem>
 
-        <TabItem Header="Type"
+        <!--  TODO этот раздел плагина будет следан позже  -->
+        <!--<TabItem Header="Type"
                  DataContext="{Binding ElementName=uc}">
             <plugin:pluginTypeView DataContext="{Binding DataContext.pluginTypeViewModel}" />
-        </TabItem>
+        </TabItem>-->
     </TabControl>
 </UserControl>
 

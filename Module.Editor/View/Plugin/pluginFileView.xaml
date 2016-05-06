@@ -18,7 +18,7 @@
                 <DockPanel>
                     <Button Content="x"
                             DockPanel.Dock="Right"
-                            Command="{Binding DataContext.RemoveFile, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor, AncestorLevel=3}}"
+                            Command="{Binding DataContext.RemoveFile, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
                             CommandParameter="{Binding}"
                             Style="{DynamicResource SquareButtonStyle}"/>
                     <TextBlock Text="{Binding XPath=@source, StringFormat='file: {0}'}" DockPanel.Dock="Left" />
@@ -28,7 +28,7 @@
                 <DockPanel>
                     <Button Content="x"
                             DockPanel.Dock="Right"
-                            Command="{Binding DataContext.RemoveFile, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor, AncestorLevel=3}}"
+                            Command="{Binding DataContext.RemoveFile, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
                             CommandParameter="{Binding}"
                             Style="{DynamicResource SquareButtonStyle}"/>
                     <TextBlock Text="{Binding XPath=@source, StringFormat='folder: {0}'}" DockPanel.Dock="Left"/>
@@ -60,7 +60,7 @@
             <DataTemplate x:Key="RemoveFilesTemplate" DataType="files">
                 <GroupBox Margin="3">
                     <GroupBox.Header>
-                        <DockPanel DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}">
+                        <DockPanel DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
                             <TextBlock Margin="6" DockPanel.Dock="Left" Text="Группа файлов/папок" />
                             <Button Margin="6"
                                     Content="Add file"
@@ -100,11 +100,11 @@
                                   ItemsSource="{Binding XPath=files}" />
                 </StackPanel>
                 <ControlTemplate.Triggers>
-                    <DataTrigger Value="true" Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}">
+                    <DataTrigger Value="true" Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
                         <Setter TargetName="fileList" Property="ItemTemplate" Value="{StaticResource NotRemoveFilesTemplate}" />
                         <Setter TargetName="fileAddButton" Property="Visibility" Value="Collapsed" />
                     </DataTrigger>
-                    <DataTrigger Value="false" Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}">
+                    <DataTrigger Value="false" Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
                         <Setter TargetName="fileList" Property="ItemTemplate" Value="{StaticResource RemoveFilesTemplate}" />
                         <Setter TargetName="fileAddButton" Property="Visibility" Value="Visible" />
                     </DataTrigger>
