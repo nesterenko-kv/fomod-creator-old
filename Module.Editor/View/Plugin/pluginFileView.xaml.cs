@@ -1,6 +1,8 @@
-﻿namespace Module.Editor.View.Plugin
+﻿using System.Windows.Controls;
+
+namespace Module.Editor.View.Plugin
 {
-    public partial class pluginFileView
+    public partial class pluginFileView: UserControl
     {
         public pluginFileView()
         {
