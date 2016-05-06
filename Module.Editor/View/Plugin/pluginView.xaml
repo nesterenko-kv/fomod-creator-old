@@ -19,10 +19,9 @@
                         Content="X"
                         DockPanel.Dock="Right"
                         Style="{DynamicResource SquareButtonStyle}" />
-                <TextBlock DockPanel.Dock="Left"
-                           Text="{Binding XPath=@path}">
+                <TextBlock DockPanel.Dock="Left" Text="{Binding XPath=@path}">
                     <TextBlock.ToolTip>
-                        <Image Source="{Binding XPath=@path}" />
+                        <Image Source="{Binding DataContext.ImagePath, ElementName=uc}" />
                     </TextBlock.ToolTip>
                 </TextBlock>
             </DockPanel>
@@ -81,11 +80,9 @@
                          TextWrapping="Wrap" />
                 <Button Margin="3"
                         Command="{Binding DataContext.AddImage, ElementName=uc}"
-                        CommandParameter="C:\Users\amarf\Desktop\Снимок.PNG"
-                        Content="ADd image" />
-                <ListBox MinHeight="50"
-                         ItemsSource="{Binding XPath=image}" />
-
+                        CommandParameter="44914-1-1323724707.PNG"
+                        Content="Add image" />
+                <ListBox MinHeight="50" ItemsSource="{Binding XPath=image}" />
             </StackPanel>
         </TabItem>
 

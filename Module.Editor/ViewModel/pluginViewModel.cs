@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Windows;
+using System.IO;
+using System.Windows.Data;
 using System.Xml;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
+using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Practices.ServiceLocation;
+using Module.Editor.Model;
 using Module.Editor.Resource;
 using Prism.Events;
 
@@ -22,24 +25,56 @@ namespace Module.Editor.ViewModel
         private readonly IServiceLocator _serviceLocator;
         private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
+        private readonly  IRepository<XmlDataProvider> _repositoryXml;
 
         #endregion
 
         #region Commands
 
-        public RelayCommand AddImage { get; private set; } 
-        public RelayCommand RemoveImage { get; private set; } 
+        public RelayCommand<string> AddImage { get; private set; } 
+        public RelayCommand<XmlNode> RemoveImage { get; private set; }
 
         #endregion
 
-        public PluginViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator)
+        public string ImagePath
+        {
+            get
+            {
+                var imagePath = XmlNode.SelectSingleNode("image/@path")?.Value;
+                if (!string.IsNullOrWhiteSpace(imagePath))
+                    return _repositoryXml.CurrentPath + imagePath;
+                throw new FileNotFoundException();
+            }
+        }
+
+        protected XmlNode SetOrCreateNodeAtribute(string name, XmlNode node, XAttribute attribute)
+        {
+            if (XmlNode.OwnerDocument == null) return null;
+            var typeNode = node ?? XmlNode.OwnerDocument.CreateNode(XmlNodeType.Element, name, string.Empty);
+            if (typeNode.Attributes == null) return typeNode;
+            var attr = typeNode.Attributes[attribute.Name];
+            if (attr == null)
+                attr = XmlNode.OwnerDocument.CreateAttribute(attribute.Name);
+            attr.Value = attribute.Value;
+            typeNode.Attributes.Append(attr);
+            return typeNode;
+        }
+
+        public PluginViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IRepository<XmlDataProvider> repositoryXml)
         {
             CurentParamName = Names.PluginName;
             _serviceLocator = serviceLocator;
             _eventAggregator = eventAggregator;
             _dialogCoordinator = dialogCoordinator;
-            AddImage = new RelayCommand(() => { });  //TODO сделать проверку передаваемого параметра _nodePluginHelper.AddImage(p.ToString());
-            RemoveImage = new RelayCommand(() => { }); //TODO сделать проверку передаваемого параметра или диалог выбора файлов (мнодественный) а также проверку форматов картинок (авось что то не то передадут) _nodePluginHelper.RemoveImage(p as XmlNode);
+            _repositoryXml = repositoryXml;
+            AddImage = new RelayCommand<string>(p =>
+            {
+                XmlNode.AppendChild(SetOrCreateNodeAtribute("image", XmlNode.SelectSingleNode("image"), new XAttribute { Name = "path", Value = p }));
+            });  //TODO сделать проверку передаваемого параметра 
+            RemoveImage = new RelayCommand<XmlNode>(p =>
+            {
+                XmlNode.RemoveChild(p);
+            }); //TODO сделать проверку передаваемого параметра или диалог выбора файлов (мнодественный) а также проверку форматов картинок (авось что то не то передадут) 
             FilesCtor();
             FlagsCtor();
         }

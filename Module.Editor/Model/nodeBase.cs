@@ -15,11 +15,11 @@ namespace Module.Editor.Model
         {
             var typeNode = XmlDoc.CreateNode(XmlNodeType.Element, name, "");
             foreach (var item in attribute)
-                SetAttributeVlaue(typeNode, item);
+                SetAttributeValue(typeNode, item);
             return typeNode;
         }
 
-        protected void SetAttributeVlaue(XmlNode node, XAttribute xAttribute)
+        protected void SetAttributeValue(XmlNode node, XAttribute xAttribute)
         {
             var attr = node.Attributes?[xAttribute.Name];
             if (attr == null)
