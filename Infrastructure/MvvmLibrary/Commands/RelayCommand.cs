@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace FomodInfrastructure.MvvmLibrary.Commands
 {
-    public sealed class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private readonly WeakAction _execute;
         private readonly WeakFunc<bool> _canExecute;
@@ -45,7 +45,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
             _execute.Execute();
         }
     }
-    public  class RelayCommand<T> : ICommand
+    public class RelayCommand<T> : ICommand
     {
         private readonly WeakAction<T> _execute;
         private readonly WeakFunc<T, bool> _canExecute;
