@@ -8,7 +8,6 @@
         <sys:String>Or</sys:String>
     </inf:Set>
 
-
     <inf:Set x:Key="flagValueEnum" x:Shared="false">
         <sys:String>On</sys:String>
         <sys:String>Off</sys:String>
@@ -21,5 +20,5 @@
         <sys:String>NotUsable</sys:String>
         <sys:String>CouldBeUsable</sys:String>
     </inf:Set>
-    
+
 </ResourceDictionary>  

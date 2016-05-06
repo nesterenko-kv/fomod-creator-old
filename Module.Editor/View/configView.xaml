@@ -10,8 +10,7 @@
              mc:Ignorable="d">
     <StackPanel DataContext="{Binding XmlNode}">
         <TextBox MaxHeight="38"
-                 Text="{Binding XPath=moduleName,
-                                UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding XPath=moduleName, UpdateSourceTrigger=PropertyChanged}"
                  controls:TextBoxHelper.ClearTextButton="True"
                  controls:TextBoxHelper.UseFloatingWatermark="True"
                  controls:TextBoxHelper.Watermark="Имя модификации" />

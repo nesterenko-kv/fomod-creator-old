@@ -21,37 +21,27 @@
             <sys:String>NotUsable</sys:String>
             <sys:String>CouldBeUsable</sys:String>
         </inf:Set>
-
-
     </UserControl.Resources>
-
     <ContentControl>
         <ContentControl.Template>
-
             <ControlTemplate>
-
                 <StackPanel x:Name="grid" DataContext="{Binding XmlNode}">
                     <ToggleButton x:Name="toggle"
                                   Margin="3"
-                                  IsChecked="{Binding DataContext.IsSimpleTypeDescriptor,
-                                                      ElementName=uc}" />
+                                  IsChecked="{Binding DataContext.IsSimpleTypeDescriptor, ElementName=uc}" />
                     <StackPanel x:Name="simpleType">
                         <!--  TODO: typeDescriptor  -->
                         <ComboBox controls:TextBoxHelper.UseFloatingWatermark="True"
                                   controls:TextBoxHelper.Watermark="Тип группы"
                                   ItemsSource="{StaticResource pluginTypeEnum}"
-                                  SelectedItem="{Binding XPath=type/@name,
-                                                         Path=Value}" />
+                                  SelectedItem="{Binding XPath=type/@name, Path=Value}" />
                     </StackPanel>
-
                     <StackPanel x:Name="strongType">
                         <ComboBox controls:TextBoxHelper.UseFloatingWatermark="True"
                                   controls:TextBoxHelper.Watermark="Тип группы dependencyType"
                                   ItemsSource="{StaticResource pluginTypeEnum}"
-                                  SelectedItem="{Binding XPath=dependencyType/defaultType/@name,
-                                                         Path=Value}" />
+                                  SelectedItem="{Binding XPath=dependencyType/defaultType/@name, Path=Value}" />
                     </StackPanel>
-
                 </StackPanel>
                 <ControlTemplate.Triggers>
                     <!--<DataTrigger Binding="{Binding XPath=typeDescriptor/dependencyType}" Value="{x:Null}">
@@ -60,8 +50,6 @@
                         <DataTrigger Binding="{Binding XPath=typeDescriptor/type}" Value="{x:Null}">
                             <Setter TargetName="toggle" Property="IsChecked" Value="true" />
                         </DataTrigger>-->
-
-
                     <Trigger SourceName="toggle" Property="IsChecked" Value="true">
                         <Setter TargetName="toggle" Property="Content" Value="Change to dependency type" />
                         <Setter TargetName="simpleType" Property="Visibility" Value="Visible" />

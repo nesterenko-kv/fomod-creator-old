@@ -18,8 +18,7 @@
     </UserControl.Resources>
     <StackPanel DataContext="{Binding XmlNode}">
         <TextBox MaxHeight="38"
-                 Text="{Binding XPath=@name,
-                                UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}"
                  controls:TextBoxHelper.ClearTextButton="True"
                  controls:TextBoxHelper.UseFloatingWatermark="True"
                  controls:TextBoxHelper.Watermark="Имя группы" />

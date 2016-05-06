@@ -2,96 +2,67 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Module.Editor.View"
-             xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:xmlsys="clr-namespace:System.Xml;assembly=System.Xml"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             mc:Ignorable="d ">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Module.Editor;component/Resource/Enums.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <DataTemplate x:Key="fileTemplate"
-                          DataType="file">
+            <DataTemplate x:Key="fileTemplate" DataType="file">
                 <DockPanel>
-                    <TextBlock Text="file: "
-                               DockPanel.Dock="Left" />
                     <Button Margin="3"
                             Content="x"
                             DockPanel.Dock="Right"
                             DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor, AncestorLevel=3}}"
                             Command="{Binding RemoveFile}"
-                            CommandParameter="{Binding}" />
-                    <TextBlock Text="{Binding XPath=@source}"
-                               DockPanel.Dock="Left" />
+                            CommandParameter="{Binding}"
+                            Style="{DynamicResource SquareButtonStyle}"/>
+                    <TextBlock Text="{Binding XPath=@source, StringFormat='file: {0}'}" DockPanel.Dock="Left" />
                 </DockPanel>
             </DataTemplate>
-
-            <DataTemplate x:Key="folderTemplate"
-                          DataType="folder">
+            <DataTemplate x:Key="folderTemplate" DataType="folder">
                 <DockPanel>
-                    <TextBlock Text="folder: "
-                               DockPanel.Dock="Left" />
                     <Button Margin="3"
                             Content="x"
                             DockPanel.Dock="Right"
                             DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor, AncestorLevel=3}}"
                             Command="{Binding RemoveFile}"
-                            CommandParameter="{Binding}" />
-                    <TextBlock Text="{Binding XPath=@source}"
-                               DockPanel.Dock="Left" />
+                            CommandParameter="{Binding}"
+                            Style="{DynamicResource SquareButtonStyle}"/>
+                    <TextBlock Text="{Binding XPath=@source, StringFormat='folder: {0}'}" DockPanel.Dock="Left"/>
                 </DockPanel>
             </DataTemplate>
-
-            <DataTemplate x:Key="XmlNodeTemplate"
-                          DataType="{x:Type xmlsys:XmlNode}">
-                <ContentControl x:Name="content"
-                                Content="{Binding}" />
+            <DataTemplate x:Key="XmlNodeTemplate" DataType="{x:Type xmlsys:XmlNode}">
+                <ContentControl x:Name="content" Content="{Binding}" />
                 <DataTemplate.Triggers>
-                    <DataTrigger Binding="{Binding Name}"
-                                 Value="folder">
+                    <DataTrigger Binding="{Binding Name}" Value="folder">
                         <Setter TargetName="content" Property="ContentTemplate" Value="{StaticResource folderTemplate}" />
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding Name}"
-                                 Value="file">
+                    <DataTrigger Binding="{Binding Name}" Value="file">
                         <Setter TargetName="content" Property="ContentTemplate" Value="{StaticResource fileTemplate}" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
-
-
-
-
-
         </ResourceDictionary>
     </UserControl.Resources>
-
     <ContentControl>
         <ContentControl.Resources>
-            <DataTemplate x:Key="NotRemoveFilesTemplate"
-                          DataType="files">
+            <DataTemplate x:Key="NotRemoveFilesTemplate" DataType="files">
                 <Border Margin="3"
                         BorderBrush="LightGray"
                         BorderThickness="1"
                         CornerRadius="3">
                     <StackPanel>
-                        <TextBlock Margin="6"
-                                   Text="Группа файлов/папок" />
-                        <ListBox Margin="6"
-                                 ItemTemplate="{StaticResource XmlNodeTemplate}"
-                                 ItemsSource="{Binding XPath=./*}" />
+                        <TextBlock Margin="6" Text="Группа файлов/папок" />
+                        <ListBox Margin="6" ItemTemplate="{StaticResource XmlNodeTemplate}" ItemsSource="{Binding XPath=./*}" />
                     </StackPanel>
                 </Border>
             </DataTemplate>
-
-            <DataTemplate x:Key="RemoveFilesTemplate"
-                          DataType="files">
+            <DataTemplate x:Key="RemoveFilesTemplate" DataType="files">
                 <Border Margin="3"
                         BorderBrush="LightGray"
                         BorderThickness="1"
@@ -102,29 +73,26 @@
                                     Content="Add file"
                                     Command="{Binding AddFile}"
                                     CommandParameter="{Binding}"
-                                    DockPanel.Dock="Right" />
+                                    DockPanel.Dock="Right"
+                                    Style="{DynamicResource SquareButtonStyle}"/>
                             <Button Margin="6"
                                     Content="Add folder"
                                     Command="{Binding AddFolder}"
                                     CommandParameter="{Binding}"
-                                    DockPanel.Dock="Right" />
+                                    DockPanel.Dock="Right"
+                                    Style="{DynamicResource SquareButtonStyle}"/>
                             <Button Margin="6"
                                     Content="Remove"
                                     Command="{Binding RemoveFileFolderGroup}"
                                     CommandParameter="{Binding}"
-                                    DockPanel.Dock="Right" />
-                            <TextBlock Margin="6"
-                                       DockPanel.Dock="Left"
-                                       Text="Группа файлов/папок" />
-
+                                    DockPanel.Dock="Right"
+                                    Style="{DynamicResource SquareButtonStyle}"/>
+                            <TextBlock Margin="6" DockPanel.Dock="Left" Text="Группа файлов/папок" />
                         </DockPanel>
-                        <ListBox Margin="6"
-                                 ItemTemplate="{StaticResource XmlNodeTemplate}"
-                                 ItemsSource="{Binding XPath=./*}" />
+                        <ListBox Margin="6" ItemTemplate="{StaticResource XmlNodeTemplate}" ItemsSource="{Binding XPath=./*}" />
                     </StackPanel>
                 </Border>
             </DataTemplate>
-
         </ContentControl.Resources>
         <ContentControl.Template>
             <ControlTemplate>
@@ -132,29 +100,24 @@
                     <Button x:Name="fileAddButton"
                             Margin="3"
                             Content="Add files/folders group"
-                            Command="{Binding AddFileFolderGroup}" />
-
+                            Command="{Binding AddFileFolderGroup}"
+                            Style="{DynamicResource SquareButtonStyle}"/>
                     <ItemsControl x:Name="fileList"
                                   DataContext="{Binding XmlNode}"
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                   ItemsSource="{Binding XPath=files}" />
                 </StackPanel>
                 <ControlTemplate.Triggers>
-                    <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}"
-                                 Value="true">
+                    <DataTrigger Value="true" Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}">
                         <Setter TargetName="fileList" Property="ItemTemplate" Value="{StaticResource NotRemoveFilesTemplate}" />
                         <Setter TargetName="fileAddButton" Property="Visibility" Value="Collapsed" />
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}"
-                                 Value="false">
+                    <DataTrigger Value="false" Binding="{Binding DataContext.IsFilesFoldersFlags, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor}}">
                         <Setter TargetName="fileList" Property="ItemTemplate" Value="{StaticResource RemoveFilesTemplate}" />
                         <Setter TargetName="fileAddButton" Property="Visibility" Value="Visible" />
                     </DataTrigger>
-
                 </ControlTemplate.Triggers>
             </ControlTemplate>
         </ContentControl.Template>
     </ContentControl>
-
-
 </UserControl>

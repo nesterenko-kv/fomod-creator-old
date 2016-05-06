@@ -5,5 +5,6 @@ namespace FomodInfrastructure
 
     public class Set : ObservableCollection<object>
     {
+
     }
 }

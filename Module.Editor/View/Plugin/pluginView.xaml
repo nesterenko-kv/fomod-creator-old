@@ -11,13 +11,13 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <DataTemplate DataType="image">
-
             <DockPanel>
                 <Button Margin="1"
                         Command="{Binding DataContext.RemoveImage, ElementName=uc}"
                         CommandParameter="{Binding}"
                         Content="X"
-                        DockPanel.Dock="Right" />
+                        DockPanel.Dock="Right"
+                        Style="{DynamicResource SquareButtonStyle}"/>
                 <TextBlock DockPanel.Dock="Left"
                            Text="{Binding XPath=@path}">
                     <TextBlock.ToolTip>
@@ -26,7 +26,6 @@
                 </TextBlock>
             </DockPanel>
         </DataTemplate>
-
     </UserControl.Resources>
     <TabControl>
         <TabItem Header="Files, folder and flags">
