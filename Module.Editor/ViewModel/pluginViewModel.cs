@@ -4,6 +4,7 @@ using System.Xml;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
 using FomodInfrastructure.MvvmLibrary.Commands;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Practices.ServiceLocation;
 using Module.Editor.Resource;
 using Prism.Events;
@@ -18,11 +19,12 @@ namespace Module.Editor.ViewModel
     {
         #region Services
 
-        private IServiceLocator _serviceLocator;
-        private IEventAggregator _eventAggregator;
+        private readonly IServiceLocator _serviceLocator;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IDialogCoordinator _dialogCoordinator;
 
         #endregion
-        
+
         #region Commands
 
         public RelayCommand AddImage { get; private set; } 
@@ -30,11 +32,12 @@ namespace Module.Editor.ViewModel
 
         #endregion
 
-        public PluginViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator)
+        public PluginViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator)
         {
             CurentParamName = Names.PluginName;
             _serviceLocator = serviceLocator;
             _eventAggregator = eventAggregator;
+            _dialogCoordinator = dialogCoordinator;
             AddImage = new RelayCommand(() => { });  //TODO сделать проверку передаваемого параметра _nodePluginHelper.AddImage(p.ToString());
             RemoveImage = new RelayCommand(() => { }); //TODO сделать проверку передаваемого параметра или диалог выбора файлов (мнодественный) а также проверку форматов картинок (авось что то не то передадут) _nodePluginHelper.RemoveImage(p as XmlNode);
             FilesCtor();
@@ -61,11 +64,11 @@ namespace Module.Editor.ViewModel
 
         private void FilesCtor()
         {
-            AddFileFolderGroup = new RelayCommand(() => MessageBox.Show("Wow! Added files group"));
-            RemoveFileFolderGroup = new RelayCommand(() => MessageBox.Show("Wow! Remove files group"));
-            RemoveFile = new RelayCommand(() => MessageBox.Show("Wow! Remove FILE/FOLDER"));
-            AddFile = new RelayCommand(() => MessageBox.Show("Wow! Added file"));
-            AddFolder = new RelayCommand(() => MessageBox.Show("Wow! Added folder"));
+            AddFileFolderGroup = new RelayCommand(() => _dialogCoordinator.ShowMessageAsync(this, "Wow!", "Added files group"));
+            RemoveFileFolderGroup = new RelayCommand(() => _dialogCoordinator.ShowMessageAsync(this, "Wow!", "Removed files group"));
+            RemoveFile = new RelayCommand(() => _dialogCoordinator.ShowMessageAsync(this, "Wow!", "Removed FILE/FOLDER"));
+            AddFile = new RelayCommand(() => _dialogCoordinator.ShowMessageAsync(this, "Wow!", "Added file"));
+            AddFolder = new RelayCommand(() => _dialogCoordinator.ShowMessageAsync(this, "Wow!", "Added folder"));
 
             ThenSetXmlNode(xmlNode =>
             {
@@ -113,10 +116,10 @@ namespace Module.Editor.ViewModel
 
         private void FlagsCtor()
         {
-            AddFlagsGroup = new RelayCommand(() => MessageBox.Show("Wow! Added flags group"));
-            RemoveFlagsGroup = new RelayCommand(() => MessageBox.Show("Wow! Remove flags group"));
-            RemoveFlag = new RelayCommand(() => MessageBox.Show("Wow! Remove FLAG"));
-            AddFlag = new RelayCommand(() => MessageBox.Show("Wow! added FLAG"));
+            AddFlagsGroup = new RelayCommand(() => _dialogCoordinator.ShowMessageAsync(this, "Wow!", "Added flags group"));
+            RemoveFlagsGroup = new RelayCommand(() => _dialogCoordinator.ShowMessageAsync(this, "Wow!", "Removed flags group"));
+            RemoveFlag = new RelayCommand(() => _dialogCoordinator.ShowMessageAsync(this, "Wow!", "Removed FLAG"));
+            AddFlag = new RelayCommand(() => _dialogCoordinator.ShowMessageAsync(this, "Wow!", "Added FLAG"));
         }
     }
 }

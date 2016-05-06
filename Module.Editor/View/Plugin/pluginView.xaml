@@ -5,6 +5,7 @@
              xmlns:local="clr-namespace:Module.Editor.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:plugin="clr-namespace:Module.Editor.View.Plugin"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              x:Name="uc"
              d:DesignHeight="300"
              d:DesignWidth="600"
@@ -58,11 +59,9 @@
             </DockPanel>
         </TabItem>
 
-        <!--<TabItem Header="Info">
+        <TabItem Header="Info">
             <StackPanel DataContext="{Binding XmlNode}">
-        -->
         <!--  Тут либо картинку с открытием диалога выбора пути при нажатии, либо просто текстбокс с валидацией  -->
-        <!--
                 <TextBox MaxHeight="38"
                          controls:TextBoxHelper.ClearTextButton="True"
                          controls:TextBoxHelper.UseFloatingWatermark="True"
@@ -82,12 +81,12 @@
                          ItemsSource="{Binding XPath=image}" />
 
             </StackPanel>
-        </TabItem>-->
+        </TabItem>
 
-        <!--<TabItem Header="Type"
+        <TabItem Header="Type"
                  DataContext="{Binding ElementName=uc}">
-            <local:pluginTypeView DataContext="{Binding DataContext.pluginTypeViewModel}" />
-        </TabItem>-->
+            <plugin:pluginTypeView DataContext="{Binding DataContext.pluginTypeViewModel}" />
+        </TabItem>
     </TabControl>
 </UserControl>
 
