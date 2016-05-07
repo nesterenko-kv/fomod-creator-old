@@ -81,16 +81,15 @@
             <Grid>
                 <ListBox DataContext="{Binding XmlNode}"
                          ItemTemplate="{StaticResource XmlNodeTemplate}"
-                         ItemsSource="{Binding XPath=files/*}" >
+                         ItemsSource="{Binding XPath=files/*}">
                     <ListBox.Style>
-                        <Style TargetType="ListBox" BasedOn="{StaticResource {x:Type ListBox}}">
+                        <Style BasedOn="{StaticResource {x:Type ListBox}}" TargetType="ListBox">
                             <Style.Triggers>
-                                
-                                <DataTrigger Binding="{Binding ItemsSource, XPath=count(), RelativeSource={RelativeSource AncestorType=ListBox, Mode=FindAncestor}}" Value="0">
+                                <DataTrigger Binding="{Binding ItemsSource.Count, RelativeSource={RelativeSource Self}}" Value="0">
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate>
-                                                <Button Content="click me"/>
+                                                <Button Content="click me" />
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>

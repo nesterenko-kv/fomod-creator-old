@@ -11,41 +11,25 @@ using Microsoft.Practices.ServiceLocation;
 using Module.Editor.Model;
 using Module.Editor.Resource;
 using Prism.Events;
+using System.Windows.Media.Imaging;
 
 namespace Module.Editor.ViewModel
 {
     /// <summary>
-    /// Base plugin info
+    /// Ctor plugin
     /// </summary>
     [Aspect(typeof(AspectINotifyPropertyChanged))]
-    public partial class PluginViewModel
+    public partial class PluginViewModel : BaseViewModel
     {
         #region Services
 
         private readonly IServiceLocator _serviceLocator;
         private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
-        private readonly  IRepository<XmlDataProvider> _repositoryXml;
+        private readonly IRepository<XmlDataProvider> _repositoryXml;
+        private readonly IFileBrowserDialog _fileBrowserDialog;
 
         #endregion
-
-        #region Commands
-
-        public RelayCommand<string> AddImage { get; private set; } 
-        public RelayCommand<XmlNode> RemoveImage { get; private set; }
-
-        #endregion
-
-        public string ImagePath
-        {
-            get
-            {
-                var imagePath = XmlNode.SelectSingleNode("image/@path")?.Value;
-                if (!string.IsNullOrWhiteSpace(imagePath))
-                    return _repositoryXml.CurrentPath + imagePath;
-                throw new FileNotFoundException();
-            }
-        }
 
         protected XmlNode SetOrCreateNodeAtribute(string name, XmlNode node, XAttribute attribute)
         {
@@ -60,25 +44,107 @@ namespace Module.Editor.ViewModel
             return typeNode;
         }
 
-        public PluginViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IRepository<XmlDataProvider> repositoryXml)
+        public PluginViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IRepository<XmlDataProvider> repositoryXml, IFileBrowserDialog fileBrowserDialog)
         {
             CurentParamName = Names.PluginName;
             _serviceLocator = serviceLocator;
             _eventAggregator = eventAggregator;
             _dialogCoordinator = dialogCoordinator;
             _repositoryXml = repositoryXml;
-            AddImage = new RelayCommand<string>(p =>
-            {
-                XmlNode.AppendChild(SetOrCreateNodeAtribute("image", XmlNode.SelectSingleNode("image"), new XAttribute { Name = "path", Value = p }));
-            });  //TODO сделать проверку передаваемого параметра 
-            RemoveImage = new RelayCommand<XmlNode>(p =>
-            {
-                XmlNode.RemoveChild(p);
-            }); //TODO сделать проверку передаваемого параметра или диалог выбора файлов (мнодественный) а также проверку форматов картинок (авось что то не то передадут) 
+            _fileBrowserDialog = fileBrowserDialog;
+
+
+            InfoCtor();
             FilesCtor();
             FlagsCtor();
         }
     }
+
+
+    /// <summary>
+    /// Base plugin info
+    /// </summary>
+    public partial class PluginViewModel
+    {
+        #region Commands
+
+        public RelayCommand AddImage { get; private set; }
+        public RelayCommand RemoveImage { get; private set; }
+
+        #endregion
+
+        private void InfoCtor()
+        {
+            AddImage = new RelayCommand(() =>
+            {
+                var newPath = _fileBrowserDialog.ShowDialog() ? _fileBrowserDialog.SelectedPath : null;
+                if (newPath != null)
+                {
+                    var imageNode = SetOrCreateNodeAtribute("image", XmlNode.SelectSingleNode("image"), new XAttribute { Name = "path", Value = newPath });
+                    var descriptionNode = XmlNode.SelectSingleNode("description"); //TODO подумать над отсутствием узла description
+                    XmlNode.InsertAfter(imageNode, descriptionNode);
+
+                    Bitmap = getBitmap();
+                }
+
+            });
+
+            RemoveImage = new RelayCommand(() =>
+            {
+                var imageNode = XmlNode.SelectSingleNode("image");
+                if (imageNode != null)
+                {
+                    XmlNode.RemoveChild(imageNode);
+                    Bitmap = null;
+                }
+            });
+        }
+
+
+        public string ImagePath
+        {
+            get
+            {
+                var imagePath = XmlNode.SelectSingleNode("image/@path")?.Value;
+                if (!string.IsNullOrWhiteSpace(imagePath))
+                    return /*_repositoryXml.CurrentPath +*/ imagePath;
+                return @"D:\logo.jps"; // throw new FileNotFoundException();
+            }
+        }
+
+        BitmapImage _bitmap;
+        public BitmapImage Bitmap
+        {
+            get
+            {
+                if (_bitmap == null)
+                    _bitmap = getBitmap();
+                return _bitmap;
+            }
+            set
+            {
+                _bitmap = value;
+            }
+        }
+
+        private BitmapImage getBitmap()
+        {
+            var _bitmap = new BitmapImage();
+            var imagePath = XmlNode.SelectSingleNode("image/@path")?.Value;
+            if (string.IsNullOrWhiteSpace(imagePath))
+                imagePath = @"D:\logo.jps";
+            using (var stream = File.OpenRead(imagePath))
+            {
+                _bitmap.BeginInit();
+                _bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                _bitmap.StreamSource = stream;
+                _bitmap.EndInit();
+            }
+            return _bitmap;
+        }
+
+    }
+
 
     /// <summary>
     /// Files & Folders
@@ -138,7 +204,7 @@ namespace Module.Editor.ViewModel
     /// <summary>
     /// Flags
     /// </summary>
-    public partial class PluginViewModel : BaseViewModel
+    public partial class PluginViewModel 
     {
         #region Commands
 

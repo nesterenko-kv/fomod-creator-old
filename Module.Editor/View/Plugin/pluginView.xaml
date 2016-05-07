@@ -1,20 +1,21 @@
 ﻿<UserControl x:Class="Module.Editor.View.Plugin.pluginView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Module.Editor.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:plugin="clr-namespace:Module.Editor.View.Plugin"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              x:Name="uc"
-             d:DesignHeight="300"
-             d:DesignWidth="600"
+             d:DesignHeight="600"
+             d:DesignWidth="1000"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <DataTemplate DataType="image">
+        <DataTemplate x:Key="imageTemplate" DataType="image">
             <DockPanel>
                 <Button Margin="1"
-                        Command="{Binding DataContext.RemoveImage, ElementName=uc}"
+                        Command="{Binding DataContext.RemoveImage,
+                                          ElementName=uc}"
                         CommandParameter="{Binding}"
                         Content="X"
                         DockPanel.Dock="Right"
@@ -39,20 +40,18 @@
                         <DataTemplate>
                             <DockPanel x:Name="container"
                                        VerticalAlignment="Top"
-                                       DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}}">
-                                <plugin:pluginFileView x:Name="files"
-                                                       DockPanel.Dock="Top" />
-                                <local:pluginFlagsView x:Name="flags"
-                                                       DockPanel.Dock="Bottom" />
+                                       DataContext="{Binding DataContext,
+                                                             RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                            AncestorType=ContentControl}}">
+                                <plugin:pluginFileView x:Name="files" DockPanel.Dock="Top" />
+                                <local:pluginFlagsView x:Name="flags" DockPanel.Dock="Bottom" />
                             </DockPanel>
                             <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}"
-                                             Value="true">
+                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}" Value="true">
                                     <Setter TargetName="files" Property="DockPanel.Dock" Value="Top" />
                                     <Setter TargetName="flags" Property="DockPanel.Dock" Value="Bottom" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}"
-                                             Value="false">
+                                <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}" Value="false">
                                     <Setter TargetName="files" Property="DockPanel.Dock" Value="Bottom" />
                                     <Setter TargetName="flags" Property="DockPanel.Dock" Value="Top" />
                                 </DataTrigger>
@@ -64,26 +63,85 @@
             </DockPanel>
         </TabItem>
 
-        <TabItem Header="Info">
-            <StackPanel DataContext="{Binding XmlNode}">
-                <!--  Тут либо картинку с открытием диалога выбора пути при нажатии, либо просто текстбокс с валидацией  -->
-                <TextBox MaxHeight="38"
-                         controls:TextBoxHelper.ClearTextButton="True"
-                         controls:TextBoxHelper.UseFloatingWatermark="True"
-                         controls:TextBoxHelper.Watermark="Имя плагина"
-                         Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
+        <TabItem Header="Info" IsSelected="True">
+            <Grid DataContext="{Binding XmlNode}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                <TextBox controls:TextBoxHelper.UseFloatingWatermark="True"
-                         controls:TextBoxHelper.Watermark="Описание"
-                         AcceptsReturn="True"
-                         Text="{Binding XPath=description, UpdateSourceTrigger=PropertyChanged}"
-                         TextWrapping="Wrap" />
-                <Button Margin="3"
-                        Command="{Binding DataContext.AddImage, ElementName=uc}"
-                        CommandParameter="44914-1-1323724707.PNG"
-                        Content="Add image" />
-                <ListBox MinHeight="50" ItemsSource="{Binding XPath=image}" />
-            </StackPanel>
+                <Border Width="300"
+                        Height="300"
+                        Margin="3"
+                        BorderBrush="White"
+                        BorderThickness="2">
+                    <Image DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" Source="{Binding Bitmap, Mode=OneWay}" />
+                </Border>
+
+
+                <!--  Тут либо картинку с открытием диалога выбора пути при нажатии, либо просто текстбокс с валидацией  -->
+                <DockPanel Grid.RowSpan="2"
+                           Grid.Column="1"
+                           Margin="3">
+                    <TextBox Grid.RowSpan="2"
+                             Grid.Column="1"
+                             Grid.ColumnSpan="2"
+                             MaxHeight="38"
+                             Margin="3"
+                             controls:TextBoxHelper.ClearTextButton="True"
+                             controls:TextBoxHelper.UseFloatingWatermark="True"
+                             controls:TextBoxHelper.Watermark="Имя плагина"
+                             DockPanel.Dock="Top"
+                             Text="{Binding XPath=@name,
+                                            UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBox Grid.RowSpan="2"
+                             Grid.ColumnSpan="2"
+                             Margin="3"
+                             controls:TextBoxHelper.UseFloatingWatermark="True"
+                             controls:TextBoxHelper.Watermark="Описание"
+                             AcceptsReturn="True"
+                             Text="{Binding XPath=description,
+                                            UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="Wrap" />
+                </DockPanel>
+                <StackPanel Grid.Row="1">
+                    <Border Margin="3"
+                            BorderBrush="White"
+                            BorderThickness="2">
+                        <TextBlock Grid.RowSpan="2"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding XPath=image/@path}"
+                                   TextTrimming="CharacterEllipsis"
+                                   ToolTip="{Binding XPath=image/@path}" />
+                    </Border>
+
+                    <Button Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="3"
+                            VerticalAlignment="Top"
+                            Command="{Binding DataContext.AddImage,
+                                              RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                             AncestorType=UserControl}}"
+                            Content="Add image" />
+                    <Button Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="3"
+                            VerticalAlignment="Top"
+                            Command="{Binding DataContext.RemoveImage,
+                                              RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                             AncestorType=UserControl}}"
+                            Content="Remove image" />
+                </StackPanel>
+
+
+
+
+            </Grid>
         </TabItem>
 
         <!--  TODO этот раздел плагина будет следан позже  -->

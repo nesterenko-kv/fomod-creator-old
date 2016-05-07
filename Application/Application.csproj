@@ -114,6 +114,7 @@
     <Compile Include="Boot\Bootstrapper.cs" />
     <Compile Include="Services\AppService.cs" />
     <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\FileBrowserDialog.cs" />
     <Compile Include="Services\FolderBrowserDialog.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\RepositoryXml.cs" />
