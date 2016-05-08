@@ -30,7 +30,7 @@ namespace MainApplication.Boot
                 r.For<IAppService>().Use<AppService>().Singleton();
                 r.For<IRepository<XmlDataProvider>>().Use<RepositoryXml>().Singleton();
                 r.For<IDialogCoordinator>().Use<DialogCoordinator>().Singleton();
-                r.For<IFolderBrowserDialog>().Use<FolderBrowserDialog>().Singleton();
+                r.For<IFolderBrowserDialog>().Use<FolderBrowserDialog>();
                 r.For<IDataService>().Use<DataService>().Singleton();
                 r.For<IFileBrowserDialog>().Use<FileBrowserDialog>();
 

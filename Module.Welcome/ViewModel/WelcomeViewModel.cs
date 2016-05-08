@@ -51,7 +51,15 @@ namespace Module.Welcome.ViewModel
                 else
                     _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Указанная папка не соответствует необходимым требованиям.");
             });
-            CreateProject = new RelayCommand(() => { });
+            CreateProject = new RelayCommand(() => 
+            {
+                var path = _repositoryXml.CreateData();
+
+                if (path == "error")
+                    _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "В указанной папке уже содержиться проект. Нельзя перезаписывать существующие проекты.");
+                else if (path != null)
+                    OpenProject.Execute(path);
+            });
             _eventAggregator.GetEvent<OpenLink>().Subscribe(p => OpenProject.Execute(p));
         }
 

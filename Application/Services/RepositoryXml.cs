@@ -3,6 +3,7 @@ using FomodInfrastructure.Aspect;
 using FomodInfrastructure.Interface;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Windows.Data;
 using System.Xml;
 using System.Xml.Linq;
@@ -14,7 +15,7 @@ namespace MainApplication.Services
     {
         private const string InfoSubPath = @"\fomod\info.xml";
         private const string ConfigurationSubPath = @"\fomod\ModuleConfig.xml";
-        
+
         #region Services 
 
         private readonly IFolderBrowserDialog _folderBrowserDialog;
@@ -28,7 +29,39 @@ namespace MainApplication.Services
         public XmlDataProvider GetData() => _xmlData;
 
         public XmlDataProvider LoadData(string path = null) => _xmlData = path != null ? LoadProjectFromPath(path) : LoadProjectIfPathNull();
-        
+
+        public string CreateData()
+        {
+            _folderBrowserDialog.ShowDialog();
+            var path = _folderBrowserDialog.SelectedPath;
+            _folderBrowserDialog.Reset();
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                if (CheckFiles(path)) return "error"; //если папка содержит уже проект то его нельзя перезаписывать //TODO решить вопрос с оповещением
+
+                Directory.CreateDirectory(path + @"\fomod");
+                Directory.CreateDirectory(path + @"\Data");
+
+                var info = "MainApplication.Resources.xml.infoDefault.xml";
+                var config = "MainApplication.Resources.xml.ModuleConfigDefault.xml";
+
+                getXElementResource(info).Save(path + InfoSubPath);
+                getXElementResource(config).Save(path + ConfigurationSubPath);
+                
+                return path;
+            }
+            return null;
+        }
+
+        private XElement getXElementResource(string path)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream(path))
+            {
+                return XElement.Load(stream);
+            }
+        }
+
         #endregion
 
         public RepositoryXml(IFolderBrowserDialog folderBrowserDialog)

@@ -38,7 +38,11 @@
                               ItemsSource="{Binding XPath=installSteps/installStep}"
                               ItemTemplate="{StaticResource installStep}">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding XPath=moduleName, UpdateSourceTrigger=PropertyChanged}" />
+
+            <DockPanel>
+                <Button Content="+" DockPanel.Dock="Right" Margin="1"/>
+                <TextBlock Text="{Binding XPath=moduleName, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" />
+            </DockPanel>
             <!--<TextBlock Text="{Binding XPath=installSteps/@order, StringFormat=[Order: {0}]}" />-->
         </StackPanel>
     </HierarchicalDataTemplate>

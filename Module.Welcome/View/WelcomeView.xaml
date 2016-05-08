@@ -1,11 +1,11 @@
 ﻿<UserControl x:Class="Module.Welcome.View.WelcomeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:regions="http://prismlibrary.com/"
              xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:names="clr-namespace:Module.Welcome.Resources"
+             xmlns:regions="http://prismlibrary.com/"
              d:DesignHeight="320"
              d:DesignWidth="1100"
              dialog:DialogParticipation.Register="{Binding}"
@@ -22,22 +22,28 @@
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
+        <GridSplitter Grid.Column="0"
+                      Width="1"
+                      Background="{DynamicResource AccentColorBrush}" />
+        <ContentControl Grid.Column="0"
+                        Margin="6 6 6 6"
+                        regions:RegionManager.RegionName="{x:Static names:LocalNames.LeftRegion}" />
         <Border x:Name="Border"
                 Grid.Column="1"
                 MinWidth="250"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Padding="42,21,42,18"
-                BorderThickness="1"
                 BorderBrush="{DynamicResource AccentColorBrush}"
+                BorderThickness="1"
+                Padding="42,21,42,18"
                 SnapsToDevicePixels="True">
             <StackPanel>
                 <TextBlock Margin="0,0,0,21"
                            HorizontalAlignment="Center"
-                           Text="Добро пожаловать!"
                            DockPanel.Dock="Top"
+                           FontFamily="Segoe UI Light"
                            FontSize="18"
-                           FontFamily="Segoe UI Light" />
+                           Text="Добро пожаловать!" />
                 <Button Margin="3"
                         Command="{Binding CreateProject}"
                         Style="{DynamicResource GreenButton}">
@@ -86,11 +92,5 @@
                 </Button>
             </StackPanel>
         </Border>
-        <GridSplitter Grid.Column="0"
-                      Width="1"
-                      Background="{DynamicResource AccentColorBrush}" />
-        <ContentControl Grid.Column="0"
-                        Margin="6 6 6 6"
-                        regions:RegionManager.RegionName="{x:Static names:LocalNames.LeftRegion}" />
     </Grid>
 </UserControl>

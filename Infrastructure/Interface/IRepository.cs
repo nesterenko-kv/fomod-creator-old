@@ -19,6 +19,7 @@
         /// Папка проекта загруженного в память.
         /// </summary>
         string CurrentPath { get; }
+        string CreateData();
 
     }
 }
