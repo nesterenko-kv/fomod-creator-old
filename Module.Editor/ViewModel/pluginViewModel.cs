@@ -84,6 +84,12 @@ namespace Module.Editor.ViewModel
                     var descriptionNode = XmlNode.SelectSingleNode("description"); //TODO подумать над отсутствием узла description
                     XmlNode.InsertAfter(imageNode, descriptionNode);
 
+                    var plagins = XmlNode.ParentNode;
+                    var group = plagins.ParentNode;
+                    var optionalFileGroups = group.ParentNode;
+                    var installStep = optionalFileGroups.ParentNode;
+                    var installSteps = installStep.ParentNode;
+                    var config = installSteps.ParentNode;
                     Bitmap = getBitmap();
                 }
 
@@ -131,8 +137,8 @@ namespace Module.Editor.ViewModel
         {
             var _bitmap = new BitmapImage();
             var imagePath = XmlNode.SelectSingleNode("image/@path")?.Value;
-            if (string.IsNullOrWhiteSpace(imagePath))
-                imagePath = @"D:\logo.jps";
+            if (string.IsNullOrWhiteSpace(imagePath)) return null;
+                //imagePath = @"D:\logo.jps";
             using (var stream = File.OpenRead(imagePath))
             {
                 _bitmap.BeginInit();

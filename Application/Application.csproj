@@ -115,6 +115,7 @@
     <Compile Include="Services\AppService.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\FileBrowserDialog.cs" />
+    <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\FolderBrowserDialog.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\RepositoryXml.cs" />
