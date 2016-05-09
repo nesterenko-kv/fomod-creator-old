@@ -43,16 +43,23 @@ namespace MainApplication.Services
             set { _projectRoot.FolderPath = value; }
         }
 
+        public RepositoryStatus RepositoryStatus { get; set; }
+
         #endregion
 
         #region Private methmods
 
         private bool CheckFiles(string folderPath)
-            => File.Exists(folderPath + InfoSubPath) && File.Exists(folderPath + ConfigurationSubPath);
+        {
+            var chk = File.Exists(folderPath + InfoSubPath) && File.Exists(folderPath + ConfigurationSubPath);
+            if (!chk) RepositoryStatus = RepositoryStatus.CantSelectFolder;
+            return chk;
+        }
 
         private ProjectRoot LoadProjectIfPathNull()
         {
             var folderPath = GetFolderPath();
+
             return folderPath != null ? LoadProjectFromPath(folderPath) : null;
         }
 
@@ -68,11 +75,14 @@ namespace MainApplication.Services
                 projectRoot.ModuleInformation = _dataService.DeserializeObject<ModuleInformation>(path + InfoSubPath);
                 projectRoot.ModuleConfiguration =
                     _dataService.DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
+
+                RepositoryStatus = RepositoryStatus.Ok;
                 return projectRoot;
             }
             catch (Exception e)
             {
                 _loggerFacade.Log(e.Message, Category.Exception, Priority.Medium);
+                RepositoryStatus = RepositoryStatus.Error;
             }
             return null;
         }
@@ -94,11 +104,13 @@ namespace MainApplication.Services
             {
                 _dataService.SerializeObject(_projectRoot.ModuleInformation, path + InfoSubPath);
                 _dataService.SerializeObject(_projectRoot.ModuleConfiguration, path + ConfigurationSubPath);
+                RepositoryStatus = RepositoryStatus.Ok;
                 return true;
             }
             catch (Exception e)
             {
                 _loggerFacade.Log(e.Message, Category.Exception, Priority.Medium);
+                RepositoryStatus = RepositoryStatus.Error;
             }
             return false;
         }
@@ -109,6 +121,7 @@ namespace MainApplication.Services
             var result = _folderBrowserDialog.ShowDialog();
             if (result && _folderBrowserDialog.SelectedPath != null)
                 return _folderBrowserDialog.SelectedPath;
+            RepositoryStatus = RepositoryStatus.Cancel;
             return null;
         }
 

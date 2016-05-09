@@ -29,8 +29,27 @@ namespace Module.Welcome.ViewModel
                     _eventAggregator.GetEvent<OpenProjectEvent>().Publish(_repository.CurrentPath);
                 }
                 else
-                    _dialogCoordinator.ShowMessageAsync(this, "Ошибка",
-                        "Указанная папка не соответствует необходимым требованиям.");
+                {
+                    if (_repository.RepositoryStatus == RepositoryStatus.CantSelectFolder)
+                    {
+                        _dialogCoordinator.ShowMessageAsync(this, "Ошибка",
+                          "Указанная папка не соответствует необходимым требованиям.");
+                    }
+                    else if (_repository.RepositoryStatus == RepositoryStatus.Error)
+                    {
+                        _dialogCoordinator.ShowMessageAsync(this, "Ошибка",
+                          "Произошла ошибка при загрузки проекта - обратитесь к разработчику");
+                    }
+                    else if (_repository.RepositoryStatus == RepositoryStatus.Cancel)
+                    {
+                        _dialogCoordinator.ShowMessageAsync(this, "Отмена",
+                          "Отмена");
+                    }
+                    else
+                    {
+                        throw new System.Exception();
+                    }
+                }
             });
             CreateProject = new RelayCommand(() => { });
             _eventAggregator.GetEvent<OpenLink>().Subscribe(p => OpenProject.Execute(p));

@@ -9,11 +9,23 @@
         T LoadData(string path = null);
         bool SaveData(string path = null);
 
+
+        RepositoryStatus RepositoryStatus { get; set; }
+
         /// <summary>
         ///     Получает ссылку на объект
         /// </summary>
         /// <typeparam name="T">Тип объекта</typeparam>
         /// <returns>Возращет объект, если он был загружен в память</returns>
         T GetData();
+    }
+
+    public enum RepositoryStatus
+    {
+        None,
+        Cancel,
+        Ok,
+        Error,
+        CantSelectFolder
     }
 }
