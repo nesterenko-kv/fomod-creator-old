@@ -8,9 +8,10 @@ using Prism.Regions;
 
 namespace Module.Editor.ViewModel
 {
-    public class EditorViewModel: BindableBase, INavigationAware
+    public class EditorViewModel: BindableBase//, INavigationAware
     {
         public string Header { get;} = "Редактор";
+        public string ProjectPath { get; set; } 
 
         #region Properties
 
@@ -30,7 +31,8 @@ namespace Module.Editor.ViewModel
                 {
                     { value.Name, value }
                 };
-                _regionManager.Regions["NodeRegion"].RequestNavigate(value.Name + "View", param);
+                //_regionManager.Regions["NodeRegion"].RequestNavigate(value.Name + "View", param);
+                RegionManager.Regions["NodeRegion"].RequestNavigate(value.Name + "View", param);
             }
         }
 
@@ -56,6 +58,7 @@ namespace Module.Editor.ViewModel
 
         private readonly IRepository<XmlDataProvider> _repository;
         private readonly IRegionManager _regionManager;
+        public IRegionManager RegionManager { get; set; }
 
         #endregion
 
@@ -68,7 +71,7 @@ namespace Module.Editor.ViewModel
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
-            return true;
+            return false;
         }
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
@@ -82,6 +85,8 @@ namespace Module.Editor.ViewModel
         {
             _repository = repository;
             _regionManager = regionManager;
+
+            ProjectPath = _repository.CurrentPath;
         }
 
     }

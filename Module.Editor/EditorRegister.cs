@@ -26,7 +26,17 @@ namespace Module.Editor
             _container.Configure(r => r.For<object>().Use<installStepView>().Named(nameof(installStepView)).SetProperty(p => p.DataContext = _container.GetInstance<InstallStepViewModel>()));
             _container.Configure(r => r.For<object>().Use<groupView>().Named(nameof(groupView)).SetProperty(p => p.DataContext = _container.GetInstance<GroupViewModel>()));
             _container.Configure(r => r.For<object>().Use<pluginView>().Named(nameof(pluginView)).SetProperty(p => p.DataContext = _container.GetInstance<PluginViewModel>()));
-            _regionManager.RequestNavigate(Names.MainContentRegion, nameof(MainEditorView));
+
+            //_regionManager.RequestNavigate(Names.MainContentRegion, nameof(MainEditorView));
+
+            //View view = new View();
+            //bool createRegionManagerScope = true;
+            //IRegion detailsRegion = _regionManager.Regions[Names.MainContentRegion];
+            //var view = _container.GetInstance<MainEditorView>();
+            //IRegionManager detailsRegionManager = detailsRegion.Add(view, null, true);
+            
+
+
         }
 
         #endregion

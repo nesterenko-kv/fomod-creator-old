@@ -5,6 +5,9 @@ using Prism.Events;
 using Module.Welcome.PrismEvent;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Data;
+using Prism.Regions;
+using FomodInfrastructure;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Module.Welcome.ViewModel
 {
@@ -15,10 +18,11 @@ namespace Module.Welcome.ViewModel
         #region Services
 
         private readonly IAppService _appService;
-        //private readonly IRegionManager _regionManager;
+        private readonly IRegionManager _regionManager;
         private readonly IRepository<XmlDataProvider> _repositoryXml;
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IEventAggregator _eventAggregator;
+        private readonly IServiceLocator _serviceLocator;
 
         #endregion
 
@@ -30,20 +34,31 @@ namespace Module.Welcome.ViewModel
 
         #endregion
 
-        public WelcomeViewModel(IAppService appService, IRepository<XmlDataProvider> repositoryXml, /*IRegionManager regionManager,*/ IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator)
+        public WelcomeViewModel(IAppService appService, 
+            IRepository<XmlDataProvider> repositoryXml, 
+            IRegionManager regionManager, 
+            IDialogCoordinator dialogCoordinator, 
+            IEventAggregator eventAggregator,
+            IServiceLocator serviceLocator)
         {
             _appService = appService;
-            //_regionManager = regionManager;
+            _regionManager = regionManager;
             _dialogCoordinator = dialogCoordinator;
             _eventAggregator = eventAggregator;
             _repositoryXml = repositoryXml;
+            _serviceLocator = serviceLocator;
             CloseApplication = new RelayCommand(() => _appService.CloseApp());
             OpenProject = new RelayCommand<object>(p =>
             {
-                var x = p == null ? _repositoryXml.LoadData() : _repositoryXml.LoadData(p.ToString());
+                var rep = _serviceLocator.GetInstance<IRepository<XmlDataProvider>>();
+                var x = p == null ? rep.LoadData() : rep.LoadData(p.ToString());
                 if (x != null)
                 {
-                    _appService.InitilizeBaseModules();
+                    //_appService.InitilizeBaseModules();
+
+                    (_appService as dynamic).CreateEditorModule(rep);
+
+
                     _eventAggregator.GetEvent<OpenProjectEvent>().Publish(_repositoryXml.CurrentPath);
                     //foreach (var item in _regionManager.Regions[Names.MainContentRegion].Views)
                     //    _regionManager.Regions[Names.MainContentRegion].Deactivate(item);
