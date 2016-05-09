@@ -4,6 +4,8 @@ using FomodInfrastructure.Interface;
 using FomodModel.Base;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Logging;
+using System.Xml.Linq;
+using System.Reflection;
 
 namespace MainApplication.Services
 {
@@ -43,11 +45,53 @@ namespace MainApplication.Services
             set { _projectRoot.FolderPath = value; }
         }
 
+        public string CreateData()
+        {
+            _folderBrowserDialog.ShowDialog();
+            var path = _folderBrowserDialog.SelectedPath;
+            _folderBrowserDialog.Reset();
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                if (CheckFiles(path))
+                {
+                    RepositoryStatus = RepositoryStatus.FolderIsAlreadyUse;
+                    return null; 
+                }
+
+                Directory.CreateDirectory(path + @"\fomod");
+                Directory.CreateDirectory(path + @"\Data");
+
+                var info = "FomodModel.XmlTemplates.info.xml";
+                var config = "FomodModel.XmlTemplates.ModuleConfig.xml";
+
+                if (!File.Exists(path + InfoSubPath)) getXElementResource(info).Save(path + InfoSubPath);
+                if (!File.Exists(path + ConfigurationSubPath)) getXElementResource(config).Save(path + ConfigurationSubPath);
+
+                RepositoryStatus = RepositoryStatus.Ok;
+                return path;
+            }
+            else
+            {
+                RepositoryStatus = RepositoryStatus.Cancel;
+                return null;
+            }
+            
+        }
+
         public RepositoryStatus RepositoryStatus { get; set; }
 
         #endregion
 
         #region Private methmods
+
+        private XElement getXElementResource(string path)
+        {
+            var assembly = Assembly.GetAssembly(typeof(ProjectRoot));
+            using (Stream stream = assembly.GetManifestResourceStream(path))
+            {
+                return XElement.Load(stream);
+            }
+        }
 
         private bool CheckFiles(string folderPath)
         {

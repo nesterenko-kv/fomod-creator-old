@@ -8,7 +8,7 @@
         string CurrentPath { get; set; }
         T LoadData(string path = null);
         bool SaveData(string path = null);
-
+        string CreateData();
 
         RepositoryStatus RepositoryStatus { get; set; }
 
@@ -26,6 +26,7 @@
         Cancel,
         Ok,
         Error,
-        CantSelectFolder
+        CantSelectFolder,
+        FolderIsAlreadyUse
     }
 }

@@ -5,6 +5,7 @@ using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Practices.ServiceLocation;
 using Module.Welcome.PrismEvent;
 using Prism.Events;
+using System;
 
 namespace Module.Welcome.ViewModel
 {
@@ -32,26 +33,35 @@ namespace Module.Welcome.ViewModel
                 {
                     if (_repository.RepositoryStatus == RepositoryStatus.CantSelectFolder)
                     {
-                        _dialogCoordinator.ShowMessageAsync(this, "Ошибка",
-                          "Указанная папка не соответствует необходимым требованиям.");
+                        _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Указанная папка не соответствует необходимым требованиям.");
                     }
                     else if (_repository.RepositoryStatus == RepositoryStatus.Error)
                     {
-                        _dialogCoordinator.ShowMessageAsync(this, "Ошибка",
-                          "Произошла ошибка при загрузки проекта - обратитесь к разработчику");
+                        _dialogCoordinator.ShowMessageAsync(this, "Ошибка",  "Произошла ошибка при загрузки проекта - обратитесь к разработчику");
                     }
                     else if (_repository.RepositoryStatus == RepositoryStatus.Cancel)
                     {
-                        _dialogCoordinator.ShowMessageAsync(this, "Отмена",
-                          "Отмена");
+                        //_dialogCoordinator.ShowMessageAsync(this, "Отмена", "Отмена");
                     }
                     else
                     {
-                        throw new System.Exception();
+                        throw new ApplicationException();
                     }
                 }
             });
-            CreateProject = new RelayCommand(() => { });
+            CreateProject = new RelayCommand(() => 
+            {
+                var _repository = _serviceLocator.GetInstance<IRepository<ProjectRoot>>();
+                var path = _repository.CreateData();
+                if (_repository.RepositoryStatus == RepositoryStatus.FolderIsAlreadyUse)
+                    _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Нельзя использовать папку в которой существуют файлы проекта");
+                else if (_repository.RepositoryStatus == RepositoryStatus.Ok)
+                    OpenProject.Execute(path);
+                else if (_repository.RepositoryStatus == RepositoryStatus.Cancel)
+                { }
+                else
+                    throw new ApplicationException();
+            });
             _eventAggregator.GetEvent<OpenLink>().Subscribe(p => OpenProject.Execute(p));
         }
 

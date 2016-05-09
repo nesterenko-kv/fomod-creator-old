@@ -22,6 +22,12 @@ namespace Module.Welcome.ViewModel
             _eventAggregator = eventAggregator;
             _dataService = dataService;
             GoTo = new RelayCommand<string>(p => _eventAggregator.GetEvent<OpenLink>().Publish(p));
+            Remove = new RelayCommand<ProjectLinkModel>(p => 
+            {
+                ProjectLinkList.Links.Remove(p);
+                SaveProjectLinkListFile();
+            });
+        
             var list = ReadProjectLinkListFile();
             if (list != null)
                 ProjectLinkList = list;
@@ -43,13 +49,22 @@ namespace Module.Welcome.ViewModel
         #region Commands
 
         public RelayCommand<string> GoTo { get; private set; }
+        public RelayCommand<ProjectLinkModel> Remove { get; private set; }
 
         #endregion
 
         private ProjectLinkList ReadProjectLinkListFile()
         {
             if (File.Exists(_basePath + SubPath))
-                return _dataService.DeserializeObject<ProjectLinkList>(_basePath + SubPath);
+            {
+                var link = _dataService.DeserializeObject<ProjectLinkList>(_basePath + SubPath);
+                var del = link.Links.Where(i => string.IsNullOrWhiteSpace(i.FolderPath)).ToList();
+                foreach (var item in del)
+                {
+                    link.Links.Remove(item);
+                }
+                return link;
+            }
             return null;
         }
 
