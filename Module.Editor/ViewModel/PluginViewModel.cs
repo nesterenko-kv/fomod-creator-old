@@ -1,6 +1,7 @@
 ﻿namespace Module.Editor.ViewModel
 {
-    public class NullViewModel
+    public class PluginViewModel : BaseViewModel
     {
+
     }
 }

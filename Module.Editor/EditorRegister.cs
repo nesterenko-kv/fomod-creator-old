@@ -10,22 +10,26 @@ namespace Module.Editor
 {
     public class EditorRegister : IModule
     {
-        public EditorRegister(IContainer container, IRegionManager regionManager)
+        public EditorRegister(IContainer container)
         {
             _container = container;
-            _regionManager = regionManager;
         }
+
+        #region Services
+
+        private readonly IContainer _container;
+
+        #endregion
 
         #region IModule
 
         public void Initialize()
         {
             Registry<MainEditorView, EditorViewModel>();
-            Registry<ProjectRootView, NullViewModel>();
-            Registry<ConfigView, NullViewModel>();
-            Registry<GroupView, NullViewModel>();
-            Registry<InstallStepView, NullViewModel>();
-            Registry<PluginView, NullViewModel>();
+            Registry<ProjectRootView, ProjectRootViewModel>();
+            Registry<InstallStepView, InstallStepViewModel>();
+            Registry<GroupView, GroupViewModel>();
+            Registry<PluginView, PluginViewModel>();
         }
 
         #endregion
@@ -33,19 +37,11 @@ namespace Module.Editor
         private void Registry<TView, TViewmodel>() where TView : FrameworkElement
         {
             var name = typeof (TView).Name;
-            _container.Configure(
-                r =>
-                    r.For<object>()
-                        .Use<TView>()
-                        .Named(name)
-                        .SetProperty(p => p.DataContext = _container.GetInstance<TViewmodel>()));
+            _container.Configure(r => r.For<object>()
+                                       .Use<TView>()
+                                       .Named(name)
+                                       .SetProperty(p => p.DataContext = _container.GetInstance<TViewmodel>()));
         }
 
-        #region Services
-
-        private readonly IContainer _container;
-        private readonly IRegionManager _regionManager;
-
-        #endregion
     }
 }

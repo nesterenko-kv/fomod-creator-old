@@ -10,5 +10,13 @@
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-
+    <DockPanel DataContext="{Binding Data}">
+        <TextBox DockPanel.Dock="Top"
+                 VerticalAlignment="Top"
+                 MaxHeight="38"
+                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 controls:TextBoxHelper.Watermark="Название шага"
+                 controls:TextBoxHelper.UseFloatingWatermark="True"
+                 controls:TextBoxHelper.ClearTextButton="True"/>
+    </DockPanel>
 </UserControl>

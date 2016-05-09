@@ -20,6 +20,7 @@
         </Grid.ColumnDefinitions>
         <TreeView Grid.Column="0" ItemsSource="{Binding Data}"
                   attaches:TreeViewHelper.SelectedItem="{Binding SelectedNode, Mode=TwoWay}">
+            <!-- Region TreeViewResources -->
             <TreeView.Resources>
                 <HierarchicalDataTemplate x:Key="Plugin" DataType="{x:Type mcd:Plugin}">
                     <StackPanel Orientation="Horizontal">
@@ -55,10 +56,11 @@
                 <HierarchicalDataTemplate DataType="{x:Type base:ProjectRoot}"
                                           ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Root***" />
+                        <TextBlock Text="{Binding ModuleInformation.Name, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
+            <!-- EndRegion-->
         </TreeView>
         <ContentControl Grid.Column="1" regions:RegionManager.RegionName="NodeRegion" />
     </Grid>
