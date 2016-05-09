@@ -1,15 +1,13 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--  Link Button  -->
-    <Style x:Key="LinkButton"
-           TargetType="Button">
+    <Style x:Key="LinkButton" TargetType="Button">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <TextBlock>
-                        <ContentPresenter />
+                    <TextBlock TextTrimming="CharacterEllipsis" Text="{TemplateBinding Content}">
+                        <!--<ContentPresenter />-->
                     </TextBlock>
                 </ControlTemplate>
             </Setter.Value>

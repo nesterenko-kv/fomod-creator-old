@@ -15,6 +15,15 @@ namespace MainApplication.Services
             }
         }
 
+        public T DeserializeObject<T>(Stream stream)
+        {
+            using (var s = stream)
+            {
+                var xmlSerializer = new XmlSerializer(typeof(T));
+                return (T)xmlSerializer.Deserialize(s);
+            }
+        }
+
         public void SerializeObject<T>(T data, string path)
         {
             if (data == null) return;

@@ -19,12 +19,15 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="270" />
             <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
-        <GridSplitter Grid.Column="0"
-                      Width="1"
-                      Background="{DynamicResource AccentColorBrush}" />
+        <Rectangle Grid.ColumnSpan="220" VerticalAlignment="Top"
+                      Height="1" Panel.ZIndex="99"
+                      Fill="{DynamicResource AccentColorBrush}" />
+        <Rectangle Grid.Column="0" HorizontalAlignment="Right"
+                      Width="1" Panel.ZIndex="99"
+                      Fill="{DynamicResource AccentColorBrush}" />
         <ContentControl Grid.Column="0"
                         Margin="6 6 6 6"
                         regions:RegionManager.RegionName="{x:Static names:LocalNames.LeftRegion}" />
