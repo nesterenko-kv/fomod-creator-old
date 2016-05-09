@@ -11,7 +11,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A list of Plugin groups.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     [Serializable]
     public class GroupList
     {

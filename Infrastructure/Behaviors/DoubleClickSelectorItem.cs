@@ -5,18 +5,20 @@ using System.Windows.Input;
 namespace FomodInfrastructure.MvvmLibrary.Behavior
 {
     /// <summary>
-    /// Class implements a <seealso cref="Selector"/> double click
-    /// to command binding attached behaviour.
+    ///     Class implements a <seealso cref="Selector" /> double click
+    ///     to command binding attached behaviour.
     /// </summary>
     public class DoubleClickSelectorItem
     {
         #region fields
+
         private static readonly DependencyProperty DoubleClickItemCommandProperty =
             DependencyProperty.RegisterAttached(
                 "DoubleClickItemCommand",
-                typeof(ICommand),
-                typeof(DoubleClickSelectorItem),
+                typeof (ICommand),
+                typeof (DoubleClickSelectorItem),
                 new PropertyMetadata(null, OnDoubleClickItemCommand));
+
         #endregion fields
 
         #region constructor
@@ -24,19 +26,23 @@ namespace FomodInfrastructure.MvvmLibrary.Behavior
         #endregion constructor
 
         #region properties
+
         #endregion properties
 
         #region methods
+
         #region attached dependency property methods
+
         public static ICommand GetDoubleClickItemCommand(DependencyObject obj)
         {
-            return (ICommand)obj.GetValue(DoubleClickItemCommandProperty);
+            return (ICommand) obj.GetValue(DoubleClickItemCommandProperty);
         }
 
         public static void SetDoubleClickItemCommand(DependencyObject obj, ICommand value)
         {
             obj.SetValue(DoubleClickItemCommandProperty, value);
         }
+
         #endregion attached dependency property methods
 
         private static void OnDoubleClickItemCommand(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -67,7 +73,7 @@ namespace FomodInfrastructure.MvvmLibrary.Behavior
             if (uiElement.SelectedIndex == -1)
                 return;
 
-            ICommand doubleclickCommand = GetDoubleClickItemCommand(uiElement);
+            var doubleclickCommand = GetDoubleClickItemCommand(uiElement);
 
             // There may not be a command bound to this after all
             if (doubleclickCommand == null)
@@ -85,7 +91,7 @@ namespace FomodInfrastructure.MvvmLibrary.Behavior
                 doubleclickCommand.Execute(uiElement.SelectedItem);
             }
         }
+
         #endregion methods
     }
-
 }

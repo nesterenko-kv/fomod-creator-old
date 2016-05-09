@@ -3,7 +3,7 @@ using AspectInjector.Broker;
 
 namespace FomodInfrastructure.Aspect
 {
-    [AdviceInterfaceProxy(typeof(INotifyPropertyChanged))]
+    [AdviceInterfaceProxy(typeof (INotifyPropertyChanged))]
     public class AspectINotifyPropertyChanged : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

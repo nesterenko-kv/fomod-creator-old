@@ -7,54 +7,38 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mcd="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
              xmlns:regions="http://prismlibrary.com/"
-             xmlns:resource="clr-namespace:Module.Editor.Resource"
-             xmlns:uc="clr-namespace:FomodInfrastructure.Controls;assembly=FomodInfrastructure"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:attaches="clr-namespace:FomodInfrastructure.MvvmLibrary.Attaches;assembly=FomodInfrastructure"
              d:DesignHeight="300"
              d:DesignWidth="300"
              dialogs:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Module.Editor;component/Resource/HierarchicalDataTemplate.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Grid>
-        <Grid.Resources>
-            <resource:CustomDataTemplateSelector x:Key="MySelector" />
-        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
-        <!--  ItemTemplateSelector="{StaticResource MySelector}"  -->
-        <uc:MyTreeView Grid.Column="0" SelectedItem="{Binding CurentSelectedItem}"
-                  ItemsSource="{Binding Data}"
-                  >
-            <uc:MyTreeView.Resources>
+        <TreeView Grid.Column="0" ItemsSource="{Binding Data}"
+                  attaches:TreeViewHelper.SelectedItem="{Binding SelectedNode, Mode=TwoWay}">
+            <TreeView.Resources>
                 <HierarchicalDataTemplate x:Key="Plugin" DataType="{x:Type mcd:Plugin}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
-
-                <HierarchicalDataTemplate 
-                                          DataType="{x:Type mcd:Group}"
+                <HierarchicalDataTemplate DataType="{x:Type mcd:Group}"
                                           ItemTemplate="{StaticResource Plugin}"
                                           ItemsSource="{Binding Plugins.Plugin}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
-
                 <HierarchicalDataTemplate DataType="{x:Type mcd:InstallStep}"
                                           ItemsSource="{Binding OptionalFileGroups.Group}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
-
                 <!--<HierarchicalDataTemplate x:Key="Config"
                                           DataType="{x:Type base:ModuleConfiguration}"
                                           ItemTemplate="{StaticResource InstallStep}"
@@ -63,23 +47,19 @@
                         <TextBlock Text="Module Configuration" />
                     </StackPanel>
                 </HierarchicalDataTemplate>-->
-
                 <HierarchicalDataTemplate x:Key="Info" DataType="{x:Type base:ModuleInformation}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Module Information" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
-
-                <HierarchicalDataTemplate  DataType="{x:Type base:ProjectRoot}" ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
+                <HierarchicalDataTemplate DataType="{x:Type base:ProjectRoot}"
+                                          ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Root***" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
-
-            </uc:MyTreeView.Resources>
-            <!--<base:ProjectRoot ModuleInformation="{Binding ModuleInformation}" ModuleConfiguration="{Binding ModuleConfiguration}"/>-->
-            <!--<TreeViewItem Header="Root" ItemsSource="{Binding Items}"/>-->
-        </uc:MyTreeView>
-        <ContentControl Grid.Column="1" regions:RegionManager.RegionName="NodeRegion"/>
+            </TreeView.Resources>
+        </TreeView>
+        <ContentControl Grid.Column="1" regions:RegionManager.RegionName="NodeRegion" />
     </Grid>
 </UserControl>

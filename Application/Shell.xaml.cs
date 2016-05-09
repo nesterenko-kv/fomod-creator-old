@@ -1,5 +1,4 @@
-﻿
-namespace MainApplication
+﻿namespace MainApplication
 {
     public partial class Shell
     {

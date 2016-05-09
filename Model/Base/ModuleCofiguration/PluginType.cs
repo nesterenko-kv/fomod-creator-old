@@ -9,7 +9,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     The type of a given Plugin.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     [Serializable]
     public class PluginType
     {

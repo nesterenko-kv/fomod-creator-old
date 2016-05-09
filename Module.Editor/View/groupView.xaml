@@ -10,23 +10,5 @@
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <inf:Set x:Key="groupTypes" x:Shared="false">
-            <sys:String>SelectAny</sys:String>
-            <sys:String>SelectAtMostOne</sys:String>
-        </inf:Set>
-    </UserControl.Resources>
-    <StackPanel DataContext="{Binding XmlNode}">
-        <TextBox MaxHeight="38"
-                 Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}"
-                 controls:TextBoxHelper.ClearTextButton="True"
-                 controls:TextBoxHelper.UseFloatingWatermark="True"
-                 controls:TextBoxHelper.Watermark="Имя группы" />
-        <ComboBox ItemsSource="{StaticResource groupTypes}"
-                  SelectedItem="{Binding XPath=./@type,
-                                         Path=Value,
-                                         UpdateSourceTrigger=PropertyChanged}"
-                  controls:TextBoxHelper.UseFloatingWatermark="True"
-                  controls:TextBoxHelper.Watermark="Тип группы" />
-    </StackPanel>
+
 </UserControl>

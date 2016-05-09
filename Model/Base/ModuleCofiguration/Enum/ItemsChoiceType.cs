@@ -7,19 +7,14 @@ namespace FomodModel.Base.ModuleCofiguration.Enum
     [XmlType(IncludeInSchema = false)]
     public enum ItemsChoiceType
     {
-        [XmlEnum("dependencies")]
-        Dependencies,
+        [XmlEnum("dependencies")] Dependencies,
 
-        [XmlEnum("fileDependency")]
-        FileDependency,
+        [XmlEnum("fileDependency")] FileDependency,
 
-        [XmlEnum("flagDependency")]
-        FlagDependency,
+        [XmlEnum("flagDependency")] FlagDependency,
 
-        [XmlEnum("fommDependency")]
-        FommDependency,
+        [XmlEnum("fommDependency")] FommDependency,
 
-        [XmlEnum("gameDependency")]
-        GameDependency
+        [XmlEnum("gameDependency")] GameDependency
     }
 }

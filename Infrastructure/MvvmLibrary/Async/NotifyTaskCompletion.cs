@@ -3,10 +3,11 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace FomodInfrastructure.MvvmLibrary.Async
-{ 
+{
     public static class NotifyTaskCompletionExtension
     {
-        public static NotifyTaskCompletion<T> AnyWork<T>(this NotifyTaskCompletion<T> task, Action<NotifyTaskCompletion<T>> action)
+        public static NotifyTaskCompletion<T> AnyWork<T>(this NotifyTaskCompletion<T> task,
+            Action<NotifyTaskCompletion<T>> action)
         {
             action.Invoke(task);
             return task;
@@ -16,7 +17,6 @@ namespace FomodInfrastructure.MvvmLibrary.Async
 
     public sealed class NotifyTaskCompletion<TResult> : INotifyPropertyChanged
     {
-
         public NotifyTaskCompletion(Task<TResult> task)
         {
             Task = task;
@@ -25,6 +25,20 @@ namespace FomodInfrastructure.MvvmLibrary.Async
                 var _ = WatchTaskAsync(task);
             }
         }
+
+        public Task<TResult> Task { get; }
+        public TResult Result => Task.Status == TaskStatus.RanToCompletion ? Task.Result : default(TResult);
+        public TaskStatus Status => Task.Status;
+        public bool IsCompleted => Task.IsCompleted;
+        public bool IsNotCompleted => !Task.IsCompleted;
+        public bool IsSuccessfullyCompleted => Task.Status == TaskStatus.RanToCompletion;
+        public bool IsCanceled => Task.IsCanceled;
+        public bool IsFaulted => Task.IsFaulted;
+        public AggregateException Exception => Task.Exception;
+        public Exception InnerException => Exception?.InnerException;
+        public string ErrorMessage => InnerException?.Message;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private async Task WatchTaskAsync(Task task)
         {
             try
@@ -58,17 +72,5 @@ namespace FomodInfrastructure.MvvmLibrary.Async
                 propertyChanged(this, new PropertyChangedEventArgs("Result"));
             }
         }
-        public Task<TResult> Task { get; }
-        public TResult Result => (Task.Status == TaskStatus.RanToCompletion) ? Task.Result : default(TResult);
-        public TaskStatus Status => Task.Status;
-        public bool IsCompleted => Task.IsCompleted;
-        public bool IsNotCompleted => !Task.IsCompleted;
-        public bool IsSuccessfullyCompleted => Task.Status == TaskStatus.RanToCompletion;
-        public bool IsCanceled => Task.IsCanceled;
-        public bool IsFaulted => Task.IsFaulted;
-        public AggregateException Exception => Task.Exception;
-        public Exception InnerException => Exception?.InnerException;
-        public string ErrorMessage => InnerException?.Message;
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

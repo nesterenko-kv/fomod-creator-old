@@ -9,7 +9,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A Plugin type that is dependent upon the state of other mods.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     [Serializable]
     public class DependencyPluginType
     {

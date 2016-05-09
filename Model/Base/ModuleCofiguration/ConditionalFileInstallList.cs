@@ -9,7 +9,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A list of optional files that may optionally be installed for this module, base on condition flags.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     [Serializable]
     public class ConditionalFileInstallList
     {

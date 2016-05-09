@@ -2,8 +2,8 @@
 {
     public interface IFileBrowserDialog
     {
+        string SelectedPath { get; set; }
         bool ShowDialog();
         void Reset();
-        string SelectedPath { get; set; }
     }
 }

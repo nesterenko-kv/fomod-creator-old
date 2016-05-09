@@ -1,12 +1,12 @@
 ﻿using System.Windows.Forms;
 using FomodInfrastructure.Interface;
 
-
 namespace MainApplication.Services
 {
     public class FolderBrowserDialog : IFolderBrowserDialog
     {
-        private readonly System.Windows.Forms.FolderBrowserDialog _dialog = new System.Windows.Forms.FolderBrowserDialog();
+        private readonly System.Windows.Forms.FolderBrowserDialog _dialog =
+            new System.Windows.Forms.FolderBrowserDialog();
 
         #region IFolderBrowserDialog
 

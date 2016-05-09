@@ -1,59 +1,66 @@
-﻿using AspectInjector.Broker;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
 using FomodInfrastructure.Interface;
 using FomodModel.Base;
 using Prism.Mvvm;
 using Prism.Regions;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Module.Editor.ViewModel
 {
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     public class EditorViewModel : BindableBase
     {
+        public EditorViewModel(IRepository<ProjectRoot> repository)
+        {
+            _repository = repository;
+        }
+
+        // ReSharper disable once MemberCanBePrivate.Global
         public string Header { get; private set; } = "Редактор";
+
+        public void ConfigurateViewModel(IRegionManager regionManager, ProjectRoot projectRoot, string header = null)
+        {
+            if (header != null)
+                Header = header;
+            else
+            {
+                var name = projectRoot.ModuleInformation.Name;
+                Header = string.IsNullOrWhiteSpace(name) ? Header : name;
+            }
+
+            var pRoot = Data.FirstOrDefault(i => i.FolderPath == projectRoot.FolderPath);
+            if (pRoot == null)
+                Data.Add(projectRoot);
+
+
+            _regionManager = regionManager;
+        }
 
         #region Properties
 
-        private object _node;
+        private object _selectedNode;
 
-        //[Aspect(typeof(AcpectDebugLoger))]
-        public object CurentSelectedItem
+        public object SelectedNode
         {
-            get { return _node; }
+            get { return _selectedNode; }
             set
             {
-                _node = value;
+                _selectedNode = value;
                 if (value == null) return;
 
                 var name = value.GetType().Name;
 
                 var param = new NavigationParameters
                 {
-                    { name, value }
+                    {name, value}
                 };
                 _regionManager.Regions["NodeRegion"].RequestNavigate(name + "View", param);
             }
         }
 
-        private ObservableCollection<ProjectRoot> _data = new ObservableCollection<ProjectRoot>();
-
-        
         public ObservableCollection<ProjectRoot> Data { get; set; } = new ObservableCollection<ProjectRoot>();
-        //{
-        //    get
-        //    {
-        //        var data = _repository.GetData();
-        //        if (_data.FirstOrDefault(i => i.FolderPath == data.FolderPath) == null)
-        //            _data.Add(_repository.GetData());
-        //        return _data; //return _repository.GetData();
-        //    }
-        //    set
-        //    {
-        //        _data = value;
-        //    }
-        //}
 
         #endregion
 
@@ -63,28 +70,5 @@ namespace Module.Editor.ViewModel
         private IRegionManager _regionManager;
 
         #endregion
-
-        public EditorViewModel(IRepository<ProjectRoot> repository)
-        {
-            _repository = repository;
-        }
-
-        public void ConfigurateViewModel(IRegionManager regionManager, ProjectRoot projectRoot, string header = null)
-        {
-            if (header!=null)
-                this.Header = header;
-            else
-            {
-                var name = projectRoot.ModuleInformation.Name;
-                this.Header = string.IsNullOrWhiteSpace(name) ? this.Header : name;
-            }
-
-            var pRoot = Data.FirstOrDefault(i => i.FolderPath == projectRoot.FolderPath);
-            if (pRoot==null)
-                Data.Add(projectRoot);
-
-            
-            _regionManager = regionManager;
-        }
     }
 }

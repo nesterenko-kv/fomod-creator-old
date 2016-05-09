@@ -11,7 +11,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A dependency that is made up of one or more dependencies.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     [Serializable]
     public class CompositeDependency
     {
@@ -23,19 +23,19 @@ namespace FomodModel.Base.ModuleCofiguration
             Operator = CompositeDependencyOperator.And;
         }
 
-        [XmlElement("dependencies", typeof(CompositeDependency))]
+        [XmlElement("dependencies", typeof (CompositeDependency))]
         public ObservableCollection<CompositeDependency> Dependencies { get; set; }
 
-        [XmlElement("fileDependency", typeof(FileDependency))]
+        [XmlElement("fileDependency", typeof (FileDependency))]
         public ObservableCollection<FileDependency> FileDependencies { get; set; }
 
-        [XmlElement("flagDependency", typeof(FlagDependency))]
+        [XmlElement("flagDependency", typeof (FlagDependency))]
         public ObservableCollection<FlagDependency> FlagDependencies { get; set; }
 
-        [XmlElement("fommDependency", typeof(VersionDependency))]
+        [XmlElement("fommDependency", typeof (VersionDependency))]
         public VersionDependency FommVersionDependencies { get; set; }
 
-        [XmlElement("gameDependency", typeof(VersionDependency))]
+        [XmlElement("gameDependency", typeof (VersionDependency))]
         public VersionDependency GameVersionDependencies { get; set; }
 
         /// <summary>

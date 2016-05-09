@@ -9,7 +9,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A file or folder that may be installed as part of a module or Plugin.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     [Serializable]
     public class FileSystemItem
     {

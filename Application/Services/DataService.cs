@@ -1,6 +1,6 @@
-﻿using FomodInfrastructure.Interface;
-using System.IO;
+﻿using System.IO;
 using System.Xml.Serialization;
+using FomodInfrastructure.Interface;
 
 namespace MainApplication.Services
 {
@@ -10,8 +10,8 @@ namespace MainApplication.Services
         {
             using (var fs = File.OpenRead(path))
             {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                return (T)xmlSerializer.Deserialize(fs);
+                var xmlSerializer = new XmlSerializer(typeof (T));
+                return (T) xmlSerializer.Deserialize(fs);
             }
         }
 
@@ -20,7 +20,7 @@ namespace MainApplication.Services
             if (data == null) return;
             using (var fs = File.Create(path))
             {
-                var xmlSerializer = new XmlSerializer(typeof(T));
+                var xmlSerializer = new XmlSerializer(typeof (T));
                 xmlSerializer.Serialize(fs, data);
             }
         }

@@ -9,7 +9,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A Plugin.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     [Serializable]
     public class Plugin
     {
@@ -25,11 +25,12 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlElement("image")]
         public Image Image { get; set; }
 
-        [XmlElement("files", typeof(FileList))]
+        [XmlElement("files", typeof (FileList))]
         public ObservableCollection<FileList> Files { get; set; }
 
-        [XmlElement("conditionFlags", typeof(ConditionFlagList))]
+        [XmlElement("conditionFlags", typeof (ConditionFlagList))]
         public ObservableCollection<ConditionFlagList> ConditionFlags { get; set; }
+
         /// <summary>
         ///     Describes the type of the Plugin.
         /// </summary>

@@ -1,7 +1,7 @@
 ﻿namespace FomodInfrastructure.Interface
 {
     /// <summary>
-    /// Обеспечивает инфраструктуру приложения
+    ///     Обеспечивает инфраструктуру приложения
     /// </summary>
     public interface IAppService
     {

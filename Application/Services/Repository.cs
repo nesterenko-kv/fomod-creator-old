@@ -11,14 +11,15 @@ namespace MainApplication.Services
     {
         private const string InfoSubPath = @"\fomod\info.xml";
         private const string ConfigurationSubPath = @"\fomod\ModuleConfig.xml";
-        private ProjectRoot _projectRoot;
+        private readonly IDataService _dataService;
+        private readonly IFolderBrowserDialog _folderBrowserDialog;
+        private readonly ILoggerFacade _loggerFacade;
 
         private readonly IServiceLocator _serviceLocator;
-        private readonly ILoggerFacade _loggerFacade;
-        private readonly IFolderBrowserDialog _folderBrowserDialog;
-        private readonly IDataService _dataService;
+        private ProjectRoot _projectRoot;
 
-        public Repository(IServiceLocator serviceLocator, ILoggerFacade loggerFacade, IFolderBrowserDialog folderBrowserDialog, IDataService dataService)
+        public Repository(IServiceLocator serviceLocator, ILoggerFacade loggerFacade,
+            IFolderBrowserDialog folderBrowserDialog, IDataService dataService)
 
         {
             _serviceLocator = serviceLocator;
@@ -28,11 +29,14 @@ namespace MainApplication.Services
         }
 
         #region IRepository
-        public ProjectRoot LoadData(string path = null) => _projectRoot = path != null ? LoadProjectFromPath(path) : LoadProjectIfPathNull();
+
+        public ProjectRoot LoadData(string path = null)
+            => _projectRoot = path != null ? LoadProjectFromPath(path) : LoadProjectIfPathNull();
 
         public bool SaveData(string path = null) => path != null ? SaveProjectFromPath(path) : SaveProjectIfPathNull();
 
         public ProjectRoot GetData() => _projectRoot;
+
         public string CurrentPath
         {
             get { return _projectRoot.FolderPath; }
@@ -43,7 +47,8 @@ namespace MainApplication.Services
 
         #region Private methmods
 
-        private bool CheckFiles(string folderPath) => File.Exists(folderPath + InfoSubPath) && File.Exists(folderPath + ConfigurationSubPath);
+        private bool CheckFiles(string folderPath)
+            => File.Exists(folderPath + InfoSubPath) && File.Exists(folderPath + ConfigurationSubPath);
 
         private ProjectRoot LoadProjectIfPathNull()
         {
@@ -61,7 +66,8 @@ namespace MainApplication.Services
             {
                 projectRoot.FolderPath = path;
                 projectRoot.ModuleInformation = _dataService.DeserializeObject<ModuleInformation>(path + InfoSubPath);
-                projectRoot.ModuleConfiguration = _dataService.DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
+                projectRoot.ModuleConfiguration =
+                    _dataService.DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
                 return projectRoot;
             }
             catch (Exception e)
@@ -105,6 +111,7 @@ namespace MainApplication.Services
                 return _folderBrowserDialog.SelectedPath;
             return null;
         }
+
         #endregion
     }
 }

@@ -23,7 +23,10 @@
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Button Margin="3" Style="{StaticResource LinkButton}" Content="{Binding FolderPath}" ToolTip="{Binding FolderPath}" Command="{Binding DataContext.GoTo, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" CommandParameter="{Binding FolderPath}" />
+                    <Button Margin="3" Style="{StaticResource LinkButton}" Content="{Binding FolderPath}"
+                            ToolTip="{Binding FolderPath}"
+                            Command="{Binding DataContext.GoTo, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                            CommandParameter="{Binding FolderPath}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

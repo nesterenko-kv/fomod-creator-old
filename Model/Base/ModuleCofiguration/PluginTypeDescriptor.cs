@@ -8,14 +8,14 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     Describes the type of a Plugin.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     [Serializable]
     public class PluginTypeDescriptor
     {
-        [XmlElement("dependencyType", typeof(DependencyPluginType))]
+        [XmlElement("dependencyType", typeof (DependencyPluginType))]
         public DependencyPluginType DependencyType { get; set; }
 
-        [XmlElement("type", typeof(PluginType))]
+        [XmlElement("type", typeof (PluginType))]
         public PluginType Type { get; set; }
     }
 }

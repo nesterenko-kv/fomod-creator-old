@@ -11,7 +11,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A list of install steps.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     [Serializable]
     public class StepList
     {

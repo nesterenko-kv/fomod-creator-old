@@ -1,12 +1,12 @@
 ﻿using System.Windows;
 using FomodInfrastructure.Interface;
+using FomodModel.Base;
+using MahApps.Metro.Controls.Dialogs;
 using MainApplication.Services;
+using Module.Editor;
 using Module.Welcome;
 using Prism.Logging;
 using Prism.StructureMap;
-using MahApps.Metro.Controls.Dialogs;
-using FomodModel.Base;
-using Module.Editor;
 
 namespace MainApplication.Boot
 {
@@ -20,9 +20,10 @@ namespace MainApplication.Boot
 
         protected override void InitializeShell()
         {
-            Application.Current.MainWindow = (Window)Shell;
+            Application.Current.MainWindow = (Window) Shell;
             Application.Current.MainWindow.Show();
         }
+
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
@@ -34,7 +35,6 @@ namespace MainApplication.Boot
                 r.For<IFolderBrowserDialog>().Use<FolderBrowserDialog>().Singleton();
                 r.For<IDataService>().Use<DataService>().Singleton();
                 r.For<IFileBrowserDialog>().Use<FileBrowserDialog>();
-
             });
         }
 
@@ -45,6 +45,5 @@ namespace MainApplication.Boot
             Container.GetInstance<WelcomeRegister>().Initialize();
             Container.GetInstance<EditorRegister>().Initialize();
         }
-
     }
 }

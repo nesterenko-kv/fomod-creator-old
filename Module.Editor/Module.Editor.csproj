@@ -84,20 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EditorRegister.cs" />
-    <Compile Include="Model\NodeBase.cs" />
-    <Compile Include="Model\NodePluginFilesFoldersFlagsHelper.cs" />
-    <Compile Include="Model\NodePluginTypeHelper.cs" />
-    <Compile Include="Model\NodePluginHelper.cs" />
-    <Compile Include="Model\XAttribute.cs" />
-    <Compile Include="Model\XElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource\CustomDataTemplateSelector.cs" />
-    <Compile Include="Resource\Names.cs" />
     <Compile Include="ViewModel\EditorViewModel.cs" />
     <Compile Include="ViewModel\NullViewModel.cs" />
-    <Compile Include="View\Plugin\PluginFlagsView.xaml.cs">
-      <DependentUpon>PluginFlagsView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ConfigView.xaml.cs">
       <DependentUpon>ConfigView.xaml</DependentUpon>
     </Compile>
@@ -110,14 +99,8 @@
     <Compile Include="View\MainEditor.xaml.cs">
       <DependentUpon>MainEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Plugin\PluginTypeView.xaml.cs">
-      <DependentUpon>PluginTypeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Plugin\PluginView.xaml.cs">
+    <Compile Include="View\PluginView.xaml.cs">
       <DependentUpon>PluginView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Plugin\PluginFileView.xaml.cs">
-      <DependentUpon>PluginFileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ProjectRootView.xaml.cs">
       <DependentUpon>ProjectRootView.xaml</DependentUpon>
@@ -134,21 +117,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Resource\Enums.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Plugin\PluginFlagsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\ConfigView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resource\HierarchicalDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\GroupView.xaml">
       <SubType>Designer</SubType>
@@ -162,15 +133,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Plugin\PluginTypeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Plugin\PluginView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Plugin\PluginFileView.xaml">
+    <Page Include="View\PluginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

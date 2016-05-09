@@ -1,41 +1,21 @@
-﻿using FomodInfrastructure.Interface;
+﻿using System;
+using System.IO;
+using System.Linq;
+using AspectInjector.Broker;
+using FomodInfrastructure.Aspect;
+using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using Module.Welcome.Model;
 using Module.Welcome.PrismEvent;
 using Prism.Events;
 using Prism.Mvvm;
-using System;
-using System.IO;
-using System.Linq;
-using AspectInjector.Broker;
-using FomodInfrastructure.Aspect;
 
 namespace Module.Welcome.ViewModel
 {
-    public class LastProjectsViewModel: BindableBase
+    public class LastProjectsViewModel : BindableBase
     {
-        private readonly string _basePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         private const string SubPath = @"\FOMODplist.xml";
-
-        #region Services
-
-        private readonly IEventAggregator _eventAggregator;
-        private readonly IDataService _dataService;
-
-        #endregion
-
-        #region Properties
-
-        [Aspect(typeof(AspectINotifyPropertyChanged))]
-        public ProjectLinkList ProjectLinkList { get; set; } = new ProjectLinkList();
-
-        #endregion
-
-        #region Commands
-
-        public RelayCommand<string> GoTo { get; private set; }
-
-        #endregion
+        private readonly string _basePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
         public LastProjectsViewModel(IEventAggregator eventAggregator, IDataService dataService)
         {
@@ -53,6 +33,19 @@ namespace Module.Welcome.ViewModel
             });
         }
 
+        #region Properties
+
+        [Aspect(typeof (AspectINotifyPropertyChanged))]
+        public ProjectLinkList ProjectLinkList { get; set; } = new ProjectLinkList();
+
+        #endregion
+
+        #region Commands
+
+        public RelayCommand<string> GoTo { get; private set; }
+
+        #endregion
+
         private ProjectLinkList ReadProjectLinkListFile()
         {
             if (File.Exists(_basePath + SubPath))
@@ -65,5 +58,12 @@ namespace Module.Welcome.ViewModel
             if (Directory.Exists(_basePath))
                 _dataService.SerializeObject(ProjectLinkList, _basePath + SubPath);
         }
+
+        #region Services
+
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IDataService _dataService;
+
+        #endregion
     }
 }

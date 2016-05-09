@@ -8,7 +8,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A step in the install process containing groups of optional plugins.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     [Serializable]
     public class InstallStep
     {

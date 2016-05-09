@@ -6,13 +6,13 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
 {
     public class RelayCommand : ICommand
     {
-        private readonly WeakAction _execute;
         private readonly WeakFunc<bool> _canExecute;
-        public event EventHandler CanExecuteChanged;
-        public RelayCommand(Action execute): this(execute, null)
-        {
+        private readonly WeakAction _execute;
 
+        public RelayCommand(Action execute) : this(execute, null)
+        {
         }
+
         private RelayCommand(Action execute, Func<bool> canExecute)
         {
             if (execute == null)
@@ -23,12 +23,8 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
             _canExecute = new WeakFunc<bool>(canExecute);
         }
 
-        public void RaiseCanExecuteChanged()
-        {
-            var eventHandler = CanExecuteChanged;
-            eventHandler?.Invoke(this, EventArgs.Empty);
-        }
-        
+        public event EventHandler CanExecuteChanged;
+
         public bool CanExecute(object parameter)
         {
             if (_canExecute == null)
@@ -44,12 +40,18 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                 return;
             _execute.Execute();
         }
+
+        public void RaiseCanExecuteChanged()
+        {
+            var eventHandler = CanExecuteChanged;
+            eventHandler?.Invoke(this, EventArgs.Empty);
+        }
     }
+
     public class RelayCommand<T> : ICommand
     {
-        private readonly WeakAction<T> _execute;
         private readonly WeakFunc<T, bool> _canExecute;
-        public event EventHandler CanExecuteChanged;
+        private readonly WeakAction<T> _execute;
 
         public RelayCommand(Action<T> execute, Func<T, bool> canExecute = null)
         {
@@ -60,25 +62,21 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                 return;
             _canExecute = new WeakFunc<T, bool>(canExecute);
         }
-        
-        public void RaiseCanExecuteChanged()
-        {
-            var eventHandler = CanExecuteChanged;
-            eventHandler?.Invoke(this, EventArgs.Empty);
-        }
-        
+
+        public event EventHandler CanExecuteChanged;
+
         public bool CanExecute(object parameter)
         {
             if (_canExecute == null)
                 return true;
             if (!_canExecute.IsStatic && !_canExecute.IsAlive) return false;
-            if (parameter == null && typeof(T).GetTypeInfo().IsValueType)
+            if (parameter == null && typeof (T).GetTypeInfo().IsValueType)
                 return _canExecute.Execute();
             if (parameter == null || parameter is T)
-                return _canExecute.Execute((T)parameter);
+                return _canExecute.Execute((T) parameter);
             return false;
         }
-        
+
         public void Execute(object parameter)
         {
             var parameter1 = parameter;
@@ -86,14 +84,20 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                 return;
             if (parameter1 == null)
             {
-                if (typeof(T).GetTypeInfo().IsValueType)
+                if (typeof (T).GetTypeInfo().IsValueType)
                     _execute.Execute();
                 else
                 // ReSharper disable once ExpressionIsAlwaysNull
-                    _execute.Execute((T)parameter1);
+                    _execute.Execute((T) parameter1);
             }
             else
-                _execute.Execute((T)parameter1);
+                _execute.Execute((T) parameter1);
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            var eventHandler = CanExecuteChanged;
+            eventHandler?.Invoke(this, EventArgs.Empty);
         }
     }
 }

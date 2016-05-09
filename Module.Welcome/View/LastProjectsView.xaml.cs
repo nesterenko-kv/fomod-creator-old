@@ -3,7 +3,7 @@
 namespace Module.Welcome.View
 {
     /// <summary>
-    /// Логика взаимодействия для LastProjectsView.xaml
+    ///     Логика взаимодействия для LastProjectsView.xaml
     /// </summary>
     public partial class LastProjectsView : UserControl
     {

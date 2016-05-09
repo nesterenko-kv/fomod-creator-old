@@ -1,10 +1,11 @@
-﻿using FomodInfrastructure.Interface;
+﻿using System.Windows.Forms;
+using FomodInfrastructure.Interface;
 
 namespace MainApplication.Services
 {
-    public class FileBrowserDialog: IFileBrowserDialog
+    public class FileBrowserDialog : IFileBrowserDialog
     {
-        private readonly System.Windows.Forms.OpenFileDialog _dialog = new System.Windows.Forms.OpenFileDialog();
+        private readonly OpenFileDialog _dialog = new OpenFileDialog();
 
         #region IFileBrowserDialog
 
@@ -13,13 +14,13 @@ namespace MainApplication.Services
             get { return _dialog.FileName; }
             set { _dialog.FileName = value; }
         }
-        
+
         public void Reset()
         {
             _dialog.Reset();
         }
 
-        public bool ShowDialog() => _dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK;
+        public bool ShowDialog() => _dialog.ShowDialog() == DialogResult.OK;
 
         #endregion
     }

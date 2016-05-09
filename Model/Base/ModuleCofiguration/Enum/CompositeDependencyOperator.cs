@@ -4,10 +4,10 @@ using System.Xml.Serialization;
 namespace FomodModel.Base.ModuleCofiguration.Enum
 {
     /// <summary>
-    /// The relation of the contained dependencies.
+    ///     The relation of the contained dependencies.
     /// </summary>
     [Serializable]
-    [XmlType("compositeDependencyOperator", AnonymousType = true)]
+    [XmlType("CompositeDependencyOperator", AnonymousType = true)]
     public enum CompositeDependencyOperator
     {
         /// <summary>

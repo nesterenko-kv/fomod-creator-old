@@ -1,20 +1,19 @@
-﻿using System.Windows;
-using FomodInfrastructure.Interface;
-using Microsoft.Practices.ServiceLocation;
-using Module.Editor;
+﻿using System.Linq;
+using System.Windows;
 using FomodInfrastructure;
-using Prism.Regions;
+using FomodInfrastructure.Interface;
+using FomodModel.Base;
+using Microsoft.Practices.ServiceLocation;
 using Module.Editor.View;
 using Module.Editor.ViewModel;
-using System.Linq;
-using FomodModel.Base;
+using Prism.Regions;
 
 namespace MainApplication.Services
 {
     public class AppService : IAppService
     {
-        private readonly IServiceLocator _serviceLocator;
         private readonly IRegionManager _regionManager;
+        private readonly IServiceLocator _serviceLocator;
 
         public AppService(IServiceLocator serviceLocator, IRegionManager regionManager)
         {
@@ -29,7 +28,6 @@ namespace MainApplication.Services
 
         public void InitilizeBaseModules()
         {
-            
         }
 
 
@@ -39,21 +37,21 @@ namespace MainApplication.Services
             foreach (FrameworkElement v in _regionManager.Regions[Names.MainContentRegion].Views)
             {
                 if (!(v is MainEditorView)) continue;
-                b = (v.DataContext as EditorViewModel).Data.FirstOrDefault(i => i.FolderPath == repository.CurrentPath); 
-                if (b!=null)
+                b = (v.DataContext as EditorViewModel).Data.FirstOrDefault(i => i.FolderPath == repository.CurrentPath);
+                if (b != null)
                 {
                     _regionManager.Regions[Names.MainContentRegion].Activate(v);
                     return;
                 }
             }
 
-            IRegion detailsRegion = _regionManager.Regions[Names.MainContentRegion];
+            var detailsRegion = _regionManager.Regions[Names.MainContentRegion];
             var view = _serviceLocator.GetInstance<object>(nameof(MainEditorView)) as FrameworkElement;
-            IRegionManager detailsRegionManager = detailsRegion.Add(view, null, true);
-            (view.DataContext as EditorViewModel).ConfigurateViewModel(detailsRegionManager, repository.GetData() as ProjectRoot);
+            var detailsRegionManager = detailsRegion.Add(view, null, true);
+            (view.DataContext as EditorViewModel).ConfigurateViewModel(detailsRegionManager,
+                repository.GetData() as ProjectRoot);
 
             _regionManager.Regions[Names.MainContentRegion].Activate(view);
-
         }
     }
 }

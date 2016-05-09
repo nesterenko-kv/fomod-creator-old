@@ -8,7 +8,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A pattern of mod files and condition flags that determine the type of a Plugin.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     [Serializable]
     public class DependencyPattern
     {

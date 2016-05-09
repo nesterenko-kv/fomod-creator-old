@@ -7,23 +7,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
     {
         private Func<T, TResult> _staticFunc;
 
-        public override string MethodName => _staticFunc?.GetMethodInfo().Name ?? Method.Name;
-
-        public override bool IsAlive
-        {
-            get
-            {
-                if (_staticFunc == null && Reference == null)
-                    return false;
-                if (_staticFunc == null)
-                    return Reference.IsAlive;
-                if (Reference != null)
-                    return Reference.IsAlive;
-                return true;
-            }
-        }
-
-        public WeakFunc(Func<T, TResult> func): this(func?.Target, func)
+        public WeakFunc(Func<T, TResult> func) : this(func?.Target, func)
         {
         }
 
@@ -44,6 +28,27 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
             }
         }
 
+        public override string MethodName => _staticFunc?.GetMethodInfo().Name ?? Method.Name;
+
+        public override bool IsAlive
+        {
+            get
+            {
+                if (_staticFunc == null && Reference == null)
+                    return false;
+                if (_staticFunc == null)
+                    return Reference.IsAlive;
+                if (Reference != null)
+                    return Reference.IsAlive;
+                return true;
+            }
+        }
+
+        public object ExecuteWithObject(object parameter)
+        {
+            return Execute((T) parameter);
+        }
+
         public TResult Execute(T parameter = default(T))
         {
             if (_staticFunc != null)
@@ -51,14 +56,9 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
             var funcTarget = FuncTarget;
             if (!IsAlive || Method == null || FuncReference == null || funcTarget == null)
                 return default(TResult);
-            return (TResult)Method.Invoke(funcTarget, new object[]{ parameter });
+            return (TResult) Method.Invoke(funcTarget, new object[] {parameter});
         }
 
-        public object ExecuteWithObject(object parameter)
-        {
-            return Execute((T)parameter);
-        }
-        
         public new void MarkForDeletion()
         {
             _staticFunc = null;
@@ -69,32 +69,13 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
     public class WeakFunc<TResult>
     {
         private Func<TResult> _staticFunc;
-        protected MethodInfo Method { get; set; }
-        public bool IsStatic => _staticFunc != null;
-        public virtual string MethodName => _staticFunc?.GetMethodInfo().Name ?? Method.Name;
-        protected WeakReference FuncReference { get; set; }
-        protected WeakReference Reference { get; set; }
-        public virtual bool IsAlive
-        {
-            get
-            {
-                if (_staticFunc == null && Reference == null)
-                    return false;
-                if (_staticFunc != null && Reference == null)
-                    return true;
-                return Reference.IsAlive;
-            }
-        }
-        public object Target => Reference?.Target;
-        protected object FuncTarget => FuncReference?.Target;
+
         protected WeakFunc()
         {
-
         }
-        
-        public WeakFunc(Func<TResult> func): this(func?.Target, func)
-        {
 
+        public WeakFunc(Func<TResult> func) : this(func?.Target, func)
+        {
         }
 
         private WeakFunc(object target, Func<TResult> func)
@@ -113,14 +94,35 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                 Reference = new WeakReference(target);
             }
         }
-        
+
+        protected MethodInfo Method { get; set; }
+        public bool IsStatic => _staticFunc != null;
+        public virtual string MethodName => _staticFunc?.GetMethodInfo().Name ?? Method.Name;
+        protected WeakReference FuncReference { get; set; }
+        protected WeakReference Reference { get; set; }
+
+        public virtual bool IsAlive
+        {
+            get
+            {
+                if (_staticFunc == null && Reference == null)
+                    return false;
+                if (_staticFunc != null && Reference == null)
+                    return true;
+                return Reference.IsAlive;
+            }
+        }
+
+        public object Target => Reference?.Target;
+        protected object FuncTarget => FuncReference?.Target;
+
         public TResult Execute()
         {
             if (_staticFunc != null)
                 return _staticFunc();
             var funcTarget = FuncTarget;
             if (IsAlive && Method != null && FuncReference != null && funcTarget != null)
-                return (TResult)Method.Invoke(funcTarget, null);
+                return (TResult) Method.Invoke(funcTarget, null);
             return default(TResult);
         }
 

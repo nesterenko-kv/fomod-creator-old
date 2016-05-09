@@ -1,6 +1,6 @@
-﻿using Prism.Logging;
-using System;
+﻿using System;
 using System.Diagnostics;
+using Prism.Logging;
 
 namespace MainApplication.Services
 {
@@ -8,7 +8,8 @@ namespace MainApplication.Services
     {
         public void Log(string message, Category category, Priority priority)
         {
-            var messageToLog = $"Time: {DateTime.Now.ToShortTimeString()}. Category: {category.ToString().ToUpper()}. Priority: {priority}. Message: {message}.";
+            var messageToLog =
+                $"Time: {DateTime.Now.ToShortTimeString()}. Category: {category.ToString().ToUpper()}. Priority: {priority}. Message: {message}.";
             Debug.WriteLine(messageToLog);
         }
     }

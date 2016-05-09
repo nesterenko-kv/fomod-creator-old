@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace FomodModel.Base.ModuleCofiguration.Enum
 {
     /// <summary>
-    /// The type of the Group.
+    ///     The type of the Group.
     /// </summary>
     [Serializable]
     [XmlType("groupType", AnonymousType = true)]

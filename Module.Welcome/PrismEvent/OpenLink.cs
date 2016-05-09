@@ -4,6 +4,5 @@ namespace Module.Welcome.PrismEvent
 {
     public class OpenLink : PubSubEvent<string>
     {
-        
     }
 }

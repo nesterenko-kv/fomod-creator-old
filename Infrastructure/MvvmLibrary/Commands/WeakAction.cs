@@ -6,24 +6,11 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
     public class WeakAction<T> : WeakAction, IExecuteWithObject
     {
         private Action<T> _staticAction;
-        public override string MethodName => _staticAction?.GetMethodInfo().Name ?? Method.Name;
 
-        public override bool IsAlive
+        public WeakAction(Action<T> action) : this(action?.Target, action)
         {
-            get
-            {
-                if (_staticAction == null && Reference == null)
-                    return false;
-                if (_staticAction == null)
-                    return Reference.IsAlive;
-                return Reference == null || Reference.IsAlive;
-            }
         }
 
-        public WeakAction(Action<T> action): this(action?.Target, action)
-        {
-
-        }
         private WeakAction(object target, Action<T> action)
         {
             if (action.GetMethodInfo().IsStatic)
@@ -41,6 +28,31 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
             }
         }
 
+        public override string MethodName => _staticAction?.GetMethodInfo().Name ?? Method.Name;
+
+        public override bool IsAlive
+        {
+            get
+            {
+                if (_staticAction == null && Reference == null)
+                    return false;
+                if (_staticAction == null)
+                    return Reference.IsAlive;
+                return Reference == null || Reference.IsAlive;
+            }
+        }
+
+        public void ExecuteWithObject(object parameter)
+        {
+            Execute((T) parameter);
+        }
+
+        public new void MarkForDeletion()
+        {
+            _staticAction = null;
+            base.MarkForDeletion();
+        }
+
         public void Execute(T parameter = default(T))
         {
             if (_staticAction != null)
@@ -55,38 +67,20 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                     });
             }
         }
-
-        public void ExecuteWithObject(object parameter)
-        {
-            Execute((T)parameter);
-        }
-        
-        public new void MarkForDeletion()
-        {
-            _staticAction = null;
-            base.MarkForDeletion();
-        }
     }
 
     public class WeakAction
     {
         private Action _staticAction;
-        protected MethodInfo Method { get; set; }
-        public virtual string MethodName => _staticAction?.GetMethodInfo().Name ?? Method.Name;
-        protected WeakReference ActionReference { get; set; }
-        protected WeakReference Reference { get; set; }
-        public bool IsStatic => _staticAction != null;
-        public virtual bool IsAlive => (_staticAction != null || Reference != null) && (_staticAction != null && Reference == null || Reference.IsAlive);
-        public object Target => Reference?.Target;
-        protected object ActionTarget => ActionReference?.Target;
+
         protected WeakAction()
         {
-
         }
-        public WeakAction(Action action): this(action?.Target, action)
+
+        public WeakAction(Action action) : this(action?.Target, action)
         {
-
         }
+
         private WeakAction(object target, Action action)
         {
             if (action.GetMethodInfo().IsStatic)
@@ -103,6 +97,21 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                 Reference = new WeakReference(target);
             }
         }
+
+        protected MethodInfo Method { get; set; }
+        public virtual string MethodName => _staticAction?.GetMethodInfo().Name ?? Method.Name;
+        protected WeakReference ActionReference { get; set; }
+        protected WeakReference Reference { get; set; }
+        public bool IsStatic => _staticAction != null;
+
+        public virtual bool IsAlive
+            =>
+                (_staticAction != null || Reference != null) &&
+                (_staticAction != null && Reference == null || Reference.IsAlive);
+
+        public object Target => Reference?.Target;
+        protected object ActionTarget => ActionReference?.Target;
+
         public void Execute()
         {
             if (_staticAction != null)
@@ -115,6 +124,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                 Method.Invoke(actionTarget, null);
             }
         }
+
         protected void MarkForDeletion()
         {
             Reference = null;

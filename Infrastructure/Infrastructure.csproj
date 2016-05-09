@@ -53,15 +53,15 @@
   <ItemGroup>
     <Compile Include="Aspect\AcpectDebugLoger.cs" />
     <Compile Include="Aspect\AspectINotifyPropertyChanged.cs" />
-    <Compile Include="Controls\ExtendedTreeView.cs" />
     <Compile Include="Interface\IAppService.cs" />
     <Compile Include="Interface\IFileBrowserDialog.cs" />
     <Compile Include="Interface\IFolderBrowserDialog.cs" />
     <Compile Include="Interface\IDataService.cs" />
     <Compile Include="Interface\IRepository.cs" />
-    <Compile Include="MvvmLibrary\Behavior\DoubleClickSelectorItem.cs" />
-    <Compile Include="MvvmLibrary\Behavior\DropBehavior.cs" />
+    <Compile Include="Behaviors\DoubleClickSelectorItem.cs" />
+    <Compile Include="Behaviors\DropBehavior.cs" />
     <Compile Include="MvvmLibrary\Async\NotifyTaskCompletion.cs" />
+    <Compile Include="MvvmLibrary\Attaches\TreeViewHelper.cs" />
     <Compile Include="MvvmLibrary\Commands\IExecuteWithObject.cs" />
     <Compile Include="MvvmLibrary\Commands\IExecuteWithObjectAndResult.cs" />
     <Compile Include="MvvmLibrary\Commands\RelayCommand.cs" />
@@ -69,7 +69,6 @@
     <Compile Include="MvvmLibrary\Commands\WeakFunc.cs" />
     <Compile Include="Names.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Set.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

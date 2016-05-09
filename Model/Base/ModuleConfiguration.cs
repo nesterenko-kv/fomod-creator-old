@@ -10,13 +10,13 @@ namespace FomodModel.Base
     /// <summary>
     ///     Describes the configuration of a module.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    [Aspect(typeof (AspectINotifyPropertyChanged))]
     [Serializable]
     [XmlRoot("config", Namespace = "", IsNullable = false)]
     public class ModuleConfiguration
     {
         #region Properties
-        
+
         /// <summary>
         ///     The name of the module.
         /// </summary>
@@ -56,9 +56,9 @@ namespace FomodModel.Base
         /// <summary>
         ///     Add namespace.
         /// </summary>
-        [XmlAttribute("noNamespaceSchemaLocation", Namespace = XmlSchema.InstanceNamespace)]
-        public string Namespace = "http://qconsulting.ca/fo3/ModConfig5.0.xsd";
-        
+        [XmlAttribute("noNamespaceSchemaLocation", Namespace = XmlSchema.InstanceNamespace)] public string Namespace =
+            "http://qconsulting.ca/fo3/ModConfig5.0.xsd";
+
         #endregion
     }
 }
