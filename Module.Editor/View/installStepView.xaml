@@ -7,16 +7,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
+             xmlns:enum="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-    <DockPanel DataContext="{Binding Data}">
-        <TextBox DockPanel.Dock="Top"
+    <GroupBox Header="Install step">
+        <DockPanel DataContext="{Binding Data}">
+            <TextBox DockPanel.Dock="Top"
                  VerticalAlignment="Top"
                  MaxHeight="38"
                  Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  controls:TextBoxHelper.Watermark="Название шага"
                  controls:TextBoxHelper.UseFloatingWatermark="True"
                  controls:TextBoxHelper.ClearTextButton="True"/>
-    </DockPanel>
+        </DockPanel>
+    </GroupBox>
 </UserControl>

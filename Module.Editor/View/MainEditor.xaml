@@ -13,33 +13,47 @@
              d:DesignWidth="300"
              dialogs:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
-        <TreeView Grid.Column="0" ItemsSource="{Binding Data}"
+        <TreeView Grid.Column="0"
+                  ItemsSource="{Binding Data}"
                   attaches:TreeViewHelper.SelectedItem="{Binding SelectedNode, Mode=TwoWay}">
             <!-- Region TreeViewResources -->
             <TreeView.Resources>
                 <HierarchicalDataTemplate x:Key="Plugin" DataType="{x:Type mcd:Plugin}">
-                    <StackPanel Orientation="Horizontal">
+                    <DockPanel>
+                        <Button Margin="3" DockPanel.Dock="Right" VerticalAlignment="Center" Style="{DynamicResource DeleteButton}" />
                         <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
+                    </DockPanel>
                 </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type mcd:Group}"
                                           ItemTemplate="{StaticResource Plugin}"
                                           ItemsSource="{Binding Plugins.Plugin}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
+                    <DockPanel>
+                        <Button Margin="3" DockPanel.Dock="Right" VerticalAlignment="Center" Style="{DynamicResource DeleteButton}" />
+                        <Button Margin="3" DockPanel.Dock="Right" VerticalAlignment="Center" Style="{DynamicResource AddButton}" />
+                        <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+                    </DockPanel>
                 </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type mcd:InstallStep}"
                                           ItemsSource="{Binding OptionalFileGroups.Group}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
+                    <DockPanel>
+                        <Button Margin="3" DockPanel.Dock="Right" VerticalAlignment="Center" Style="{DynamicResource DeleteButton}" />
+                        <Button Margin="3" DockPanel.Dock="Right" VerticalAlignment="Center" Style="{DynamicResource AddButton}" />
+                        <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+                    </DockPanel>
                 </HierarchicalDataTemplate>
+                <!-- Region Дичь -->
                 <!--<HierarchicalDataTemplate x:Key="Config"
                                           DataType="{x:Type base:ModuleConfiguration}"
                                           ItemTemplate="{StaticResource InstallStep}"
@@ -47,17 +61,19 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Module Configuration" />
                     </StackPanel>
-                </HierarchicalDataTemplate>-->
+                </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate x:Key="Info" DataType="{x:Type base:ModuleInformation}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Module Information" />
                     </StackPanel>
-                </HierarchicalDataTemplate>
+                </HierarchicalDataTemplate>-->
+                <!-- EndRegion -->
                 <HierarchicalDataTemplate DataType="{x:Type base:ProjectRoot}"
                                           ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding ModuleInformation.Name, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
+                    <DockPanel>
+                        <Button Margin="3" DockPanel.Dock="Right" VerticalAlignment="Center" Style="{DynamicResource AddButton}" />
+                        <TextBlock Text="{Binding ModuleInformation.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+                    </DockPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
             <!-- EndRegion-->

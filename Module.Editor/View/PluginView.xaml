@@ -5,16 +5,47 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:view="clr-namespace:Module.Editor.View"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:enum="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-    <DockPanel DataContext="{Binding Data}">
-        <TextBox DockPanel.Dock="Top"
-                 VerticalAlignment="Top"
-                 MaxHeight="38"
-                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 controls:TextBoxHelper.Watermark="Название плагина"
-                 controls:TextBoxHelper.UseFloatingWatermark="True"
-                 controls:TextBoxHelper.ClearTextButton="True"/>
-     </DockPanel>
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="DataFromEnum" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enum:PluginTypeEnum"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    <GroupBox Header="Plugin" DataContext="{Binding Data}">
+        <controls:MetroAnimatedSingleRowTabControl>
+            <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Инфо">
+                <DockPanel>
+                    <TextBox DockPanel.Dock="Top"
+                             VerticalAlignment="Top"
+                             MaxHeight="38"
+                             Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             controls:TextBoxHelper.Watermark="Название плагина"
+                             controls:TextBoxHelper.UseFloatingWatermark="True"
+                             controls:TextBoxHelper.ClearTextButton="True"/>
+                    <ComboBox DockPanel.Dock="Top"
+                              VerticalAlignment="Top"
+                              controls:TextBoxHelper.Watermark="Тип плагина"
+                              ItemsSource="{Binding Source={StaticResource DataFromEnum}}"
+                              SelectedItem="{Binding TypeDescriptor.DependencyType.DefaultType.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             controls:TextBoxHelper.Watermark="Описание плагина"
+                             controls:TextBoxHelper.UseFloatingWatermark="True"/>
+                </DockPanel>
+            </TabItem>
+            <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Флаги">
+                
+            </TabItem>
+            <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Зависимости">
+                
+            </TabItem>
+        </controls:MetroAnimatedSingleRowTabControl>
+    </GroupBox>
 </UserControl>
