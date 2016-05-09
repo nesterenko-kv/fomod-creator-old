@@ -25,8 +25,5 @@
                 </DataTemplate>
             </TabControl.ItemTemplate>
         </TabControl>
-        <!--<ContentControl Panel.ZIndex="75" region:RegionManager.RegionName="{x:Static names:Names.TopRegion}" />-->
-        <!--<ContentControl Panel.ZIndex="75" region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}" />-->
-        <ContentControl Panel.ZIndex="100" region:RegionManager.RegionName="{x:Static names:Names.UserMsgRegion}" />
     </Grid>
 </controls:MetroWindow>
