@@ -11,8 +11,7 @@ namespace Module.Welcome.ViewModel
 {
     public class WelcomeViewModel
     {
-        public WelcomeViewModel(IAppService appService, IDialogCoordinator dialogCoordinator,
-            IEventAggregator eventAggregator, IServiceLocator serviceLocator)
+        public WelcomeViewModel(IAppService appService, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator, IServiceLocator serviceLocator)
         {
             _appService = appService;
             _dialogCoordinator = dialogCoordinator;
@@ -22,45 +21,63 @@ namespace Module.Welcome.ViewModel
             CloseApplication = new RelayCommand(() => _appService.CloseApp());
             OpenProject = new RelayCommand<string>(p =>
             {
-                var _repository = _serviceLocator.GetInstance<IRepository<ProjectRoot>>();
-                var x = _repository.LoadData(p);
-                if (x != null)
+                var repository = _serviceLocator.GetInstance<IRepository<ProjectRoot>>();
+                var x = repository.LoadData(p);
+                if (x == null)
                 {
-                    _appService.CreateEditorModule(_repository);
-                    _eventAggregator.GetEvent<OpenProjectEvent>().Publish(_repository.CurrentPath);
+                    switch (repository.RepositoryStatus)
+                    {
+                        case RepositoryStatus.CantSelectFolder:
+                            _dialogCoordinator.ShowMessageAsync(this, "Ошибка",
+                                "Указанная папка не соответствует необходимым требованиям.");
+                            break;
+                        case RepositoryStatus.Error:
+                            _dialogCoordinator.ShowMessageAsync(this, "Ошибка",
+                                "Произошла ошибка при загрузки проекта - обратитесь к разработчику");
+                            break;
+                        case RepositoryStatus.Cancel:
+                            //_dialogCoordinator.ShowMessageAsync(this, "Отмена", "Отмена");
+                            break;
+                        case RepositoryStatus.None:
+                            break;
+                        case RepositoryStatus.Ok:
+                            break;
+                        case RepositoryStatus.FolderIsAlreadyUse:
+                            break;
+                        default:
+                            throw new ApplicationException();
+                    }
                 }
                 else
                 {
-                    if (_repository.RepositoryStatus == RepositoryStatus.CantSelectFolder)
-                    {
-                        _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Указанная папка не соответствует необходимым требованиям.");
-                    }
-                    else if (_repository.RepositoryStatus == RepositoryStatus.Error)
-                    {
-                        _dialogCoordinator.ShowMessageAsync(this, "Ошибка",  "Произошла ошибка при загрузки проекта - обратитесь к разработчику");
-                    }
-                    else if (_repository.RepositoryStatus == RepositoryStatus.Cancel)
-                    {
-                        //_dialogCoordinator.ShowMessageAsync(this, "Отмена", "Отмена");
-                    }
-                    else
-                    {
-                        throw new ApplicationException();
-                    }
+                    _appService.CreateEditorModule(repository);
+                    _eventAggregator.GetEvent<OpenProjectEvent>().Publish(repository.CurrentPath);
                 }
             });
             CreateProject = new RelayCommand(() => 
             {
-                var _repository = _serviceLocator.GetInstance<IRepository<ProjectRoot>>();
-                var path = _repository.CreateData();
-                if (_repository.RepositoryStatus == RepositoryStatus.FolderIsAlreadyUse)
-                    _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Нельзя использовать папку в которой существуют файлы проекта");
-                else if (_repository.RepositoryStatus == RepositoryStatus.Ok)
-                    OpenProject.Execute(path);
-                else if (_repository.RepositoryStatus == RepositoryStatus.Cancel)
-                { }
-                else
-                    throw new ApplicationException();
+                var repository = _serviceLocator.GetInstance<IRepository<ProjectRoot>>();
+                var path = repository.CreateData();
+                switch (repository.RepositoryStatus)
+                {
+                    case RepositoryStatus.FolderIsAlreadyUse:
+                        _dialogCoordinator.ShowMessageAsync(this, "Ошибка",
+                            "Нельзя использовать папку в которой существуют файлы проекта");
+                        break;
+                    case RepositoryStatus.Ok:
+                        OpenProject.Execute(path);
+                        break;
+                    case RepositoryStatus.Cancel:
+                        break;
+                    case RepositoryStatus.None:
+                        break;
+                    case RepositoryStatus.Error:
+                        break;
+                    case RepositoryStatus.CantSelectFolder:
+                        break;
+                    default:
+                        throw new ApplicationException();
+                }
             });
             _eventAggregator.GetEvent<OpenLink>().Subscribe(p => OpenProject.Execute(p));
         }

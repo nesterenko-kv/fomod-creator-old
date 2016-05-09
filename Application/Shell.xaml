@@ -16,12 +16,12 @@
                       WindowStartupLocation="CenterScreen"
                       mc:Ignorable="d">
     <Grid>
-        <TabControl region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}">
+        <controls:MetroAnimatedSingleRowTabControl region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}" TextTrimming="CharacterEllipsis" />
                 </DataTemplate>
             </TabControl.ItemTemplate>
-        </TabControl>
+        </controls:MetroAnimatedSingleRowTabControl>
     </Grid>
 </controls:MetroWindow>
