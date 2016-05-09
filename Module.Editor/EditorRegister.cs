@@ -27,7 +27,6 @@ namespace Module.Editor
             Registry<GroupView, NullViewModel>();
             Registry<InstallStepView, NullViewModel>();
             Registry<View.Plugin.PluginView, NullViewModel>();
-            _regionManager.RequestNavigate(Names.MainContentRegion, nameof(MainEditorView));
         }
 
         #endregion

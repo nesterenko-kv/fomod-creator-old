@@ -4,6 +4,7 @@ using Prism.Events;
 using Module.Welcome.PrismEvent;
 using FomodModel.Base;
 using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Module.Welcome.ViewModel
 {
@@ -14,9 +15,9 @@ namespace Module.Welcome.ViewModel
         #region Services
 
         private readonly IAppService _appService;
-        private readonly IRepository<ProjectRoot> _repository;
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IEventAggregator _eventAggregator;
+        private readonly IServiceLocator _serviceLocator;
 
         #endregion
 
@@ -28,20 +29,21 @@ namespace Module.Welcome.ViewModel
 
         #endregion
 
-        public WelcomeViewModel(IAppService appService, IRepository<ProjectRoot> repository, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator)
+        public WelcomeViewModel(IAppService appService, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator, IServiceLocator serviceLocator)
         {
             _appService = appService;
-            //_regionManager = regionManager;
             _dialogCoordinator = dialogCoordinator;
             _eventAggregator = eventAggregator;
-            _repository = repository;
+            _serviceLocator = serviceLocator;
+
             CloseApplication = new RelayCommand(() => _appService.CloseApp());
             OpenProject = new RelayCommand<string>(p =>
             {
+                var _repository = _serviceLocator.GetInstance<IRepository<ProjectRoot>>();
                 var x = _repository.LoadData(p);
                 if (x != null)
                 {
-                    _appService.InitilizeBaseModules();
+                    _appService.CreateEditorModule(_repository);
                     _eventAggregator.GetEvent<OpenProjectEvent>().Publish(_repository.CurrentPath);
                 }
                 else
