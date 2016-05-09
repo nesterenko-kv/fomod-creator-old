@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Module.Editor.View.groupView"
+﻿<UserControl x:Class="Module.Editor.View.GroupView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"

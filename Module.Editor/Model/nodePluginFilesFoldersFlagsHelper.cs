@@ -9,7 +9,7 @@ namespace Module.Editor.Model
 
         public NodePluginFilesFoldersFlagsHelper(XmlNode node) : base(node)
         {
-            if (node.Name != "plugin") throw new ArgumentException();
+            if (node.Name != "Plugin") throw new ArgumentException();
             _typeDescriptorNode = node;
         }
     }

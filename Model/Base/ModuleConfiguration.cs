@@ -3,62 +3,62 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
-using FomodModel.Base.Configuration.Dependencies;
-using FomodModel.Base.Configuration.Files;
-using FomodModel.Base.Configuration.Header;
-using FomodModel.Base.Configuration.Steps;
-using FomodModel.Base.Configuration.Steps.Groups.Plugins.Conditions;
+using FomodModel.Base.ModuleCofiguration;
 
 namespace FomodModel.Base
 {
     /// <summary>
-    /// Describes the configuration of a module.
+    ///     Describes the configuration of a module.
     /// </summary>
     [Aspect(typeof(AspectINotifyPropertyChanged))]
     [Serializable]
     [XmlRoot("config", Namespace = "", IsNullable = false)]
     public class ModuleConfiguration
     {
+        #region Properties
+        
         /// <summary>
-        /// Add namespace.
+        ///     The name of the module.
         /// </summary>
-        [XmlAttribute("noNamespaceSchemaLocation", Namespace = XmlSchema.InstanceNamespace)]
-        public string Namespace = "http://qconsulting.ca/fo3/ModConfig5.0.xsd";
-
-        /// <summary>
-        /// The name of the module.
-        /// </summary>
-        [XmlElement("moduleName", Form = XmlSchemaForm.Unqualified)]
+        [XmlElement("moduleName")]
         public ModuleTitle ModuleName { get; set; }
 
         /// <summary>
-        /// The module logo.
+        ///     The module logo.
         /// </summary>
-        [XmlElement("moduleImage", Form = XmlSchemaForm.Unqualified)]
+        [XmlElement("moduleImage")]
         public HeaderImage ModuleImage { get; set; }
 
         /// <summary>
-        /// Items upon which the module depends.
+        ///     Items upon which the module depends.
         /// </summary>
-        [XmlElement("moduleDependencies", Form = XmlSchemaForm.Unqualified)]
+        [XmlElement("moduleDependencies")]
         public CompositeDependency ModuleDependencies { get; set; }
 
         /// <summary>
-        /// The list of files and folders that must be installed for this module.
+        ///     The list of files and folders that must be installed for this module.
         /// </summary>
-        [XmlElement("requiredInstallFiles", Form = XmlSchemaForm.Unqualified)]
+        [XmlElement("requiredInstallFiles")]
         public FileList RequiredInstallFiles { get; set; }
 
         /// <summary>
-        /// The list of install steps that determine which files (or plugins) that may optionally be installed for this module.
+        ///     The list of install steps that determine which files (or plugins) that may optionally be installed for this module.
         /// </summary>
-        [XmlElement("installSteps", Form = XmlSchemaForm.Unqualified)]
+        [XmlElement("installSteps")]
         public StepList InstallSteps { get; set; }
 
         /// <summary>
-        /// The list of optional files that may optionally be installed for this module, base on condition flags.
+        ///     The list of optional files that may optionally be installed for this module, base on condition flags.
         /// </summary>
-        [XmlElement("conditionalFileInstalls", Form = XmlSchemaForm.Unqualified)]
+        [XmlElement("conditionalFileInstalls")]
         public ConditionalFileInstallList ConditionalFileInstalls { get; set; }
+
+        /// <summary>
+        ///     Add namespace.
+        /// </summary>
+        [XmlAttribute("noNamespaceSchemaLocation", Namespace = XmlSchema.InstanceNamespace)]
+        public string Namespace = "http://qconsulting.ca/fo3/ModConfig5.0.xsd";
+        
+        #endregion
     }
 }

@@ -1,50 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:base="clr-namespace:FomodModel.Base;assembly=FomodModel"
+                    xmlns:mcd="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
                     mc:Ignorable="">
-    <HierarchicalDataTemplate x:Key="plugin"
-                              DataType="plugin">
-        <StackPanel Orientation="Horizontal">
-            <!--<TextBlock Text="plugin: " />-->
-            <TextBlock Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
-        </StackPanel>
-    </HierarchicalDataTemplate>
-
-    <HierarchicalDataTemplate x:Key="group"
-                              DataType="group"
-                              ItemsSource="{Binding XPath=plugins/plugin}"
-                              ItemTemplate="{StaticResource plugin}">
-        <StackPanel Orientation="Horizontal">
-            <!--<TextBlock Text="group: " />-->
-            <TextBlock Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
-            <!--<TextBlock Text="{Binding XPath=@type, UpdateSourceTrigger=PropertyChanged, StringFormat=[Type: {0}]}" />
-            <TextBlock Text="{Binding XPath=plugins/@order, StringFormat=[plugins Order: {0}]}" />-->
-        </StackPanel>
-    </HierarchicalDataTemplate>
-
-    <HierarchicalDataTemplate x:Key="installStep"
-                              DataType="installStep"
-                              ItemsSource="{Binding XPath=optionalFileGroups/group}"
-                              ItemTemplate="{StaticResource group}">
-        <StackPanel Orientation="Horizontal">
-            <!--<TextBlock Text="installStep: " />-->
-            <TextBlock Text="{Binding XPath=@name, UpdateSourceTrigger=PropertyChanged}" />
-            <!--<TextBlock Text="{Binding XPath=optionalFileGroups/@order, StringFormat=[Order: {0}]}" />-->
-        </StackPanel>
-    </HierarchicalDataTemplate>
-
-    <HierarchicalDataTemplate x:Key="config"
-                              DataType="config"
-                              ItemsSource="{Binding XPath=installSteps/installStep}"
-                              ItemTemplate="{StaticResource installStep}">
-        <StackPanel Orientation="Horizontal">
-
-            <DockPanel>
-                <Button Content="+" DockPanel.Dock="Right" Margin="1"/>
-                <TextBlock Text="{Binding XPath=moduleName, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" />
-            </DockPanel>
-            <!--<TextBlock Text="{Binding XPath=installSteps/@order, StringFormat=[Order: {0}]}" />-->
-        </StackPanel>
-    </HierarchicalDataTemplate>
 
 </ResourceDictionary>

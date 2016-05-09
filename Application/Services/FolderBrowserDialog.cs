@@ -9,6 +9,7 @@ namespace MainApplication.Services
         private readonly System.Windows.Forms.FolderBrowserDialog _dialog = new System.Windows.Forms.FolderBrowserDialog();
 
         #region IFolderBrowserDialog
+
         public string Description
         {
             get { return _dialog.Description; }
@@ -33,6 +34,7 @@ namespace MainApplication.Services
         }
 
         public bool ShowDialog() => _dialog.ShowDialog() == DialogResult.OK;
+
         #endregion
     }
 }

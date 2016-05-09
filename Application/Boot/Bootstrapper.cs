@@ -5,7 +5,7 @@ using Module.Welcome;
 using Prism.Logging;
 using Prism.StructureMap;
 using MahApps.Metro.Controls.Dialogs;
-using System.Windows.Data;
+using FomodModel.Base;
 
 namespace MainApplication.Boot
 {
@@ -28,9 +28,9 @@ namespace MainApplication.Boot
             Container.Configure(r =>
             {
                 r.For<IAppService>().Use<AppService>().Singleton();
-                r.For<IRepository<XmlDataProvider>>().Use<RepositoryXml>().Singleton();
+                r.For<IRepository<ProjectRoot>>().Use<Repository>().Singleton();
                 r.For<IDialogCoordinator>().Use<DialogCoordinator>().Singleton();
-                r.For<IFolderBrowserDialog>().Use<FolderBrowserDialog>();
+                r.For<IFolderBrowserDialog>().Use<FolderBrowserDialog>().Singleton();
                 r.For<IDataService>().Use<DataService>().Singleton();
                 r.For<IFileBrowserDialog>().Use<FileBrowserDialog>();
 

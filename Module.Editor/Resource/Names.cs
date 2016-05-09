@@ -2,9 +2,9 @@
 {
     public static class Names
     {
-        public static string ConfigName = "config";
-        public static string InstallStepName = "installStep";
-        public static string GroupName = "group";
-        public static string PluginName = "plugin";
+        public static string ConfigName = "Config";
+        public static string InstallStepName = "InstallStep";
+        public static string GroupName = "Group";
+        public static string PluginName = "Plugin";
     }
 }

@@ -1,10 +1,8 @@
-﻿using System.Windows.Controls;
-
-namespace Module.Editor.View.Plugin
+﻿namespace Module.Editor.View.Plugin
 {
-    public partial class pluginFileView: UserControl
+    public partial class PluginFileView
     {
-        public pluginFileView()
+        public PluginFileView()
         {
             InitializeComponent();
         }

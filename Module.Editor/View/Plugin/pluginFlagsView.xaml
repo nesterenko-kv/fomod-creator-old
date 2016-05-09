@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Module.Editor.View.pluginFlagsView"
+﻿<UserControl x:Class="Module.Editor.View.Plugin.PluginFlagsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -81,7 +81,7 @@
                     <StackPanel>
                         <Button x:Name="FlagAddButton"
                                 Margin="3"
-                                Content="Add flags group"
+                                Content="Add flags Group"
                                 Command="{Binding AddFlagsGroup}"
                                 Style="{DynamicResource SquareButtonStyle}"/>
                         <ItemsControl x:Name="FlagList"

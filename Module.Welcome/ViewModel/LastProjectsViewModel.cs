@@ -33,7 +33,7 @@ namespace Module.Welcome.ViewModel
 
         #region Commands
 
-        public RelayCommand<object> GoTo { get; private set; }
+        public RelayCommand<string> GoTo { get; private set; }
 
         #endregion
 
@@ -41,14 +41,13 @@ namespace Module.Welcome.ViewModel
         {
             _eventAggregator = eventAggregator;
             _dataService = dataService;
-            GoTo = new RelayCommand<object>(p => _eventAggregator.GetEvent<OpenLink>().Publish(p.ToString()));
+            GoTo = new RelayCommand<string>(p => _eventAggregator.GetEvent<OpenLink>().Publish(p));
             var list = ReadProjectLinkListFile();
             if (list != null)
                 ProjectLinkList = list;
             _eventAggregator.GetEvent<OpenProjectEvent>().Subscribe(p =>
             {
-                var project = ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p);
-                if (project != null) return;
+                if (ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p) != null) return;
                 ProjectLinkList.Links.Add(new ProjectLinkModel {FolderPath = p});
                 SaveProjectLinkListFile();
             });

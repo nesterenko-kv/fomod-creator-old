@@ -1,8 +1,8 @@
 ﻿namespace Module.Editor.View
 {
-    public partial class installStepView
+    public partial class InstallStepView
     {
-        public installStepView()
+        public InstallStepView()
         {
             InitializeComponent();
         }

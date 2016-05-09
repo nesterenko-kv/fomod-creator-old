@@ -1,8 +1,8 @@
 ﻿namespace Module.Editor.View
 {
-    public partial class configView
+    public partial class ConfigView
     {
-        public configView()
+        public ConfigView()
         {
             InitializeComponent();
         }

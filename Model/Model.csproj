@@ -37,61 +37,57 @@
       <HintPath>..\packages\AspectInjector.0.9.44\lib\AspectInjector.Broker.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\Configuration\Dependencies\CompositeDependency.cs" />
-    <Compile Include="Base\Configuration\Dependencies\DependencyPattern.cs" />
-    <Compile Include="Base\Configuration\Dependencies\DependencyPluginType.cs" />
-    <Compile Include="Base\Configuration\Dependencies\FileDependency.cs" />
-    <Compile Include="Base\Configuration\Dependencies\FlagDependency.cs" />
-    <Compile Include="Base\Configuration\Dependencies\VersionDependency.cs" />
-    <Compile Include="Base\Configuration\Enums\CompositeDependencyOperator.cs" />
-    <Compile Include="Base\Configuration\Enums\FileDependencyState.cs" />
-    <Compile Include="Base\Configuration\Enums\GroupType.cs" />
-    <Compile Include="Base\Configuration\Enums\ItemsChoiceType.cs" />
-    <Compile Include="Base\Configuration\Enums\ItemsChoiceType1.cs" />
-    <Compile Include="Base\Configuration\Enums\ModuleTitlePosition.cs" />
-    <Compile Include="Base\Configuration\Enums\OrderEnum.cs" />
-    <Compile Include="Base\Configuration\Enums\PluginTypeEnum.cs" />
-    <Compile Include="Base\Configuration\Files\FileList.cs" />
-    <Compile Include="Base\Configuration\Files\FileSystemItem.cs" />
-    <Compile Include="Base\Configuration\Files\Image.cs" />
-    <Compile Include="Base\Configuration\Header\HeaderImage.cs" />
-    <Compile Include="Base\Configuration\Header\ModuleTitle.cs" />
-    <Compile Include="Base\ModuleConfiguration.cs" />
-    <Compile Include="Base\Configuration\Steps\Groups\Group.cs" />
-    <Compile Include="Base\Configuration\Steps\Groups\GroupList.cs" />
-    <Compile Include="Base\Configuration\Steps\Groups\Plugins\Conditions\ConditionalFileInstallList.cs" />
-    <Compile Include="Base\Configuration\Steps\Groups\Plugins\Conditions\ConditionalInstallPattern.cs" />
-    <Compile Include="Base\Configuration\Steps\Groups\Plugins\Conditions\ConditionFlagList.cs" />
-    <Compile Include="Base\Configuration\Steps\Groups\Plugins\Conditions\SetConditionFlag.cs" />
-    <Compile Include="Base\Configuration\Steps\Groups\Plugins\Plugin.cs" />
-    <Compile Include="Base\Configuration\Steps\Groups\Plugins\PluginList.cs" />
-    <Compile Include="Base\Configuration\Steps\Groups\Plugins\PluginType.cs" />
-    <Compile Include="Base\Configuration\Steps\Groups\Plugins\PluginTypeDescriptor.cs" />
-    <Compile Include="Base\Configuration\Steps\InstallStep.cs" />
-    <Compile Include="Base\Configuration\Steps\StepList.cs" />
+    <Compile Include="Base\ModuleCofiguration\Enum\CompositeDependencyOperator.cs" />
     <Compile Include="Base\ModuleInformation.cs" />
     <Compile Include="Base\ProjectRoot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Xml\info.xml" />
-    <Content Include="Xml\ModuleConfig.xml" />
+    <Compile Include="Base\ModuleCofiguration\CompositeDependency.cs" />
+    <Compile Include="Base\ModuleCofiguration\ConditionalFileInstallList.cs" />
+    <Compile Include="Base\ModuleCofiguration\ConditionalInstallPattern.cs" />
+    <Compile Include="Base\ModuleCofiguration\ConditionFlagList.cs" />
+    <Compile Include="Base\ModuleCofiguration\DependencyPattern.cs" />
+    <Compile Include="Base\ModuleCofiguration\DependencyPluginType.cs" />
+    <Compile Include="Base\ModuleCofiguration\FileDependency.cs" />
+    <Compile Include="Base\ModuleCofiguration\Enum\FileDependencyState.cs" />
+    <Compile Include="Base\ModuleCofiguration\FileList.cs" />
+    <Compile Include="Base\ModuleCofiguration\FileSystemItem.cs" />
+    <Compile Include="Base\ModuleCofiguration\FlagDependency.cs" />
+    <Compile Include="Base\ModuleCofiguration\Group.cs" />
+    <Compile Include="Base\ModuleCofiguration\GroupList.cs" />
+    <Compile Include="Base\ModuleCofiguration\Enum\GroupType.cs" />
+    <Compile Include="Base\ModuleCofiguration\HeaderImage.cs" />
+    <Compile Include="Base\ModuleCofiguration\Image.cs" />
+    <Compile Include="Base\ModuleCofiguration\InstallStep.cs" />
+    <Compile Include="Base\ModuleCofiguration\Enum\ItemsChoiceType.cs" />
+    <Compile Include="Base\ModuleCofiguration\Enum\ItemsChoiceType1.cs" />
+    <Compile Include="Base\ModuleConfiguration.cs" />
+    <Compile Include="Base\ModuleCofiguration\ModuleTitle.cs" />
+    <Compile Include="Base\ModuleCofiguration\Enum\ModuleTitlePosition.cs" />
+    <Compile Include="Base\ModuleCofiguration\Enum\OrderEnum.cs" />
+    <Compile Include="Base\ModuleCofiguration\Plugin.cs" />
+    <Compile Include="Base\ModuleCofiguration\PluginList.cs" />
+    <Compile Include="Base\ModuleCofiguration\PluginType.cs" />
+    <Compile Include="Base\ModuleCofiguration\PluginTypeDescriptor.cs" />
+    <Compile Include="Base\ModuleCofiguration\Enum\PluginTypeEnum.cs" />
+    <Compile Include="Base\ModuleCofiguration\SetConditionFlag.cs" />
+    <Compile Include="Base\ModuleCofiguration\StepList.cs" />
+    <Compile Include="Base\ModuleCofiguration\VersionDependency.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Xml\ModConfig5.0.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">

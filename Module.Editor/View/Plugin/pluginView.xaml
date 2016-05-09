@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Module.Editor.View.Plugin.pluginView"
+﻿<UserControl x:Class="Module.Editor.View.Plugin.PluginView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -43,8 +43,8 @@
                                        DataContext="{Binding DataContext,
                                                              RelativeSource={RelativeSource Mode=FindAncestor,
                                                                                             AncestorType=ContentControl}}">
-                                <plugin:pluginFileView x:Name="files" DockPanel.Dock="Top" />
-                                <local:pluginFlagsView x:Name="flags" DockPanel.Dock="Bottom" />
+                                <plugin:PluginFileView x:Name="files" DockPanel.Dock="Top" />
+                                <plugin:PluginFlagsView x:Name="flags" DockPanel.Dock="Bottom" />
                             </DockPanel>
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding DataContext.IsFilesFoldersFlags, ElementName=container}" Value="true">

@@ -1,8 +1,8 @@
-﻿namespace Module.Editor.View
+﻿namespace Module.Editor.View.Plugin
 {
-    public partial class pluginFlagsView
+    public partial class PluginFlagsView
     {
-        public pluginFlagsView()
+        public PluginFlagsView()
         {
             InitializeComponent();
         }

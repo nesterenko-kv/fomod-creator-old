@@ -1,8 +1,8 @@
 ﻿namespace Module.Editor.View
 {
-    public partial class groupView
+    public partial class GroupView
     {
-        public groupView()
+        public GroupView()
         {
             InitializeComponent();
         }

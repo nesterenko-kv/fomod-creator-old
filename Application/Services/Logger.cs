@@ -8,7 +8,7 @@ namespace MainApplication.Services
     {
         public void Log(string message, Category category, Priority priority)
         {
-            var messageToLog = string.Format(DateTime.Now.ToShortTimeString(), category.ToString().ToUpper(), message, priority);
+            var messageToLog = $"Time: {DateTime.Now.ToShortTimeString()}. Category: {category.ToString().ToUpper()}. Priority: {priority}. Message: {message}.";
             Debug.WriteLine(messageToLog);
         }
     }

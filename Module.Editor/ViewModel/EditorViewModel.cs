@@ -1,24 +1,25 @@
-﻿using System.Windows.Data;
-using System.Xml;
-using AspectInjector.Broker;
+﻿using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
 using FomodInfrastructure.Interface;
+using FomodModel.Base;
 using Prism.Mvvm;
 using Prism.Regions;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Module.Editor.ViewModel
 {
     public class EditorViewModel: BindableBase, INavigationAware
     {
-        public string Header { get;} = "Редактор";
+        public string Header { get; } = "Редактор";
 
         #region Properties
 
-        private XmlElement _node;
+        private object _node;
 
-        [Aspect(typeof(AcpectDebugLoger))]
+        //[Aspect(typeof(AcpectDebugLoger))]
         [Aspect(typeof(AspectINotifyPropertyChanged))]
-        public XmlElement CurentSelectedXmlNode
+        public object CurentSelectedItem
         {
             get { return _node; }
             set
@@ -26,27 +27,32 @@ namespace Module.Editor.ViewModel
                 _node = value;
                 if (value == null) return;
 
+                var name = value.GetType().Name;
+
                 var param = new NavigationParameters
                 {
-                    { value.Name, value }
+                    { name, value }
                 };
-                _regionManager.Regions["NodeRegion"].RequestNavigate(value.Name + "View", param);
+                _regionManager.Regions["NodeRegion"].RequestNavigate(name + "View", param);
             }
         }
 
-        private XmlDataProvider _xmlData;
-        public XmlDataProvider XmlData
+        private ObservableCollection<ProjectRoot> _data = new ObservableCollection<ProjectRoot>();
+
+        [Aspect(typeof(AcpectDebugLoger))]
+        [Aspect(typeof(AspectINotifyPropertyChanged))]
+        public ObservableCollection<ProjectRoot> Data
         {
             get
             {
-                if (_xmlData == null)
-                    _xmlData = _repository.GetData();
-                return _xmlData; //return _repository.GetData();
+                var data = _repository.GetData();
+                if (_data.FirstOrDefault(i=>i.FolderPath== data .FolderPath) == null)
+                    _data.Add(_repository.GetData());
+                return _data; //return _repository.GetData();
             }
             set
             {
-                _xmlData = value;
-                OnPropertyChanged();
+                _data = value;
             }
         }
 
@@ -54,7 +60,7 @@ namespace Module.Editor.ViewModel
 
         #region Services
 
-        private readonly IRepository<XmlDataProvider> _repository;
+        private readonly IRepository<ProjectRoot> _repository;
         private readonly IRegionManager _regionManager;
 
         #endregion
@@ -78,7 +84,7 @@ namespace Module.Editor.ViewModel
 
         #endregion
 
-        public EditorViewModel(IRepository<XmlDataProvider> repository, IRegionManager regionManager)
+        public EditorViewModel(IRepository<ProjectRoot> repository, IRegionManager regionManager)
         {
             _repository = repository;
             _regionManager = regionManager;

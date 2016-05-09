@@ -126,6 +126,10 @@
       <Project>{d6ff4295-8252-49e7-9e97-eb998c7c25af}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{344abc62-3d14-4471-a8a0-d4d2ad7d3e99}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Entypo-license.txt" />

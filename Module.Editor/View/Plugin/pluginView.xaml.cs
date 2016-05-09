@@ -1,8 +1,8 @@
 ﻿namespace Module.Editor.View.Plugin
 {
-    public partial class pluginView
+    public partial class PluginView
     {
-        public pluginView()
+        public PluginView()
         {
             InitializeComponent();
         }
