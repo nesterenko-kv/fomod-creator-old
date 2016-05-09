@@ -4,9 +4,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Module.Editor.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             mc:Ignorable="d"
-             Background="Aqua">
-    <Grid />
+             mc:Ignorable="d">
+    <DockPanel DataContext="{Binding Data}">
+        <TextBox DockPanel.Dock="Top"
+                 VerticalAlignment="Top"
+                 MaxHeight="38"
+                 Text="{Binding ModuleInformation.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 controls:TextBoxHelper.Watermark="Название модификации"
+                 controls:TextBoxHelper.UseFloatingWatermark="True"
+                 controls:TextBoxHelper.ClearTextButton="True"/>
+    </DockPanel>
 </UserControl>
