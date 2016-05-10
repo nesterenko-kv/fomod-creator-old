@@ -14,7 +14,9 @@ namespace MainApplication.Boot
     {
         protected override DependencyObject CreateShell()
         {
-            var shell = Container.GetInstance<Shell>();
+            var shell = Container.GetInstance<Shell>(); //ShellViewModel
+            var vm = Container.GetInstance<ShellViewModel>(); 
+            shell.DataContext = vm;
             return shell;
         }
 

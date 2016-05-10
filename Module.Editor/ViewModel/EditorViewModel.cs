@@ -6,6 +6,7 @@ using FomodInfrastructure.Interface;
 using FomodModel.Base;
 using Prism.Mvvm;
 using Prism.Regions;
+using FomodInfrastructure.MvvmLibrary.Commands;
 
 namespace Module.Editor.ViewModel
 {
@@ -15,6 +16,12 @@ namespace Module.Editor.ViewModel
         public EditorViewModel(IRepository<ProjectRoot> repository)
         {
             _repository = repository;
+
+            AddStep = new RelayCommand<ProjectRoot>(p =>
+            {
+                System.Windows.MessageBox.Show("ModuleConfiguration.InstallSteps.InstallStep " + p.ModuleConfiguration.InstallSteps.Order);
+            });
+
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -68,6 +75,13 @@ namespace Module.Editor.ViewModel
 
         private readonly IRepository<ProjectRoot> _repository;
         private IRegionManager _regionManager;
+
+        #endregion
+
+
+        #region Commands
+
+        public RelayCommand<ProjectRoot> AddStep { get; }
 
         #endregion
     }

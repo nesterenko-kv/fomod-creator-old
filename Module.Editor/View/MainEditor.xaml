@@ -125,7 +125,9 @@
                                           ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
                     <DockPanel Background="Transparent">
                         <Button Margin="3" x:Name="add_button" 
-                                VerticalAlignment="Center"
+                                VerticalAlignment="Center" 
+                                Command="{Binding DataContext.AddStep, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                CommandParameter="{Binding}"
                                 DockPanel.Dock="Right"
                                 Style="{DynamicResource AddButton}" />
                         <TextBlock Height="16" VerticalAlignment="Center" 
