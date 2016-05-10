@@ -41,11 +41,12 @@
                   ItemsSource="{Binding Data}">
             <!--  Region TreeViewResources  -->
             <TreeView.Resources>
-                <HierarchicalDataTemplate x:Key="Plugin"
-                                          DataType="{x:Type mcd:Plugin}">
+                <HierarchicalDataTemplate DataType="{x:Type mcd:Plugin}">
                     <DockPanel Background="Transparent">
                         <Button Margin="3" x:Name="delete_button" 
                                 VerticalAlignment="Center"
+                                Command="{Binding DataContext.RemovePlugin, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                CommandParameter="{Binding}"
                                 DockPanel.Dock="Right"
                                 Style="{DynamicResource DeleteButton}" />
                         <TextBlock Height="16" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
@@ -59,15 +60,18 @@
                     </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type mcd:Group}"
-                                          ItemTemplate="{StaticResource Plugin}"
                                           ItemsSource="{Binding Plugins.Plugin}">
                     <DockPanel Background="Transparent">
                         <Button Margin="3" x:Name="delete_button" 
                                 VerticalAlignment="Center"
                                 DockPanel.Dock="Right"
+                                Command="{Binding DataContext.RemoveGroup, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                CommandParameter="{Binding}"
                                 Style="{DynamicResource DeleteButton}" />
                         <Button Margin="3" x:Name="add_button"
                                 VerticalAlignment="Center"
+                                Command="{Binding DataContext.AddPlugin, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                CommandParameter="{Binding}"
                                 DockPanel.Dock="Right"
                                 Style="{DynamicResource AddButton}" />
                         <TextBlock Height="16" VerticalAlignment="Center"
@@ -87,11 +91,15 @@
                     <DockPanel Background="Transparent">
                         <Button Margin="3" x:Name="delete_button" 
                                 VerticalAlignment="Center"
+                                Command="{Binding DataContext.RemoveStep, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                CommandParameter="{Binding}"
                                 DockPanel.Dock="Right"
                                 Style="{DynamicResource DeleteButton}" />
                         <Button Margin="3" x:Name="add_button" 
                                 VerticalAlignment="Center"
                                 DockPanel.Dock="Right"
+                                Command="{Binding DataContext.AddGroup, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                CommandParameter="{Binding}"
                                 Style="{DynamicResource AddButton}" />
                         <TextBlock Height="16" VerticalAlignment="Center"
                                    Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
@@ -105,22 +113,6 @@
                         </Trigger>
                     </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
-                <!--#region Дичь-->
-
-                <!--<HierarchicalDataTemplate x:Key="Config"
-                                          DataType="{x:Type base:ModuleConfiguration}"
-                                          ItemTemplate="{StaticResource InstallStep}"
-                                          ItemsSource="{Binding InstallSteps.InstallStep}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Module Configuration" />
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate x:Key="Info" DataType="{x:Type base:ModuleInformation}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Module Information" />
-                    </StackPanel>
-                </HierarchicalDataTemplate>-->
-                <!--#endregion-->
                 <HierarchicalDataTemplate DataType="{x:Type base:ProjectRoot}"
                                           ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
                     <DockPanel Background="Transparent">
