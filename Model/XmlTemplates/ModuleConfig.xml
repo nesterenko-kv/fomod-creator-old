@@ -18,6 +18,22 @@
           </plugins>
         </group>
       </optionalFileGroups>
+      <optionalFileGroups order="Explicit">
+          <group name="Main group 2" type="SelectAtMostOne">
+            <plugins order="Explicit">
+              <plugin name="Plagin">
+                <description>Set description</description>
+                <conditionFlags>
+                  <flag name="Flag">On</flag>
+                </conditionFlags>
+                <typeDescriptor>
+                  <type name="NotUsable" />
+                </typeDescriptor>
+              </plugin>
+            </plugins>
+          </group>
+        </optionalFileGroups>
     </installStep>
+    <installStep name="Main 22"></installStep>
   </installSteps>
 </config>
