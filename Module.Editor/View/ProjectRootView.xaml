@@ -5,9 +5,18 @@
              xmlns:local="clr-namespace:Module.Editor.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:enum="clr-namespace:FomodModel.Base;assembly=FomodModel"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
+   <UserControl.Resources>
+        <ObjectDataProvider x:Key="DataFromEnum" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enum:CategoriesEnum"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+   </UserControl.Resources>
     <GroupBox Header="Mod info">
         <DockPanel DataContext="{Binding Data}">
         <TextBox DockPanel.Dock="Top"
@@ -17,6 +26,37 @@
                  controls:TextBoxHelper.Watermark="Название модификации"
                  controls:TextBoxHelper.UseFloatingWatermark="True"
                  controls:TextBoxHelper.ClearTextButton="True"/>
+            <TextBox DockPanel.Dock="Top"
+                 VerticalAlignment="Top"
+                 MaxHeight="38"
+                 Text="{Binding ModuleInformation.Author, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 controls:TextBoxHelper.Watermark="Автор"
+                 controls:TextBoxHelper.UseFloatingWatermark="True"
+                 controls:TextBoxHelper.ClearTextButton="True"/>
+            <TextBox DockPanel.Dock="Top"
+                 VerticalAlignment="Top"
+                 MaxHeight="38"
+                 Text="{Binding ModuleInformation.Version, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 controls:TextBoxHelper.Watermark="Версия"
+                 controls:TextBoxHelper.UseFloatingWatermark="True"
+                 controls:TextBoxHelper.ClearTextButton="True"/>
+            <TextBox DockPanel.Dock="Top"
+                     VerticalAlignment="Top"
+                     MaxHeight="38"
+                     Text="{Binding ModuleInformation.Website, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     controls:TextBoxHelper.Watermark="Ссылка"
+                     controls:TextBoxHelper.UseFloatingWatermark="True"
+                     controls:TextBoxHelper.ClearTextButton="True"/>
+            <ComboBox DockPanel.Dock="Top"
+                      VerticalAlignment="Top"
+                      controls:TextBoxHelper.Watermark="Категория"
+                      ItemsSource="{Binding Source={StaticResource DataFromEnum}}"
+                      SelectedValue="{Binding ModuleInformation.CategoryId}" />
+            <TextBox AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     Text="{Binding ModuleInformation.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     controls:TextBoxHelper.Watermark="Описание"
+                     controls:TextBoxHelper.UseFloatingWatermark="True"/>
         </DockPanel>
     </GroupBox>
 </UserControl>

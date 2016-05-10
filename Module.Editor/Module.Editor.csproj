@@ -91,9 +91,6 @@
     <Compile Include="ViewModel\InstallStepViewModel.cs" />
     <Compile Include="ViewModel\ProjectRootViewModel.cs" />
     <Compile Include="ViewModel\PluginViewModel.cs" />
-    <Compile Include="View\ConfigView.xaml.cs">
-      <DependentUpon>ConfigView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\GroupView.xaml.cs">
       <DependentUpon>GroupView.xaml</DependentUpon>
     </Compile>
@@ -128,10 +125,6 @@
     <Page Include="Resources\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\ConfigView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\GroupView.xaml">
       <SubType>Designer</SubType>

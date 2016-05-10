@@ -30,7 +30,7 @@
                       VerticalAlignment="Top"
                       controls:TextBoxHelper.Watermark="Тип группы"
                       ItemsSource="{Binding Source={StaticResource DataFromEnum}}"
-                      SelectedItem="{Binding TypeDescriptor.DependencyType.DefaultType.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                      SelectedValue="{Binding TypeDescriptor.DependencyType.DefaultType.Name}" />
         </DockPanel>
     </GroupBox>
 </UserControl>
