@@ -19,6 +19,14 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlElement("visible")]
         public CompositeDependency Visible { get; set; }
 
+        public static InstallStep Create()
+        {
+            return new InstallStep
+            {
+               Name = "new name"
+            };
+        }
+
         /// <summary>
         ///     The list of optional files (or plugins) that may optionally be installed for this module.
         /// </summary>

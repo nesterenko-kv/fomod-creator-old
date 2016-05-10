@@ -60,5 +60,13 @@ namespace FomodModel.Base
             "http://qconsulting.ca/fo3/ModConfig5.0.xsd";
 
         #endregion
+
+
+        public StepList GetInstallSteps()
+        {
+            if (InstallSteps ==null)
+                InstallSteps = StepList.Create();
+            return InstallSteps;
+        }
     }
 }

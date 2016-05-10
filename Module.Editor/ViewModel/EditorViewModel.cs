@@ -7,6 +7,7 @@ using FomodModel.Base;
 using Prism.Mvvm;
 using Prism.Regions;
 using FomodInfrastructure.MvvmLibrary.Commands;
+using FomodModel.Base.ModuleCofiguration;
 
 namespace Module.Editor.ViewModel
 {
@@ -19,23 +20,26 @@ namespace Module.Editor.ViewModel
 
             AddStep = new RelayCommand<ProjectRoot>(p =>
             {
-                System.Windows.MessageBox.Show("ModuleConfiguration.InstallSteps.InstallStep " + p.ModuleConfiguration.InstallSteps.Order);
+                var istep = p.ModuleConfiguration.GetInstallSteps();
+                // var steps = p.ModuleConfiguration.GetInstallSteps().GetInstallStep(); //можно и так
+                var steps = istep.GetInstallStep();
+                steps.Add(InstallStep.Create());
             });
 
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
-        public string Header { get; private set; } = "Редактор";
+        public string Header { get; private set; } = null;
 
         public void ConfigurateViewModel(IRegionManager regionManager, ProjectRoot projectRoot, string header = null)
         {
-            if (header != null)
-                Header = header;
-            else
-            {
-                var name = projectRoot.ModuleInformation.Name;
-                Header = string.IsNullOrWhiteSpace(name) ? Header : name;
-            }
+            //if (header != null)
+            //    Header = header;
+            //else
+            //{
+                //var name = projectRoot.ModuleInformation.Name;
+                //Header = string.IsNullOrWhiteSpace(name) ? Header : name;
+            //}
 
             var pRoot = Data.FirstOrDefault(i => i.FolderPath == projectRoot.FolderPath);
             if (pRoot == null)

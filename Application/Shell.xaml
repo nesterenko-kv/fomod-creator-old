@@ -24,7 +24,17 @@
 
                         <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}"
                                    TextTrimming="CharacterEllipsis"
-                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" >
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <!--<Trigger Property="Text" Value="{x:Null}">
+                                            <Setter Property="Text" Value="{Binding Content.DataContext.Data[0].ModuleInformation.Name, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}"/>
+                                        </Trigger>-->
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                            </TextBlock>
                         <Border x:Name="close_button"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Stretch"

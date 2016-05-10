@@ -35,5 +35,20 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlAttribute("order")]
         [DefaultValue(OrderEnum.Ascending)]
         public OrderEnum Order { get; set; }
+
+        internal static StepList Create()
+        {
+            return new StepList
+            {
+                InstallStep = new ObservableCollection<ModuleCofiguration.InstallStep>()
+            };
+        }
+
+        public ObservableCollection<InstallStep> GetInstallStep()
+        {
+            if (InstallStep == null)
+                InstallStep = new ObservableCollection<ModuleCofiguration.InstallStep>();
+            return InstallStep;
+        }
     }
 }
