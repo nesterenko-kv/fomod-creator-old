@@ -7,6 +7,8 @@ using FomodModel.Base;
 using Prism.Mvvm;
 using Prism.Regions;
 using FomodInfrastructure.MvvmLibrary.Commands;
+using FomodModel.Base.ModuleCofiguration;
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Module.Editor.ViewModel
 {
@@ -19,12 +21,15 @@ namespace Module.Editor.ViewModel
 
             AddStep = new RelayCommand<ProjectRoot>(p =>
             {
-                System.Windows.MessageBox.Show("ModuleConfiguration.InstallSteps.InstallStep " + p.ModuleConfiguration.InstallSteps.Order);
+                if (p.ModuleConfiguration.InstallSteps == null)
+                    p.ModuleConfiguration.InstallSteps = new StepList();
+                if (p.ModuleConfiguration.InstallSteps.InstallStep == null)
+                    p.ModuleConfiguration.InstallSteps.InstallStep = new ObservableCollection<InstallStep>();
+                p.ModuleConfiguration.InstallSteps.InstallStep.Add(new InstallStep {Name = "NewStep"});
             });
 
         }
 
-        // ReSharper disable once MemberCanBePrivate.Global
         public string Header { get; private set; } = "Редактор";
 
         public void ConfigurateViewModel(IRegionManager regionManager, ProjectRoot projectRoot, string header = null)
@@ -82,6 +87,7 @@ namespace Module.Editor.ViewModel
         #region Commands
 
         public RelayCommand<ProjectRoot> AddStep { get; }
+        public RelayCommand<ProjectRoot> AddGroup { get; }
 
         #endregion
     }

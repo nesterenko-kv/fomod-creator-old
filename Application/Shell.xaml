@@ -22,7 +22,7 @@
                 <DataTemplate DataType="TabItem">
                     <Grid MaxWidth="250">
 
-                        <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}"
+                        <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
                                    TextTrimming="CharacterEllipsis"
                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
                         <Border x:Name="close_button"
