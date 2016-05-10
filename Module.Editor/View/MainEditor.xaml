@@ -19,7 +19,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converters:ConverterMultiCommandParams x:Key="ConverterMultiCommandParams" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -74,8 +73,14 @@
                                 VerticalAlignment="Center"
                                 DockPanel.Dock="Right"
                                 Command="{Binding DataContext.RemoveGroup, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
-                                CommandParameter="{Binding}"
-                                Style="{DynamicResource DeleteButton}" />
+                                Style="{DynamicResource DeleteButton}">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource ConverterMultiCommandParams}">
+                                    <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
+                                    <Binding/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
                         <Button Margin="3" x:Name="add_button"
                                 VerticalAlignment="Center"
                                 Command="{Binding DataContext.AddPlugin, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
@@ -100,9 +105,15 @@
                         <Button Margin="3" x:Name="delete_button" 
                                 VerticalAlignment="Center"
                                 Command="{Binding DataContext.RemoveStep, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
-                                CommandParameter="{Binding}"
                                 DockPanel.Dock="Right"
-                                Style="{DynamicResource DeleteButton}" />
+                                Style="{DynamicResource DeleteButton}">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource ConverterMultiCommandParams}">
+                                    <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
+                                    <Binding/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
                         <Button Margin="3" x:Name="add_button" 
                                 VerticalAlignment="Center"
                                 DockPanel.Dock="Right"

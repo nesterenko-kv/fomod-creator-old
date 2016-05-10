@@ -31,7 +31,9 @@ namespace Module.Editor.ViewModel
             });
             RemoveStep = new RelayCommand<object[]>(p =>
             {
-               
+                var parent = (ProjectRoot)p[0];
+                var child = (InstallStep)p[1];
+                parent.ModuleConfiguration.InstallSteps.InstallStep.Remove(child);
             });
 
             AddGroup = new RelayCommand<InstallStep>(p =>
@@ -44,7 +46,9 @@ namespace Module.Editor.ViewModel
             });
             RemoveGroup = new RelayCommand<object[]>(p =>
             {
-                
+                var parent = (InstallStep)p[0];
+                var child = (Group)p[1];
+                parent.OptionalFileGroups.Group.Remove(child);
             });
 
             AddPlugin = new RelayCommand<Group>(p =>
@@ -55,10 +59,11 @@ namespace Module.Editor.ViewModel
                     p.Plugins.Plugin = new ObservableCollection<Plugin>();
                 p.Plugins.Plugin.Add(new Plugin {Name = "New Plugin"});
             });
-            RemovePlugin=new RelayCommand<object[]>(p =>
+            RemovePlugin = new RelayCommand<object[]>(p =>
             {
                 var parent = (Group)p[0];
                 var child = (Plugin)p[1];
+                parent.Plugins.Plugin.Remove(child);
             });
 
         }
