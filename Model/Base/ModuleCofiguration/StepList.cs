@@ -15,10 +15,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class StepList
     {
-        public static StepList Create()
-        {
-            return;
-        }
         /// <summary>
         ///     StepList class constructor
         /// </summary>
