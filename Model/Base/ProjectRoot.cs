@@ -19,17 +19,5 @@ namespace FomodModel.Base
         //};
 
         #endregion
-
-
-        public static ProjectRoot Create()
-        {
-            var ret = new ProjectRoot
-            {
-                ModuleConfiguration = new ModuleConfiguration(),
-                ModuleInformation = new ModuleInformation(),
-                FolderPath = null
-            };
-            return ret;
-        }
     }
 }

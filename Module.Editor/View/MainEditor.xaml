@@ -9,6 +9,7 @@
              xmlns:regions="http://prismlibrary.com/"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:attaches="clr-namespace:FomodInfrastructure.MvvmLibrary.Attaches;assembly=FomodInfrastructure"
+             xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
              d:DesignHeight="320"
              d:DesignWidth="1100"
              dialogs:DialogParticipation.Register="{Binding}"
@@ -18,6 +19,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:ConverterMultiCommandParams x:Key="ConverterMultiCommandParams" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -46,9 +48,15 @@
                         <Button Margin="3" x:Name="delete_button" 
                                 VerticalAlignment="Center"
                                 Command="{Binding DataContext.RemovePlugin, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
-                                CommandParameter="{Binding}"
                                 DockPanel.Dock="Right"
-                                Style="{DynamicResource DeleteButton}" />
+                                Style="{DynamicResource DeleteButton}">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource ConverterMultiCommandParams}">
+                                    <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
+                                    <Binding/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
                         <TextBlock Height="16" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"
                                    TextTrimming="CharacterEllipsis" />

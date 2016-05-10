@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
@@ -28,9 +29,9 @@ namespace Module.Editor.ViewModel
                     p.ModuleConfiguration.InstallSteps.InstallStep = new ObservableCollection<InstallStep>();
                 p.ModuleConfiguration.InstallSteps.InstallStep.Add(new InstallStep {Name = "New Step"});
             });
-            RemoveStep = new RelayCommand<InstallStep>(p =>
+            RemoveStep = new RelayCommand<object[]>(p =>
             {
-                
+               
             });
 
             AddGroup = new RelayCommand<InstallStep>(p =>
@@ -41,7 +42,7 @@ namespace Module.Editor.ViewModel
                     p.OptionalFileGroups.Group = new ObservableCollection<Group>();
                 p.OptionalFileGroups.Group.Add(new Group {Name = "New Group"});
             });
-            RemoveGroup = new RelayCommand<Group>(p =>
+            RemoveGroup = new RelayCommand<object[]>(p =>
             {
                 
             });
@@ -54,9 +55,10 @@ namespace Module.Editor.ViewModel
                     p.Plugins.Plugin = new ObservableCollection<Plugin>();
                 p.Plugins.Plugin.Add(new Plugin {Name = "New Plugin"});
             });
-            RemovePlugin=new RelayCommand<Plugin>(p =>
+            RemovePlugin=new RelayCommand<object[]>(p =>
             {
-                
+                var parent = (Group)p[0];
+                var child = (Plugin)p[1];
             });
 
         }
@@ -117,11 +119,11 @@ namespace Module.Editor.ViewModel
         #region Commands
 
         public RelayCommand<ProjectRoot> AddStep { get; }
-        public RelayCommand<InstallStep> RemoveStep { get; }
+        public RelayCommand<object[]> RemoveStep { get; }
         public RelayCommand<InstallStep> AddGroup { get; }
-        public RelayCommand<Group> RemoveGroup { get; }
+        public RelayCommand<object[]> RemoveGroup { get; }
         public RelayCommand<Group> AddPlugin { get; }
-        public RelayCommand<Plugin> RemovePlugin { get; }
+        public RelayCommand<object[]> RemovePlugin { get; }
         #endregion
     }
 }
