@@ -11,26 +11,43 @@
              d:DesignWidth="300"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="DataFromEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+        <ObjectDataProvider x:Key="DataFromEnum"
+                            MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enum:GroupType"/>
+                <x:Type TypeName="enum:GroupType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider xmlns:system="clr-namespace:System;assembly=mscorlib"
+                            xmlns:enumData="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
+                            x:Key="OrderEnum"
+                            MethodName="GetValues"
+                            ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enumData:OrderEnum" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
-    <GroupBox Header="Group" DataContext="{Binding Data}">
+    <GroupBox Header="Group"
+              DataContext="{Binding Data}">
         <DockPanel>
-            <TextBox DockPanel.Dock="Top"
-                 VerticalAlignment="Top"
-                 MaxHeight="38"
-                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 controls:TextBoxHelper.Watermark="Название группы"
-                 controls:TextBoxHelper.UseFloatingWatermark="True"
-                 controls:TextBoxHelper.ClearTextButton="True"/>
-            <ComboBox DockPanel.Dock="Top"
-                      VerticalAlignment="Top"
+            <TextBox MaxHeight="38"
+                     VerticalAlignment="Top"
+                     controls:TextBoxHelper.Watermark="Название группы"
+                     controls:TextBoxHelper.UseFloatingWatermark="True"
+                     controls:TextBoxHelper.ClearTextButton="True"
+                     DockPanel.Dock="Top"
+                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox VerticalAlignment="Top"
                       controls:TextBoxHelper.Watermark="Тип группы"
+                      DockPanel.Dock="Top"
                       ItemsSource="{Binding Source={StaticResource DataFromEnum}}"
-                      SelectedValue="{Binding TypeDescriptor.DependencyType.DefaultType.Name}" />
+                      SelectedValue="{Binding Type}" />
+            <ComboBox VerticalAlignment="Top"
+                      controls:TextBoxHelper.Watermark="Сортировка plugins"
+                      DockPanel.Dock="Top"
+                      ItemsSource="{Binding Source={StaticResource OrderEnum}}"
+                      SelectedValue="{Binding Plugins.Order}" />
         </DockPanel>
     </GroupBox>
 </UserControl>

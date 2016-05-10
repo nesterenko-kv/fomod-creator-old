@@ -7,19 +7,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
-             xmlns:enum="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <ObjectDataProvider xmlns:system="clr-namespace:System;assembly=mscorlib"
+                            xmlns:enumData="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
+                            x:Key="OrderEnum"
+                            MethodName="GetValues"
+                            ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enumData:OrderEnum" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
     <GroupBox Header="Install step">
         <DockPanel DataContext="{Binding Data}">
-            <TextBox DockPanel.Dock="Top"
-                 VerticalAlignment="Top"
-                 MaxHeight="38"
-                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 controls:TextBoxHelper.Watermark="Название шага"
-                 controls:TextBoxHelper.UseFloatingWatermark="True"
-                 controls:TextBoxHelper.ClearTextButton="True"/>
+            <TextBox MaxHeight="38"
+                     VerticalAlignment="Top"
+                     controls:TextBoxHelper.Watermark="Название шага"
+                     controls:TextBoxHelper.UseFloatingWatermark="True"
+                     controls:TextBoxHelper.ClearTextButton="True"
+                     DockPanel.Dock="Top"
+                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox VerticalAlignment="Top"
+                      controls:TextBoxHelper.Watermark="Сортировка optionalFileGroups"
+                      DockPanel.Dock="Top"
+                      ItemsSource="{Binding Source={StaticResource OrderEnum}}"
+                      SelectedValue="{Binding OptionalFileGroups.Order}" />
         </DockPanel>
     </GroupBox>
 </UserControl>

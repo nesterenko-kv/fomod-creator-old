@@ -16,10 +16,15 @@
                 <x:Type TypeName="enum:CategoriesEnum"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-   </UserControl.Resources>
+        <ObjectDataProvider x:Key="OrderEnum" MethodName="GetValues" ObjectType="{x:Type system:Enum}" xmlns:enumData ="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enumData:OrderEnum"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
     <GroupBox Header="Mod info">
         <DockPanel DataContext="{Binding Data}">
-        <TextBox DockPanel.Dock="Top"
+            <TextBox DockPanel.Dock="Top"
                  VerticalAlignment="Top"
                  MaxHeight="38"
                  Text="{Binding ModuleInformation.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -52,6 +57,11 @@
                       controls:TextBoxHelper.Watermark="Категория"
                       ItemsSource="{Binding Source={StaticResource DataFromEnum}}"
                       SelectedValue="{Binding ModuleInformation.CategoryId}" />
+            <ComboBox DockPanel.Dock="Top"
+                      VerticalAlignment="Top"
+                      controls:TextBoxHelper.Watermark="Сортировка шагов"
+                      ItemsSource="{Binding Source={StaticResource OrderEnum}}"
+                      SelectedValue="{Binding ModuleConfiguration.InstallSteps.Order}" />
             <TextBox AcceptsReturn="True"
                      TextWrapping="Wrap"
                      Text="{Binding ModuleInformation.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
