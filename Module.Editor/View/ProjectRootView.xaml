@@ -1,72 +1,202 @@
 ﻿<UserControl x:Class="Module.Editor.View.ProjectRootView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:enum="clr-namespace:FomodModel.Base;assembly=FomodModel"
              xmlns:local="clr-namespace:Module.Editor.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:enum="clr-namespace:FomodModel.Base;assembly=FomodModel"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-   <UserControl.Resources>
-        <ObjectDataProvider x:Key="DataFromEnum" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enum:CategoriesEnum"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <ObjectDataProvider x:Key="OrderEnum" MethodName="GetValues" ObjectType="{x:Type system:Enum}" xmlns:enumData ="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enumData:OrderEnum"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Enums.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type TextBox}">
+                <Setter Property="ContextMenu" Value="{DynamicResource TextBoxMetroContextMenu}" />
+                <Setter Property="Margin" Value="9,0,0,0" />
+                <Setter Property="Grid.Column" Value="1" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+                <Setter Property="AcceptsReturn" Value="True" />
+                <Setter Property="AcceptsTab" Value="True" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+            <Style BasedOn="{StaticResource {x:Type ComboBox}}" TargetType="{x:Type ComboBox}">
+                <Setter Property="Margin" Value="9,0,0,0" />
+                <Setter Property="Grid.Column" Value="1" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="9,3,0,0" />
+                <Setter Property="Grid.Column" Value="0" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="FontFamily" Value="Segoe UI Semibold" />
+            </Style>
+            <Style TargetType="{x:Type Grid}">
+                <Setter Property="DockPanel.Dock" Value="Top" />
+                <Setter Property="Margin" Value="3" />
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
-    <GroupBox Header="Mod info">
-        <DockPanel DataContext="{Binding Data}">
-            <TextBox DockPanel.Dock="Top"
-                 VerticalAlignment="Top"
-                 MaxHeight="38"
-                 Text="{Binding ModuleInformation.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 controls:TextBoxHelper.Watermark="Название модификации"
-                 controls:TextBoxHelper.UseFloatingWatermark="True"
-                 controls:TextBoxHelper.ClearTextButton="True"/>
-            <TextBox DockPanel.Dock="Top"
-                 VerticalAlignment="Top"
-                 MaxHeight="38"
-                 Text="{Binding ModuleInformation.Author, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 controls:TextBoxHelper.Watermark="Автор"
-                 controls:TextBoxHelper.UseFloatingWatermark="True"
-                 controls:TextBoxHelper.ClearTextButton="True"/>
-            <TextBox DockPanel.Dock="Top"
-                 VerticalAlignment="Top"
-                 MaxHeight="38"
-                 Text="{Binding ModuleInformation.Version, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 controls:TextBoxHelper.Watermark="Версия"
-                 controls:TextBoxHelper.UseFloatingWatermark="True"
-                 controls:TextBoxHelper.ClearTextButton="True"/>
-            <TextBox DockPanel.Dock="Top"
-                     VerticalAlignment="Top"
-                     MaxHeight="38"
-                     Text="{Binding ModuleInformation.Website, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     controls:TextBoxHelper.Watermark="Ссылка"
-                     controls:TextBoxHelper.UseFloatingWatermark="True"
-                     controls:TextBoxHelper.ClearTextButton="True"/>
-            <ComboBox DockPanel.Dock="Top"
-                      VerticalAlignment="Top"
-                      controls:TextBoxHelper.Watermark="Категория"
-                      ItemsSource="{Binding Source={StaticResource DataFromEnum}}"
-                      SelectedValue="{Binding ModuleInformation.CategoryId}" />
-            <ComboBox DockPanel.Dock="Top"
-                      VerticalAlignment="Top"
-                      controls:TextBoxHelper.Watermark="Сортировка шагов"
-                      ItemsSource="{Binding Source={StaticResource OrderEnum}}"
-                      SelectedValue="{Binding ModuleConfiguration.InstallSteps.Order}" />
-            <TextBox AcceptsReturn="True"
-                     TextWrapping="Wrap"
-                     Text="{Binding ModuleInformation.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     controls:TextBoxHelper.Watermark="Описание"
-                     controls:TextBoxHelper.UseFloatingWatermark="True"/>
-        </DockPanel>
-    </GroupBox>
+    <TabControl Grid.IsSharedSizeScope="True">
+        <TabItem Header="Mod Info">
+            <ScrollViewer>
+                <DockPanel DataContext="{Binding Data.ModuleInformation}">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Grid.Column="0" Text="Название модификации" />
+                    </Grid>
+
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Автор" />
+                        <TextBox Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Text="{Binding Version, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Grid.Column="0" Text="Версия" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Ссылка" />
+                        <TextBox Text="{Binding Website, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Категория" />
+                        <ComboBox ItemsSource="{Binding Source={StaticResource DataFromEnum}}" SelectedValue="{Binding CategoryId}" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Описание" />
+                        <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+
+
+                </DockPanel>
+            </ScrollViewer>
+        </TabItem>
+        <TabItem Header="Module Name">
+            <ScrollViewer>
+                <DockPanel DataContext="{Binding Data.ModuleConfiguration}" LastChildFill="False">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a2" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="ModuleName" />
+                        <TextBox Text="{Binding ModuleName.Value}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a2" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Colour" />
+                        <TextBox Text="{Binding ModuleName.Colour}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a2" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="ModuleName Position" />
+                        <ComboBox ItemsSource="{Binding Source={StaticResource ModuleTitlePositionEnum}}" SelectedValue="{Binding ModuleName.Position}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a2" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="InstallSteps Order" />
+                        <ComboBox ItemsSource="{Binding Source={StaticResource OrderEnum}}" SelectedValue="{Binding InstallSteps.Order}" />
+                    </Grid>
+                </DockPanel>
+            </ScrollViewer>
+        </TabItem>
+
+
+        <TabItem Header="Image">
+            <ScrollViewer>
+                <DockPanel DataContext="{Binding Data.ModuleConfiguration}" LastChildFill="False">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a2" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Path" />
+                        <TextBox Text="{Binding ModuleImage.Path}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a2" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="ShowImage" />
+                        <ComboBox SelectedValue="{Binding ModuleImage.ShowImage}">
+                            <system:Boolean>true</system:Boolean>
+                            <system:Boolean>false</system:Boolean>
+                        </ComboBox>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a2" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="ShowFade" />
+                        <ComboBox SelectedValue="{Binding ModuleImage.ShowFade}">
+                            <system:Boolean>true</system:Boolean>
+                            <system:Boolean>false</system:Boolean>
+                        </ComboBox>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a2" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Height" />
+                        <TextBox Text="{Binding ModuleImage.Height}" />
+                    </Grid>
+                </DockPanel>
+            </ScrollViewer>
+        </TabItem>
+        <TabItem Header="Composite Dependency">
+            <ScrollViewer>
+                <DockPanel DataContext="{Binding Data.CompositeDependency}" LastChildFill="False" />
+            </ScrollViewer>
+        </TabItem>
+
+    </TabControl>
 </UserControl>
