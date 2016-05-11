@@ -1,29 +1,30 @@
 ﻿<UserControl x:Class="Module.Editor.View.MainEditorView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:attaches="clr-namespace:FomodInfrastructure.MvvmLibrary.Attaches;assembly=FomodInfrastructure"
              xmlns:base="clr-namespace:FomodModel.Base;assembly=FomodModel"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mcd="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
              xmlns:regions="http://prismlibrary.com/"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:attaches="clr-namespace:FomodInfrastructure.MvvmLibrary.Attaches;assembly=FomodInfrastructure"
-             xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              d:DesignHeight="320"
              d:DesignWidth="1100"
              dialogs:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d">
     <i:Interaction.Triggers>
         <regions:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest, Mode=OneWay}">
-            <regions:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True"/>
+            <regions:PopupWindowAction CenterOverAssociatedObject="True" IsModal="True" />
         </regions:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
+                <ResourceDictionary Source="../Resources/Enums.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -43,130 +44,157 @@
                    Panel.ZIndex="99"
                    Fill="{DynamicResource AccentColorBrush}" />
         <TreeView Grid.Column="0"
-                  attaches:TreeViewHelper.SelectedItem="{Binding SelectedNode, Mode=TwoWay}"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  ItemsSource="{Binding Data}">
+                  attaches:TreeViewHelper.SelectedItem="{Binding SelectedNode,
+                                                                 Mode=TwoWay}"
+                  ItemsSource="{Binding Data}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <!--  Region TreeViewResources  -->
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type mcd:Plugin}">
                     <DockPanel Background="Transparent">
-                        <Button Margin="3" x:Name="delete_button" 
+                        <Button x:Name="delete_button"
+                                Margin="3"
                                 VerticalAlignment="Center"
-                                Command="{Binding DataContext.DeleteDialogCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                Command="{Binding DataContext.DeleteDialogCommand,
+                                                  RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                 AncestorType=TreeView}}"
                                 DockPanel.Dock="Right"
                                 Style="{DynamicResource DeleteButton}">
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource ConverterMultiCommandParams}">
                                     <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
-                                    <Binding/>
+                                    <Binding />
                                 </MultiBinding>
                             </Button.CommandParameter>
                         </Button>
-                        <TextBlock Height="16" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
-                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"
-                                   TextTrimming="CharacterEllipsis" />
+                        <TextBlock Height="16"
+                                   Text="{Binding Path=Name,
+                                                  UpdateSourceTrigger=PropertyChanged}"
+                                   TextTrimming="CharacterEllipsis"
+                                   ToolTip="{Binding Text,
+                                                     RelativeSource={RelativeSource Self}}" />
                     </DockPanel>
                     <HierarchicalDataTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="false">
-                            <Setter TargetName="delete_button" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="delete_button" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                     </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type mcd:Group}"
-                                          ItemsSource="{Binding Plugins.Plugin}">
+                <HierarchicalDataTemplate DataType="{x:Type mcd:Group}" ItemsSource="{Binding Plugins.Plugin}">
                     <DockPanel Background="Transparent">
-                        <Button Margin="3" x:Name="delete_button" 
+                        <Button x:Name="delete_button"
+                                Margin="3"
                                 VerticalAlignment="Center"
-                                DockPanel.Dock="Right"
-                                Command="{Binding DataContext.DeleteDialogCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
-                                Style="{DynamicResource DeleteButton}">
-                            <Button.CommandParameter>
-                                <MultiBinding Converter="{StaticResource ConverterMultiCommandParams}">
-                                    <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
-                                    <Binding/>
-                                </MultiBinding>
-                            </Button.CommandParameter>
-                        </Button>
-                        <Button Margin="3" x:Name="add_button"
-                                VerticalAlignment="Center"
-                                Command="{Binding DataContext.AddPlugin, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
-                                CommandParameter="{Binding}"
-                                DockPanel.Dock="Right"
-                                Style="{DynamicResource AddButton}" />
-                        <TextBlock Height="16" VerticalAlignment="Center"
-                                   Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
-                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"
-                                   TextTrimming="CharacterEllipsis" />
-                    </DockPanel>
-                    <HierarchicalDataTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="false">
-                            <Setter TargetName="add_button" Property="Visibility" Value="Collapsed"/>
-                            <Setter TargetName="delete_button" Property="Visibility" Value="Collapsed"/>
-                        </Trigger>
-                    </HierarchicalDataTemplate.Triggers>
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type mcd:InstallStep}"
-                                          ItemsSource="{Binding OptionalFileGroups.Group}">
-                    <DockPanel Background="Transparent">
-                        <Button Margin="3" x:Name="delete_button" 
-                                VerticalAlignment="Center"
-                                Command="{Binding DataContext.DeleteDialogCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                Command="{Binding DataContext.DeleteDialogCommand,
+                                                  RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                 AncestorType=TreeView}}"
                                 DockPanel.Dock="Right"
                                 Style="{DynamicResource DeleteButton}">
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource ConverterMultiCommandParams}">
                                     <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
-                                    <Binding/>
+                                    <Binding />
                                 </MultiBinding>
                             </Button.CommandParameter>
                         </Button>
-                        <Button Margin="3" x:Name="add_button" 
+                        <Button x:Name="add_button"
+                                Margin="3"
                                 VerticalAlignment="Center"
-                                DockPanel.Dock="Right"
-                                Command="{Binding DataContext.AddGroup, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                Command="{Binding DataContext.AddPlugin,
+                                                  RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                 AncestorType=TreeView}}"
                                 CommandParameter="{Binding}"
+                                DockPanel.Dock="Right"
                                 Style="{DynamicResource AddButton}" />
-                        <TextBlock Height="16" VerticalAlignment="Center"
-                                   Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
-                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"
-                                   TextTrimming="CharacterEllipsis" />
+                        <TextBlock Height="16"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding Path=Name,
+                                                  UpdateSourceTrigger=PropertyChanged}"
+                                   TextTrimming="CharacterEllipsis"
+                                   ToolTip="{Binding Text,
+                                                     RelativeSource={RelativeSource Self}}" />
                     </DockPanel>
                     <HierarchicalDataTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="false">
-                            <Setter TargetName="add_button" Property="Visibility" Value="Collapsed"/>
-                            <Setter TargetName="delete_button" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="add_button" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="delete_button" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                     </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type base:ProjectRoot}"
-                                          ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
+                <HierarchicalDataTemplate DataType="{x:Type mcd:InstallStep}" ItemsSource="{Binding OptionalFileGroups.Group}">
                     <DockPanel Background="Transparent">
-                        <Button Margin="3" x:Name="add_button" 
-                                VerticalAlignment="Center" 
-                                Command="{Binding DataContext.AddStep, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                        <Button x:Name="delete_button"
+                                Margin="3"
+                                VerticalAlignment="Center"
+                                Command="{Binding DataContext.DeleteDialogCommand,
+                                                  RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                 AncestorType=TreeView}}"
+                                DockPanel.Dock="Right"
+                                Style="{DynamicResource DeleteButton}">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource ConverterMultiCommandParams}">
+                                    <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
+                                    <Binding />
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button x:Name="add_button"
+                                Margin="3"
+                                VerticalAlignment="Center"
+                                Command="{Binding DataContext.AddGroup,
+                                                  RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                 AncestorType=TreeView}}"
                                 CommandParameter="{Binding}"
                                 DockPanel.Dock="Right"
                                 Style="{DynamicResource AddButton}" />
-                        <TextBlock Height="16" VerticalAlignment="Center" 
-                                   Text="{Binding ModuleInformation.Name, UpdateSourceTrigger=PropertyChanged}"
-                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"
-                                   TextTrimming="CharacterEllipsis" />
+                        <TextBlock Height="16"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding Path=Name,
+                                                  UpdateSourceTrigger=PropertyChanged}"
+                                   TextTrimming="CharacterEllipsis"
+                                   ToolTip="{Binding Text,
+                                                     RelativeSource={RelativeSource Self}}" />
                     </DockPanel>
                     <HierarchicalDataTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="false">
-                            <Setter TargetName="add_button" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="add_button" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="delete_button" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </HierarchicalDataTemplate.Triggers>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type base:ProjectRoot}" ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
+                    <DockPanel Background="Transparent">
+                        <Button x:Name="add_button"
+                                Margin="3"
+                                VerticalAlignment="Center"
+                                Command="{Binding DataContext.AddStep,
+                                                  RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                 AncestorType=TreeView}}"
+                                CommandParameter="{Binding}"
+                                DockPanel.Dock="Right"
+                                Style="{DynamicResource AddButton}" />
+                        <TextBlock Height="16"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding ModuleInformation.Name,
+                                                  UpdateSourceTrigger=PropertyChanged}"
+                                   TextTrimming="CharacterEllipsis"
+                                   ToolTip="{Binding Text,
+                                                     RelativeSource={RelativeSource Self}}" />
+                    </DockPanel>
+                    <HierarchicalDataTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="false">
+                            <Setter TargetName="add_button" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                     </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
             <!--  EndRegion  -->
             <TreeView.ItemContainerStyle>
-                <Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
-                    <Setter Property="IsExpanded" Value="True"/>
+                <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
+                    <Setter Property="IsExpanded" Value="True" />
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
-        <ContentControl Grid.Column="1"
-                        regions:RegionManager.RegionName="NodeRegion" />
+        <ContentControl Grid.Column="1" regions:RegionManager.RegionName="NodeRegion" />
     </Grid>
 </UserControl>
