@@ -123,7 +123,7 @@
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\ColorButtons.xaml">
+    <Page Include="Resources\UI\CustomStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

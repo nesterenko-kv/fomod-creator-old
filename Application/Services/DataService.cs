@@ -19,8 +19,8 @@ namespace MainApplication.Services
         {
             using (var s = stream)
             {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                return (T)xmlSerializer.Deserialize(s);
+                var xmlSerializer = new XmlSerializer(typeof (T));
+                return (T) xmlSerializer.Deserialize(s);
             }
         }
 

@@ -1,18 +1,14 @@
-﻿using FomodInfrastructure;
+﻿using System.Linq;
+using System.Windows;
+using FomodInfrastructure;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using Prism.Regions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace MainApplication
 {
     public class ShellViewModel
     {
-        private IRegionManager _regionManager;
+        private readonly IRegionManager _regionManager;
 
         public ShellViewModel(IRegionManager regionManager)
         {
@@ -20,20 +16,10 @@ namespace MainApplication
 
             CloseTab = new RelayCommand<object>(p =>
             {
-                FrameworkElement remove_view = null;
-                foreach (FrameworkElement v in _regionManager.Regions[Names.MainContentRegion].Views)
-                {
-                    if (v.DataContext == p)
-                    {
-                        remove_view = v;
-                        break;
-                    }
-                }
-
-                _regionManager.Regions[Names.MainContentRegion].Remove(remove_view);
+                var removeView = _regionManager.Regions[Names.MainContentRegion].Views.Cast<FrameworkElement>().FirstOrDefault(v => v.DataContext == p);
+                _regionManager.Regions[Names.MainContentRegion].Remove(removeView);
             });
         }
-
 
         #region Commands
 

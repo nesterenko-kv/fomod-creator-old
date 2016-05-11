@@ -1,34 +1,24 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
+using System.Xml.Linq;
 using FomodInfrastructure.Interface;
 using FomodModel.Base;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Logging;
-using System.Xml.Linq;
-using System.Reflection;
 
 namespace MainApplication.Services
 {
     public class Repository : IRepository<ProjectRoot>
     {
-        private const string InfoSubPath = @"\fomod\info.xml";
-        private const string ConfigurationSubPath = @"\fomod\ModuleConfig.xml";
+        #region Services
+
         private readonly IDataService _dataService;
         private readonly IFolderBrowserDialog _folderBrowserDialog;
         private readonly ILoggerFacade _loggerFacade;
-
         private readonly IServiceLocator _serviceLocator;
-        private ProjectRoot _projectRoot;
 
-        public Repository(IServiceLocator serviceLocator, ILoggerFacade loggerFacade,
-            IFolderBrowserDialog folderBrowserDialog, IDataService dataService)
-
-        {
-            _serviceLocator = serviceLocator;
-            _loggerFacade = loggerFacade;
-            _dataService = dataService;
-            _folderBrowserDialog = folderBrowserDialog;
-        }
+        #endregion
 
         #region IRepository
 
@@ -55,7 +45,7 @@ namespace MainApplication.Services
                 if (CheckFiles(path))
                 {
                     RepositoryStatus = RepositoryStatus.FolderIsAlreadyUse;
-                    return null; 
+                    return null;
                 }
 
                 Directory.CreateDirectory(path + @"\fomod");
@@ -64,18 +54,15 @@ namespace MainApplication.Services
                 var info = "FomodModel.XmlTemplates.info.xml";
                 var config = "FomodModel.XmlTemplates.ModuleConfig.xml";
 
-                if (!File.Exists(path + InfoSubPath)) getXElementResource(info).Save(path + InfoSubPath);
-                if (!File.Exists(path + ConfigurationSubPath)) getXElementResource(config).Save(path + ConfigurationSubPath);
+                if (!File.Exists(path + InfoSubPath)) GetXElementResource(info).Save(path + InfoSubPath);
+                if (!File.Exists(path + ConfigurationSubPath))
+                    GetXElementResource(config).Save(path + ConfigurationSubPath);
 
                 RepositoryStatus = RepositoryStatus.Ok;
                 return path;
             }
-            else
-            {
-                RepositoryStatus = RepositoryStatus.Cancel;
-                return null;
-            }
-            
+            RepositoryStatus = RepositoryStatus.Cancel;
+            return null;
         }
 
         public RepositoryStatus RepositoryStatus { get; set; }
@@ -84,10 +71,10 @@ namespace MainApplication.Services
 
         #region Private methmods
 
-        private XElement getXElementResource(string path)
+        private XElement GetXElementResource(string path)
         {
             var assembly = Assembly.GetAssembly(typeof(ProjectRoot));
-            using (Stream stream = assembly.GetManifestResourceStream(path))
+            using (var stream = assembly.GetManifestResourceStream(path))
             {
                 return XElement.Load(stream);
             }
@@ -103,7 +90,6 @@ namespace MainApplication.Services
         private ProjectRoot LoadProjectIfPathNull()
         {
             var folderPath = GetFolderPath();
-
             return folderPath != null ? LoadProjectFromPath(folderPath) : null;
         }
 
@@ -119,7 +105,6 @@ namespace MainApplication.Services
                 projectRoot.ModuleInformation = _dataService.DeserializeObject<ModuleInformation>(path + InfoSubPath);
                 projectRoot.ModuleConfiguration =
                     _dataService.DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
-
                 RepositoryStatus = RepositoryStatus.Ok;
                 return projectRoot;
             }
@@ -170,5 +155,18 @@ namespace MainApplication.Services
         }
 
         #endregion
+
+        private const string InfoSubPath = @"\fomod\info.xml";
+        private const string ConfigurationSubPath = @"\fomod\ModuleConfig.xml";
+        private ProjectRoot _projectRoot;
+        
+        public Repository(IServiceLocator serviceLocator, ILoggerFacade loggerFacade, IFolderBrowserDialog folderBrowserDialog, IDataService dataService)
+        {
+            _serviceLocator = serviceLocator;
+            _loggerFacade = loggerFacade;
+            _dataService = dataService;
+            _folderBrowserDialog = folderBrowserDialog;
+        }
+
     }
 }
