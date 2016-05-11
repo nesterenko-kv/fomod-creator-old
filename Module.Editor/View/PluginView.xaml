@@ -44,7 +44,10 @@
                 
             </TabItem>
             <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Зависимости">
-                
+
+            </TabItem>
+            <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Файлы и папки">
+
             </TabItem>
         </controls:MetroAnimatedSingleRowTabControl>
     </GroupBox>

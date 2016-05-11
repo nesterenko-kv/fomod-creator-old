@@ -26,10 +26,10 @@ namespace FomodModel.Base.ModuleCofiguration
         public Image Image { get; set; }
 
         [XmlElement("files", typeof (FileList))]
-        public ObservableCollection<FileList> Files { get; set; }
+        public FileList Files { get; set; }
 
         [XmlElement("conditionFlags", typeof (ConditionFlagList))]
-        public ObservableCollection<ConditionFlagList> ConditionFlags { get; set; }
+        public ConditionFlagList ConditionFlags { get; set; }
 
         /// <summary>
         ///     Describes the type of the Plugin.
