@@ -7,6 +7,8 @@ using FomodModel.Base;
 using FomodModel.Base.ModuleCofiguration;
 using Prism.Mvvm;
 using Prism.Regions;
+using Prism.Interactivity.InteractionRequest;
+using System;
 
 namespace Module.Editor.ViewModel
 {
@@ -65,7 +67,29 @@ namespace Module.Editor.ViewModel
                 var child = (Plugin) p[1];
                 parent.Plugins.Plugin.Remove(child);
             });
+
+
+            DeleteDialogCommand = new RelayCommand<object[]>(obj =>
+            {
+                var item = obj[1];
+
+                this.ConfirmationRequest.Raise( new Confirmation { Content = "Вы точно хотите удалить "+ item.GetType().Name + " узел?", Title = "Удалить узел?" }, c => {
+                    if (c.Confirmed)
+                    {
+                        if (item is Plugin)
+                            RemovePlugin.Execute(obj);
+                        else if (item is Group)
+                            RemoveGroup.Execute(obj);
+                        else if (item is InstallStep)
+                            RemoveStep.Execute(obj);
+                        else
+                            throw new NotImplementedException();
+                    }
+                });
+            });
         }
+
+       
 
         public string Header { get; private set; } = "Редактор";
 
@@ -120,7 +144,13 @@ namespace Module.Editor.ViewModel
         public RelayCommand<object[]> RemoveGroup { get; }
         public RelayCommand<Group> AddPlugin { get; }
         public RelayCommand<object[]> RemovePlugin { get; }
+        public RelayCommand<object[]> DeleteDialogCommand { get; private set; }
 
         #endregion
+
+
+
+        public InteractionRequest<IConfirmation> ConfirmationRequest { get; private set; } = new InteractionRequest<IConfirmation>();
+        
     }
 }

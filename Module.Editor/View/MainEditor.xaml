@@ -10,10 +10,16 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:attaches="clr-namespace:FomodInfrastructure.MvvmLibrary.Attaches;assembly=FomodInfrastructure"
              xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              d:DesignHeight="320"
              d:DesignWidth="1100"
              dialogs:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <regions:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest, Mode=OneWay}">
+            <regions:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True"/>
+        </regions:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -46,7 +52,7 @@
                     <DockPanel Background="Transparent">
                         <Button Margin="3" x:Name="delete_button" 
                                 VerticalAlignment="Center"
-                                Command="{Binding DataContext.RemovePlugin, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                Command="{Binding DataContext.DeleteDialogCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                                 DockPanel.Dock="Right"
                                 Style="{DynamicResource DeleteButton}">
                             <Button.CommandParameter>
@@ -72,7 +78,7 @@
                         <Button Margin="3" x:Name="delete_button" 
                                 VerticalAlignment="Center"
                                 DockPanel.Dock="Right"
-                                Command="{Binding DataContext.RemoveGroup, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                Command="{Binding DataContext.DeleteDialogCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                                 Style="{DynamicResource DeleteButton}">
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource ConverterMultiCommandParams}">
@@ -104,7 +110,7 @@
                     <DockPanel Background="Transparent">
                         <Button Margin="3" x:Name="delete_button" 
                                 VerticalAlignment="Center"
-                                Command="{Binding DataContext.RemoveStep, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                Command="{Binding DataContext.DeleteDialogCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
                                 DockPanel.Dock="Right"
                                 Style="{DynamicResource DeleteButton}">
                             <Button.CommandParameter>
