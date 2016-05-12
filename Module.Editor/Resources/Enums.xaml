@@ -28,4 +28,12 @@
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
+    <ObjectDataProvider x:Key="CompositeDependencyOperator"
+                        MethodName="GetValues"
+                        ObjectType="{x:Type system:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enumData:CompositeDependencyOperator" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
 </ResourceDictionary>

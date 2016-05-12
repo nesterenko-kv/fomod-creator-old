@@ -1,0 +1,90 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
+                    xmlns:base="clr-namespace:FomodModel.Base;assembly=FomodModel">
+
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Enums.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+
+    <DataTemplate DataType="{x:Type base:ModuleInformation}" x:Key="ModuleInformation">
+        <DataTemplate.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="Styles.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </DataTemplate.Resources>
+        <GroupBox Header="Mod Info">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"
+                                          SharedSizeGroup="a1" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Grid.Column="0"
+                               Text="Название модификации" />
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"
+                                          SharedSizeGroup="a1" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Автор" />
+                    <TextBox Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"
+                                          SharedSizeGroup="a1" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Text="{Binding Version, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Grid.Column="0"
+                               Text="Версия" />
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"
+                                          SharedSizeGroup="a1" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Ссылка" />
+                    <TextBox Text="{Binding Website, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"
+                                          SharedSizeGroup="a1" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Категория" />
+                    <ComboBox ItemsSource="{Binding Source={StaticResource DataFromEnum}}"
+                              SelectedValue="{Binding CategoryId}" />
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"
+                                          SharedSizeGroup="a1" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Описание" />
+                    <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+
+            </StackPanel>
+        </GroupBox>
+    </DataTemplate>
+
+
+</ResourceDictionary>

@@ -1,0 +1,89 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel">
+
+  
+        <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="../Enums.xaml" />
+        </ResourceDictionary.MergedDictionaries>
+
+    
+    <DataTemplate DataType="{x:Type model:CompositeDependency}">
+        <DataTemplate.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="Styles.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </DataTemplate.Resources>
+        <StackPanel>
+            <GroupBox>
+                <GroupBox.Header>
+                    <DockPanel>
+                        <CheckBox Margin="3"
+                                  DockPanel.Dock="Right" />
+                        <TextBlock Text="Composite Dependency"
+                                   FontSize="12"
+                                   FontFamily="Segoe UI" />
+                    </DockPanel>
+                </GroupBox.Header>
+                <DockPanel LastChildFill="False">
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a1" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="operator" />
+                        <ComboBox SelectedValue="{Binding Operator}"
+                                  ItemsSource="{Binding Source={StaticResource CompositeDependencyOperator}}" />
+                        <CheckBox />
+                    </Grid>
+
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a1" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="FileDependencies" />
+                        <ListBox ItemsSource="{Binding FileDependencies}" />
+                    </Grid>
+
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a1" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="FlagDependencies" />
+                        <ListBox ItemsSource="{Binding FlagDependencies}" />
+                    </Grid>
+
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a1" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="gameDependency" />
+                        <TextBox Text="{Binding GameVersionDependencies.Version}" />
+                        <CheckBox />
+                    </Grid>
+
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a1" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="FommVersionDependencies" />
+                        <TextBox Text="{Binding FommVersionDependencies.Version}" />
+                        <CheckBox />
+                    </Grid>
+                </DockPanel>
+            </GroupBox>
+            <ContentControl Content="{Binding Dependencies}" />
+        </StackPanel>
+    </DataTemplate>
+
+
+</ResourceDictionary>

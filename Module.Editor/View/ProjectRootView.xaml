@@ -7,194 +7,59 @@
              xmlns:local="clr-namespace:Module.Editor.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
+             xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
+             xmlns:base="clr-namespace:FomodModel.Base;assembly=FomodModel"
+             d:DesignHeight="800"
+             d:DesignWidth="1200"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Enums.xaml" />
+                <ResourceDictionary Source="../Resources/Config/Styles.xaml" />
+                <ResourceDictionary Source="../Resources/Config/CompositeDependencyTemplate.xaml" />
+                <ResourceDictionary Source="../Resources/Config/InformationTemplate.xaml" />
+                <ResourceDictionary Source="../Resources/Config/NameTemplate.xaml" />
+                <ResourceDictionary Source="../Resources/Config/ImageTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type TextBox}">
-                <Setter Property="ContextMenu" Value="{DynamicResource TextBoxMetroContextMenu}" />
-                <Setter Property="Margin" Value="9,0,0,0" />
-                <Setter Property="Grid.Column" Value="1" />
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
-                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-                <Setter Property="AcceptsReturn" Value="True" />
-                <Setter Property="AcceptsTab" Value="True" />
-                <Setter Property="TextWrapping" Value="Wrap" />
-            </Style>
-            <Style BasedOn="{StaticResource {x:Type ComboBox}}" TargetType="{x:Type ComboBox}">
-                <Setter Property="Margin" Value="9,0,0,0" />
-                <Setter Property="Grid.Column" Value="1" />
-                <Setter Property="FontSize" Value="14" />
-            </Style>
-            <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
-                <Setter Property="Margin" Value="9,3,0,0" />
-                <Setter Property="Grid.Column" Value="0" />
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="FontFamily" Value="Segoe UI Semibold" />
-            </Style>
-            <Style TargetType="{x:Type Grid}">
-                <Setter Property="DockPanel.Dock" Value="Top" />
-                <Setter Property="Margin" Value="3" />
-            </Style>
+
         </ResourceDictionary>
+
     </UserControl.Resources>
     <TabControl Grid.IsSharedSizeScope="True">
         <TabItem Header="Mod Info">
             <ScrollViewer>
-                <DockPanel DataContext="{Binding Data.ModuleInformation}">
+                <StackPanel MaxWidth="1000">
+                    <ContentControl Content="{Binding Data.ModuleInformation}"
+                                    ContentTemplate="{StaticResource ModuleInformation}" />
+                    <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleName}"
+                                    ContentTemplate="{StaticResource ModuleName}" />
+                    <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleImage}">
+                        <ContentControl.Style>
+                            <Style TargetType="ContentControl">
+                                <Style.Triggers>
+                                    <Trigger Property="Content" Value="{x:Null}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource NullHeaderImage}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>
+                    <GroupBox Header="Other">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="a1" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="InstallSteps Order" />
+                            <ComboBox ItemsSource="{Binding Source={StaticResource OrderEnum}}"
+                                      SelectedValue="{Binding Data.ModuleConfiguration.InstallSteps.Order}" />
+                        </Grid>
+                    </GroupBox>
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" SharedSizeGroup="a1" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Grid.Column="0" Text="Название модификации" />
-                    </Grid>
+                    <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleDependencies}" />
 
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" SharedSizeGroup="a1" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Автор" />
-                        <TextBox Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}" />
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" SharedSizeGroup="a1" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBox Text="{Binding Version, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Grid.Column="0" Text="Версия" />
-                    </Grid>
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" SharedSizeGroup="a1" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Ссылка" />
-                        <TextBox Text="{Binding Website, UpdateSourceTrigger=PropertyChanged}" />
-                    </Grid>
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" SharedSizeGroup="a1" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Категория" />
-                        <ComboBox ItemsSource="{Binding Source={StaticResource DataFromEnum}}" SelectedValue="{Binding CategoryId}" />
-                    </Grid>
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" SharedSizeGroup="a1" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Описание" />
-                        <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
-                    </Grid>
-
-
-                </DockPanel>
-            </ScrollViewer>
-        </TabItem>
-        <TabItem Header="Module Name">
-            <ScrollViewer>
-                <DockPanel DataContext="{Binding Data.ModuleConfiguration}" LastChildFill="False">
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="a2" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="ModuleName" />
-                        <TextBox Text="{Binding ModuleName.Value}" />
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="a2" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Colour" />
-                        <TextBox Text="{Binding ModuleName.Colour}" />
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="a2" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="ModuleName Position" />
-                        <ComboBox ItemsSource="{Binding Source={StaticResource ModuleTitlePositionEnum}}" SelectedValue="{Binding ModuleName.Position}" />
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="a2" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="InstallSteps Order" />
-                        <ComboBox ItemsSource="{Binding Source={StaticResource OrderEnum}}" SelectedValue="{Binding InstallSteps.Order}" />
-                    </Grid>
-                </DockPanel>
-            </ScrollViewer>
-        </TabItem>
-
-
-        <TabItem Header="Image">
-            <ScrollViewer>
-                <DockPanel DataContext="{Binding Data.ModuleConfiguration}" LastChildFill="False">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="a2" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Path" />
-                        <TextBox Text="{Binding ModuleImage.Path}" />
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="a2" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="ShowImage" />
-                        <ComboBox SelectedValue="{Binding ModuleImage.ShowImage}">
-                            <system:Boolean>true</system:Boolean>
-                            <system:Boolean>false</system:Boolean>
-                        </ComboBox>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="a2" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="ShowFade" />
-                        <ComboBox SelectedValue="{Binding ModuleImage.ShowFade}">
-                            <system:Boolean>true</system:Boolean>
-                            <system:Boolean>false</system:Boolean>
-                        </ComboBox>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="a2" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Height" />
-                        <TextBox Text="{Binding ModuleImage.Height}" />
-                    </Grid>
-                </DockPanel>
-            </ScrollViewer>
-        </TabItem>
-        <TabItem Header="Composite Dependency">
-            <ScrollViewer>
-                <DockPanel DataContext="{Binding Data.CompositeDependency}" LastChildFill="False" />
+                </StackPanel>
             </ScrollViewer>
         </TabItem>
 

@@ -24,7 +24,7 @@ namespace FomodModel.Base.ModuleCofiguration
         }
 
         [XmlElement("dependencies", typeof (CompositeDependency))]
-        public ObservableCollection<CompositeDependency> Dependencies { get; set; }
+        public CompositeDependency Dependencies { get; set; }
 
         [XmlElement("fileDependency", typeof (FileDependency))]
         public ObservableCollection<FileDependency> FileDependencies { get; set; }
