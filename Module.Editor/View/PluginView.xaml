@@ -14,7 +14,7 @@
     <UserControl.Resources>
         <ObjectDataProvider x:Key="DataFromEnum" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enum:PluginTypeEnum"/>
+                <x:Type TypeName="enum:PluginTypeEnum" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
@@ -28,7 +28,7 @@
                              Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              controls:TextBoxHelper.Watermark="Название плагина"
                              controls:TextBoxHelper.UseFloatingWatermark="True"
-                             controls:TextBoxHelper.ClearTextButton="True"/>
+                             controls:TextBoxHelper.ClearTextButton="True" />
                     <ComboBox DockPanel.Dock="Top"
                               VerticalAlignment="Top"
                               controls:TextBoxHelper.Watermark="Тип плагина"
@@ -38,18 +38,18 @@
                              TextWrapping="Wrap"
                              Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              controls:TextBoxHelper.Watermark="Описание плагина"
-                             controls:TextBoxHelper.UseFloatingWatermark="True"/>
+                             controls:TextBoxHelper.UseFloatingWatermark="True" />
                 </DockPanel>
             </TabItem>
             <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Флаги">
-                
+
             </TabItem>
             <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Зависимости">
 
             </TabItem>
             <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Файлы и папки">
-                <ListBox ItemsSource="{Binding Files.Items}">
-                    <ListBox.Resources>
+                <!-- <ListView ItemsSource="{Binding Files.Items}">
+                    <ListView.Resources>
                         <DataTemplate DataType="{x:Type moduleCofiguration:FileSystemItem}">
                             <TextBlock Height="16"
                                    VerticalAlignment="Center"
@@ -64,8 +64,61 @@
                                    TextTrimming="CharacterEllipsis"
                                    ToolTip="{Binding Source, RelativeSource={RelativeSource Self}}" />
                         </DataTemplate>
-                    </ListBox.Resources>
-                </ListBox>
+                    </ListView.Resources>
+                </ListView>-->
+                <ListView ItemsSource="{Binding Files.Items}">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.Columns>
+                                <GridViewColumn Header="Type">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ContentControl Content="{Binding}">
+                                                <ContentControl.Resources>
+                                                    <DataTemplate DataType="{x:Type moduleCofiguration:FileSystemItem}">
+                                                        <TextBlock Height="16"
+                                                                   VerticalAlignment="Center"
+                                                                   Text="File"
+                                                                   TextTrimming="CharacterEllipsis" />
+                                                    </DataTemplate>
+                                                    <DataTemplate
+                                                        DataType="{x:Type moduleCofiguration:FolderSystemItem}">
+                                                        <TextBlock Height="16"
+                                                                   VerticalAlignment="Center"
+                                                                   Text="Folder"
+                                                                   TextTrimming="CharacterEllipsis" />
+                                                    </DataTemplate>
+                                                </ContentControl.Resources>
+                                            </ContentControl>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Source path">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate DataType="moduleCofiguration:SystemItem">
+                                            <TextBlock Height="16"
+                                                       VerticalAlignment="Center"
+                                                       Text="{Binding Source}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       ToolTip="{Binding Source}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Destination path">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate DataType="moduleCofiguration:SystemItem">
+                                            <TextBlock Height="16"
+                                                       VerticalAlignment="Center"
+                                                       Text="{Binding Destination}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       ToolTip="{Binding Destination}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView.Columns>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </TabItem>
         </controls:MetroAnimatedSingleRowTabControl>
     </GroupBox>
