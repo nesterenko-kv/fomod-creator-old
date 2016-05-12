@@ -13,10 +13,8 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class FileList
     {
-        [XmlElement("file", typeof (FileSystemItem))]
-        public ObservableCollection<FileSystemItem> Files { get; set; }
-
-        [XmlElement("folder", typeof (FileSystemItem))]
-        public ObservableCollection<FileSystemItem> Folders { get; set; }
+        [XmlElement("file", typeof(FileSystemItem))]
+        [XmlElement("folder", typeof (FolderSystemItem))]
+        public ObservableCollection<SystemItem> Items { get; set; }
     }
 }

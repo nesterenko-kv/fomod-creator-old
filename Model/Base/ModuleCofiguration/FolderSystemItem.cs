@@ -1,6 +1,6 @@
 namespace FomodModel.Base.ModuleCofiguration
 {
-    public class FileSystemItem : SystemItem
+    public class FolderSystemItem : SystemItem
     {
 
     }

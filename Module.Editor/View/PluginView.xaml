@@ -7,6 +7,7 @@
              xmlns:view="clr-namespace:Module.Editor.View"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:enum="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
+             xmlns:moduleCofiguration="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -47,7 +48,24 @@
 
             </TabItem>
             <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Файлы и папки">
-
+                <ListBox ItemsSource="{Binding Files.Items}">
+                    <ListBox.Resources>
+                        <DataTemplate DataType="{x:Type moduleCofiguration:FileSystemItem}">
+                            <TextBlock Height="16"
+                                   VerticalAlignment="Center"
+                                   Text="Я файл"
+                                   TextTrimming="CharacterEllipsis"
+                                   ToolTip="{Binding Source, RelativeSource={RelativeSource Self}}" />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type moduleCofiguration:FolderSystemItem}">
+                            <TextBlock Height="16"
+                                   VerticalAlignment="Center"
+                                   Text="Я папка"
+                                   TextTrimming="CharacterEllipsis"
+                                   ToolTip="{Binding Source, RelativeSource={RelativeSource Self}}" />
+                        </DataTemplate>
+                    </ListBox.Resources>
+                </ListBox>
             </TabItem>
         </controls:MetroAnimatedSingleRowTabControl>
     </GroupBox>
