@@ -24,5 +24,20 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlAttribute("state")]
         public FileDependencyState State { get; set; }
+
+
+
+
+        [XmlIgnore]
+        public CompositeDependency Parent { get; set; }
+
+        public static FileDependency Create(string File)
+        {
+            return new FileDependency
+            {
+                File = File,
+                State = FileDependencyState.Active
+            };
+        }
     }
 }

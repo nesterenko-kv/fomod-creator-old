@@ -5,17 +5,19 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- Region MahApps.Metro resource dictionaries -->
+                <!--  Region MahApps.Metro resource dictionaries  -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Orange.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
-                <!-- EndRegion -->
+                <!--  EndRegion  -->
                 <ResourceDictionary Source="Resources/Icons.xaml" />
                 <ResourceDictionary Source="Resources/UI/CustomStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:ConverterMultiCommandParams x:Key="ConverterMultiCommandParams" />
+            <converters:NullToVisibilityConverter x:Key="NotNullToVisibleConverter" />
+            <converters:NullToVisibilityConverter x:Key="IsNullToVisibleConverter" IsNullToVisible="True" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -36,4 +36,13 @@
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
+    <ObjectDataProvider x:Key="FileDependencyState"
+                        MethodName="GetValues"
+                        ObjectType="{x:Type system:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enumData:FileDependencyState" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+
 </ResourceDictionary>

@@ -15,6 +15,10 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class CompositeDependency
     {
+        CompositeDependency _dependencies;
+        ObservableCollection<FileDependency> _fileDependencies;
+        ObservableCollection<FlagDependency> _flagDependencies;
+
         /// <summary>
         ///     CompositeDependency class constructor
         /// </summary>
@@ -24,13 +28,14 @@ namespace FomodModel.Base.ModuleCofiguration
         }
 
         [XmlElement("dependencies", typeof (CompositeDependency))]
-        public CompositeDependency Dependencies { get; set; }
+        public CompositeDependency Dependencies { get { return _dependencies; } set { _dependencies = value; if (value != null) value.Parent = this; } }
 
         [XmlElement("fileDependency", typeof (FileDependency))]
-        public ObservableCollection<FileDependency> FileDependencies { get; set; }
+        public ObservableCollection<FileDependency> FileDependencies { get { return _fileDependencies; } set { _fileDependencies = value; ConfigFileDependencies(value); } }
+
 
         [XmlElement("flagDependency", typeof (FlagDependency))]
-        public ObservableCollection<FlagDependency> FlagDependencies { get; set; }
+        public ObservableCollection<FlagDependency> FlagDependencies { get { return _flagDependencies; } set { _flagDependencies = value; ConfigFlagDependencies(value); } }
 
         [XmlElement("fommDependency", typeof (VersionDependency))]
         public VersionDependency FommVersionDependencies { get; set; }
@@ -44,5 +49,36 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlAttribute("operator")]
         [DefaultValue(CompositeDependencyOperator.And)]
         public CompositeDependencyOperator Operator { get; set; }
+
+        [XmlIgnore]
+        public CompositeDependency Parent { get; set; }
+
+
+        private void ConfigFileDependencies(ObservableCollection<FileDependency> value)
+        {
+            if (FileDependencies != null) FileDependencies.CollectionChanged -= Dependencies_CollectionChanged;
+            if (value != null) value.CollectionChanged += Dependencies_CollectionChanged;
+        }
+
+        private void ConfigFlagDependencies(ObservableCollection<FlagDependency> value)
+        {
+            if (FlagDependencies != null) FlagDependencies.CollectionChanged -= Dependencies_CollectionChanged; ;
+            if (value != null) value.CollectionChanged += Dependencies_CollectionChanged; ;
+        }
+
+        private void Dependencies_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+                foreach (object item in e.NewItems)
+                    (item as dynamic).Parent = this;
+        }
+
+        public static CompositeDependency Create()
+        {
+            return new CompositeDependency
+            {
+
+            };
+        }
     }
 }

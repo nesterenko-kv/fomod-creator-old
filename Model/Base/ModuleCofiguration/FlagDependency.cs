@@ -20,5 +20,17 @@ namespace FomodModel.Base.ModuleCofiguration
 
         [XmlAttribute("value")]
         public string Value { get; set; }
+
+        [XmlIgnore]
+        public CompositeDependency Parent { get; set; }
+
+        public static FlagDependency Create()
+        {
+            return new FlagDependency
+            {
+                Flag = "is Flag Flag Flag",
+                Value = "On"
+            };
+        }
     }
 }

@@ -6,7 +6,7 @@ using Prism.Regions;
 
 namespace Module.Editor.ViewModel
 {
-    public class BaseViewModel : BindableBase, INavigationAware
+    public class BaseViewModel : INavigationAware
     {
         private readonly string _curentParamName;
 
@@ -16,7 +16,10 @@ namespace Module.Editor.ViewModel
         }
 
         [Aspect(typeof(AspectINotifyPropertyChanged))]
-        public object Data { get; set; }
+        public object Data
+        {
+            get;
+            set; }
 
         #region INavigationAware
 

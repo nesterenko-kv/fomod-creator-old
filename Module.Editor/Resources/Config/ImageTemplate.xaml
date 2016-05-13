@@ -53,18 +53,13 @@
                     </ResourceDictionary>
                 </DockPanel.Resources>
 
-                <Grid DockPanel.Dock="Left">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition SharedSizeGroup="a1" />
-                    </Grid.ColumnDefinitions>
-                    <Border Margin="3" BorderThickness="1" BorderBrush="White" Height="{Binding ActualWidth,RelativeSource={RelativeSource Self}}">
-                        <Image />
-                    </Border>
-                </Grid>
+                <Border Margin="3" BorderThickness="1" BorderBrush="White" DockPanel.Dock="Top" Height="150">
+                    <Image />
+                </Border>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition SharedSizeGroup="a2" />
+                        <ColumnDefinition SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
@@ -75,7 +70,7 @@
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition SharedSizeGroup="a2" />
+                        <ColumnDefinition SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
@@ -88,7 +83,7 @@
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition SharedSizeGroup="a2" />
+                        <ColumnDefinition SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
@@ -101,7 +96,7 @@
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition SharedSizeGroup="a2" />
+                        <ColumnDefinition SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
