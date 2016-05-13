@@ -7,7 +7,13 @@
             <ResourceDictionary Source="../Enums.xaml" />
         </ResourceDictionary.MergedDictionaries>
 
-    
+    <DataTemplate x:Key="NullDependencies" DataType="{x:Type model:CompositeDependency}">
+        <GroupBox Header="NullDependencies">
+        </GroupBox>
+    </DataTemplate>
+
+
+
     <DataTemplate DataType="{x:Type model:CompositeDependency}">
         <DataTemplate.Resources>
             <ResourceDictionary>

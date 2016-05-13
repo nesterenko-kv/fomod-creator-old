@@ -27,41 +27,50 @@
 
     </UserControl.Resources>
     <TabControl Grid.IsSharedSizeScope="True">
-        <TabItem Header="Mod Info">
-            <ScrollViewer>
-                <StackPanel MaxWidth="1000">
-                    <ContentControl Content="{Binding Data.ModuleInformation}"
-                                    ContentTemplate="{StaticResource ModuleInformation}" />
-                    <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleName}"
-                                    ContentTemplate="{StaticResource ModuleName}" />
-                    <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleImage}">
-                        <ContentControl.Style>
-                            <Style TargetType="ContentControl">
-                                <Style.Triggers>
-                                    <Trigger Property="Content" Value="{x:Null}">
-                                        <Setter Property="ContentTemplate" Value="{StaticResource NullHeaderImage}" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ContentControl.Style>
-                    </ContentControl>
-                    <GroupBox Header="Other">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition SharedSizeGroup="a1" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="InstallSteps Order" />
-                            <ComboBox ItemsSource="{Binding Source={StaticResource OrderEnum}}"
-                                      SelectedValue="{Binding Data.ModuleConfiguration.InstallSteps.Order}" />
-                        </Grid>
-                    </GroupBox>
+        <ScrollViewer>
+            <StackPanel MaxWidth="1000">
+                <ContentControl Content="{Binding Data.ModuleInformation}"
+                                ContentTemplate="{StaticResource ModuleInformation}" />
+                <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleName}"
+                                ContentTemplate="{StaticResource ModuleName}" />
+                <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleImage}">
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Style.Triggers>
+                                <Trigger Property="Content" Value="{x:Null}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource NullHeaderImage}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+                <GroupBox Header="Other">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a1" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="InstallSteps Order" />
+                        <ComboBox ItemsSource="{Binding Source={StaticResource OrderEnum}}"
+                                  SelectedValue="{Binding Data.ModuleConfiguration.InstallSteps.Order}" />
+                    </Grid>
+                </GroupBox>
 
-                    <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleDependencies}" />
+                <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleDependencies}" >
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Style.Triggers>
+                                <Trigger Property="Content" Value="{x:Null}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource NullDependencies}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
 
-                </StackPanel>
-            </ScrollViewer>
-        </TabItem>
+            </StackPanel>
+        </ScrollViewer>
+
 
     </TabControl>
 </UserControl>

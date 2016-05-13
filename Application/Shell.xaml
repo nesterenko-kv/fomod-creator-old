@@ -1,15 +1,15 @@
 ﻿<controls:MetroWindow x:Class="MainApplication.Shell"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:wView="clr-namespace:Module.Welcome.View;assembly=Module.Welcome"
-                      xmlns:wViewModel="clr-namespace:Module.Welcome.ViewModel;assembly=Module.Welcome"
-                      xmlns:names="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
-                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:eView="clr-namespace:Module.Editor.View;assembly=Module.Editor"
-                      xmlns:region="http://prismlibrary.com/"
-                      xmlns:base="clr-namespace:FomodModel.Base;assembly=FomodModel"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:names="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
+                      xmlns:eView="clr-namespace:Module.Editor.View;assembly=Module.Editor"
+                      xmlns:base="clr-namespace:FomodModel.Base;assembly=FomodModel"
+                      xmlns:region="http://prismlibrary.com/"
+                      xmlns:wViewModel="clr-namespace:Module.Welcome.ViewModel;assembly=Module.Welcome"
+                      xmlns:wView="clr-namespace:Module.Welcome.View;assembly=Module.Welcome"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       Title="MainWindow"
                       Width="1000"
                       Height="800"
@@ -19,11 +19,36 @@
                       WindowStartupLocation="CenterScreen"
                       mc:Ignorable="d">
 
+    <controls:MetroWindow.InputBindings>
+        <KeyBinding Key="S"
+                    Command="{Binding SaveProject}"
+                    Modifiers="Control" />
+    </controls:MetroWindow.InputBindings>
+
+
+    <controls:MetroWindow.LeftWindowCommands>
+        <controls:WindowCommands>
+            <Button Command="{Binding SaveProject}">>
+                <Button.Style>
+                    <Style TargetType="Button"
+                       BasedOn="{StaticResource SaveButton}">
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </controls:WindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>
     <Grid>
-        <controls:MetroAnimatedSingleRowTabControl region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}">
+        <controls:MetroAnimatedSingleRowTabControl x:Name="MainContentRegion"
+                                                   region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}"
+                                                   SelectedItem="{Binding CurentSelectedItem}">
             <TabControl.Resources>
 
-              
+
                 <DataTemplate x:Key="Simple">
                     <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
                                TextTrimming="CharacterEllipsis"

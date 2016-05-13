@@ -105,6 +105,8 @@ namespace Module.Editor.ViewModel
                 if (FirstData == null)
                     FirstData = repository.GetData();
             }
+
+            SelectedNode = FirstData;
         }
 
         #region Properties
@@ -149,5 +151,16 @@ namespace Module.Editor.ViewModel
 
         public InteractionRequest<IConfirmation> ConfirmationRequest { get; private set; } = new InteractionRequest<IConfirmation>();
         
+        //тут мля каламбур - репозиторий при отсутствии пути предлагает его выбрать
+        //а в логике вьюхи нам надо сохранятся по текущему пути
+        //по логике программы у репозитория всегда есть путь
+        public bool Save()
+        {
+            return _repository.SaveData(_repository.CurrentPath);
+        }
+        public bool SaveAs(string path)
+        {
+            return _repository.SaveData();
+        }
     }
 }
