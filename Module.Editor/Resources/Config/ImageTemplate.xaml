@@ -11,14 +11,17 @@
 
     <DataTemplate x:Key="NullHeaderImage"
                   DataType="{x:Type model:HeaderImage}">
-        <GroupBox>
+
+        <GroupBox Background="Gray">
             <GroupBox.Header>
                 <DockPanel>
-                    <Button Margin="3"
-                            Content="Add+"
-                            Command="{Binding DataContext.AddImage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                    <Button Width="18"
+                            Height="18"
+                            Style="{StaticResource AddButton}"
+                            Command="{Binding DataContext.AddImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                             DockPanel.Dock="Right" />
-                    <TextBlock Text="IMAGE - none"
+                    <TextBlock VerticalAlignment="Center"
+                               Text="IMAGE"
                                FontSize="12"
                                FontFamily="Segoe UI" />
                 </DockPanel>
@@ -27,37 +30,52 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type model:HeaderImage}">
-        <DataTemplate.Resources>
-            <ResourceDictionary>
-                <ResourceDictionary.MergedDictionaries>
-                    <ResourceDictionary Source="Styles.xaml" />
-                </ResourceDictionary.MergedDictionaries>
-            </ResourceDictionary>
-        </DataTemplate.Resources>
         <GroupBox>
             <GroupBox.Header>
                 <DockPanel>
-                    <CheckBox Margin="3"
-                              DockPanel.Dock="Right" />
-                    <TextBlock Text="IMAGE"
+                    <Button Width="18"
+                            Height="18"
+                            Style="{StaticResource DeleteButton}"
+                            Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                            DockPanel.Dock="Right" />
+                    <TextBlock VerticalAlignment="Center"
+                               Text="IMAGE"
                                FontSize="12"
                                FontFamily="Segoe UI" />
                 </DockPanel>
             </GroupBox.Header>
             <DockPanel LastChildFill="False">
-                <Grid>
+                <DockPanel.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="Styles.xaml" />
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </DockPanel.Resources>
+
+                <Grid DockPanel.Dock="Left">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="a1" />
+                    </Grid.ColumnDefinitions>
+                    <Border Margin="3" BorderThickness="1" BorderBrush="White" Height="{Binding ActualWidth,RelativeSource={RelativeSource Self}}">
+                        <Image />
+                    </Border>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition SharedSizeGroup="a2" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Path" />
-                    <TextBox Text="{Binding Path}" />
+                    <TextBox Text="{Binding Path}"
+                             IsReadOnly="True" />
                     <CheckBox />
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition SharedSizeGroup="a1" />
+                        <ColumnDefinition SharedSizeGroup="a2" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
@@ -70,7 +88,7 @@
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition SharedSizeGroup="a1" />
+                        <ColumnDefinition SharedSizeGroup="a2" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
@@ -83,7 +101,7 @@
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition SharedSizeGroup="a1" />
+                        <ColumnDefinition SharedSizeGroup="a2" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
