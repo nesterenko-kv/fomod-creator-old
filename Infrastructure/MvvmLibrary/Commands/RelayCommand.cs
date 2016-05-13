@@ -13,7 +13,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
         {
         }
 
-        private RelayCommand(Action execute, Func<bool> canExecute)
+        public RelayCommand(Action execute, Func<bool> canExecute)
         {
             if (execute == null)
                 throw new ArgumentNullException(nameof(execute));

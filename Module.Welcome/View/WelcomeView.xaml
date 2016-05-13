@@ -49,7 +49,7 @@
                            FontSize="18"
                            Text="Добро пожаловать!" />
                 <Button Margin="3"
-                        Command="{Binding CreateProject}"
+                        Command="{Binding CreateProjectCommand}"
                         Style="{DynamicResource GreenButton}">
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Width="12.21"
@@ -63,7 +63,7 @@
                     </StackPanel>
                 </Button>
                 <Button Margin="3"
-                        Command="{Binding OpenProject}"
+                        Command="{Binding OpenProjectCommand}"
                         Style="{DynamicResource GreenButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -79,7 +79,7 @@
                     </Button.Content>
                 </Button>
                 <Button Margin="3"
-                        Command="{Binding CloseApplication}"
+                        Command="{Binding CloseApplicationCommand}"
                         Style="{DynamicResource RedButton}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">

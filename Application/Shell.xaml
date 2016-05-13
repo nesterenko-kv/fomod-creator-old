@@ -10,6 +10,7 @@
                       xmlns:wViewModel="clr-namespace:Module.Welcome.ViewModel;assembly=Module.Welcome"
                       xmlns:wView="clr-namespace:Module.Welcome.View;assembly=Module.Welcome"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       Title="MainWindow"
                       Width="1000"
                       Height="800"
@@ -17,18 +18,16 @@
                       RenderOptions.ClearTypeHint="Enabled"
                       TextOptions.TextFormattingMode="Display"
                       WindowStartupLocation="CenterScreen"
-                      mc:Ignorable="d">
-
+                      mc:Ignorable="d"
+                      dialogs:DialogParticipation.Register="{Binding}">
     <controls:MetroWindow.InputBindings>
-        <KeyBinding Key="S"
-                    Command="{Binding SaveProject}"
-                    Modifiers="Control" />
+        <KeyBinding Modifiers="Control"
+                    Key="S"
+                    Command="{Binding SaveProjectCommand}"/>
     </controls:MetroWindow.InputBindings>
-
-
     <controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
-            <Button Command="{Binding SaveProject}">>
+            <Button Command="{Binding SaveProjectCommand}">>
                 <Button.Style>
                     <Style TargetType="Button"
                        BasedOn="{StaticResource SaveButton}">
@@ -47,8 +46,6 @@
                                                    region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}"
                                                    SelectedItem="{Binding CurentSelectedItem}">
             <TabControl.Resources>
-
-
                 <DataTemplate x:Key="Simple">
                     <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
                                TextTrimming="CharacterEllipsis"
@@ -74,7 +71,7 @@
                             </Border.OpacityMask>
                             <Button Margin="0,0,3,8"
                                     VerticalAlignment="Bottom"
-                                    Command="{Binding DataContext.CloseTab, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:MetroWindow}}"
+                                    Command="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:MetroWindow}}"
                                     CommandParameter="{Binding Content.DataContext, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}"
                                     Style="{StaticResource DeleteButton}" />
                         </Border>
@@ -99,8 +96,7 @@
                                 <ContentControl x:Name="content"
                                                 ContentTemplate="{StaticResource Closed}" />
                                 <DataTemplate.Triggers>
-                                    <DataTrigger xmlns:vm="clr-namespace:Module.Welcome.View;assembly=Module.Welcome"
-                                                 Binding="{Binding Content.DataContext.FirstData, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}"
+                                    <DataTrigger Binding="{Binding Content.DataContext.FirstData, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}"
                                                  Value="{x:Null}">
                                         <Setter TargetName="content" Property="ContentTemplate" Value="{StaticResource Simple}" />
                                     </DataTrigger>

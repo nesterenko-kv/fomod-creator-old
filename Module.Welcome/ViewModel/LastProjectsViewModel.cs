@@ -17,55 +17,62 @@ namespace Module.Welcome.ViewModel
         private const string SubPath = @"\FOMODplist.xml";
         private readonly string _basePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
-        public LastProjectsViewModel(IEventAggregator eventAggregator, IDataService dataService)
-        {
-            _eventAggregator = eventAggregator;
-            _dataService = dataService;
-            GoTo = new RelayCommand<string>(p => _eventAggregator.GetEvent<OpenLink>().Publish(p));
-            Remove = new RelayCommand<ProjectLinkModel>(p => 
-            {
-                ProjectLinkList.Links.Remove(p);
-                SaveProjectLinkListFile();
-            });
-        
-            var list = ReadProjectLinkListFile();
-            if (list != null)
-                ProjectLinkList = list;
-            _eventAggregator.GetEvent<OpenProjectEvent>().Subscribe(p =>
-            {
-                if (ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p) != null) return;
-                ProjectLinkList.Links.Add(new ProjectLinkModel {FolderPath = p});
-                SaveProjectLinkListFile();
-            });
-        }
+        #region Services
 
-        #region Properties
-
-        [Aspect(typeof (AspectINotifyPropertyChanged))]
-        public ProjectLinkList ProjectLinkList { get; set; } = new ProjectLinkList();
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IDataService _dataService;
 
         #endregion
 
         #region Commands
 
-        public RelayCommand<string> GoTo { get; private set; }
-        public RelayCommand<ProjectLinkModel> Remove { get; private set; }
+        public RelayCommand<string> GoToCommand { get; private set; }
+        public RelayCommand<ProjectLinkModel> RemoveCommand { get; private set; }
+
+        #endregion
+        
+        #region Properties
+
+        [Aspect(typeof(AspectINotifyPropertyChanged))]
+        public ProjectLinkList ProjectLinkList { get; set; } = new ProjectLinkList();
 
         #endregion
 
+        public LastProjectsViewModel(IEventAggregator eventAggregator, IDataService dataService)
+        {
+            _eventAggregator = eventAggregator;
+            _dataService = dataService;
+            GoToCommand = new RelayCommand<string>(_eventAggregator.GetEvent<OpenLink>().Publish);
+            RemoveCommand = new RelayCommand<ProjectLinkModel>(RemoveRecentProject);
+            _eventAggregator.GetEvent<OpenProjectEvent>().Subscribe(AddProjectInListAfterOpen);
+            var list = ReadProjectLinkListFile();
+            if (list != null)
+                ProjectLinkList = list;
+        }
+        
+        #region Methods
+
+        private void RemoveRecentProject(ProjectLinkModel p)
+        {
+            if (p == null) return;
+            ProjectLinkList.Links.Remove(p);
+            SaveProjectLinkListFile();
+        }
+
+        private void AddProjectInListAfterOpen(string p)
+        {
+            if (ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p) != null) return;
+            ProjectLinkList.Links.Add(new ProjectLinkModel { FolderPath = p });
+            SaveProjectLinkListFile();
+        }
+
         private ProjectLinkList ReadProjectLinkListFile()
         {
-            if (File.Exists(_basePath + SubPath))
-            {
-                var link = _dataService.DeserializeObject<ProjectLinkList>(_basePath + SubPath);
-                var del = link.Links.Where(i => string.IsNullOrWhiteSpace(i.FolderPath)).ToList();
-                foreach (var item in del)
-                {
-                    link.Links.Remove(item);
-                }
-                return link;
-            }
-            return null;
+            if (!File.Exists(_basePath + SubPath)) return null;
+            var link = _dataService.DeserializeObject<ProjectLinkList>(_basePath + SubPath);
+            foreach (var item in link.Links.Where(item => string.IsNullOrWhiteSpace(item.FolderPath)))
+                link.Links.Remove(item);
+            return link;
         }
 
         private void SaveProjectLinkListFile()
@@ -73,12 +80,7 @@ namespace Module.Welcome.ViewModel
             if (Directory.Exists(_basePath))
                 _dataService.SerializeObject(ProjectLinkList, _basePath + SubPath);
         }
-
-        #region Services
-
-        private readonly IEventAggregator _eventAggregator;
-        private readonly IDataService _dataService;
-
+        
         #endregion
     }
 }
