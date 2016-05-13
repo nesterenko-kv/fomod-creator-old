@@ -9,19 +9,21 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Interactivity.InteractionRequest;
 using System;
+using FomodInfrastructure.Interface;
 
 namespace Module.Editor.ViewModel
 {
     [Aspect(typeof (AspectINotifyPropertyChanged))]
-    public class EditorViewModel : BindableBase
+    public class MainEditorViewModel : BindableBase
     {
         #region Services
 
         private IRegionManager _regionManager;
+        private IRepository<ProjectRoot> _repository;
 
         #endregion
 
-        public EditorViewModel()
+        public MainEditorViewModel()
         {
             AddStep = new RelayCommand<ProjectRoot>(p =>
             {
@@ -37,7 +39,6 @@ namespace Module.Editor.ViewModel
                 var child = (InstallStep) p[1];
                 parent.ModuleConfiguration.InstallSteps.InstallStep.Remove(child);
             });
-
             AddGroup = new RelayCommand<InstallStep>(p =>
             {
                 if (p.OptionalFileGroups == null)
@@ -52,7 +53,6 @@ namespace Module.Editor.ViewModel
                 var child = (Group) p[1];
                 parent.OptionalFileGroups.Group.Remove(child);
             });
-
             AddPlugin = new RelayCommand<Group>(p =>
             {
                 if (p.Plugins == null)
@@ -67,7 +67,6 @@ namespace Module.Editor.ViewModel
                 var child = (Plugin) p[1];
                 parent.Plugins.Plugin.Remove(child);
             });
-
 
             DeleteDialogCommand = new RelayCommand<object[]>(obj =>
             {
@@ -90,24 +89,22 @@ namespace Module.Editor.ViewModel
         }
 
        
+        //TODO Не забыть про очищение свойства при закрытии или удалении проекта, или сделать слабую ссылку
+        public ProjectRoot FirstData { get; private set; } 
 
-        public string Header { get; private set; } = "Редактор";
-
-        public void ConfigurateViewModel(IRegionManager regionManager, ProjectRoot projectRoot, string header = null)
+        public void ConfigurateViewModel(IRegionManager regionManager, IRepository<ProjectRoot> repository)
         {
+            if (repository == null) throw new ApplicationException();
             _regionManager = regionManager;
+            _repository = repository;
 
-            if (header != null)
-                Header = header;
-            else
-            {
-                var name = projectRoot.ModuleInformation.Name;
-                Header = string.IsNullOrWhiteSpace(name) ? Header : name;
-            }
-
-            var pRoot = Data.FirstOrDefault(i => i.FolderPath == projectRoot.FolderPath);
+            var pRoot = Data.FirstOrDefault(i => i.FolderPath == repository.CurrentPath);
             if (pRoot == null)
-                Data.Add(projectRoot);
+            {
+                Data.Add(repository.GetData());
+                if (FirstData == null)
+                    FirstData = repository.GetData();
+            }
         }
 
         #region Properties

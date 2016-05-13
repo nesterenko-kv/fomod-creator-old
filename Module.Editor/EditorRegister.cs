@@ -25,7 +25,7 @@ namespace Module.Editor
 
         public void Initialize()
         {
-            Registry<MainEditorView, EditorViewModel>();
+            Registry<MainEditorView, MainEditorViewModel>();
             Registry<ProjectRootView, ProjectRootViewModel>();
             Registry<InstallStepView, InstallStepViewModel>();
             Registry<GroupView, GroupViewModel>();

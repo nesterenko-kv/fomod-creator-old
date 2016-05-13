@@ -91,12 +91,6 @@
     <Compile Include="Resources\localNames.cs" />
     <Compile Include="ViewModel\LastProjectsViewModel.cs" />
     <Compile Include="ViewModel\WelcomeViewModel.cs" />
-    <Compile Include="View\LastProjectsView.xaml.cs">
-      <DependentUpon>LastProjectsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\WelcomeView.xaml.cs">
-      <DependentUpon>WelcomeView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="WelcomeRegister.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ namespace Module.Editor.ViewModel
     {
         //AddImage
 
-        public RelayCommand<bool> AddImage { get; }
+        public object AddImage { get; }
 
 
         public ProjectRootViewModel()

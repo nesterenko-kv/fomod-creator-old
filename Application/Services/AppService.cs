@@ -36,7 +36,7 @@ namespace MainApplication.Services
             foreach (FrameworkElement element in _regionManager.Regions[Names.MainContentRegion].Views)
             {
                 if (!(element is MainEditorView)) continue;
-                var b = (element.DataContext as EditorViewModel)?.Data.FirstOrDefault(i => i.FolderPath == repository.CurrentPath);
+                var b = (element.DataContext as MainEditorViewModel)?.Data.FirstOrDefault(i => i.FolderPath == repository.CurrentPath);
                 if (b == null) continue;
                 _regionManager.Regions[Names.MainContentRegion].Activate(element);
                 return;
@@ -45,7 +45,8 @@ namespace MainApplication.Services
             var view = _serviceLocator.GetInstance<object>(nameof(MainEditorView)) as FrameworkElement;
             var detailsRegion = _regionManager.Regions[Names.MainContentRegion];
             var detailsRegionManager = detailsRegion.Add(view, null, true);
-            (view.DataContext as EditorViewModel).ConfigurateViewModel(detailsRegionManager, repository.GetData() as ProjectRoot);
+            //(view.DataContext as EditorViewModel).ConfigurateViewModel(detailsRegionManager, repository.GetData() as ProjectRoot);
+            (view.DataContext as MainEditorViewModel).ConfigurateViewModel(detailsRegionManager, repository as IRepository<ProjectRoot>);
             detailsRegion.Activate(view);
         }
 

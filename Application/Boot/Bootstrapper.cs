@@ -7,6 +7,7 @@ using Module.Editor;
 using Module.Welcome;
 using Prism.Logging;
 using Prism.StructureMap;
+using System.Windows.Markup;
 
 namespace MainApplication.Boot
 {
@@ -18,7 +19,7 @@ namespace MainApplication.Boot
         {
             var shell = Container.GetInstance<Shell>();
             var vm = Container.GetInstance<ShellViewModel>();
-            shell.DataContext = vm;
+            (shell as FrameworkElement) .DataContext = vm;
             return shell;
         }
 
@@ -33,6 +34,7 @@ namespace MainApplication.Boot
             base.ConfigureContainer();
             Container.Configure(r =>
             {
+                r.For<IComponentConnector>().OnCreationForAll(s => s.InitializeComponent());
                 r.For<IAppService>().Use<AppService>().Singleton();
                 r.For<IRepository<ProjectRoot>>().Use<Repository>();
                 r.For<IDataService>().Use<DataService>().Singleton();
