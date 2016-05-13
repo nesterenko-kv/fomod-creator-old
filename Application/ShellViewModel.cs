@@ -8,8 +8,8 @@ using FomodInfrastructure.Aspect;
 using AspectInjector.Broker;
 using MahApps.Metro.Controls.Dialogs;
 using Module.Editor.ViewModel;
-using Module.Welcome.ViewModel;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace MainApplication
 {
@@ -24,10 +24,13 @@ namespace MainApplication
 
         #endregion
 
-        public ShellViewModel(IRegionManager regionManager)
+        public ShellViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator)
         {
             Title = _defautlTitle = "FOMOD Creator beta v" + GetVersion();
             _regionManager = regionManager;
+            _dialogCoordinator = dialogCoordinator;
+            CloseTabCommand = new RelayCommand<object>(CloseTab);
+            SaveProjectCommand = new RelayCommand(SaveProject, CanSaveProject);
         }
 
         #region Commands
@@ -39,15 +42,15 @@ namespace MainApplication
 
         #region Properties
 
-        object _CurentSelectedItem;
+        private object _curentSelectedItem;
 
         [Aspect(typeof (AspectINotifyPropertyChanged))]
         public object CurentSelectedItem
         {
-            get { return _CurentSelectedItem; }
+            get { return _curentSelectedItem; }
             set
             {
-                _CurentSelectedItem = value;
+                _curentSelectedItem = value;
                 SaveProjectCommand.RaiseCanExecuteChanged();
                 var b = (CurentSelectedItem as FrameworkElement)?.DataContext;
                 if (b != null && b is MainEditorViewModel)
@@ -62,21 +65,11 @@ namespace MainApplication
 
         #endregion
 
-        public ShellViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator)
-        {
-            _regionManager = regionManager;
-            _dialogCoordinator = dialogCoordinator;
-            CloseTabCommand = new RelayCommand<object>(CloseTab);
-            SaveProjectCommand = new RelayCommand(SaveProject, CanSaveProject);
-        }
-
         #region Methods
 
         private async void CloseTab(object p)
         {
-            var removeView =
-                _regionManager.Regions[Names.MainContentRegion].Views.Cast<FrameworkElement>()
-                    .FirstOrDefault(v => v.DataContext == p);
+            var removeView = _regionManager.Regions[Names.MainContentRegion].Views.Cast<FrameworkElement>().FirstOrDefault(v => v.DataContext == p);
             var result = await CofirmDialog();
             if (result)
                 SaveProject();
@@ -94,7 +87,7 @@ namespace MainApplication
         
         private string GetVersion()
         {
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            var assembly = Assembly.GetExecutingAssembly();
             var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
             return fvi.FileVersion;
         }
