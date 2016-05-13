@@ -11,7 +11,7 @@
                       xmlns:wView="clr-namespace:Module.Welcome.View;assembly=Module.Welcome"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-                      Title="MainWindow"
+                      Title="{Binding Title}"
                       Width="1000"
                       Height="800"
                       GlowBrush="{DynamicResource AccentColorBrush}"
@@ -25,6 +25,8 @@
                     Key="S"
                     Command="{Binding SaveProjectCommand}"/>
     </controls:MetroWindow.InputBindings>
+
+
     <controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
             <Button Command="{Binding SaveProjectCommand}">>
@@ -46,6 +48,8 @@
                                                    region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}"
                                                    SelectedItem="{Binding CurentSelectedItem}">
             <TabControl.Resources>
+
+
                 <DataTemplate x:Key="Simple">
                     <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
                                TextTrimming="CharacterEllipsis"

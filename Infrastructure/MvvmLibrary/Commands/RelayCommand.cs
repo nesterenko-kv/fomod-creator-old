@@ -50,8 +50,14 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
 
     public class RelayCommand<T> : ICommand
     {
+        private RelayCommand<bool> addImage;
         private readonly WeakFunc<T, bool> _canExecute;
         private readonly WeakAction<T> _execute;
+
+        public RelayCommand(RelayCommand<bool> addImage)
+        {
+            this.addImage = addImage;
+        }
 
         public RelayCommand(Action<T> execute, Func<T, bool> canExecute = null)
         {

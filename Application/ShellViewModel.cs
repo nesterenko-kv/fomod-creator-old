@@ -8,17 +8,27 @@ using FomodInfrastructure.Aspect;
 using AspectInjector.Broker;
 using MahApps.Metro.Controls.Dialogs;
 using Module.Editor.ViewModel;
+using Module.Welcome.ViewModel;
+using System.Diagnostics;
 
 namespace MainApplication
 {
     public class ShellViewModel
     {
+        private readonly string _defautlTitle;
+
         #region Services
 
         private readonly IRegionManager _regionManager;
         private readonly IDialogCoordinator _dialogCoordinator;
 
         #endregion
+
+        public ShellViewModel(IRegionManager regionManager)
+        {
+            Title = _defautlTitle = "FOMOD Creator beta v" + GetVersion();
+            _regionManager = regionManager;
+        }
 
         #region Commands
 
@@ -29,18 +39,26 @@ namespace MainApplication
 
         #region Properties
 
-        private object _curentSelectedItem;
+        object _CurentSelectedItem;
 
         [Aspect(typeof (AspectINotifyPropertyChanged))]
         public object CurentSelectedItem
         {
-            get { return _curentSelectedItem; }
+            get { return _CurentSelectedItem; }
             set
             {
-                _curentSelectedItem = value;
+                _CurentSelectedItem = value;
                 SaveProjectCommand.RaiseCanExecuteChanged();
+                var b = (CurentSelectedItem as FrameworkElement)?.DataContext;
+                if (b != null && b is MainEditorViewModel)
+                    Title = $"{(b as MainEditorViewModel).FirstData.ModuleInformation.Name}: {_defautlTitle}";
+                else
+                    Title = _defautlTitle;
             }
         }
+
+        [Aspect(typeof (AspectINotifyPropertyChanged))]
+        public string Title { get; set; }
 
         #endregion
 
@@ -72,8 +90,14 @@ namespace MainApplication
         }
 
         private bool CanSaveProject() => (CurentSelectedItem as FrameworkElement)?.DataContext is MainEditorViewModel;
-
         private async Task<bool> CofirmDialog() => await _dialogCoordinator.ShowMessageAsync(this, "Закрыть проект", "Сохранить перед закрытием?", MessageDialogStyle.AffirmativeAndNegative) == MessageDialogResult.Affirmative;
+        
+        private string GetVersion()
+        {
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            return fvi.FileVersion;
+        }
 
         #endregion
     }
