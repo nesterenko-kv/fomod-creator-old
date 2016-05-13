@@ -10,7 +10,7 @@
                       xmlns:wViewModel="clr-namespace:Module.Welcome.ViewModel;assembly=Module.Welcome"
                       xmlns:wView="clr-namespace:Module.Welcome.View;assembly=Module.Welcome"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      Title="MainWindow"
+                      Title="{Binding Title}"
                       Width="1000"
                       Height="800"
                       GlowBrush="{DynamicResource AccentColorBrush}"
@@ -24,8 +24,6 @@
                     Command="{Binding SaveProject}"
                     Modifiers="Control" />
     </controls:MetroWindow.InputBindings>
-
-
     <controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
             <Button Command="{Binding SaveProject}">>

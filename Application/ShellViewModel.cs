@@ -7,15 +7,20 @@ using FomodInfrastructure.Aspect;
 using AspectInjector.Broker;
 using FomodModel.Base;
 using Module.Editor.ViewModel;
+using Module.Welcome.ViewModel;
+using System.Diagnostics;
 
 namespace MainApplication
 {
     public class ShellViewModel
     {
         private readonly IRegionManager _regionManager;
+        private readonly string _defautlTitle;
 
         public ShellViewModel(IRegionManager regionManager)
         {
+            Title = _defautlTitle = "FOMOD Creator beta v" + getVersion();
+
             _regionManager = regionManager;
 
             CloseTab = new RelayCommand<object>(p =>
@@ -50,7 +55,24 @@ namespace MainApplication
             {
                 _CurentSelectedItem = value;
                 SaveProject.RaiseCanExecuteChanged();
+                var b = (CurentSelectedItem as FrameworkElement)?.DataContext;
+                if (b!=null && b is MainEditorViewModel)
+                    Title = $"{(b as MainEditorViewModel).FirstData.ModuleInformation.Name}: {_defautlTitle}";
+                else
+                    Title = _defautlTitle;
             }
+        }
+
+        [Aspect(typeof(AspectINotifyPropertyChanged))]
+        public string Title { get; set; }
+
+
+
+        private string getVersion()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            return fvi.FileVersion;
         }
     }
 }
