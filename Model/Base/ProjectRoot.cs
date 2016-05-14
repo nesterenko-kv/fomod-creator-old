@@ -1,9 +1,11 @@
 ﻿using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
+using System;
 
 namespace FomodModel.Base
 {
     [Aspect(typeof (AspectINotifyPropertyChanged))]
+    [Serializable]
     public class ProjectRoot
     {
         #region Properties

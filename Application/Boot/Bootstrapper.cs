@@ -41,6 +41,7 @@ namespace MainApplication.Boot
                 r.For<IDialogCoordinator>().Use<DialogCoordinator>().Singleton();
                 r.For<IFolderBrowserDialog>().Use<FolderBrowserDialog>().Singleton();
                 r.For<IFileBrowserDialog>().Use<FileBrowserDialog>();
+                r.For<IMemoryService>().Use<MemoryService>();
             });
         }
 

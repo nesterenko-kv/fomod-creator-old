@@ -21,10 +21,14 @@ namespace Module.Editor.ViewModel
         private IRegionManager _regionManager;
         private IRepository<ProjectRoot> _repository;
 
+        private readonly IMemoryService _memoryService;
+
         #endregion
 
-        public MainEditorViewModel()
+        public MainEditorViewModel(IMemoryService memoryService)
         {
+            _memoryService = memoryService;
+
             AddStep = new RelayCommand<ProjectRoot>(p =>
             {
                 if (p.ModuleConfiguration.InstallSteps == null)
@@ -79,10 +83,14 @@ namespace Module.Editor.ViewModel
                 if (FirstData == null)
                     FirstData = repository.GetData();
             }
+
+            _memoryService.GetMemorySize(Data);
+
             SelectedNode = FirstData;
         }
 
         #region Properties
+        public bool IsNeedSave { get { _memoryService.GetMemorySize(Data); return _memoryService.IsMemorySizeChanged; } set { if (!value) _memoryService.Reset(Data); } }
 
         public InteractionRequest<IConfirmation> ConfirmationRequest { get; private set; } = new InteractionRequest<IConfirmation>();
 

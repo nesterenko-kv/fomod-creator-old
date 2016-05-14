@@ -33,5 +33,15 @@ namespace MainApplication.Services
                 xmlSerializer.Serialize(fs, data);
             }
         }
+
+        public void SerializeObject<T>(T data, Stream stream)
+        {
+            if (data == null) return;
+            using (var fs = stream)
+            {
+                var xmlSerializer = new XmlSerializer(typeof(T));
+                xmlSerializer.Serialize(fs, data);
+            }
+        }
     }
 }

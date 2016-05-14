@@ -69,16 +69,21 @@ namespace MainApplication
 
         private async void CloseTab(object p)
         {
+            var needSave = (p as MainEditorViewModel)?.IsNeedSave;
             var removeView = _regionManager.Regions[Names.MainContentRegion].Views.Cast<FrameworkElement>().FirstOrDefault(v => v.DataContext == p);
-            var result = await CofirmDialog();
-            if (result)
-                SaveProject();
+            if (needSave.HasValue && needSave.Value)
+            {
+                var result = await CofirmDialog();
+                if (result)
+                    SaveProject();
+            }
             _regionManager.Regions[Names.MainContentRegion].Remove(removeView);
         }
 
         private void SaveProject()
         {
             var vm = (MainEditorViewModel) ((FrameworkElement) CurentSelectedItem).DataContext;
+            vm.IsNeedSave = false;
             vm.Save();
         }
 

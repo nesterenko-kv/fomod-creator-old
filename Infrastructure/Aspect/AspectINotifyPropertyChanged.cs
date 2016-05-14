@@ -1,11 +1,15 @@
 ﻿using System.ComponentModel;
 using AspectInjector.Broker;
+using System.Xml.Serialization;
+using System;
 
 namespace FomodInfrastructure.Aspect
 {
+    [Serializable]
     [AdviceInterfaceProxy(typeof (INotifyPropertyChanged))]
     public class AspectINotifyPropertyChanged : INotifyPropertyChanged
     {
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
         [Advice(InjectionPoints.After, InjectionTargets.Setter)]
