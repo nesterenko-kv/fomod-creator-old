@@ -28,26 +28,39 @@
 
 
     <controls:MetroWindow.LeftWindowCommands>
-        <controls:WindowCommands>
+        <controls:WindowCommands ShowLastSeparator="False">
             <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding SaveProjectCommand}">
-                    &gt;
-                    <Button.Style>
-                        <Style BasedOn="{StaticResource SaveButton}" TargetType="Button">
-                            <Style.Triggers>
-                                <Trigger Property="IsEnabled" Value="false">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-
-                <Button Style="{StaticResource B_NewFile}" />
-                <Button Style="{StaticResource B_CloseSolution}" />
-                <Button Style="{StaticResource B_OpenFolder}" />
-                <Button Style="{StaticResource B_Save}" />
-                <Button Style="{StaticResource B_SaveAs}" />
+                <Menu>
+                    <MenuItem Header="Файл">
+                        <MenuItem Header="Создать новый проект">
+                            <MenuItem.Icon>
+                                <Button Style="{StaticResource B_NewFile}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Открыть">
+                            <MenuItem.Icon>
+                                <Button Style="{StaticResource B_OpenFolder}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Command="{Binding SaveProjectCommand}" Header="Сохранить">
+                            <MenuItem.Icon>
+                                <Button Style="{StaticResource B_Save}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Command="{Binding SaveProjectAsCommand}" Header="Сохранить как">
+                            <MenuItem.Icon>
+                                <Button Style="{StaticResource B_SaveAs}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Header="Закрыть программу">
+                            <MenuItem.Icon>
+                                <Button Style="{StaticResource B_CloseSolution}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
             </StackPanel>
         </controls:WindowCommands>
     </controls:MetroWindow.LeftWindowCommands>

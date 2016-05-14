@@ -147,7 +147,7 @@ namespace Module.Editor.ViewModel
             _repository.SaveData(_repository.CurrentPath); //тут мля каламбур - репозиторий при отсутствии пути предлагает его выбрать, а в логике вьюхи нам надо сохранятся по текущему пути по логике программы у репозитория всегда есть путь
         }
 
-        public void SaveAs(string path)
+        public void SaveAs()
         {
             _repository.SaveData();
         }

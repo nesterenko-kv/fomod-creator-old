@@ -31,12 +31,14 @@ namespace MainApplication
             _dialogCoordinator = dialogCoordinator;
             CloseTabCommand = new RelayCommand<object>(CloseTab);
             SaveProjectCommand = new RelayCommand(SaveProject, CanSaveProject);
+            SaveProjectAsCommand = new RelayCommand(SaveProjectAs, CanSaveProject);
         }
 
         #region Commands
 
         public RelayCommand<object> CloseTabCommand { get; }
         public RelayCommand SaveProjectCommand { get; }
+        public RelayCommand SaveProjectAsCommand { get; }
 
         #endregion
 
@@ -79,10 +81,17 @@ namespace MainApplication
         private void SaveProject()
         {
             var vm = (MainEditorViewModel) ((FrameworkElement) CurentSelectedItem).DataContext;
-            vm.Save();
+            vm?.Save();
+        }
+
+        private void SaveProjectAs()
+        {
+            var vm = (MainEditorViewModel)((FrameworkElement)CurentSelectedItem).DataContext;
+            vm?.SaveAs();
         }
 
         private bool CanSaveProject() => (CurentSelectedItem as FrameworkElement)?.DataContext is MainEditorViewModel;
+
         private async Task<bool> CofirmDialog() => await _dialogCoordinator.ShowMessageAsync(this, "Закрыть проект", "Сохранить перед закрытием?", MessageDialogStyle.AffirmativeAndNegative) == MessageDialogResult.Affirmative;
         
         private string GetVersion()
