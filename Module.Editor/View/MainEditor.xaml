@@ -100,7 +100,7 @@
                         <Button x:Name="add_button"
                                 Margin="3"
                                 VerticalAlignment="Center"
-                                Command="{Binding DataContext.AddPlugin,
+                                Command="{Binding DataContext.AddPluginCommand,
                                                   RelativeSource={RelativeSource Mode=FindAncestor,
                                                                                  AncestorType=TreeView}}"
                                 CommandParameter="{Binding}"
@@ -141,7 +141,7 @@
                         <Button x:Name="add_button"
                                 Margin="3"
                                 VerticalAlignment="Center"
-                                Command="{Binding DataContext.AddGroup,
+                                Command="{Binding DataContext.AddGroupCommand,
                                                   RelativeSource={RelativeSource Mode=FindAncestor,
                                                                                  AncestorType=TreeView}}"
                                 CommandParameter="{Binding}"
@@ -167,7 +167,7 @@
                         <Button x:Name="add_button"
                                 Margin="3"
                                 VerticalAlignment="Center"
-                                Command="{Binding DataContext.AddStep,
+                                Command="{Binding DataContext.AddStepCommand,
                                                   RelativeSource={RelativeSource Mode=FindAncestor,
                                                                                  AncestorType=TreeView}}"
                                 CommandParameter="{Binding}"

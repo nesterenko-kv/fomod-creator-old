@@ -20,51 +20,18 @@ namespace Module.Editor.ViewModel
 
         private IRegionManager _regionManager;
         private IRepository<ProjectRoot> _repository;
+        private readonly IMemoryService _memoryService;
 
         #endregion
 
-        public MainEditorViewModel()
+        public MainEditorViewModel(IMemoryService memoryService)
         {
-            AddStep = new RelayCommand<ProjectRoot>(p =>
-            {
-                if (p.ModuleConfiguration.InstallSteps == null)
-                    p.ModuleConfiguration.InstallSteps = new StepList();
-                if (p.ModuleConfiguration.InstallSteps.InstallStep == null)
-                    p.ModuleConfiguration.InstallSteps.InstallStep = new ObservableCollection<InstallStep>();
-                p.ModuleConfiguration.InstallSteps.InstallStep.Add(new InstallStep {Name = "New Step"});
-            });
-            AddGroup = new RelayCommand<InstallStep>(p =>
-            {
-                if (p.OptionalFileGroups == null)
-                    p.OptionalFileGroups = new GroupList();
-                if (p.OptionalFileGroups.Group == null)
-                    p.OptionalFileGroups.Group = new ObservableCollection<Group>();
-                p.OptionalFileGroups.Group.Add(new Group {Name = "New Group"});
-            });
-            AddPlugin = new RelayCommand<Group>(p =>
-            {
-                if (p.Plugins == null)
-                    p.Plugins = new PluginList();
-                if (p.Plugins.Plugin == null)
-                    p.Plugins.Plugin = new ObservableCollection<Plugin>();
-                p.Plugins.Plugin.Add(new Plugin {Name = "New Plugin"});
-            });
-            DeleteDialogCommand = new RelayCommand<object[]>(obj =>
-            {
-                var item = obj[1];
-                ConfirmationRequest.Raise(new Confirmation { Content = "Вы точно хотите удалить "+ item.GetType().Name + " узел?", Title = "Удалить узел?" }, c =>
-                {
-                    if (!c.Confirmed) return;
-                    if (item is Plugin)
-                        RemovePlugin(obj);
-                    else if (item is Group)
-                        RemoveGroup(obj);
-                    else if (item is InstallStep)
-                        RemoveStep(obj);
-                    else
-                        throw new NotImplementedException();
-                });
-            });
+            _memoryService = memoryService;
+
+            AddStepCommand = new RelayCommand<ProjectRoot>(AddStep);
+            AddGroupCommand = new RelayCommand<InstallStep>(AddGroup);
+            AddPluginCommand = new RelayCommand<Group>(AddPlugin);
+            DeleteDialogCommand = new RelayCommand<object[]>(DeleteDialog);
         }
         
         public void ConfigurateViewModel(IRegionManager regionManager, IRepository<ProjectRoot> repository)
@@ -79,10 +46,25 @@ namespace Module.Editor.ViewModel
                 if (FirstData == null)
                     FirstData = repository.GetData();
             }
+            _memoryService.GetMemorySize(Data);
             SelectedNode = FirstData;
         }
 
         #region Properties
+
+        public bool IsNeedSave
+        {
+            get
+            {
+                _memoryService.GetMemorySize(Data);
+                return _memoryService.IsMemorySizeChanged;
+            }
+            set
+            {
+                if (!value)
+                    _memoryService.Reset(Data);
+            }
+        }
 
         public InteractionRequest<IConfirmation> ConfirmationRequest { get; private set; } = new InteractionRequest<IConfirmation>();
 
@@ -99,9 +81,7 @@ namespace Module.Editor.ViewModel
             {
                 _selectedNode = value;
                 if (value == null) return;
-
                 var name = value.GetType().Name;
-
                 var param = new NavigationParameters
                 {
                     {name, value}
@@ -114,14 +94,58 @@ namespace Module.Editor.ViewModel
 
         #region Commands
 
-        public RelayCommand<ProjectRoot> AddStep { get; }
-        public RelayCommand<InstallStep> AddGroup { get; }
-        public RelayCommand<Group> AddPlugin { get; }
+        public RelayCommand<ProjectRoot> AddStepCommand { get; }
+        public RelayCommand<InstallStep> AddGroupCommand { get; }
+        public RelayCommand<Group> AddPluginCommand { get; }
         public RelayCommand<object[]> DeleteDialogCommand { get; private set; }
 
         #endregion
 
         #region Methods
+
+        private void DeleteDialog(object[] obj)
+        {
+            var item = obj[1];
+            ConfirmationRequest.Raise(new Confirmation { Content = "Вы точно хотите удалить " + item.GetType().Name + " узел?", Title = "Удалить узел?" }, c =>
+            {
+                if (!c.Confirmed) return;
+                if (item is Plugin)
+                    RemovePlugin(obj);
+                else if (item is Group)
+                    RemoveGroup(obj);
+                else if (item is InstallStep)
+                    RemoveStep(obj);
+                else
+                    throw new NotImplementedException();
+            });
+        }
+
+        private void AddStep(ProjectRoot p)
+        {
+            if (p.ModuleConfiguration.InstallSteps == null)
+                p.ModuleConfiguration.InstallSteps = new StepList();
+            if (p.ModuleConfiguration.InstallSteps.InstallStep == null)
+                p.ModuleConfiguration.InstallSteps.InstallStep = new ObservableCollection<InstallStep>();
+            p.ModuleConfiguration.InstallSteps.InstallStep.Add(new InstallStep { Name = "New Step" });
+        }
+
+        private void AddGroup(InstallStep p)
+        {
+            if (p.OptionalFileGroups == null)
+                p.OptionalFileGroups = new GroupList();
+            if (p.OptionalFileGroups.Group == null)
+                p.OptionalFileGroups.Group = new ObservableCollection<Group>();
+            p.OptionalFileGroups.Group.Add(new Group { Name = "New Group" });
+        }
+
+        private void AddPlugin(Group p)
+        {
+            if (p.Plugins == null)
+                p.Plugins = new PluginList();
+            if (p.Plugins.Plugin == null)
+                p.Plugins.Plugin = new ObservableCollection<Plugin>();
+            p.Plugins.Plugin.Add(new Plugin { Name = "New Plugin" });
+        }
 
         private void RemoveStep(object[] p)
         {
@@ -129,12 +153,14 @@ namespace Module.Editor.ViewModel
             var child = (InstallStep)p[1];
             parent.ModuleConfiguration.InstallSteps.InstallStep.Remove(child);
         }
+
         private void RemoveGroup(object[] p)
         {
             var parent = (InstallStep)p[0];
             var child = (Group)p[1];
             parent.OptionalFileGroups.Group.Remove(child);
         }
+
         private void RemovePlugin(object[] p)
         {
             var parent = (Group)p[0];
@@ -144,14 +170,14 @@ namespace Module.Editor.ViewModel
 
         public void Save()
         {
-            _repository.SaveData(_repository.CurrentPath); //тут мля каламбур - репозиторий при отсутствии пути предлагает его выбрать, а в логике вьюхи нам надо сохранятся по текущему пути по логике программы у репозитория всегда есть путь
+            _repository.SaveData(_repository.CurrentPath);
         }
 
         public void SaveAs()
         {
             _repository.SaveData();
         }
-        
+
         #endregion
     }
 }

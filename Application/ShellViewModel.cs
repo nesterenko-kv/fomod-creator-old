@@ -54,6 +54,7 @@ namespace MainApplication
             {
                 _curentSelectedItem = value;
                 SaveProjectCommand.RaiseCanExecuteChanged();
+                SaveProjectAsCommand.RaiseCanExecuteChanged();
                 var b = (CurentSelectedItem as FrameworkElement)?.DataContext;
                 if (b != null && b is MainEditorViewModel)
                     Title = $"{(b as MainEditorViewModel).FirstData.ModuleInformation.Name}: {_defautlTitle}";
@@ -71,23 +72,29 @@ namespace MainApplication
 
         private async void CloseTab(object p)
         {
+            var needSave = (p as MainEditorViewModel)?.IsNeedSave;
             var removeView = _regionManager.Regions[Names.MainContentRegion].Views.Cast<FrameworkElement>().FirstOrDefault(v => v.DataContext == p);
+            if (needSave.HasValue && needSave.Value)
+            {
             var result = await CofirmDialog();
             if (result)
                 SaveProject();
+            }
             _regionManager.Regions[Names.MainContentRegion].Remove(removeView);
         }
 
         private void SaveProject()
         {
             var vm = (MainEditorViewModel) ((FrameworkElement) CurentSelectedItem).DataContext;
-            vm?.Save();
+            vm.IsNeedSave = false;
+            vm.Save();
         }
 
         private void SaveProjectAs()
         {
             var vm = (MainEditorViewModel)((FrameworkElement)CurentSelectedItem).DataContext;
-            vm?.SaveAs();
+            vm.IsNeedSave = false;
+            vm.SaveAs();
         }
 
         private bool CanSaveProject() => (CurentSelectedItem as FrameworkElement)?.DataContext is MainEditorViewModel;

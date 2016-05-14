@@ -22,8 +22,7 @@ namespace MainApplication.Services
 
         #region IRepository
 
-        public ProjectRoot LoadData(string path = null)
-            => _projectRoot = path != null ? LoadProjectFromPath(path) : LoadProjectIfPathNull();
+        public ProjectRoot LoadData(string path = null) => _projectRoot = path != null ? LoadProjectFromPath(path) : LoadProjectIfPathNull();
 
         public bool SaveData(string path = null) => path != null ? SaveProjectFromPath(path) : SaveProjectIfPathNull();
 
@@ -50,13 +49,11 @@ namespace MainApplication.Services
 
                 Directory.CreateDirectory(path + @"\fomod");
                 Directory.CreateDirectory(path + @"\Data");
-
-                var info = "FomodModel.XmlTemplates.info.xml";
-                var config = "FomodModel.XmlTemplates.ModuleConfig.xml";
-
-                if (!File.Exists(path + InfoSubPath)) GetXElementResource(info).Save(path + InfoSubPath);
+                
+                if (!File.Exists(path + InfoSubPath))
+                    GetXElementResource(InfoResourcePath).Save(path + InfoSubPath);
                 if (!File.Exists(path + ConfigurationSubPath))
-                    GetXElementResource(config).Save(path + ConfigurationSubPath);
+                    GetXElementResource(ConfigResourcePath).Save(path + ConfigurationSubPath);
 
                 RepositoryStatus = RepositoryStatus.Ok;
                 return path;
@@ -121,7 +118,9 @@ namespace MainApplication.Services
             if (_projectRoot == null)
                 throw new FileNotFoundException();
             var folderPath = GetFolderPath();
-            return folderPath != null && SaveProjectFromPath(folderPath);
+            if (!SaveProjectFromPath(folderPath)) return false;
+            _projectRoot.FolderPath = folderPath;
+            return true;
         }
 
         private bool SaveProjectFromPath(string path)
@@ -156,8 +155,11 @@ namespace MainApplication.Services
 
         #endregion
 
-        private const string InfoSubPath = @"\fomod\info.xml";
+        private const string InfoSubPath = @"\fomod\Info.xml";
         private const string ConfigurationSubPath = @"\fomod\ModuleConfig.xml";
+        private const string InfoResourcePath = "FomodModel.XmlTemplates.Info.xml";
+        private const string ConfigResourcePath = "FomodModel.XmlTemplates.ModuleConfig.xml";
+
         private ProjectRoot _projectRoot;
         
         public Repository(IServiceLocator serviceLocator, ILoggerFacade loggerFacade, IFolderBrowserDialog folderBrowserDialog, IDataService dataService)
