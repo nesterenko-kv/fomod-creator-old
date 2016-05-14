@@ -9,7 +9,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A mod upon which the type of a Plugin depends.
     /// </summary>
-    [Aspect(typeof (AspectINotifyPropertyChanged))]
+    [Aspect(typeof(AspectINotifyPropertyChanged))]
     [Serializable]
     public class FileDependency
     {
@@ -24,18 +24,15 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlAttribute("state")]
         public FileDependencyState State { get; set; }
-
-
-
-
+        
         [XmlIgnore]
         public CompositeDependency Parent { get; set; }
 
-        public static FileDependency Create(string File)
+        public static FileDependency Create(string file)
         {
             return new FileDependency
             {
-                File = File,
+                File = file,
                 State = FileDependencyState.Active
             };
         }

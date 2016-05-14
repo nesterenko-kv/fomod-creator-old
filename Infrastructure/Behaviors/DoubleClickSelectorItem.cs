@@ -2,7 +2,7 @@
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
-namespace FomodInfrastructure.MvvmLibrary.Behavior
+namespace FomodInfrastructure.Behaviors
 {
     /// <summary>
     ///     Class implements a <seealso cref="Selector" /> double click
@@ -10,24 +10,11 @@ namespace FomodInfrastructure.MvvmLibrary.Behavior
     /// </summary>
     public class DoubleClickSelectorItem
     {
-        #region fields
+        #region Fields
 
-        private static readonly DependencyProperty DoubleClickItemCommandProperty =
-            DependencyProperty.RegisterAttached(
-                "DoubleClickItemCommand",
-                typeof (ICommand),
-                typeof (DoubleClickSelectorItem),
-                new PropertyMetadata(null, OnDoubleClickItemCommand));
+        private static readonly DependencyProperty DoubleClickItemCommandProperty = DependencyProperty.RegisterAttached("DoubleClickItemCommand", typeof(ICommand), typeof(DoubleClickSelectorItem), new PropertyMetadata(null, OnDoubleClickItemCommand));
 
-        #endregion fields
-
-        #region constructor
-
-        #endregion constructor
-
-        #region properties
-
-        #endregion properties
+        #endregion Fields
 
         #region methods
 
@@ -48,48 +35,28 @@ namespace FomodInfrastructure.MvvmLibrary.Behavior
         private static void OnDoubleClickItemCommand(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var uiElement = d as Selector;
-
-            // Remove the handler if it exist to avoid memory leaks
             if (uiElement != null)
-                uiElement.MouseDoubleClick -= UIElement_MouseDoubleClick;
-
+                uiElement.MouseDoubleClick -= UIElement_MouseDoubleClick; // Remove the handler if it exist to avoid memory leaks
             var command = e.NewValue as ICommand;
-            if (command != null)
-            {
-                // the property is attached so we attach the Drop event handler
-                uiElement.MouseDoubleClick += UIElement_MouseDoubleClick;
-            }
+            if (command == null) return;
+            if (uiElement != null)
+                uiElement.MouseDoubleClick += UIElement_MouseDoubleClick; // the property is attached so we attach the Drop event handler
         }
 
         private static void UIElement_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var uiElement = sender as Selector;
-
-            // Sanity check just in case this was somehow send by something else
-            if (uiElement == null)
+            if (uiElement == null) // Sanity check just in case this was somehow send by something else
                 return;
-
-            // Is there a selected item that was double clicked?
-            if (uiElement.SelectedIndex == -1)
+            if (uiElement.SelectedIndex == -1) // Is there a selected item that was double clicked?
                 return;
-
             var doubleclickCommand = GetDoubleClickItemCommand(uiElement);
-
-            // There may not be a command bound to this after all
-            if (doubleclickCommand == null)
+            if (doubleclickCommand == null) // There may not be a command bound to this after all
                 return;
-
-            // Check whether this attached behaviour is bound to a RoutedCommand
-            if (doubleclickCommand is RoutedCommand)
-            {
-                // Execute the routed command
-                (doubleclickCommand as RoutedCommand).Execute(uiElement.SelectedItem, uiElement);
-            }
+            if (doubleclickCommand is RoutedCommand) // Check whether this attached behaviour is bound to a RoutedCommand
+                (doubleclickCommand as RoutedCommand).Execute(uiElement.SelectedItem, uiElement); // Execute the routed command
             else
-            {
-                // Execute the Command as bound delegate
-                doubleclickCommand.Execute(uiElement.SelectedItem);
-            }
+                doubleclickCommand.Execute(uiElement.SelectedItem); // Execute the Command as bound delegate
         }
 
         #endregion methods

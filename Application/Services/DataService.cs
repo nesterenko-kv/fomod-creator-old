@@ -10,7 +10,7 @@ namespace MainApplication.Services
         {
             using (var fs = File.OpenRead(path))
             {
-                var xmlSerializer = new XmlSerializer(typeof (T));
+                var xmlSerializer = new XmlSerializer(typeof(T));
                 return (T) xmlSerializer.Deserialize(fs);
             }
         }
@@ -19,7 +19,7 @@ namespace MainApplication.Services
         {
             using (var s = stream)
             {
-                var xmlSerializer = new XmlSerializer(typeof (T));
+                var xmlSerializer = new XmlSerializer(typeof(T));
                 return (T) xmlSerializer.Deserialize(s);
             }
         }
@@ -29,7 +29,7 @@ namespace MainApplication.Services
             if (data == null) return;
             using (var fs = File.Create(path))
             {
-                var xmlSerializer = new XmlSerializer(typeof (T));
+                var xmlSerializer = new XmlSerializer(typeof(T));
                 xmlSerializer.Serialize(fs, data);
             }
         }

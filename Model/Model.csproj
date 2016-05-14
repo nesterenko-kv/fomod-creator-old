@@ -50,6 +50,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\CategoriesEnum.cs" />
     <Compile Include="Base\ModuleCofiguration\Enum\CompositeDependencyOperator.cs" />
     <Compile Include="Base\ModuleCofiguration\FolderSystemItem.cs" />
     <Compile Include="Base\ModuleCofiguration\SystemItem.cs" />

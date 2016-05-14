@@ -4,7 +4,7 @@ using System;
 
 namespace FomodModel.Base
 {
-    [Aspect(typeof (AspectINotifyPropertyChanged))]
+    [Aspect(typeof(AspectINotifyPropertyChanged))]
     [Serializable]
     public class ProjectRoot
     {

@@ -46,7 +46,7 @@ namespace MainApplication
 
         private object _curentSelectedItem;
 
-        [Aspect(typeof (AspectINotifyPropertyChanged))]
+        [Aspect(typeof(AspectINotifyPropertyChanged))]
         public object CurentSelectedItem
         {
             get { return _curentSelectedItem; }
@@ -56,14 +56,14 @@ namespace MainApplication
                 SaveProjectCommand.RaiseCanExecuteChanged();
                 SaveProjectAsCommand.RaiseCanExecuteChanged();
                 var b = (CurentSelectedItem as FrameworkElement)?.DataContext;
-                if (b != null && b is MainEditorViewModel)
+                if (b is MainEditorViewModel)
                     Title = $"{(b as MainEditorViewModel).FirstData.ModuleInformation.Name}: {_defautlTitle}";
                 else
                     Title = _defautlTitle;
             }
         }
 
-        [Aspect(typeof (AspectINotifyPropertyChanged))]
+        [Aspect(typeof(AspectINotifyPropertyChanged))]
         public string Title { get; set; }
 
         #endregion

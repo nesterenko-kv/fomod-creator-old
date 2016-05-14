@@ -457,7 +457,7 @@
 					<xs:documentation>The pattern against which to match the conditional flags and installed files. If the pattern is matched, then the install step will be visible.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="optionalFileGroups" type="groupList" minOccurs="1">
+			<xs:element name="optionalfileGroups" type="groupList" minOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The list of optional files (or plugins) that may optionally be installed for this module.</xs:documentation>
 				</xs:annotation>
@@ -591,7 +591,7 @@
 		</xs:sequence>
 	</xs:complexType>
 
-	<xs:complexType name="conditionalFileInstallList">
+	<xs:complexType name="conditionalfileInstallList">
 		<xs:annotation>
 			<xs:documentation>A list of optional files that may optionally be installed for this module, base on condition flags.</xs:documentation>
 		</xs:annotation>
@@ -666,7 +666,7 @@
 					<xs:documentation>Items upon which the module depends.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="requiredInstallFiles" type="fileList" minOccurs="0">
+			<xs:element name="requiredInstallfiles" type="fileList" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>The list of files and folders that must be installed for this module.</xs:documentation>
 				</xs:annotation>
@@ -676,7 +676,7 @@
 					<xs:documentation>The list of install steps that determine which files (or plugins) that may optionally be installed for this module.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="conditionalFileInstalls" type="conditionalFileInstallList" minOccurs="0">
+			<xs:element name="conditionalfileInstalls" type="conditionalfileInstallList" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>The list of optional files that may optionally be installed for this module, base on condition flags.</xs:documentation>
 				</xs:annotation>

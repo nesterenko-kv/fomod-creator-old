@@ -1,5 +1,4 @@
 using System;
-using System.Collections.ObjectModel;
 using System.Xml.Serialization;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
@@ -9,7 +8,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A Plugin.
     /// </summary>
-    [Aspect(typeof (AspectINotifyPropertyChanged))]
+    [Aspect(typeof(AspectINotifyPropertyChanged))]
     [Serializable]
     public class Plugin
     {
@@ -25,10 +24,10 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlElement("image")]
         public Image Image { get; set; }
 
-        [XmlElement("files", typeof (FileList))]
+        [XmlElement("files", typeof(FileList))]
         public FileList Files { get; set; }
 
-        [XmlElement("conditionFlags", typeof (ConditionFlagList))]
+        [XmlElement("conditionFlags", typeof(ConditionFlagList))]
         public ConditionFlagList ConditionFlags { get; set; }
 
         /// <summary>

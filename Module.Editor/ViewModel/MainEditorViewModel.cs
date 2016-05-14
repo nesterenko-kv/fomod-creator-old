@@ -13,7 +13,7 @@ using FomodInfrastructure.Interface;
 
 namespace Module.Editor.ViewModel
 {
-    [Aspect(typeof (AspectINotifyPropertyChanged))]
+    [Aspect(typeof(AspectINotifyPropertyChanged))]
     public class MainEditorViewModel : BindableBase
     {
         #region Services

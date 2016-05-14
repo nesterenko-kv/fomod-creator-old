@@ -76,7 +76,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
             if (_canExecute == null)
                 return true;
             if (!_canExecute.IsStatic && !_canExecute.IsAlive) return false;
-            if (parameter == null && typeof (T).GetTypeInfo().IsValueType)
+            if (parameter == null && typeof(T).GetTypeInfo().IsValueType)
                 return _canExecute.Execute();
             if (parameter == null || parameter is T)
                 return _canExecute.Execute((T) parameter);
@@ -90,14 +90,14 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                 return;
             if (parameter1 == null)
             {
-                if (typeof (T).GetTypeInfo().IsValueType)
+                if (typeof(T).GetTypeInfo().IsValueType)
                     _execute.Execute();
                 else
                 // ReSharper disable once ExpressionIsAlwaysNull
-                    _execute.Execute((T) parameter1);
+                    _execute.Execute((T)parameter1);
             }
             else
-                _execute.Execute((T) parameter1);
+                _execute.Execute((T)parameter1);
         }
 
         public void RaiseCanExecuteChanged()

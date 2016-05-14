@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace FomodInfrastructure.MvvmLibrary.Behavior
+namespace FomodInfrastructure.Behaviors
 {
     /// <summary>
     ///     This is an Attached Behavior and is intended for use with
@@ -16,14 +16,7 @@ namespace FomodInfrastructure.MvvmLibrary.Behavior
         ///     The Dependency property. To allow for Binding, a dependency
         ///     property must be used.
         /// </summary>
-        private static readonly DependencyProperty PreviewDropCommandProperty =
-            DependencyProperty.RegisterAttached
-                (
-                    "PreviewDropCommand",
-                    typeof (ICommand),
-                    typeof (DropBehavior),
-                    new PropertyMetadata(PreviewDropCommandPropertyChangedCallBack)
-                );
+        private static readonly DependencyProperty PreviewDropCommandProperty = DependencyProperty.RegisterAttached("PreviewDropCommand", typeof(ICommand), typeof(DropBehavior), new PropertyMetadata(PreviewDropCommandPropertyChangedCallBack));
 
         #endregion
 

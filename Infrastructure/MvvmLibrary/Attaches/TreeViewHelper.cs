@@ -6,9 +6,7 @@ namespace FomodInfrastructure.MvvmLibrary.Attaches
 {
     public class TreeViewHelper
     {
-        public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.RegisterAttached("SelectedItem", typeof (object), typeof (TreeViewHelper),
-                new PropertyMetadata(null, OnSelectedItemChanged));
+        public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.RegisterAttached("SelectedItem", typeof(object), typeof(TreeViewHelper), new PropertyMetadata(null, OnSelectedItemChanged));
 
         public static object GetSelectedItem(TreeView treeView)
         {
@@ -31,12 +29,11 @@ namespace FomodInfrastructure.MvvmLibrary.Attaches
             if (treeViewItem != null)
                 treeViewItem.IsSelected = true;
             treeView.SelectedItemChanged += TreeViewItemChanged;
-   
         }
 
         private static void TreeViewItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            ((TreeView) sender).SetValue(SelectedItemProperty, e.NewValue);
+            ((TreeView)sender).SetValue(SelectedItemProperty, e.NewValue);
         }
 
         private static TreeViewItem SelectTreeViewItemForBinding(object dataItem, ItemsControl ic)
@@ -46,10 +43,6 @@ namespace FomodInfrastructure.MvvmLibrary.Attaches
             IItemContainerGenerator generator = ic.ItemContainerGenerator;
             using (generator.StartAt(generator.GeneratorPositionFromIndex(-1), GeneratorDirection.Forward))
             {
-                var coll = ic.Items;
-                var coll2 = ic.HasItems;
-                var coll3 = ic.ItemsSource;
-
                 foreach (var t in ic.Items)
                 {
                     bool isNewlyRealized;

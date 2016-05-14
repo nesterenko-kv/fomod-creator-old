@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Module.Editor.View.Plugin.PluginView"
+﻿<UserControl x:Class="Module.Editor.View.PluginView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -78,7 +78,7 @@
                                                     <DataTemplate DataType="{x:Type moduleCofiguration:FileSystemItem}">
                                                         <TextBlock Height="16"
                                                                    VerticalAlignment="Center"
-                                                                   Text="File"
+                                                                   Text="file"
                                                                    TextTrimming="CharacterEllipsis" />
                                                     </DataTemplate>
                                                     <DataTemplate

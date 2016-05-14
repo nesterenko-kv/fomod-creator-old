@@ -10,7 +10,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     Describes the display properties of the module title.
     /// </summary>
-    [Aspect(typeof (AspectINotifyPropertyChanged))]
+    [Aspect(typeof(AspectINotifyPropertyChanged))]
     [Serializable]
     public class ModuleTitle
     {

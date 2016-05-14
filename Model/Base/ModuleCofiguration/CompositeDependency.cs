@@ -11,7 +11,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A dependency that is made up of one or more dependencies.
     /// </summary>
-    [Aspect(typeof (AspectINotifyPropertyChanged))]
+    [Aspect(typeof(AspectINotifyPropertyChanged))]
     [Serializable]
     public class CompositeDependency
     {
@@ -27,19 +27,28 @@ namespace FomodModel.Base.ModuleCofiguration
             FlagDependencies.CollectionChanged += Dependencies_CollectionChanged;
         }
 
-        [XmlElement("dependencies", typeof (CompositeDependency))]
-        public CompositeDependency Dependencies { get { return _dependencies; } set { _dependencies = value; if (value != null) value.Parent = this; } }
+        [XmlElement("dependencies", typeof(CompositeDependency))]
+        public CompositeDependency Dependencies
+        {
+            get { return _dependencies; }
+            set
+            {
+                _dependencies = value;
+                if (value != null)
+                    value.Parent = this;
+            }
+        }
 
         [XmlElement("fileDependency", typeof(FileDependency))]
         public ObservableCollection<FileDependency> FileDependencies { get; private set; } = new ObservableCollection<FileDependency>();
 
-        [XmlElement("flagDependency", typeof (FlagDependency))]
+        [XmlElement("flagDependency", typeof(FlagDependency))]
         public ObservableCollection<FlagDependency> FlagDependencies { get; private set; } = new ObservableCollection<FlagDependency>();
 
-        [XmlElement("fommDependency", typeof (VersionDependency))]
+        [XmlElement("fommDependency", typeof(VersionDependency))]
         public VersionDependency FommVersionDependencies { get; set; }
 
-        [XmlElement("gameDependency", typeof (VersionDependency))]
+        [XmlElement("gameDependency", typeof(VersionDependency))]
         public VersionDependency GameVersionDependencies { get; set; }
 
         /// <summary>
@@ -54,17 +63,14 @@ namespace FomodModel.Base.ModuleCofiguration
 
         private void Dependencies_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-                foreach (object item in e.NewItems)
-                    (item as dynamic).Parent = this;
+            if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add) return;
+            foreach (var item in e.NewItems)
+                ((dynamic) item).Parent = this;
         }
 
         public static CompositeDependency Create()
         {
-            return new CompositeDependency
-            {
-
-            };
+            return new CompositeDependency();
         }
     }
 }
