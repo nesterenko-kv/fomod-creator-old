@@ -16,8 +16,6 @@ namespace FomodModel.Base.ModuleCofiguration
     public class CompositeDependency
     {
         CompositeDependency _dependencies;
-        ObservableCollection<FileDependency> _fileDependencies;
-        ObservableCollection<FlagDependency> _flagDependencies;
 
         /// <summary>
         ///     CompositeDependency class constructor
@@ -25,17 +23,18 @@ namespace FomodModel.Base.ModuleCofiguration
         public CompositeDependency()
         {
             Operator = CompositeDependencyOperator.And;
+            FileDependencies.CollectionChanged += Dependencies_CollectionChanged;
+            FlagDependencies.CollectionChanged += Dependencies_CollectionChanged;
         }
 
         [XmlElement("dependencies", typeof (CompositeDependency))]
         public CompositeDependency Dependencies { get { return _dependencies; } set { _dependencies = value; if (value != null) value.Parent = this; } }
 
-        [XmlElement("fileDependency", typeof (FileDependency))]
-        public ObservableCollection<FileDependency> FileDependencies { get { return _fileDependencies; } set { _fileDependencies = value; ConfigFileDependencies(value); } }
-
+        [XmlElement("fileDependency", typeof(FileDependency))]
+        public ObservableCollection<FileDependency> FileDependencies { get; private set; } = new ObservableCollection<FileDependency>();
 
         [XmlElement("flagDependency", typeof (FlagDependency))]
-        public ObservableCollection<FlagDependency> FlagDependencies { get { return _flagDependencies; } set { _flagDependencies = value; ConfigFlagDependencies(value); } }
+        public ObservableCollection<FlagDependency> FlagDependencies { get; private set; } = new ObservableCollection<FlagDependency>();
 
         [XmlElement("fommDependency", typeof (VersionDependency))]
         public VersionDependency FommVersionDependencies { get; set; }
@@ -52,19 +51,6 @@ namespace FomodModel.Base.ModuleCofiguration
 
         [XmlIgnore]
         public CompositeDependency Parent { get; set; }
-
-
-        private void ConfigFileDependencies(ObservableCollection<FileDependency> value)
-        {
-            if (FileDependencies != null) FileDependencies.CollectionChanged -= Dependencies_CollectionChanged;
-            if (value != null) value.CollectionChanged += Dependencies_CollectionChanged;
-        }
-
-        private void ConfigFlagDependencies(ObservableCollection<FlagDependency> value)
-        {
-            if (FlagDependencies != null) FlagDependencies.CollectionChanged -= Dependencies_CollectionChanged; ;
-            if (value != null) value.CollectionChanged += Dependencies_CollectionChanged; ;
-        }
 
         private void Dependencies_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
