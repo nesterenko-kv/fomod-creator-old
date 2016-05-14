@@ -14,10 +14,13 @@
                 <!--  EndRegion  -->
                 <ResourceDictionary Source="Resources/Icons.xaml" />
                 <ResourceDictionary Source="Resources/UI/CustomStyles.xaml" />
+                <ResourceDictionary Source="Resources/UI/Icons/_icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:ConverterMultiCommandParams x:Key="ConverterMultiCommandParams" />
             <converters:NullToVisibilityConverter x:Key="NotNullToVisibleConverter" />
             <converters:NullToVisibilityConverter x:Key="IsNullToVisibleConverter" IsNullToVisible="True" />
+
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -37,6 +37,8 @@
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
                     <ResourceDictionary Source="Styles.xaml" />
+                    <ResourceDictionary Source="FileDependencyTemplate.xaml" />
+                    <ResourceDictionary Source="FlagDependencyTemplate.xaml" />
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </DataTemplate.Resources>
@@ -89,44 +91,11 @@
                             <ColumnDefinition SharedSizeGroup="c3" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="FileDependencies" />
-
                         <Border Grid.Column="1"
                                 Margin="9,0,3,0"
                                 BorderBrush="LightGray"
                                 BorderThickness="1,1,1,0">
-                            <ItemsControl Background="{x:Null}"
-                                          ItemsSource="{Binding FileDependencies}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border Margin="0,0,0,0"
-                                                BorderBrush="LightGray"
-                                                BorderThickness="0,0,0,1">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition SharedSizeGroup="u1" />
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                <ComboBox Grid.Column="0"
-                                                          Margin="0" BorderThickness="0" Background="Transparent"
-                                                          ItemsSource="{Binding Source={StaticResource FileDependencyState}}"
-                                                          SelectedItem="{Binding State}" />
-                                                <TextBlock Grid.Column="1"
-                                                           Margin="9,0,0,0"
-                                                           VerticalAlignment="Center"
-                                                           Text="{Binding File}" />
-                                                <Button Grid.Column="2"
-                                                        Margin="6,0"
-                                                        Command="{Binding DataContext.RemoveFileDependencyCommand,
-                                                                          RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                                         AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding}"
-                                                        Style="{StaticResource DeleteButton}" />
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                            <ItemsControl Background="{x:Null}" ItemsSource="{Binding FileDependencies}" />
                         </Border>
                         <Button Grid.Column="2"
                                 Margin="0,5,0,0"
@@ -149,44 +118,7 @@
                                 Margin="9,0,3,0"
                                 BorderBrush="LightGray"
                                 BorderThickness="1,1,1,0">
-                            <ItemsControl Background="{x:Null}"
-                                          ItemsSource="{Binding FlagDependencies}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border Margin="0,0,0,0"
-                                                BorderBrush="LightGray"
-                                                BorderThickness="0,0,0,1">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition SharedSizeGroup="u1" />
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                <ComboBox xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                                                          Grid.Column="0"
-                                                          Margin="0" BorderThickness="0" Background="Transparent"
-                                                          SelectedItem="{Binding Value}">
-                                                    <sys:String>On</sys:String>
-                                                    <sys:String>Off</sys:String>
-                                                </ComboBox>
-
-                                                <TextBox Grid.Column="1" BorderThickness="0" VerticalContentAlignment="Center"
-                                                         Margin="3,0,0,0" Padding="0" Background="{x:Null}"
-                                                         VerticalAlignment="Stretch"
-                                                         Text="{Binding Flag,
-                                                                        UpdateSourceTrigger=PropertyChanged}" />
-                                                <Button Grid.Column="2"
-                                                        Margin="6,0"
-                                                        Command="{Binding DataContext.RemoveFlagDependencyCommand,
-                                                                          RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                                         AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding}"
-                                                        Style="{StaticResource DeleteButton}" />
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                            <ItemsControl Background="{x:Null}" ItemsSource="{Binding FlagDependencies}" />
                         </Border>
                         <Button Grid.Column="2"
                                 Margin="0,5,0,0"
