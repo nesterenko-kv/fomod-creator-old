@@ -4,7 +4,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:view="clr-namespace:Module.Editor.View"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:enum="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
              xmlns:moduleCofiguration="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
@@ -19,16 +18,14 @@
         </ObjectDataProvider>
     </UserControl.Resources>
     <GroupBox Header="Plugin" DataContext="{Binding Data}">
-        <controls:MetroAnimatedSingleRowTabControl controls:ControlsHelper.HeaderFontSize="18">
-            <controls:MetroTabItem CloseButtonEnabled="False" Header="Инфо">
+        <TabControl controls:ControlsHelper.HeaderFontSize="18">
+            <TabItem Header="Инфо">
                 <DockPanel>
                     <TextBox DockPanel.Dock="Top"
                              VerticalAlignment="Top"
                              MaxHeight="38"
                              Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             controls:TextBoxHelper.Watermark="Название плагина"
-                             controls:TextBoxHelper.UseFloatingWatermark="True"
-                             controls:TextBoxHelper.ClearTextButton="True" />
+                             controls:TextBoxHelper.Watermark="Название плагина" />
                     <ComboBox DockPanel.Dock="Top"
                               VerticalAlignment="Top"
                               controls:TextBoxHelper.Watermark="Тип плагина"
@@ -37,17 +34,16 @@
                     <TextBox AcceptsReturn="True"
                              TextWrapping="Wrap"
                              Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             controls:TextBoxHelper.Watermark="Описание плагина"
-                             controls:TextBoxHelper.UseFloatingWatermark="True" />
+                             controls:TextBoxHelper.Watermark="Описание плагина"/>
                 </DockPanel>
-            </controls:MetroTabItem>
-                <controls:MetroTabItem CloseButtonEnabled="False" Header="Флаги">
+            </TabItem>
+            <TabItem Header="Флаги">
 
-            </controls:MetroTabItem>
-            <controls:MetroTabItem CloseButtonEnabled="False" Header="Зависимости">
+            </TabItem>
+            <TabItem Header="Зависимости">
 
-            </controls:MetroTabItem>
-            <controls:MetroTabItem CloseButtonEnabled="False" Header="Файлы и папки">
+            </TabItem>
+            <TabItem Header="Файлы и папки">
                 <ListView ItemsSource="{Binding Files.Items}">
                     <ListView.View>
                         <GridView>
@@ -101,7 +97,7 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-            </controls:MetroTabItem>
-        </controls:MetroAnimatedSingleRowTabControl>
+            </TabItem>
+        </TabControl>
     </GroupBox>
 </UserControl>

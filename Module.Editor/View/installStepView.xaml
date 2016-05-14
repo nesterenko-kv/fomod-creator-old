@@ -26,12 +26,10 @@
             <TextBox MaxHeight="38"
                      VerticalAlignment="Top"
                      controls:TextBoxHelper.Watermark="Название шага"
-                     controls:TextBoxHelper.UseFloatingWatermark="True"
-                     controls:TextBoxHelper.ClearTextButton="True"
                      DockPanel.Dock="Top"
                      Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ComboBox VerticalAlignment="Top"
-                      controls:TextBoxHelper.Watermark="Сортировка optionalFileGroups"
+                      controls:TextBoxHelper.Watermark="Сортировка групп"
                       DockPanel.Dock="Top"
                       ItemsSource="{Binding Source={StaticResource OrderEnum}}"
                       SelectedValue="{Binding OptionalFileGroups.Order}" />

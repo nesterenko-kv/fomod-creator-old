@@ -10,13 +10,6 @@
              d:DesignWidth="1100"
              dialog:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/Icons.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="270" />
@@ -49,50 +42,16 @@
                            Text="Добро пожаловать!" />
                 <Button Margin="3"
                         Command="{Binding CreateProjectCommand}"
-                        Style="{DynamicResource GreenButton}">
-                    <StackPanel Orientation="Horizontal">
-                        <Rectangle Width="12.21"
-                                   Height="16"
-                                   Margin="0 0 5 0">
-                            <Rectangle.Fill>
-                                <VisualBrush Visual="{StaticResource appbar_page_solid}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <TextBlock Text="Создать проект" />
-                    </StackPanel>
-                </Button>
+                        Style="{DynamicResource GreenButton}"
+                        Content="Создать проект" />
                 <Button Margin="3"
                         Command="{Binding OpenProjectCommand}"
-                        Style="{DynamicResource GreenButton}">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Rectangle Width="14.21"
-                                       Height="16"
-                                       Margin="0 0 5 0">
-                                <Rectangle.Fill>
-                                    <VisualBrush Visual="{StaticResource appbar_page_solid_move}" />
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <TextBlock Text="Открыть проект" />
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
+                        Style="{DynamicResource GreenButton}"
+                        Content="Открыть проект" />
                 <Button Margin="3"
                         Command="{Binding CloseApplicationCommand}"
-                        Style="{DynamicResource RedButton}">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Rectangle Width="14"
-                                       Height="14"
-                                       Margin="0 0 5 0">
-                                <Rectangle.Fill>
-                                    <VisualBrush Visual="{StaticResource appbar_close}" />
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <TextBlock Text="Закрыть программу" />
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
+                        Style="{DynamicResource RedButton}"
+                        Content="Закрыть программу" />
             </StackPanel>
         </Border>
     </Grid>
