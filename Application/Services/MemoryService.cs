@@ -14,18 +14,15 @@ namespace MainApplication.Services
 
         public long GetMemorySize(object obj)
         {
-            byte[] array;
-
             using (var ms = new MemoryStream())
             {
                 var bf = new BinaryFormatter();
                 bf.Serialize(ms, obj);
-                array = ms.ToArray();
+                var size = ms.Length;
+                if (LastMemorySize != -1 && LastMemorySize != size)
+                    IsMemorySizeChanged = true;
+                return LastMemorySize = size;
             }
-            long size = array.Length;
-            if (LastMemorySize != -1 && LastMemorySize != size)
-                IsMemorySizeChanged = true;
-            return LastMemorySize = size;
         }
 
         public void Reset(object obj)

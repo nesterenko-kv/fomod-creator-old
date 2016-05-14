@@ -10,11 +10,12 @@ namespace Module.Welcome
 {
     public class WelcomeRegister : IModule
     {
-        public WelcomeRegister(IRegionManager regionManager, IContainer container)
-        {
-            _regionManager = regionManager;
-            _container = container;
-        }
+        #region Services
+
+        private readonly IRegionManager _regionManager;
+        private readonly IContainer _container;
+
+        #endregion
 
         #region IModule
 
@@ -37,11 +38,10 @@ namespace Module.Welcome
 
         #endregion
 
-        #region Services
-
-        private readonly IRegionManager _regionManager;
-        private readonly IContainer _container;
-
-        #endregion
+        public WelcomeRegister(IRegionManager regionManager, IContainer container)
+        {
+            _regionManager = regionManager;
+            _container = container;
+        }
     }
 }

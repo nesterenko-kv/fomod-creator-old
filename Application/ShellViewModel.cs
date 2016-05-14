@@ -76,9 +76,9 @@ namespace MainApplication
             var removeView = _regionManager.Regions[Names.MainContentRegion].Views.Cast<FrameworkElement>().FirstOrDefault(v => v.DataContext == p);
             if (needSave.HasValue && needSave.Value)
             {
-            var result = await CofirmDialog();
-            if (result)
-                SaveProject();
+                var result = await CofirmDialog();
+                if (result)
+                    SaveProject();
             }
             _regionManager.Regions[Names.MainContentRegion].Remove(removeView);
         }
