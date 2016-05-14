@@ -40,25 +40,20 @@
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="ListBoxItem">
                     <DockPanel>
-                        <Button Margin="3"
-                                VerticalAlignment="Center"
-                                Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                CommandParameter="{Binding}"
-                                DockPanel.Dock="Right"
-                                x:Name="DeleteButton"
+                        <Button x:Name="delete_button"
                                 Style="{DynamicResource DeleteButton}"
-                                Visibility="Collapsed" />
-                        <Button Margin="3"
-                                VerticalAlignment="Center"
+                                DockPanel.Dock="Right"
+                                Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                CommandParameter="{Binding}" />
+                        <Button Style="{DynamicResource MyLinkButton}"
                                 Command="{Binding DataContext.GoToCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                 CommandParameter="{Binding FolderPath}"
                                 Content="{Binding FolderPath}"
-                                Style="{DynamicResource MyLinkButton}"
                                 ToolTip="{Binding FolderPath}" />
                     </DockPanel>
                     <DataTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="DeleteButton" Property="Visibility" Value="Visible" />
+                        <Trigger Property="IsMouseOver" Value="false">
+                            <Setter TargetName="delete_button" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>

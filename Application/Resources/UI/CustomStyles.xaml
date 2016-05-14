@@ -4,7 +4,7 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Colors.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Styles.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style x:Key="MyLinkButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
         <Setter Property="Template">
             <Setter.Value>
@@ -15,118 +15,116 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
 
-    <Style x:Key="AddButton"
-           TargetType="Button">
-        <Setter Property="Height" Value="14" />
-        <Setter Property="Width" Value="14" />
+    <Style x:Key="DeleteButton" TargetType="Button">
+        <Setter Property="Height" Value="15" />
+        <Setter Property="Width" Value="15" />
+        <Setter Property="Margin" Value="3" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource LinkButtonForeground}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Rectangle Width="{TemplateBinding Width}"
-                               Height="{TemplateBinding Height}"
-                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill"
-                                         Visual="{DynamicResource appbar_add}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
+                    <Grid Background="{TemplateBinding Background}">
+                        <Path x:Name="ButtonPath"
+                              Margin="2"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Stroke="{DynamicResource CloseButtonStroke}"
+                              StrokeThickness="2"
+                              Data="M0,0 L1,1 M0,1 L1,0"
+                              Stretch="Uniform"
+                              StrokeEndLineCap="Flat"
+                              StrokeStartLineCap="Flat" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStrokeHighlighted}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="ButtonPath" Property="Margin" Value="2.5 2.5 1.5 1.5" />
+                            <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStroke}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Foreground" Value="{DynamicResource GrayHoverBrush}" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
-    <Style x:Key="DeleteButton"
-           TargetType="Button">
-        <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+    <Style x:Key="AddButton" TargetType="Button" BasedOn="{StaticResource DeleteButton}">
+        <Setter Property="Margin" Value="2" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Rectangle Width="14"
-                               Height="14"
-                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill"
-                                         Visual="{DynamicResource appbar_close}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
+                    <Grid Background="{TemplateBinding Background}">
+                        <Path x:Name="ButtonPath"
+                              Margin="1"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Stroke="{DynamicResource CloseButtonStroke}"
+                              StrokeThickness="2"
+                              Data="M0,0.5 L1,0.5 M0.5,0 L0.5,1"
+                              Stretch="Uniform"
+                              StrokeEndLineCap="Flat"
+                              StrokeStartLineCap="Flat" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStrokeHighlighted}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="ButtonPath" Property="Margin" Value="1.5 1.5 0.5 0.5" />
+                            <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStroke}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Foreground" Value="{DynamicResource GrayHoverBrush}" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
-
-    <Style x:Key="SaveButton"
-           TargetType="Button">
-        <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Rectangle Width="18"
-                               Height="18"
-                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill"
-                                         Visual="{DynamicResource appbar_save}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Foreground" Value="{DynamicResource GrayHoverBrush}" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="RedButton"
-           TargetType="Button"
-           BasedOn="{StaticResource SquareButtonStyle}">
-        <Style.Resources>
-            <SolidColorBrush x:Key="IsPressedBackground"
-                             Color="#FFC72E2E" />
-            <SolidColorBrush x:Key="IsPressedBorderBrush"
-                             Color="#FFF34747" />
-            <SolidColorBrush x:Key="IsPressedForeground"
-                             Color="White" />
-            <SolidColorBrush x:Key="IsMouseOverBackground"
-                             Color="#FFF34747" />
-            <SolidColorBrush x:Key="IsMouseOverBorderBrush"
-                             Color="#FFF34747" />
-            <SolidColorBrush x:Key="IsMouseOverForeground"
-                             Color="White" />
-        </Style.Resources>
-
+    <Style x:Key="RedButton" TargetType="Button" BasedOn="{StaticResource StandardButton}">
         <Style.Triggers>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{StaticResource IsPressedBackground}" />
-                <Setter Property="BorderBrush" Value="{StaticResource IsPressedBorderBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource IsPressedForeground}" />
+                <Setter Property="Background" Value="#FFC72E2E" />
+                <Setter Property="BorderBrush" Value="#FFF34747" />
+                <Setter Property="Foreground" Value="White" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver" Value="True" />
                     <Condition Property="IsPressed" Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Foreground" Value="{StaticResource IsMouseOverForeground}" />
-                <Setter Property="BorderBrush" Value="{StaticResource IsMouseOverBorderBrush}" />
-                <Setter Property="Background" Value="{StaticResource IsMouseOverBackground}" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="BorderBrush" Value="#FFF34747" />
+                <Setter Property="Background" Value="#FFF34747" />
             </MultiTrigger>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Foreground" Value="#ADADAD" />
@@ -135,38 +133,21 @@
 
     </Style>
 
-    <Style x:Key="GreenButton"
-           BasedOn="{StaticResource SquareButtonStyle}"
-           TargetType="{x:Type Button}">
-        <Style.Resources>
-            <SolidColorBrush x:Key="IsPressedBackground"
-                             Color="#FF197819" />
-            <SolidColorBrush x:Key="IsPressedBorderBrush"
-                             Color="#FF197819" />
-            <SolidColorBrush x:Key="IsPressedForeground"
-                             Color="White" />
-
-            <SolidColorBrush x:Key="IsMouseOverBackground"
-                             Color="#FF4DA44D" />
-            <SolidColorBrush x:Key="IsMouseOverBorderBrush"
-                             Color="#FF4DA44D" />
-            <SolidColorBrush x:Key="IsMouseOverForeground"
-                             Color="White" />
-        </Style.Resources>
+    <Style x:Key="GreenButton" BasedOn="{StaticResource StandardButton}" TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{StaticResource IsPressedBackground}" />
-                <Setter Property="BorderBrush" Value="{StaticResource IsPressedBorderBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource IsPressedForeground}" />
+                <Setter Property="Background" Value="#FF197819" />
+                <Setter Property="BorderBrush" Value="#FF197819" />
+                <Setter Property="Foreground" Value="White" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver" Value="True" />
                     <Condition Property="IsPressed" Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Foreground" Value="{StaticResource IsMouseOverForeground}" />
-                <Setter Property="BorderBrush" Value="{StaticResource IsMouseOverBorderBrush}" />
-                <Setter Property="Background" Value="{StaticResource IsMouseOverBackground}" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="BorderBrush" Value="#FF4DA44D" />
+                <Setter Property="Background" Value="#FF4DA44D" />
             </MultiTrigger>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Foreground" Value="#ADADAD" />

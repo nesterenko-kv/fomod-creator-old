@@ -21,6 +21,123 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="MyVSWindowStyleKey" TargetType="{x:Type controls:MetroWindow}" BasedOn="{StaticResource VSWindowStyleKey}" />
+            <DataTemplate x:Key="Simple">
+                <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
+                               TextTrimming="CharacterEllipsis"
+                               ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+            </DataTemplate>
+            <DataTemplate x:Key="Closed">
+                <Grid MaxWidth="250">
+                    <TextBlock x:Name="header"
+                                   Text="{Binding Content.DataContext.FirstData.ModuleInformation.Name, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}}"
+                                   TextTrimming="CharacterEllipsis"
+                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                </Grid>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Content.DataContext.FirstData.ModuleInformation.Name, RelativeSource={RelativeSource AncestorType=controls:MetroTabItem, Mode=FindAncestor}}" Value="">
+                        <Setter TargetName="header" Property="Text" Value="*No name*" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+            <Style x:Key="TabItemStyle"
+               TargetType="{x:Type TabItem}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Foreground" Value="{StaticResource Foreground}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TabItem}">
+                            <Grid Height="20"
+                              Background="{TemplateBinding Background}"
+                              SnapsToDevicePixels="true">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="25" />
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Column="0"
+                                              Margin="10 0 10 0"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" x:Name="content" ContentTemplate="{StaticResource Closed}" />
+                                <Button x:Name="close_button"
+                                    Grid.Column="1"
+                                    Width="15"
+                                    Height="15"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Command="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:MetroWindow}}"
+                                    CommandParameter="{Binding Content.DataContext}"
+                                    DockPanel.Dock="Right">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="Cursor" Value="Hand" />
+                                            <Setter Property="Focusable" Value="False" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Grid Background="{TemplateBinding Background}">
+                                                            <Path x:Name="ButtonPath"
+                                                              Margin="2"
+                                                              HorizontalAlignment="Center"
+                                                              VerticalAlignment="Center"
+                                                              Stroke="{DynamicResource CloseButtonStroke}"
+                                                              StrokeThickness="2"
+                                                              Data="M0,0 L1,1 M0,1 L1,0"
+                                                              Stretch="Uniform"
+                                                              StrokeEndLineCap="Flat"
+                                                              StrokeStartLineCap="Flat" />
+                                                        </Grid>
+                                                        <ControlTemplate.Triggers>
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
+                                                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
+                                                                </MultiDataTrigger.Conditions>
+                                                                <MultiDataTrigger.Setters>
+                                                                    <Setter Property="Visibility" Value="Hidden" />
+                                                                </MultiDataTrigger.Setters>
+                                                            </MultiDataTrigger>
+                                                            <Trigger Property="IsEnabled" Value="False">
+                                                                <Setter Property="Visibility" Value="Hidden" />
+                                                            </Trigger>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="{DynamicResource CloseButtonBackgroundHighlighted}" />
+                                                                <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStrokeHighlighted}" />
+                                                            </Trigger>
+                                                            <Trigger Property="IsPressed" Value="true">
+                                                                <Setter Property="Background" Value="{DynamicResource CloseButtonBackgroundPressed}" />
+                                                                <Setter TargetName="ButtonPath" Property="Margin" Value="2.5 2.5 1.5 1.5" />
+                                                                <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStroke}" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="false">
+                                    <Setter Property="Background" Value="Transparent" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Background" Value="{DynamicResource BorderBrushSelected}" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter Property="Background" Value="{DynamicResource BackgroundSelected}" />
+                                </Trigger>
+                                <DataTrigger Binding="{Binding Content.DataContext.Header, RelativeSource={RelativeSource Self}}" Value="Welcome">
+                                    <Setter TargetName="close_button" Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Content.DataContext.FirstData,  RelativeSource={RelativeSource Self}}" Value="{x:Null}">
+                                    <Setter TargetName="content" Property="ContentTemplate" Value="{StaticResource Simple}" />
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
     <controls:MetroWindow.IconTemplate>
@@ -78,50 +195,15 @@
         </controls:WindowCommands>
     </controls:MetroWindow.LeftWindowCommands>
     <Grid>
-        <controls:MetroTabControl region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}" SelectedItem="{Binding CurentSelectedItem}" IsSynchronizedWithCurrentItem="True">
-            <controls:MetroTabControl.Resources>
-                <DataTemplate x:Key="Simple">
-                    <TextBlock Text="{Binding Content.DataContext.Header,
-                                              RelativeSource={RelativeSource AncestorType=controls:MetroTabItem,
-                                                                             Mode=FindAncestor},
-                                              UpdateSourceTrigger=PropertyChanged}"
+        <TabControl region:RegionManager.RegionName="{x:Static names:Names.MainContentRegion}"
+                    ItemContainerStyle="{StaticResource TabItemStyle}">
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="TabItem">
+                    <TextBlock Text="{Binding Content.DataContext.Header, RelativeSource={RelativeSource AncestorType=TabItem, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
                                TextTrimming="CharacterEllipsis"
-                               ToolTip="{Binding Text,
-                                                 RelativeSource={RelativeSource Self}}" />
+                               ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
                 </DataTemplate>
-                <DataTemplate x:Key="Closed">
-                    <Grid MaxWidth="250">
-                        <TextBlock x:Name="header"
-                                   Text="{Binding Content.DataContext.FirstData.ModuleInformation.Name, RelativeSource={RelativeSource AncestorType=controls:MetroTabItem, Mode=FindAncestor}}"
-                                   TextTrimming="CharacterEllipsis"
-                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
-                    </Grid>
-                    <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Content.DataContext.FirstData.ModuleInformation.Name, RelativeSource={RelativeSource AncestorType=controls:MetroTabItem, Mode=FindAncestor}}" Value="">
-                            <Setter TargetName="header" Property="Text" Value="*No name*" />
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
-                </DataTemplate>
-            </controls:MetroTabControl.Resources>
-            <controls:MetroTabControl.ItemContainerStyle>
-                <Style TargetType="controls:MetroTabItem">
-                    <Setter Property="CloseButtonEnabled" Value="True"/>
-                    <Setter Property="CloseTabCommand" Value="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource AncestorType=controls:MetroWindow, Mode=FindAncestor}}"/>
-                    <Setter Property="CloseTabCommandParameter" Value="{Binding Content.DataContext}"/>
-                    <Setter Property="HeaderTemplate">
-                        <Setter.Value>
-                            <DataTemplate DataType="controls:MetroTabItem">
-                                <ContentControl x:Name="content" ContentTemplate="{StaticResource Closed}" />
-                                <DataTemplate.Triggers>
-                                    <DataTrigger Binding="{Binding Content.DataContext.FirstData, RelativeSource={RelativeSource AncestorType=controls:MetroTabItem, Mode=FindAncestor}}" Value="{x:Null}">
-                                        <Setter TargetName="content" Property="ContentTemplate" Value="{StaticResource Simple}" />
-                                    </DataTrigger>
-                                </DataTemplate.Triggers>
-                            </DataTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </controls:MetroTabControl.ItemContainerStyle>
-        </controls:MetroTabControl>
+            </TabControl.ItemTemplate>
+        </TabControl>
     </Grid>
 </controls:MetroWindow>

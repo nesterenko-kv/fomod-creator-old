@@ -19,8 +19,8 @@
         </ObjectDataProvider>
     </UserControl.Resources>
     <GroupBox Header="Plugin" DataContext="{Binding Data}">
-        <controls:MetroAnimatedSingleRowTabControl>
-            <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Инфо">
+        <controls:MetroAnimatedSingleRowTabControl controls:ControlsHelper.HeaderFontSize="18">
+            <controls:MetroTabItem CloseButtonEnabled="False" Header="Инфо">
                 <DockPanel>
                     <TextBox DockPanel.Dock="Top"
                              VerticalAlignment="Top"
@@ -40,32 +40,14 @@
                              controls:TextBoxHelper.Watermark="Описание плагина"
                              controls:TextBoxHelper.UseFloatingWatermark="True" />
                 </DockPanel>
-            </TabItem>
-            <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Флаги">
+            </controls:MetroTabItem>
+                <controls:MetroTabItem CloseButtonEnabled="False" Header="Флаги">
 
-            </TabItem>
-            <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Зависимости">
+            </controls:MetroTabItem>
+            <controls:MetroTabItem CloseButtonEnabled="False" Header="Зависимости">
 
-            </TabItem>
-            <TabItem controls:ControlsHelper.HeaderFontSize="18" Header="Файлы и папки">
-                <!-- <ListView ItemsSource="{Binding Files.Items}">
-                    <ListView.Resources>
-                        <DataTemplate DataType="{x:Type moduleCofiguration:FileSystemItem}">
-                            <TextBlock Height="16"
-                                   VerticalAlignment="Center"
-                                   Text="Я файл"
-                                   TextTrimming="CharacterEllipsis"
-                                   ToolTip="{Binding Source, RelativeSource={RelativeSource Self}}" />
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type moduleCofiguration:FolderSystemItem}">
-                            <TextBlock Height="16"
-                                   VerticalAlignment="Center"
-                                   Text="Я папка"
-                                   TextTrimming="CharacterEllipsis"
-                                   ToolTip="{Binding Source, RelativeSource={RelativeSource Self}}" />
-                        </DataTemplate>
-                    </ListView.Resources>
-                </ListView>-->
+            </controls:MetroTabItem>
+            <controls:MetroTabItem CloseButtonEnabled="False" Header="Файлы и папки">
                 <ListView ItemsSource="{Binding Files.Items}">
                     <ListView.View>
                         <GridView>
@@ -119,7 +101,7 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-            </TabItem>
+            </controls:MetroTabItem>
         </controls:MetroAnimatedSingleRowTabControl>
     </GroupBox>
 </UserControl>
