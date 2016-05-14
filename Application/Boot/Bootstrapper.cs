@@ -19,7 +19,7 @@ namespace MainApplication.Boot
         {
             var shell = Container.GetInstance<Shell>();
             var vm = Container.GetInstance<ShellViewModel>();
-            (shell as FrameworkElement) .DataContext = vm;
+            shell.DataContext = vm;
             return shell;
         }
 

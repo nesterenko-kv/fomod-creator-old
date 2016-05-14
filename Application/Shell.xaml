@@ -20,12 +20,24 @@
                       TextOptions.TextFormattingMode="Display"
                       WindowStartupLocation="CenterScreen"
                       mc:Ignorable="d">
+    <controls:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Grid Width="{TemplateBinding Width}"
+                 Height="{TemplateBinding Height}"
+                 Margin="2"
+                 Background="Transparent"
+                 RenderOptions.EdgeMode="Aliased"
+                 RenderOptions.BitmapScalingMode="HighQuality">
+                <Image Source="Fomod Creator Logo.ico" />
+            </Grid>
+        </DataTemplate>
+    </controls:MetroWindow.IconTemplate>
+    
     <controls:MetroWindow.InputBindings>
         <KeyBinding Key="S"
                     Command="{Binding SaveProjectCommand}"
                     Modifiers="Control" />
     </controls:MetroWindow.InputBindings>
-
 
     <controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands ShowLastSeparator="False">
