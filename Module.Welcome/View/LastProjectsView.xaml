@@ -14,7 +14,7 @@
         <TextBlock Margin="0 0 0 6"
                    DockPanel.Dock="Top"
                    FontSize="18"
-                   Text="Последние:"/>
+                   Text="Recent:"/>
         <ListBox HorizontalContentAlignment="Stretch"
                  Background="Transparent"
                  ItemsSource="{Binding ProjectLinkList.Links}"

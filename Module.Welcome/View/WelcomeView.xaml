@@ -39,19 +39,19 @@
                            DockPanel.Dock="Top"
                            FontFamily="Segoe UI Light"
                            FontSize="18"
-                           Text="Добро пожаловать!" />
+                           Text="Welcome!" />
                 <Button Margin="3"
                         Command="{Binding CreateProjectCommand}"
                         Style="{DynamicResource GreenButton}"
-                        Content="Создать проект" />
+                        Content="Create project" />
                 <Button Margin="3"
                         Command="{Binding OpenProjectCommand}"
                         Style="{DynamicResource GreenButton}"
-                        Content="Открыть проект" />
+                        Content="Open project" />
                 <Button Margin="3"
                         Command="{Binding CloseApplicationCommand}"
                         Style="{DynamicResource RedButton}"
-                        Content="Закрыть программу" />
+                        Content="Close program" />
             </StackPanel>
         </Border>
     </Grid>
