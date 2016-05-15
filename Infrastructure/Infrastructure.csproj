@@ -54,7 +54,7 @@
     <Compile Include="Aspect\AcpectDebugLoger.cs" />
     <Compile Include="Aspect\AspectINotifyPropertyChanged.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
-    <Compile Include="Converters\ConverterMultiCommandParams.cs" />
+    <Compile Include="Converters\MultiCommandParamsConverter.cs" />
     <Compile Include="Interface\IAppService.cs" />
     <Compile Include="Interface\IFileBrowserDialog.cs" />
     <Compile Include="Interface\IFolderBrowserDialog.cs" />

@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace FomodInfrastructure.Converters
 {
-    public class ConverterMultiCommandParams : IMultiValueConverter
+    public class MultiCommandParamsConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {

@@ -15,10 +15,9 @@
                 <ResourceDictionary Source="Resources/UI/CustomStyles.xaml" />
                 <ResourceDictionary Source="Resources/UI/Icons/_icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converters:ConverterMultiCommandParams x:Key="ConverterMultiCommandParams" />
+            <converters:MultiCommandParamsConverter x:Key="MultiCommandParamsConverter" />
             <converters:NullToVisibilityConverter x:Key="NotNullToVisibleConverter" />
             <converters:NullToVisibilityConverter x:Key="IsNullToVisibleConverter" IsNullToVisible="True" />
-
 
         </ResourceDictionary>
     </Application.Resources>
