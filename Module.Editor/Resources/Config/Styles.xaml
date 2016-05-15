@@ -68,12 +68,11 @@
         <Setter Property="FontSize" Value="14" />
         <Setter Property="SelectionMode" Value="Single" />
     </Style>
-
     <Style TargetType="{x:Type Grid}">
         <Setter Property="DockPanel.Dock" Value="Top" />
         <Setter Property="Margin" Value="3" />
     </Style>
-
+    
 
 
 </ResourceDictionary>
