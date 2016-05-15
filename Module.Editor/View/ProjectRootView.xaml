@@ -19,7 +19,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Grid.IsSharedSizeScope="True">
-        <ScrollViewer>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
             <StackPanel MaxWidth="1000">
                 <ContentControl Content="{Binding Data.ModuleInformation}"
                                 ContentTemplate="{StaticResource ModuleInformation}" />

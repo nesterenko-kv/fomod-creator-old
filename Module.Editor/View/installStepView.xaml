@@ -32,7 +32,7 @@
                       controls:TextBoxHelper.Watermark="Сортировка групп"
                       DockPanel.Dock="Top"
                       ItemsSource="{Binding Source={StaticResource OrderEnum}}"
-                      SelectedValue="{Binding OptionalFileGroups.Order}" />
+                      SelectedItem="{Binding OptionalFileGroups.Order, Mode=TwoWay}" />
         </DockPanel>
     </GroupBox>
 </UserControl>

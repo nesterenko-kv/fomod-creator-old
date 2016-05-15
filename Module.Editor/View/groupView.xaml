@@ -37,12 +37,12 @@
                       controls:TextBoxHelper.Watermark="Тип группы"
                       DockPanel.Dock="Top"
                       ItemsSource="{Binding Source={StaticResource DataFromEnum}}"
-                      SelectedValue="{Binding Type}" />
+                      SelectedItem="{Binding Type, Mode=TwoWay}" />
             <ComboBox VerticalAlignment="Top"
                       controls:TextBoxHelper.Watermark="Сортировка plugins"
                       DockPanel.Dock="Top"
                       ItemsSource="{Binding Source={StaticResource OrderEnum}}"
-                      SelectedValue="{Binding Plugins.Order}" />
+                      SelectedItem="{Binding Plugins.Order, Mode=TwoWay}" />
         </DockPanel>
     </GroupBox>
 </UserControl>

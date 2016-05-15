@@ -16,7 +16,7 @@ namespace FomodModel.Base
     {
         public ModuleInformation()
         {
-            CategoryId = CategoriesEnum.None;
+            CategoryId = CategoriesEnum.Category1;
         }
 
         #region Properties
@@ -61,7 +61,7 @@ namespace FomodModel.Base
         ///     The category id of the mod on nexus.
         /// </summary>
         [XmlElement]
-        [DefaultValue(CategoriesEnum.None)]
+        [DefaultValue(CategoriesEnum.Category1)]
         public CategoriesEnum CategoryId { get; set; }
 
         #endregion

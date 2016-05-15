@@ -1,16 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:enum="clr-namespace:FomodModel.Base;assembly=FomodModel"
                     xmlns:enumData="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
-
-    <ObjectDataProvider x:Key="DataFromEnum"
-                        MethodName="GetValues"
-                        ObjectType="{x:Type system:Enum}">
-        <ObjectDataProvider.MethodParameters>
-            <x:Type TypeName="enum:CategoriesEnum" />
-        </ObjectDataProvider.MethodParameters>
-    </ObjectDataProvider>
 
     <ObjectDataProvider x:Key="OrderEnum"
                         MethodName="GetValues"
