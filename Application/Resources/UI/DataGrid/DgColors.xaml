@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <Color x:Key="DataForegroundColor">#FF05015D</Color>
+
+    <SolidColorBrush x:Key="DataForeground" Color="{StaticResource DataForegroundColor}" />
+    <SolidColorBrush x:Key="DataGridSelectedBackGround" Color="#FF8CC654" />
+    <SolidColorBrush x:Key="DataGridMouseOverBackGround" Color="#FFDFF361" />
+
+    <SolidColorBrush x:Key="DataGridSelectedForeground" Color="White" />
+    <SolidColorBrush x:Key="DataGridMouseOverForeground" Color="Black" />
+
+
+</ResourceDictionary>

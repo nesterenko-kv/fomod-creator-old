@@ -14,6 +14,7 @@
                 <!--  EndRegion  -->
                 <ResourceDictionary Source="Resources/UI/CustomStyles.xaml" />
                 <ResourceDictionary Source="Resources/UI/Icons/_icons.xaml" />
+                <ResourceDictionary Source="Resources/UI/DataGrid/Dg.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:MultiCommandParamsConverter x:Key="MultiCommandParamsConverter" />
             <converters:EnumValueToDecriptionConverter x:Key="EnumValueToDecriptionConverter" />

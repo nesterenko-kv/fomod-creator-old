@@ -19,7 +19,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Grid.IsSharedSizeScope="True" Background="#7F535353">
+    <Grid Grid.IsSharedSizeScope="True">
         <ScrollViewer>
             <StackPanel MaxWidth="1000">
                 <ContentControl Content="{Binding Data.ModuleInformation}" ContentTemplate="{StaticResource InformationTemplate}" />

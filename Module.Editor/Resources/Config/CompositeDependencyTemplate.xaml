@@ -37,8 +37,8 @@
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
                     <ResourceDictionary Source="Styles.xaml" />
-                    <ResourceDictionary Source="FileDependencyTemplate.xaml" />
-                    <ResourceDictionary Source="FlagDependencyTemplate.xaml" />
+                    <!--<ResourceDictionary Source="FileDependencyTemplate.xaml" />
+                    <ResourceDictionary Source="FlagDependencyTemplate.xaml" />-->
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </DataTemplate.Resources>
@@ -91,12 +91,59 @@
                             <ColumnDefinition SharedSizeGroup="c3" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="FileDependencies" />
-                        <Border Grid.Column="1"
-                                Margin="9,0,3,0"
-                                BorderBrush="LightGray"
-                                BorderThickness="1,1,1,0">
-                            <ItemsControl Background="{x:Null}" ItemsSource="{Binding FileDependencies}" />
-                        </Border>
+
+                        <!--<ItemsControl Background="{x:Null}" ItemsSource="{Binding FileDependencies}" />-->
+
+
+                        <DataGrid Grid.Column="1"
+                                  Margin="9,0,3,0"
+                                  ItemsSource="{Binding FileDependencies}">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="auto"
+                                                        Header="State"
+                                                        SortMemberPath="State">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox Margin="0"
+                                                      Background="Transparent"
+                                                      BorderThickness="0"
+                                                      ItemsSource="{Binding Source={StaticResource FileDependencyState}}"
+                                                      SelectedItem="{Binding State}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="*" 
+                                                        Header="State"
+                                                        SortMemberPath="File">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Margin="6,0,0,0" 
+                                                       VerticalAlignment="Center"
+                                                       Background="Transparent"
+                                                       Text="{Binding File}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="35" Header="" CanUserResize="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Grid.Column="2"
+                                                    Margin="6,0"
+                                                    Command="{Binding DataContext.RemoveFileDependencyCommand,
+                                                                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                                     AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource DeleteButton}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+
+
                         <Button Grid.Column="2"
                                 Margin="0,5,0,0"
                                 VerticalAlignment="Top"
