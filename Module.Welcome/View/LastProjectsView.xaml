@@ -14,7 +14,7 @@
         <TextBlock Margin="0 0 0 6"
                    DockPanel.Dock="Top"
                    FontSize="18"
-                   Text="Последние:"/>
+                   Text="Recent:"/>
         <ListBox HorizontalContentAlignment="Stretch"
                  Background="Transparent"
                  ItemsSource="{Binding ProjectLinkList.Links}"
@@ -32,17 +32,22 @@
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="ListBoxItem">
-                    <DockPanel>
+                    <DockPanel Background="Transparent" Height="16">
                         <Button x:Name="delete_button"
                                 Style="{DynamicResource DeleteButton}"
                                 DockPanel.Dock="Right"
                                 Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                 CommandParameter="{Binding}" />
-                        <Button Style="{DynamicResource MyLinkButton}"
+                        <Button Style="{DynamicResource LinkButton}"
                                 Command="{Binding DataContext.GoToCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                CommandParameter="{Binding FolderPath}"
-                                Content="{Binding FolderPath}"
-                                ToolTip="{Binding FolderPath}" />
+                                CommandParameter="{Binding FolderPath}">
+                            <Button.Content>
+                                <TextBlock VerticalAlignment="Center"
+                                           TextTrimming="CharacterEllipsis"
+                                           Text="{Binding Path=FolderPath}"
+                                           ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                            </Button.Content>
+                        </Button>
                     </DockPanel>
                     <DataTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="false">

@@ -30,7 +30,7 @@
                               VerticalAlignment="Top"
                               controls:TextBoxHelper.Watermark="Тип плагина"
                               ItemsSource="{Binding Source={StaticResource DataFromEnum}}"
-                              SelectedValue="{Binding TypeDescriptor.DependencyType.DefaultType.Name}" />
+                              SelectedItem="{Binding TypeDescriptor.DependencyType.DefaultType.Name, Mode=TwoWay}" />
                     <TextBox AcceptsReturn="True"
                              TextWrapping="Wrap"
                              Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
