@@ -34,11 +34,11 @@
                 <DataTemplate DataType="ListBoxItem">
                     <DockPanel Background="Transparent" Height="16">
                         <Button x:Name="delete_button"
-                                Style="{DynamicResource DeleteButton}"
+                                Style="{StaticResource DeleteButton}"
                                 DockPanel.Dock="Right"
                                 Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                 CommandParameter="{Binding}" />
-                        <Button Style="{DynamicResource LinkButton}"
+                        <Button Style="{StaticResource LinkButton}"
                                 Command="{Binding DataContext.GoToCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                 CommandParameter="{Binding FolderPath}">
                             <Button.Content>

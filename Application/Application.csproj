@@ -113,6 +113,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Selectors\TabItemTemplateSelector.cs" />
     <Compile Include="Services\MemoryService.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Page Include="Resources\UI\Icons\CloseSolution.xaml">
