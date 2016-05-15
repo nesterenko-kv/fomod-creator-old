@@ -5,11 +5,17 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
 
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../Enums.xaml" />
-    </ResourceDictionary.MergedDictionaries>
+
 
     <DataTemplate DataType="{x:Type model:FileDependency}">
+        <DataTemplate.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="../Enums.xaml" />
+                    <ResourceDictionary Source="Styles.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </DataTemplate.Resources>
         <Border Margin="0,0,0,0"
                 BorderBrush="LightGray"
                 BorderThickness="0,0,0,1">

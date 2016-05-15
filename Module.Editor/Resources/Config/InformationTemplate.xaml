@@ -1,29 +1,30 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:base="clr-namespace:FomodModel.Base;assembly=FomodModel">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../Enums.xaml" />
-        <ResourceDictionary Source="Styles.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-    <DataTemplate x:Key="ModuleInformation"
-                  DataType="{x:Type base:ModuleInformation}">
+
+    <DataTemplate x:Key="InformationTemplate" DataType="{x:Type base:ModuleInformation}">
+        <DataTemplate.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="../Enums.xaml" />
+                    <ResourceDictionary Source="Styles.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </DataTemplate.Resources>
         <GroupBox Header="Mod Info">
             <StackPanel>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"
-                                          SharedSizeGroup="a1" />
+                        <ColumnDefinition Width="*" SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Grid.Column="0"
-                               Text="Название модификации" />
+                    <TextBlock Grid.Column="0" Text="Название модификации" />
                 </Grid>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"
-                                          SharedSizeGroup="a1" />
+                        <ColumnDefinition Width="*" SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Автор" />
@@ -32,19 +33,16 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"
-                                          SharedSizeGroup="a1" />
+                        <ColumnDefinition Width="*" SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Version, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Grid.Column="0"
-                               Text="Версия" />
+                    <TextBlock Grid.Column="0" Text="Версия" />
                 </Grid>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"
-                                          SharedSizeGroup="a1" />
+                        <ColumnDefinition Width="*" SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Ссылка" />
@@ -53,19 +51,16 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"
-                                          SharedSizeGroup="a1" />
+                        <ColumnDefinition Width="*" SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Категория" />
-                    <ComboBox ItemsSource="{Binding Source={StaticResource DataFromEnum}}"
-                              SelectedValue="{Binding CategoryId}" />
+                    <ComboBox ItemsSource="{Binding Source={StaticResource DataFromEnum}}" SelectedValue="{Binding CategoryId}" />
                 </Grid>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"
-                                          SharedSizeGroup="a1" />
+                        <ColumnDefinition Width="*" SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Описание" />

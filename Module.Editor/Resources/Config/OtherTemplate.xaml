@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel">
+
+    <DataTemplate x:Key="OtherTemplate">
+        <DataTemplate.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="../Enums.xaml" />
+                    <ResourceDictionary Source="Styles.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </DataTemplate.Resources>
+
+        <GroupBox Header="Other">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="a1" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="InstallSteps Order" />
+                <ComboBox ItemsSource="{Binding Source={StaticResource OrderEnum}}" SelectedValue="{Binding Data.ModuleConfiguration.InstallSteps.Order}" />
+            </Grid>
+        </GroupBox>
+
+    </DataTemplate>
+
+
+</ResourceDictionary>

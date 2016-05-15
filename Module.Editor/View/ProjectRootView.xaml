@@ -10,24 +10,24 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Enums.xaml" />
-                <ResourceDictionary Source="../Resources/Config/Styles.xaml" />
                 <ResourceDictionary Source="../Resources/Config/CompositeDependencyTemplate.xaml" />
                 <ResourceDictionary Source="../Resources/Config/InformationTemplate.xaml" />
                 <ResourceDictionary Source="../Resources/Config/NameTemplate.xaml" />
                 <ResourceDictionary Source="../Resources/Config/ImageTemplate.xaml" />
+                <ResourceDictionary Source="../Resources/Config/OtherTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Grid.IsSharedSizeScope="True">
+    <Grid Grid.IsSharedSizeScope="True" Background="#7F535353">
         <ScrollViewer>
             <StackPanel MaxWidth="1000">
-                <ContentControl Content="{Binding Data.ModuleInformation}"
-                                ContentTemplate="{StaticResource ModuleInformation}" />
-                <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleName}"
-                                ContentTemplate="{StaticResource ModuleName}" />
+                <ContentControl Content="{Binding Data.ModuleInformation}" ContentTemplate="{StaticResource InformationTemplate}" />
+                <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleName}" ContentTemplate="{StaticResource ModuleName}" />
+                <ContentControl Content="{Binding ''}" ContentTemplate="{StaticResource OtherTemplate}" />
+
                 <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleImage}">
                     <ContentControl.Style>
-                        <Style TargetType="ContentControl">
+                        <Style TargetType="{x:Type ContentControl}">
                             <Style.Triggers>
                                 <Trigger Property="Content" Value="{x:Null}">
                                     <Setter Property="ContentTemplate" Value="{StaticResource NullHeaderImage}" />
@@ -36,21 +36,10 @@
                         </Style>
                     </ContentControl.Style>
                 </ContentControl>
-                <GroupBox Header="Other">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="a1" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="InstallSteps Order" />
-                        <ComboBox ItemsSource="{Binding Source={StaticResource OrderEnum}}"
-                                  SelectedValue="{Binding Data.ModuleConfiguration.InstallSteps.Order}" />
-                    </Grid>
-                </GroupBox>
 
-                <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleDependencies}" >
+                <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleDependencies}">
                     <ContentControl.Style>
-                        <Style TargetType="ContentControl">
+                        <Style TargetType="{x:Type ContentControl}">
                             <Style.Triggers>
                                 <Trigger Property="Content" Value="{x:Null}">
                                     <Setter Property="ContentTemplate" Value="{StaticResource NullDependencies}" />
@@ -59,7 +48,6 @@
                         </Style>
                     </ContentControl.Style>
                 </ContentControl>
-
             </StackPanel>
         </ScrollViewer>
 
