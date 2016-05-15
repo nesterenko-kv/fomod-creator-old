@@ -1,48 +1,55 @@
 ﻿<UserControl x:Class="Module.Editor.View.GroupView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:enum="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignHeight="800"
+             d:DesignWidth="1200"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="DataFromEnum"
-                            MethodName="GetValues"
-                            ObjectType="{x:Type system:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enum:GroupType" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <ObjectDataProvider x:Key="OrderEnum"
-                            MethodName="GetValues"
-                            ObjectType="{x:Type system:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enum:OrderEnum" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Enums.xaml" />
+                <ResourceDictionary Source="../Resources/Config/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
-    <GroupBox Header="Group"
-              DataContext="{Binding Data}">
-        <DockPanel>
-            <TextBox MaxHeight="38"
-                     VerticalAlignment="Top"
-                     controls:TextBoxHelper.Watermark="Название группы"
-                     DockPanel.Dock="Top"
-                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <ComboBox VerticalAlignment="Top"
-                      controls:TextBoxHelper.Watermark="Тип группы"
-                      DockPanel.Dock="Top"
-                      ItemsSource="{Binding Source={StaticResource DataFromEnum}}"
-                      SelectedItem="{Binding Type, Mode=TwoWay}" />
-            <ComboBox VerticalAlignment="Top"
-                      controls:TextBoxHelper.Watermark="Сортировка plugins"
-                      DockPanel.Dock="Top"
-                      ItemsSource="{Binding Source={StaticResource OrderEnum}}"
-                      SelectedItem="{Binding Plugins.Order, Mode=TwoWay}" />
-        </DockPanel>
-    </GroupBox>
+    <Grid Grid.IsSharedSizeScope="True">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+            <StackPanel MaxWidth="1000">
+                <GroupBox Header="Group info" DataContext="{Binding Data}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Column="0" Text="Group name" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox ItemsSource="{Binding Source={StaticResource GroupTypeEnum}}"
+                                      SelectedItem="{Binding Type, Mode=TwoWay}" />
+                            <TextBlock Grid.Column="0" Text="Group type" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox ItemsSource="{Binding Source={StaticResource OrderEnum}}"
+                                      SelectedItem="{Binding Plugins.Order, Mode=TwoWay}" />
+                            <TextBlock Grid.Column="0" Text="Plugins sorting" />
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

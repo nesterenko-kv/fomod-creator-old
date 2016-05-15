@@ -3,36 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Module.Editor.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:inf="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignHeight="800"
+             d:DesignWidth="1200"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <ObjectDataProvider xmlns:system="clr-namespace:System;assembly=mscorlib"
-                            xmlns:enumData="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
-                            x:Key="OrderEnum"
-                            MethodName="GetValues"
-                            ObjectType="{x:Type system:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enumData:OrderEnum" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Enums.xaml" />
+                <ResourceDictionary Source="../Resources/Config/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
-    <GroupBox Header="Install step">
-        <DockPanel DataContext="{Binding Data}">
-            <TextBox MaxHeight="38"
-                     VerticalAlignment="Top"
-                     controls:TextBoxHelper.Watermark="Название шага"
-                     DockPanel.Dock="Top"
-                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <ComboBox VerticalAlignment="Top"
-                      controls:TextBoxHelper.Watermark="Сортировка групп"
-                      DockPanel.Dock="Top"
-                      ItemsSource="{Binding Source={StaticResource OrderEnum}}"
-                      SelectedItem="{Binding OptionalFileGroups.Order, Mode=TwoWay}" />
-        </DockPanel>
-    </GroupBox>
+
+    <Grid Grid.IsSharedSizeScope="True">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+            <StackPanel MaxWidth="1000">
+                <GroupBox Header="Install step info" DataContext="{Binding Data}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Column="0" Text="Step name" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox ItemsSource="{Binding Source={StaticResource OrderEnum}}"
+                                      SelectedItem="{Binding OptionalFileGroups.Order, Mode=TwoWay}"  />
+                            <TextBlock Grid.Column="0" Text="Group sorting" />
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

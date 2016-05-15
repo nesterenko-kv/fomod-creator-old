@@ -18,7 +18,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Grid.Column="0"
-                               Text="Название модификации" />
+                               Text="Mod name" />
                 </Grid>
 
                 <Grid>
@@ -27,7 +27,7 @@
                                           SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Автор" />
+                    <TextBlock Text="Author" />
                     <TextBox Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 
@@ -39,7 +39,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Version, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Grid.Column="0"
-                               Text="Версия" />
+                               Text="Version" />
                 </Grid>
 
                 <Grid>
@@ -48,7 +48,7 @@
                                           SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Ссылка" />
+                    <TextBlock Text="URL Link" />
                     <TextBox Text="{Binding Website, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 
@@ -58,7 +58,7 @@
                                           SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Категория" />
+                    <TextBlock Text="Category" />
                     <ComboBox SelectedItem="{Binding CategoryId, Mode=TwoWay}" 
                               ItemsSource="{converters:EnumValues {x:Type base:CategoriesEnum}}">
                         <ComboBox.ItemTemplate>
@@ -75,7 +75,7 @@
                                           SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Описание" />
+                    <TextBlock Text="Description" />
                     <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 

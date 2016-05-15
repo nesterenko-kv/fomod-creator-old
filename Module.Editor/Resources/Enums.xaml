@@ -35,5 +35,12 @@
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
+    <ObjectDataProvider x:Key="GroupTypeEnum"
+                            MethodName="GetValues"
+                            ObjectType="{x:Type system:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enumData:GroupType" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
 
 </ResourceDictionary>

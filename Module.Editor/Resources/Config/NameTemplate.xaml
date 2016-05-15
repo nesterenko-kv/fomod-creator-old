@@ -7,14 +7,14 @@
     </ResourceDictionary.MergedDictionaries>
     <DataTemplate x:Key="ModuleName"
                   DataType="{x:Type model:ModuleTitle}">
-        <GroupBox Header="Module Name">
+        <GroupBox Header="Module Title">
             <DockPanel LastChildFill="False">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="ModuleName" />
+                    <TextBlock Text="Module Name" />
                     <TextBox Text="{Binding Value}" />
                 </Grid>
                 <Grid>
@@ -33,7 +33,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="ModuleName Position" />
+                    <TextBlock Text="Title Position" />
                     <ComboBox ItemsSource="{Binding Source={StaticResource ModuleTitlePositionEnum}}"
                               SelectedValue="{Binding Position}" />
                     <CheckBox />
