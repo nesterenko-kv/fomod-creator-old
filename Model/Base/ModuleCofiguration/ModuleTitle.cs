@@ -1,11 +1,11 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Xml.Serialization;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
 using FomodModel.Base.ModuleCofiguration.Enum;
-using FomodModel.Base.ModuleCofiguration.Struct;
 
 namespace FomodModel.Base.ModuleCofiguration
 {
@@ -22,6 +22,7 @@ namespace FomodModel.Base.ModuleCofiguration
         public ModuleTitle()
         {
             Position = ModuleTitlePosition.Left;
+            ColourXmlSurrogate = "000000";
         }
 
         /// <summary>
@@ -38,10 +39,20 @@ namespace FomodModel.Base.ModuleCofiguration
         public Color Colour { get; set; }
 
         [XmlAttribute("colour")]
+        [DefaultValue("000000")]
         public string ColourXmlSurrogate
         {
-            get { return XmlColor.FromColor(Colour); }
-            set { Colour = XmlColor.ToColor(value); }
+            get { return $"{Colour.ToArgb() & 0x00ffffff:X6}"; }
+            set {
+                try
+                {
+                    Colour = Color.FromArgb((int)(uint.Parse(value, NumberStyles.HexNumber, null) | 0xff000000));
+                }
+                catch (Exception)
+                {
+                    Colour = Color.Black;
+                }
+            }
         }
 
         [XmlText]
