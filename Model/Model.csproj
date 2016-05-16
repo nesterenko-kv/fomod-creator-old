@@ -40,6 +40,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,7 +54,7 @@
     <Compile Include="Base\CategoriesEnum.cs" />
     <Compile Include="Base\ModuleCofiguration\Enum\CompositeDependencyOperator.cs" />
     <Compile Include="Base\ModuleCofiguration\FolderSystemItem.cs" />
-    <Compile Include="Base\ModuleCofiguration\Struct\PixelColor.cs" />
+    <Compile Include="Base\ModuleCofiguration\Struct\XmlColor.cs" />
     <Compile Include="Base\ModuleCofiguration\SystemItem.cs" />
     <Compile Include="Base\ModuleInformation.cs" />
     <Compile Include="Base\ProjectRoot.cs" />
