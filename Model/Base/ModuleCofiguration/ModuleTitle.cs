@@ -37,6 +37,8 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlIgnore]
         public Color Colour { get; set; }
 
+        
+
         [XmlAttribute("colour")]
         public string ColourXmlSurrogate
         {

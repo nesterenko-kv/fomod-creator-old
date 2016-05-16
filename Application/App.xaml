@@ -19,8 +19,9 @@
             <converters:MultiCommandParamsConverter x:Key="MultiCommandParamsConverter" />
             <converters:EnumValueToDecriptionConverter x:Key="EnumValueToDecriptionConverter" />
             <converters:NullToVisibilityConverter x:Key="NotNullToVisibleConverter" />
-            <converters:NullToVisibilityConverter x:Key="IsNullToVisibleConverter" IsNullToVisible="True" />
-
+            <converters:NullToVisibilityConverter x:Key="IsNullToVisibleConverter"
+                                                  IsNullToVisible="True" />
+            <converters:ColorToSolidBrushConverter x:Key="ColorToSolidBrushConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -30,8 +30,16 @@
                     </Grid.ColumnDefinitions>
                     <!--<TextBox Text="{Binding Colour}" />-->
                     <TextBlock Grid.Column="0"
-                               Text="Colour" />
-                    
+                               Text="{Binding Colour}" />
+                    <StackPanel Grid.Column="1">
+                        <Border Height="25" x:Name="border"
+                                BorderBrush="White"
+                                BorderThickness="1"
+                                Background="{Binding Colour, Converter={StaticResource ColorToSolidBrushConverter}}" />
+                        <Slider Tag="{Binding Colour, Converter={StaticResource ColorToSolidBrushConverter}}" Value="{Binding Tag.Color.R, RelativeSource={RelativeSource Self}}"/>
+                    </StackPanel>
+
+
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
