@@ -20,7 +20,9 @@ namespace Module.Editor.ViewModel
         public RelayCommand<CompositeDependency> AddFlagDependencyCommand { get; }
         public RelayCommand<FileDependency> RemoveFileDependencyCommand { get; }
         public RelayCommand<FlagDependency> RemoveFlagDependencyCommand { get; }
-        
+
+        public RelayCommand ChkModuleNamePositionCommand { get; }
+
 
         public ProjectRootViewModel()
         {
@@ -36,12 +38,18 @@ namespace Module.Editor.ViewModel
             AddFlagDependencyCommand = new RelayCommand<CompositeDependency>(AddFlagDependency);
             RemoveFlagDependencyCommand = new RelayCommand<FlagDependency>(RemoveFlagDependency);
 
+            ChkModuleNamePositionCommand = new RelayCommand(ChkModuleNamePosition);
+
             (this as INotifyPropertyChanged).PropertyChanged += (obj, args) =>
             _data = args.PropertyName == nameof(Data) ? (ProjectRoot)Data : _data;
   
         }
 
-
+        private void ChkModuleNamePosition()
+        {
+            //_data.ModuleConfiguration.ModuleName.Position = null; 
+            System.Diagnostics.Debug.Print("***Helow***");
+        }
 
         private void AddImage()
         {

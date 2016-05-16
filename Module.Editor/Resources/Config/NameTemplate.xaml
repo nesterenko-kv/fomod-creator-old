@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel">
-    <DataTemplate x:Key="ModuleName" DataType="{x:Type model:ModuleTitle}">
+    <DataTemplate x:Key="ModuleName"
+                  DataType="{x:Type model:ModuleTitle}">
         <DataTemplate.Resources>
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
@@ -17,8 +18,9 @@
                         <ColumnDefinition SharedSizeGroup="a1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBox Text="{Binding Value}" />
-                    <TextBlock Grid.Column="0" Text="ModuleName" />
+                    <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Grid.Column="0"
+                               Text="ModuleName" />
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -27,8 +29,9 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <!--<TextBox Text="{Binding Colour}" />-->
-                    <CheckBox />
-                    <TextBlock Grid.Column="0" Text="Colour" />
+                    <TextBlock Grid.Column="0"
+                               Text="Colour" />
+                    
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -36,9 +39,10 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource ModuleTitlePositionEnum}}" SelectedValue="{Binding Position}" />
-                    <TextBlock Grid.Column="0" Text="ModuleName Position" />
-                    <CheckBox Grid.Column="2"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource ModuleTitlePositionEnum}}"
+                              SelectedValue="{Binding Position}" />
+                    <TextBlock Grid.Column="0"
+                               Text="ModuleName Position" />
                 </Grid>
             </DockPanel>
         </GroupBox>
