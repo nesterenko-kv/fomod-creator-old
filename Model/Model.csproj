@@ -54,7 +54,6 @@
     <Compile Include="Base\CategoriesEnum.cs" />
     <Compile Include="Base\ModuleCofiguration\Enum\CompositeDependencyOperator.cs" />
     <Compile Include="Base\ModuleCofiguration\FolderSystemItem.cs" />
-    <Compile Include="Base\ModuleCofiguration\Struct\XmlColor.cs" />
     <Compile Include="Base\ModuleCofiguration\SystemItem.cs" />
     <Compile Include="Base\ModuleInformation.cs" />
     <Compile Include="Base\ProjectRoot.cs" />
