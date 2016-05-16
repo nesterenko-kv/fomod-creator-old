@@ -4,15 +4,25 @@ using FomodModel.Base;
 using FomodModel.Base.ModuleCofiguration;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows.Media.Imaging;
+using FomodInfrastructure.Interface;
 
 namespace Module.Editor.ViewModel
 {
     public class ProjectRootViewModel : BaseViewModel
     {
+        #region Services
+
+        private readonly IFileBrowserDialog _fileBrowserDialog;
+
+        #endregion
+
         private ProjectRoot _data;
 
         public RelayCommand AddImageCommand { get; }
         public RelayCommand RemoveImageCommand { get; }
+        public RelayCommand SetImageCommand { get; }
         public RelayCommand<CompositeDependency> AddCompositeDependencyCommand { get; }
         public RelayCommand<CompositeDependency> RemoveCompositeDependencyCommand { get; }
 
@@ -24,25 +34,23 @@ namespace Module.Editor.ViewModel
         public RelayCommand ChkModuleNamePositionCommand { get; }
 
 
-        public ProjectRootViewModel()
+        public ProjectRootViewModel(IFileBrowserDialog fileBrowserDialog)
         {
+            _fileBrowserDialog = fileBrowserDialog;
+
             AddImageCommand = new RelayCommand(AddImage);
             RemoveImageCommand = new RelayCommand(RemoveImage);
-
+            SetImageCommand = new RelayCommand(SetImage);
             AddCompositeDependencyCommand = new RelayCommand<CompositeDependency>(AddCompositeDependency);
             RemoveCompositeDependencyCommand = new RelayCommand<CompositeDependency>(RemoveCompositeDependency);
-
             AddFileDependencyCommand = new RelayCommand<CompositeDependency>(AddFileDependency);
             RemoveFileDependencyCommand = new RelayCommand<FileDependency>(RemoveFileDependency);
-
             AddFlagDependencyCommand = new RelayCommand<CompositeDependency>(AddFlagDependency);
             RemoveFlagDependencyCommand = new RelayCommand<FlagDependency>(RemoveFlagDependency);
-
             ChkModuleNamePositionCommand = new RelayCommand(ChkModuleNamePosition);
-
-            (this as INotifyPropertyChanged).PropertyChanged += (obj, args) =>
-            _data = args.PropertyName == nameof(Data) ? (ProjectRoot)Data : _data;
-  
+            var notifyPropertyChanged = this as INotifyPropertyChanged;
+            if (notifyPropertyChanged != null)
+                notifyPropertyChanged.PropertyChanged += (obj, args) => _data = args.PropertyName == nameof(Data) ? (ProjectRoot)Data : _data;
         }
 
         private void ChkModuleNamePosition()
@@ -53,17 +61,23 @@ namespace Module.Editor.ViewModel
 
         private void AddImage()
         {
-            _data.ModuleConfiguration.ModuleImage = new HeaderImage
-            {
-                Path = "aaaa/dsdsd/dasd",
-                ShowFade = false,
-                ShowImage = true
-            };
+            _data.ModuleConfiguration.ModuleImage = new HeaderImage();
         }
 
         private void RemoveImage()
         {
             _data.ModuleConfiguration.ModuleImage = null;
+        }
+
+        private void SetImage()
+        {
+            _fileBrowserDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+            _fileBrowserDialog.ShowDialog();
+            var fileName = _fileBrowserDialog.SelectedPath;
+            _fileBrowserDialog.Reset();
+            if (!File.Exists(fileName) || !fileName.StartsWith(_data.FolderPath)) return; //тут я потом сделаю сервис копирования файлов
+            fileName = fileName.Replace(_data.FolderPath + Path.DirectorySeparatorChar, string.Empty);
+            _data.ModuleConfiguration.ModuleImage.Path = fileName;
         }
 
         private void AddCompositeDependency(CompositeDependency dependency)

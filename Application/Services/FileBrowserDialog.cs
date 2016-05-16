@@ -15,6 +15,12 @@ namespace MainApplication.Services
             set { _dialog.FileName = value; }
         }
 
+        public string Filter
+        {
+            get { return _dialog.Filter; }
+            set { _dialog.Filter = value; }
+        }
+
         public void Reset()
         {
             _dialog.Reset();
