@@ -18,7 +18,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition SharedSizeGroup="u1" />
                     <ColumnDefinition />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition SharedSizeGroup="u3" />
                 </Grid.ColumnDefinitions>
                 <ComboBox Grid.Column="0"
                           Margin="0"

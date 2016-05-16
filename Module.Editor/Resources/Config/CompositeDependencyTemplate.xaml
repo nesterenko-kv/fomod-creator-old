@@ -6,6 +6,142 @@
         <ResourceDictionary Source="../Enums.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <Thickness x:Key="LeftMargin"
+               Bottom="3"
+               Left="3"
+               Right="9"
+               Top="3" />
+    <Thickness x:Key="RightMargin"
+               Bottom="9"
+               Left="3"
+               Right="3"
+               Top="3" />
+
+    <Thickness x:Key="GridItemPadding"
+               Bottom="0"
+               Left="6"
+               Right="0"
+               Top="0" />
+
+    <Style x:Key="LeftTextBlock"
+           BasedOn="{StaticResource {x:Type TextBlock}}"
+           TargetType="{x:Type TextBlock}">
+        <Setter Property="Margin" Value="{StaticResource LeftMargin}" />
+        <Setter Property="Grid.Column" Value="0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="FontFamily" Value="Segoe UI Semibold" />
+    </Style>
+
+    <Style x:Key="RightTextBox"
+           BasedOn="{StaticResource {x:Type TextBox}}"
+           TargetType="{x:Type TextBox}">
+        <Setter Property="ContextMenu" Value="{DynamicResource TextBoxMetroContextMenu}" />
+        <Setter Property="Margin" Value="{StaticResource RightMargin}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="AcceptsReturn" Value="True" />
+        <Setter Property="AcceptsTab" Value="True" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    
+    <Style x:Key="GridTextBox"
+           BasedOn="{StaticResource {x:Type TextBox}}"
+           TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Margin" Value="0,1,0,0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="AcceptsReturn" Value="False" />
+        <Setter Property="AcceptsTab" Value="False" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+    </Style>
+    
+
+    <Style x:Key="GridCombobox"
+           BasedOn="{StaticResource {x:Type ComboBox}}"
+           TargetType="{x:Type ComboBox}">
+        <Setter Property="Padding" Value="-1,0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style x:Key="GridTextBlock"
+           BasedOn="{StaticResource {x:Type TextBlock}}"
+           TargetType="{x:Type TextBlock}">
+        <Setter Property="Margin" Value="{StaticResource GridItemPadding}" />
+        <Setter Property="Grid.Column" Value="0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="Segoe UI Semibold" />
+    </Style>
+
+
+    <DataTemplate DataType="{x:Type model:FileDependency}">
+        <Border Margin="0,0,0,-1"
+                BorderBrush="#59FFFFFF"
+                BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="u1" />
+                    <ColumnDefinition />
+                    <ColumnDefinition SharedSizeGroup="u3" />
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0"
+                          ItemsSource="{Binding Source={StaticResource FileDependencyState}}"
+                          SelectedItem="{Binding State}"
+                          Style="{StaticResource GridCombobox}" />
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource GridTextBlock}"
+                           Text="{Binding File}" />
+                <Button Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        Command="{Binding DataContext.RemoveFileDependencyCommand,
+                                          RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                         AncestorType=UserControl}}"
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource DeleteButton}" />
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type model:FlagDependency}">
+        <Border Margin="0,0,0,-1"
+                BorderBrush="#59FFFFFF"
+                BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="u1" />
+                    <ColumnDefinition />
+                    <ColumnDefinition SharedSizeGroup="u3" />
+                </Grid.ColumnDefinitions>
+                <ComboBox xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                          Grid.Column="0"
+                          SelectedItem="{Binding Value}"
+                          Style="{StaticResource GridCombobox}">
+                    <sys:String>On</sys:String>
+                    <sys:String>Off</sys:String>
+                </ComboBox>
+                <TextBox Grid.Column="1" 
+                           Style="{StaticResource GridTextBox}"
+                           Text="{Binding Flag,
+                                          UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        Command="{Binding DataContext.RemoveFlagDependencyCommand,
+                                          RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                         AncestorType=UserControl}}"
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource DeleteButton}" />
+            </Grid>
+        </Border>
+    </DataTemplate>
 
 
     <DataTemplate x:Key="NullDependencies" DataType="{x:Type model:CompositeDependency}">
@@ -28,22 +164,244 @@
         </GroupBox>
     </DataTemplate>
 
-
-
-
-
     <DataTemplate DataType="{x:Type model:CompositeDependency}">
-        <DataTemplate.Resources>
-            <ResourceDictionary>
-                <ResourceDictionary.MergedDictionaries>
-                    <ResourceDictionary Source="Styles.xaml" />
-                    <!--<ResourceDictionary Source="FileDependencyTemplate.xaml" />
-                    <ResourceDictionary Source="FlagDependencyTemplate.xaml" />-->
-                </ResourceDictionary.MergedDictionaries>
-            </ResourceDictionary>
-        </DataTemplate.Resources>
         <StackPanel>
-            <GroupBox>
+            <GroupBox Background="Coral" BorderBrush="Coral">
+                <GroupBox.Header>
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Right"
+                                    Orientation="Horizontal"
+                                    Visibility="{Binding Dependencies,
+                                                         Converter={StaticResource IsNullToVisibleConverter}}">
+                            <Button Width="18"
+                                    Height="18"
+                                    Command="{Binding DataContext.AddCompositeDependencyCommand,
+                                                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                     AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"
+                                    Style="{StaticResource AddButton}" />
+                            <Button Width="18"
+                                    Height="18"
+                                    Margin="6,0,0,0"
+                                    Command="{Binding DataContext.RemoveCompositeDependencyCommand,
+                                                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                     AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"
+                                    Style="{StaticResource DeleteButton}" />
+
+                        </StackPanel>
+                        <TextBlock Style="{StaticResource LeftTextBlock}"
+                                   Text="COMPOSITE DEPENDENCY" />
+                    </DockPanel>
+                </GroupBox.Header>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Style="{StaticResource LeftTextBlock}"
+                               Text="Оператор" />
+                    <ComboBox Grid.Row="0"
+                              Grid.Column="1"
+                              Margin="{StaticResource RightMargin}"
+                              ItemsSource="{Binding Source={StaticResource CompositeDependencyOperator}}"
+                              SelectedValue="{Binding Operator}" />
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Style="{StaticResource LeftTextBlock}"
+                               Text="FileDependencies" />
+
+                    <ItemsControl Grid.Row="1"
+                                  Grid.Column="1"
+                                  Margin="{StaticResource RightMargin}"
+                                  ItemsSource="{Binding FileDependencies}">
+                        <ItemsControl.Style>
+                            <Style TargetType="{x:Type ItemsControl}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition SharedSizeGroup="u1" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition SharedSizeGroup="u3" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Column="0"
+                                                           Margin="6"
+                                                           FontSize="14"
+                                                           Style="{StaticResource LeftTextBlock}"
+                                                           Text="Статус" />
+                                                <TextBlock Grid.Column="1"
+                                                           Margin="6"
+                                                           FontSize="14"
+                                                           Style="{StaticResource LeftTextBlock}"
+                                                           Text="Относительный путь" />
+                                                <Button Grid.Column="2"
+                                                        Width="20"
+                                                        Height="20"
+                                                        Margin="6,0"
+                                                        HorizontalAlignment="Center"
+                                                        Command="{Binding DataContext.AddFileDependencyCommand,
+                                                                          RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                                         AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource AddButton}" />
+                                                <Border Grid.Row="0"
+                                                        Grid.ColumnSpan="3"
+                                                        Panel.ZIndex="-100"
+                                                        Background="#FF59ACFF" />
+
+
+                                                <Border Grid.Row="1"
+                                                        Grid.ColumnSpan="3"
+                                                        BorderBrush="#FF59ACFF"
+                                                        BorderThickness="1,0,1,1">
+                                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                </Border>
+
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ItemsControl.Style>
+                    </ItemsControl>
+
+
+                    <!--<Button Grid.Row="1"
+                            Grid.Column="2"
+                            Command="{Binding DataContext.AddFileDependencyCommand,
+                                              RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                             AncestorType=UserControl}}"
+                            CommandParameter="{Binding}"
+                            Style="{StaticResource AddButton}" />-->
+
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Style="{StaticResource LeftTextBlock}"
+                               Text="Флаги" />
+
+
+                    <ItemsControl Grid.Row="2"
+                                  Grid.Column="1"
+                                  Margin="{StaticResource RightMargin}"
+                                  ItemsSource="{Binding FlagDependencies}">
+                        <ItemsControl.Style>
+                            <Style TargetType="{x:Type ItemsControl}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition SharedSizeGroup="u1" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition SharedSizeGroup="u3" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Column="0"
+                                                           Margin="6"
+                                                           FontSize="14"
+                                                           Style="{StaticResource LeftTextBlock}"
+                                                           Text="Значение" />
+                                                <TextBlock Grid.Column="1"
+                                                           Margin="6"
+                                                           FontSize="14"
+                                                           Style="{StaticResource LeftTextBlock}"
+                                                           Text="Наименование флага" />
+                                                <Border Grid.Row="0"
+                                                        Grid.ColumnSpan="3"
+                                                        Panel.ZIndex="-100"
+                                                        Background="#FF59ACFF" />
+                                                <Button Grid.Row="0"
+                                                        Grid.Column="2"
+                                                        Width="20"
+                                                        Height="20"
+                                                        Margin="6,0"
+                                                        HorizontalAlignment="Center"
+                                                        Command="{Binding DataContext.AddFlagDependencyCommand,
+                                                                          RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                                         AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource AddButton}" />
+
+
+                                                <Border Grid.Row="1"
+                                                        Grid.ColumnSpan="3"
+                                                        BorderBrush="#FF59ACFF"
+                                                        BorderThickness="1,0,1,1">
+                                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                </Border>
+
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ItemsControl.Style>
+                    </ItemsControl>
+
+
+                    <!--<Button Grid.Row="2"
+                            Grid.Column="2"
+                            Margin="0,5,0,0"
+                            VerticalAlignment="Top"
+                            Command="{Binding DataContext.AddFlagDependencyCommand,
+                                              RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                             AncestorType=UserControl}}"
+                            CommandParameter="{Binding}"
+                            Style="{StaticResource AddButton}" />-->
+
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Style="{StaticResource LeftTextBlock}"
+                               Text="gameDependency" />
+                    <TextBox Grid.Row="3"
+                             Grid.Column="1"
+                             Style="{StaticResource RightTextBox}"
+                             Text="{Binding GameVersionDependencies.Version}" />
+
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="0"
+                               Style="{StaticResource LeftTextBlock}"
+                               Text="FommVersionDependencies" />
+                    <TextBox Grid.Row="4"
+                             Grid.Column="1"
+                             Style="{StaticResource RightTextBox}"
+                             Text="{Binding FommVersionDependencies.Version}" />
+
+                </Grid>
+            </GroupBox>
+            <ContentControl Content="{Binding Dependencies}" />
+        </StackPanel>
+    </DataTemplate>
+
+
+
+    <DataTemplate x:Key="asd" DataType="{x:Type model:CompositeDependency}">
+        <StackPanel>
+            <GroupBox Background="LightCoral">
                 <GroupBox.Header>
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Right"
@@ -92,55 +450,11 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="FileDependencies" />
 
-                        <!--<ItemsControl Background="{x:Null}" ItemsSource="{Binding FileDependencies}" />-->
+                        <ItemsControl Grid.Column="1"
+                                      Background="{x:Null}"
+                                      ItemsSource="{Binding FileDependencies}" />
 
 
-                        <DataGrid Grid.Column="1"
-                                  Margin="9,0,3,0"
-                                  ItemsSource="{Binding FileDependencies}">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn Width="auto"
-                                                        Header="State"
-                                                        SortMemberPath="State">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <ComboBox Margin="0"
-                                                      Background="Transparent"
-                                                      BorderThickness="0"
-                                                      ItemsSource="{Binding Source={StaticResource FileDependencyState}}"
-                                                      SelectedItem="{Binding State}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-
-                                <DataGridTemplateColumn Width="*" 
-                                                        Header="State"
-                                                        SortMemberPath="File">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Margin="6,0,0,0" 
-                                                       VerticalAlignment="Center"
-                                                       Background="Transparent"
-                                                       Text="{Binding File}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-
-                                <DataGridTemplateColumn Width="35" Header="" CanUserResize="False">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button Grid.Column="2"
-                                                    Margin="6,0"
-                                                    Command="{Binding DataContext.RemoveFileDependencyCommand,
-                                                                      RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                                     AncestorType=UserControl}}"
-                                                    CommandParameter="{Binding}"
-                                                    Style="{StaticResource DeleteButton}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
 
 
 
