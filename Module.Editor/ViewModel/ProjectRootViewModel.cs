@@ -61,7 +61,47 @@ namespace Module.Editor.ViewModel
 
         private void AddImage()
         {
-            _data.ModuleConfiguration.ModuleImage = new HeaderImage();
+            #region Dialog
+            _fileBrowserDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+            _fileBrowserDialog.ShowDialog();
+            var validfilePath = _fileBrowserDialog.SelectedPath;
+            if (!File.Exists(validfilePath)) return;
+
+            _fileBrowserDialog.Reset();
+            #endregion
+
+            string validFolderPath = _data.FolderPath + Path.DirectorySeparatorChar;
+            string relativeImagePath = null;
+
+            if (validfilePath.StartsWith(validFolderPath)) //если файл внутри проекта
+            {
+                relativeImagePath = "\\" + validfilePath.Substring(validFolderPath.Length );
+            }
+            else
+            {
+                var imageFolder = validFolderPath + @"\image\";
+                var fileName = validfilePath.Substring(validfilePath.LastIndexOf('\\') + 1);
+                var fileExtension = fileName.Substring(fileName.LastIndexOf('.'));
+                var fileNameNew = $"{imageFolder}{fileName}";
+
+                Directory.CreateDirectory(imageFolder);
+
+                int fileNameCount = 0;
+                var tempFileName = fileNameNew;
+                while (File.Exists(tempFileName))
+                {
+                    fileNameCount++;
+                    tempFileName = $"{fileNameNew.Substring(0, fileNameNew.Length - fileExtension.Length)} ({fileNameCount}){fileExtension}";
+                }
+
+                File.Copy(validfilePath, tempFileName);
+                relativeImagePath = @"\image\" + new FileInfo(tempFileName).Name;
+            }
+
+            _data.ModuleConfiguration.ModuleImage = new HeaderImage
+            {
+                Path = relativeImagePath
+            };
         }
 
         private void RemoveImage()

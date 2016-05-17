@@ -53,11 +53,16 @@
                     </ResourceDictionary>
                 </DockPanel.Resources>
 
-                <Border Margin="3" BorderThickness="1" BorderBrush="White" DockPanel.Dock="Top" Height="150">
+                <Border Height="150"
+                        Margin="3"
+                        BorderThickness="1"
+                        BorderBrush="White"
+                        DockPanel.Dock="Top">
                     <Image>
                         <Image.Source>
                             <MultiBinding Converter="{StaticResource ImageSourceConverter}">
-                                <Binding Path="DataContext.Data.FolderPath" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
+                                <Binding Path="DataContext.Data.FolderPath"
+                                         RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
                                 <Binding Path="Path" />
                             </MultiBinding>
                         </Image.Source>
