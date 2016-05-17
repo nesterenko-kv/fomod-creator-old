@@ -5,6 +5,7 @@ using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
 using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
+using FomodModel.Base;
 using Module.Welcome.Model;
 using Module.Welcome.PrismEvent;
 using Prism.Events;
@@ -59,10 +60,12 @@ namespace Module.Welcome.ViewModel
             SaveProjectLinkListFile();
         }
 
-        private void AddProjectInListAfterOpen(string p)
+        private void AddProjectInListAfterOpen(ProjectRoot p)
         {
-            if (ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p) != null) return;
-            ProjectLinkList.Links.Add(new ProjectLinkModel { FolderPath = p });
+            var item = ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p.FolderPath);
+            if (item == null)
+                ProjectLinkList.Links.Add(new ProjectLinkModel { FolderPath = p.FolderPath, ProjectName = p.ModuleInformation.Name });
+            else item.ProjectName = p.ModuleInformation.Name;
             SaveProjectLinkListFile();
         }
 

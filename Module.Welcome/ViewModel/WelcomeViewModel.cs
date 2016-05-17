@@ -96,7 +96,7 @@ namespace Module.Welcome.ViewModel
             else
             {
                 _appService.CreateEditorModule(repository);
-                _eventAggregator.GetEvent<OpenProjectEvent>().Publish(repository.CurrentPath);
+                _eventAggregator.GetEvent<OpenProjectEvent>().Publish(x);
             }
         }
 
