@@ -22,7 +22,6 @@
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
-                    <Setter Property="Padding" Value="3"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
@@ -34,7 +33,7 @@
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="ListBoxItem">
-                    <DockPanel Background="Transparent" Height="36">
+                    <DockPanel Background="Transparent" Height="36" ToolTip="{Binding FolderPath}">
                         <TextBlock DockPanel.Dock="Top" FontSize="16" FontWeight="UltraLight" Foreground="White" TextTrimming="CharacterEllipsis" Text="{Binding Path=ProjectName}" />
                         <Button x:Name="delete_button"
                                 Style="{StaticResource DeleteButton}"
@@ -44,10 +43,7 @@
                         <Button Style="{StaticResource LinkButton}"
                                 Command="{Binding DataContext.GoToCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                 CommandParameter="{Binding FolderPath}"
-                                ToolTip="{Binding FolderPath}">
-                            <Button.Content>
-                                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Path=FolderPath}" />
-                            </Button.Content>
+                                Content="{Binding Path=FolderPath}">
                         </Button>
                     </DockPanel>
                     <DataTemplate.Triggers>

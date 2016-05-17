@@ -20,6 +20,7 @@ namespace Module.Editor.ViewModel
 
         public RelayCommand AddImageCommand { get; }
         public RelayCommand RemoveImageCommand { get; }
+        public RelayCommand BrowseImageCommand { get; }
         public RelayCommand<CompositeDependency> AddCompositeDependencyCommand { get; }
         public RelayCommand<CompositeDependency> RemoveCompositeDependencyCommand { get; }
         public RelayCommand<CompositeDependency> AddFileDependencyCommand { get; }
@@ -40,6 +41,7 @@ namespace Module.Editor.ViewModel
             _fileBrowserDialog = fileBrowserDialog;
             AddImageCommand = new RelayCommand(AddImage);
             RemoveImageCommand = new RelayCommand(RemoveImage);
+            BrowseImageCommand = new RelayCommand(BrowseImage);
             AddCompositeDependencyCommand = new RelayCommand<CompositeDependency>(AddCompositeDependency);
             RemoveCompositeDependencyCommand = new RelayCommand<CompositeDependency>(RemoveCompositeDependency);
             AddFileDependencyCommand = new RelayCommand<CompositeDependency>(AddFileDependency);
@@ -64,13 +66,13 @@ namespace Module.Editor.ViewModel
             //_data.ModuleConfiguration.ModuleName.Position = null; 
             System.Diagnostics.Debug.Print("***Helow***");
         }
-        
-        private void AddImage()
+
+        private string GetImage()
         {
             _fileBrowserDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             _fileBrowserDialog.ShowDialog();
             var selectedPath = _fileBrowserDialog.SelectedPath;
-            if (!File.Exists(selectedPath)) return;
+            if (!File.Exists(selectedPath)) return string.Empty;
             _fileBrowserDialog.Reset();
 
             var projectPath = _data.FolderPath + Path.DirectorySeparatorChar;
@@ -90,10 +92,21 @@ namespace Module.Editor.ViewModel
             }
             else
                 relativePath = selectedPath.Substring(projectPath.Length);
-            _data.ModuleConfiguration.ModuleImage = new HeaderImage
-            {
-                Path = relativePath
-            };
+            return relativePath;
+        }
+
+        private void BrowseImage()
+        {
+            var imagepath = GetImage();
+            if (!string.IsNullOrEmpty(imagepath))
+                _data.ModuleConfiguration.ModuleImage.Path = imagepath;
+        }
+
+        private void AddImage()
+        {
+            var imagepath = GetImage();
+            if (!string.IsNullOrEmpty(imagepath))
+                _data.ModuleConfiguration.ModuleImage = new HeaderImage { Path = imagepath };
         }
 
         private void RemoveImage()

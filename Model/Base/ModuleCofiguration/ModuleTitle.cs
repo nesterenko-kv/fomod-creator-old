@@ -37,23 +37,16 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlIgnore]
         public Color Colour { get; set; }
-
         
-
         [XmlAttribute("colour")]
         [DefaultValue("000000")]
         public string ColourXmlSurrogate
         {
             get { return $"{Colour.ToArgb() & 0x00ffffff:X6}"; }
-            set {
-                try
-                {
-                    Colour = Color.FromArgb((int)(uint.Parse(value, NumberStyles.HexNumber, null) | 0xff000000));
-                }
-                catch (Exception)
-                {
-                    Colour = Color.Black;
-                }
+            set
+            {
+                uint number;
+                Colour = uint.TryParse(value, NumberStyles.HexNumber, null, out number) ? Color.FromArgb((int) (number | 0xff000000)) : Color.Black;
             }
         }
 
