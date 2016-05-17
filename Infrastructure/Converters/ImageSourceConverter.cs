@@ -14,7 +14,7 @@ namespace FomodInfrastructure.Converters
 
             var folderPath = values[0].ToString();
             var subImagePath = values[1].ToString();
-            var imagePath = folderPath + subImagePath;
+            var imagePath = folderPath + "\\" + subImagePath;
 
             if (!File.Exists(imagePath)) return null;
 
