@@ -18,6 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
             <converters:MultiCommandParamsConverter x:Key="MultiCommandParamsConverter" />
             <converters:EnumValueToDecriptionConverter x:Key="EnumValueToDecriptionConverter" />
+            <converters:ImageSourceConverter x:Key="ImageSourceConverter" />
             <converters:NullToVisibilityConverter x:Key="NotNullToVisibleConverter" />
             <converters:NullToVisibilityConverter x:Key="IsNullToVisibleConverter"
                                                   IsNullToVisible="True" />

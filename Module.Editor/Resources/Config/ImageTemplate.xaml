@@ -54,7 +54,14 @@
                 </DockPanel.Resources>
 
                 <Border Margin="3" BorderThickness="1" BorderBrush="White" DockPanel.Dock="Top" Height="150">
-                    <Image />
+                    <Image>
+                        <Image.Source>
+                            <MultiBinding Converter="{StaticResource ImageSourceConverter}">
+                                <Binding Path="DataContext.Data.FolderPath" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
+                                <Binding Path="Path" />
+                            </MultiBinding>
+                        </Image.Source>
+                    </Image>
                 </Border>
 
                 <Grid>
@@ -66,7 +73,10 @@
                     <TextBlock Text="Path" />
                     <TextBox Text="{Binding Path}"
                              IsReadOnly="True" />
-                    <CheckBox />
+                    <Button Width="18"
+                            Height="18"
+                            Style="{StaticResource AddButton}"
+                            Command="{Binding DataContext.SetImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
