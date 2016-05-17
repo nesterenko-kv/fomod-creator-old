@@ -49,7 +49,17 @@
                         </Style>
                     </ContentControl.Style>
                 </ContentControl>
-                <ContentControl Content="{Binding Data.ModuleConfiguration.RequiredInstallFiles}" ContentTemplate="{StaticResource RequiredInstallFiles}" />
+                <ContentControl ContentTemplate="{StaticResource FileList}" Content="{Binding Data.ModuleConfiguration.RequiredInstallFiles}" >
+                    <!--<ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <Trigger Property="Content" Value="{x:Null}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource NullFileList}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>-->
+                </ContentControl>
             </StackPanel>
         </ScrollViewer>
 

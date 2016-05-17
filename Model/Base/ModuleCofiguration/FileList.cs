@@ -15,6 +15,6 @@ namespace FomodModel.Base.ModuleCofiguration
     {
         [XmlElement("file", typeof(FileSystemItem))]
         [XmlElement("folder", typeof(FolderSystemItem))]
-        public ObservableCollection<SystemItem> Items { get; set; }
+        public ObservableCollection<SystemItem> Items { get; set; } = new ObservableCollection<SystemItem>();
     }
 }

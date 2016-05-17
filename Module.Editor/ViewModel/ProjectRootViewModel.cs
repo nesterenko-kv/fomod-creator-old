@@ -15,7 +15,7 @@ namespace Module.Editor.ViewModel
         private readonly IFileBrowserDialog _fileBrowserDialog;
 
         #endregion
-        
+
         #region Commands
 
         public RelayCommand AddImageCommand { get; }
@@ -27,6 +27,9 @@ namespace Module.Editor.ViewModel
         public RelayCommand<FileDependency> RemoveFileDependencyCommand { get; }
         public RelayCommand<FlagDependency> RemoveFlagDependencyCommand { get; }
         public RelayCommand ChkModuleNamePositionCommand { get; }
+        public RelayCommand AddFileCommand { get; }
+        public RelayCommand AddFolderCommand { get; }
+        public RelayCommand<SystemItem> RemoveSystemItemCommand { get; }
 
         #endregion
 
@@ -44,12 +47,16 @@ namespace Module.Editor.ViewModel
             AddFlagDependencyCommand = new RelayCommand<CompositeDependency>(AddFlagDependency);
             RemoveFlagDependencyCommand = new RelayCommand<FlagDependency>(RemoveFlagDependency);
             ChkModuleNamePositionCommand = new RelayCommand(ChkModuleNamePosition);
+            AddFileCommand = new RelayCommand(AddFile);
+            AddFolderCommand = new RelayCommand(AddFolder);
+            RemoveSystemItemCommand = new RelayCommand<SystemItem>(RemoveSystemItem);
             // ReSharper disable once SuspiciousTypeConversion.Global - аспект решает.
             var notifyPropertyChanged = this as INotifyPropertyChanged;
             if (notifyPropertyChanged != null)
-                notifyPropertyChanged.PropertyChanged += (obj, args) => _data = args.PropertyName == nameof(Data) ? (ProjectRoot)Data : _data;
+                notifyPropertyChanged.PropertyChanged +=
+                    (obj, args) => _data = args.PropertyName == nameof(Data) ? (ProjectRoot) Data : _data;
         }
-        
+
         #region Methods
 
         private void ChkModuleNamePosition()
@@ -57,7 +64,7 @@ namespace Module.Editor.ViewModel
             //_data.ModuleConfiguration.ModuleName.Position = null; 
             System.Diagnostics.Debug.Print("***Helow***");
         }
-
+        
         private void AddImage()
         {
             _fileBrowserDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
@@ -136,6 +143,41 @@ namespace Module.Editor.ViewModel
         {
             dependency.Parent.FlagDependencies.Remove(dependency);
             dependency.Parent = null;
+        }
+
+
+        private void AddFile()
+        {
+            if (_data.ModuleConfiguration.RequiredInstallFiles == null)
+                _data.ModuleConfiguration.RequiredInstallFiles = new FileList();
+
+            _data.ModuleConfiguration.RequiredInstallFiles.Items.Add(new FileSystemItem
+            {
+                Source = @"\ffga\kfdd.exe",
+                Destination = @"\kfdd.exe",
+                AlwaysInstall = false,
+                InstallIfUsable = false,
+                Priority = "0"
+            });
+        }
+        private void AddFolder()
+        {
+            if (_data.ModuleConfiguration.RequiredInstallFiles == null)
+                _data.ModuleConfiguration.RequiredInstallFiles = new FileList();
+
+            _data.ModuleConfiguration.RequiredInstallFiles.Items.Add(new FolderSystemItem
+            {
+                Source = @"\ffga\folder\1\folderNew",
+                Destination = @"\folderNew",
+                AlwaysInstall = false,
+                InstallIfUsable = false,
+                Priority = "0"
+            });
+        }
+
+        private void RemoveSystemItem(SystemItem systemItem)
+        {
+            _data.ModuleConfiguration.RequiredInstallFiles.Items.Remove(systemItem);
         }
         
         #endregion
