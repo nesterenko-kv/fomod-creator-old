@@ -15,11 +15,6 @@
         <GroupBox Background="Gray">
             <GroupBox.Header>
                 <DockPanel>
-                    <Button Width="18"
-                            Height="18"
-                            Style="{StaticResource AddButton}"
-                            Command="{Binding DataContext.AddImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                            DockPanel.Dock="Right" />
                     <TextBlock VerticalAlignment="Center"
                                Text="IMAGE"
                                FontSize="12"

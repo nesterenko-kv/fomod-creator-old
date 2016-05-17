@@ -1,7 +1,6 @@
 ﻿using System;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
-using Prism.Mvvm;
 using Prism.Regions;
 
 namespace Module.Editor.ViewModel
@@ -16,10 +15,7 @@ namespace Module.Editor.ViewModel
         }
 
         [Aspect(typeof(AspectINotifyPropertyChanged))]
-        public object Data
-        {
-            get;
-            set; }
+        public object Data { get; set; }
 
         #region INavigationAware
 
