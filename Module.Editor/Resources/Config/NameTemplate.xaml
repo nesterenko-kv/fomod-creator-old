@@ -36,7 +36,7 @@
                                 BorderBrush="White"
                                 BorderThickness="1"
                                 Background="{Binding Colour, Converter={StaticResource ColorToSolidBrushConverter}}" />
-                        <Slider Tag="{Binding Colour, Converter={StaticResource ColorToSolidBrushConverter}}" Value="{Binding Tag.Color.R, RelativeSource={RelativeSource Self}}"/>
+                        <TextBox Text="{Binding Colour, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
 
 

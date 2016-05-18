@@ -1,7 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
 using System.Xml.Serialization;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
@@ -22,7 +20,7 @@ namespace FomodModel.Base.ModuleCofiguration
         public ModuleTitle()
         {
             Position = ModuleTitlePosition.Left;
-            ColourXmlSurrogate = "000000";
+            Colour = "000000";
         }
 
         /// <summary>
@@ -35,21 +33,10 @@ namespace FomodModel.Base.ModuleCofiguration
         /// <summary>
         ///     The colour to use for the title."hexBinary"
         /// </summary>
-        [XmlIgnore]
-        public Color Colour { get; set; }
-        
         [XmlAttribute("colour")]
         [DefaultValue("000000")]
-        public string ColourXmlSurrogate
-        {
-            get { return $"{Colour.ToArgb() & 0x00ffffff:X6}"; }
-            set
-            {
-                uint number;
-                Colour = uint.TryParse(value, NumberStyles.HexNumber, null, out number) ? Color.FromArgb((int) (number | 0xff000000)) : Color.Black;
-            }
-        }
-
+        public string Colour { get; set; }
+        
         [XmlText]
         public string Value { get; set; }
     }
