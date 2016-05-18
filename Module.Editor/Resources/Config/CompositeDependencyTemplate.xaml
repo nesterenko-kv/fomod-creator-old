@@ -33,7 +33,6 @@
             </Grid>
         </Border>
     </DataTemplate>
-
     <DataTemplate DataType="{x:Type model:FlagDependency}">
         <Border Margin="0,0,0,-1"
                 BorderBrush="#59FFFFFF"
@@ -62,8 +61,6 @@
             </Grid>
         </Border>
     </DataTemplate>
-
-
     <DataTemplate x:Key="NullDependencies"
                   DataType="{x:Type model:CompositeDependency}">
         <GroupBox Background="Gray">
@@ -205,7 +202,40 @@
                                Text="Флаги" />
 
 
-                    <ItemsControl Grid.Row="2"
+
+                    <DataGrid Grid.Row="2"
+                              Grid.Column="1"
+                              Margin="{StaticResource RightMargin}"
+                              ItemsSource="{Binding FileDependencies}">
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn Header="State" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox SelectedItem="{Binding State}"
+                                                  ItemsSource="{Binding Source={StaticResource FileDependencyState}}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Binding="{Binding File}"
+                                                Header="File" Width="*" />
+                            <DataGridTemplateColumn Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Grid.Column="2"
+                                                HorizontalAlignment="Center"
+                                                Command="{Binding DataContext.RemoveFileDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource DeleteButton}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!--<ItemsControl Grid.Row="2"
                                   Grid.Column="1"
                                   Margin="{StaticResource RightMargin}"
                                   ItemsSource="{Binding FlagDependencies}">
@@ -262,7 +292,7 @@
                                 </Setter>
                             </Style>
                         </ItemsControl.Style>
-                    </ItemsControl>
+                    </ItemsControl>-->
 
                     <TextBlock Grid.Row="3"
                                Grid.Column="0"

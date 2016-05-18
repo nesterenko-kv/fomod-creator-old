@@ -13,7 +13,7 @@ namespace FomodInfrastructure.Converters
             if (values.Length != 2) return null;
             var folderPath = values[0].ToString();
             var subImagePath = values[1].ToString();
-            var imagePath = Path.Combine(folderPath, subImagePath);
+            var imagePath = Path.Combine(folderPath, subImagePath.Trim('\\', '/'));
             if (!File.Exists(imagePath)) return null;
             var bitmap = new BitmapImage();
             using (var stream = File.OpenRead(imagePath))
