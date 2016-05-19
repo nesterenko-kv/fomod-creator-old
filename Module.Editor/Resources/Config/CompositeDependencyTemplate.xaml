@@ -18,12 +18,12 @@
                     <ColumnDefinition />
                     <ColumnDefinition SharedSizeGroup="u3" />
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0"
+                <ComboBox Grid.Column="0" Margin="0"
                           ItemsSource="{Binding Source={StaticResource FileDependencyState}}"
                           SelectedItem="{Binding State}"
                           Style="{StaticResource GridCombobox}" />
-                <TextBlock Grid.Column="1"
-                           Style="{StaticResource GridTextBlock}"
+                <TextBox Grid.Column="1"
+                           Style="{StaticResource GridTextBox}"
                            Text="{Binding File}" />
                 <Button Grid.Column="2"
                         HorizontalAlignment="Center"
@@ -44,7 +44,7 @@
                     <ColumnDefinition SharedSizeGroup="u3" />
                 </Grid.ColumnDefinitions>
                 <ComboBox xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                          Grid.Column="0"
+                          Grid.Column="0" Margin="0"
                           SelectedItem="{Binding Value}"
                           Style="{StaticResource GridCombobox}">
                     <sys:String>On</sys:String>
@@ -164,7 +164,7 @@
                                Text="Files" />
 
 
-                    <Button Grid.Row="1"
+                    <!--<Button Grid.Row="1"
                             Grid.Column="1"
                             Width="20"
                             Height="20"
@@ -216,15 +216,133 @@
                             </DataGridTemplateColumn>
 
                         </DataGrid.Columns>
-                    </DataGrid>
+                    </DataGrid>-->
+
+
+                    <ItemsControl Grid.Row="1"
+                                  Grid.Column="1"
+                                  Margin="{StaticResource RightMargin}"
+                                  ItemsSource="{Binding FileDependencies}">
+                        <ItemsControl.Style>
+                            <Style TargetType="{x:Type ItemsControl}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition SharedSizeGroup="u1" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition SharedSizeGroup="u3" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Column="0"
+                                                           Margin="6"
+                                                           FontSize="14"
+                                                           Style="{StaticResource LeftTextBlock}"
+                                                           Text="Статус" />
+                                                <TextBlock Grid.Column="1"
+                                                           Margin="6"
+                                                           FontSize="14"
+                                                           Style="{StaticResource LeftTextBlock}"
+                                                           Text="Относительный путь" />
+                                                <Button Grid.Column="2"
+                                                        Width="20"
+                                                        Height="20"
+                                                        Margin="6,0"
+                                                        HorizontalAlignment="Center"
+                                                        Command="{Binding DataContext.AddFileDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource AddButton}" />
+                                                <Border x:Name="decorator"
+                                                        Grid.Row="0"
+                                                        Grid.ColumnSpan="3"
+                                                        Panel.ZIndex="-100"
+                                                        Background="#FF59ACFF" />
+
+
+                                                <Border Grid.Row="1"
+                                                        Grid.ColumnSpan="3"
+                                                        BorderBrush="#FF59ACFF"
+                                                        BorderThickness="1,0,1,1">
+                                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                </Border>
+
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ItemsControl.Style>
+                    </ItemsControl>
+
 
                     <TextBlock Grid.Row="2"
                                Grid.Column="0"
                                Style="{StaticResource LeftTextBlock}"
                                Text="Флаги" />
+                    <ItemsControl Grid.Row="2"
+                                  Grid.Column="1"
+                                  Margin="{StaticResource RightMargin}"
+                                  ItemsSource="{Binding FlagDependencies}">
+                        <ItemsControl.Style>
+                            <Style TargetType="{x:Type ItemsControl}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition SharedSizeGroup="u1" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition SharedSizeGroup="u3" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Column="0"
+                                                           Margin="6"
+                                                           FontSize="14"
+                                                           Style="{StaticResource LeftTextBlock}"
+                                                           Text="Значение" />
+                                                <TextBlock Grid.Column="1"
+                                                           Margin="6"
+                                                           FontSize="14"
+                                                           Style="{StaticResource LeftTextBlock}"
+                                                           Text="Наименование флага" />
+                                                <Border Grid.Row="0"
+                                                        Grid.ColumnSpan="3"
+                                                        Panel.ZIndex="-100"
+                                                        Background="#FF59ACFF" />
+                                                <Button Grid.Row="0"
+                                                        Grid.Column="2"
+                                                        Width="20"
+                                                        Height="20"
+                                                        Margin="6,0"
+                                                        HorizontalAlignment="Center"
+                                                        Command="{Binding DataContext.AddFlagDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource AddButton}" />
 
 
-                    <Button Grid.Row="2"
+                                                <Border Grid.Row="1"
+                                                        Grid.ColumnSpan="3"
+                                                        BorderBrush="#FF59ACFF"
+                                                        BorderThickness="1,0,1,1">
+                                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                </Border>
+
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ItemsControl.Style>
+                    </ItemsControl>
+
+                    <!--<Button Grid.Row="2"
                             Grid.Column="1"
                             Width="20"
                             Height="20"
@@ -277,13 +395,13 @@
                                                 Command="{Binding DataContext.RemoveFlagDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                                 CommandParameter="{Binding}"
                                                 Style="{StaticResource DeleteButton}" />
-                                        <!--<TextBlock Text="WOW" Style="{StaticResource def}"/>-->
+                                        --><!--<TextBlock Text="WOW" Style="{StaticResource def}"/>--><!--
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
                         </DataGrid.Columns>
-                    </DataGrid>
+                    </DataGrid>-->
                 </Grid>
             </GroupBox>
             <ContentControl Content="{Binding Dependencies}" />
