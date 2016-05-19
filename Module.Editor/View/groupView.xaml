@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Grid.IsSharedSizeScope="True">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+        <ScrollViewer>
             <StackPanel MaxWidth="1000">
                 <GroupBox Header="Group info" DataContext="{Binding Data}">
                     <StackPanel>

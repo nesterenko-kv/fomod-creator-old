@@ -3,101 +3,52 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:enum="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
-             xmlns:moduleCofiguration="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignHeight="800"
+             d:DesignWidth="1200"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="DataFromEnum" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enum:PluginTypeEnum" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Enums.xaml" />
+                <ResourceDictionary Source="../Resources/Config/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
-    <GroupBox Header="Plugin" DataContext="{Binding Data}">
-        <TabControl controls:ControlsHelper.HeaderFontSize="18">
-            <TabItem Header="Инфо">
-                <DockPanel>
-                    <TextBox DockPanel.Dock="Top"
-                             VerticalAlignment="Top"
-                             MaxHeight="38"
-                             Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             controls:TextBoxHelper.Watermark="Название плагина" />
-                    <ComboBox DockPanel.Dock="Top"
-                              VerticalAlignment="Top"
-                              controls:TextBoxHelper.Watermark="Тип плагина"
-                              ItemsSource="{Binding Source={StaticResource DataFromEnum}}"
-                              SelectedItem="{Binding TypeDescriptor.DependencyType.DefaultType.Name, Mode=TwoWay}" />
-                    <TextBox AcceptsReturn="True"
-                             TextWrapping="Wrap"
-                             Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             controls:TextBoxHelper.Watermark="Описание плагина"/>
-                </DockPanel>
-            </TabItem>
-            <TabItem Header="Флаги">
+    <Grid Grid.IsSharedSizeScope="True">
+        <ScrollViewer>
+            <StackPanel MaxWidth="1000">
+                <GroupBox Header="Plugin info" DataContext="{Binding Data}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Column="0" Text="Plugin name" />
+                        </Grid>
 
-            </TabItem>
-            <TabItem Header="Зависимости">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox ItemsSource="{Binding Source={StaticResource PluginTypeEnum}}"
+                                      SelectedItem="{Binding TypeDescriptor.DependencyType.DefaultType.Name, Mode=TwoWay}" />
+                            <TextBlock Grid.Column="0" Text="Plugin type" />
+                        </Grid>
 
-            </TabItem>
-            <TabItem Header="Файлы и папки">
-                <ListView ItemsSource="{Binding Files.Items}">
-                    <ListView.View>
-                        <GridView>
-                            <GridView.Columns>
-                                <GridViewColumn Header="Type">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <ContentControl Content="{Binding}">
-                                                <ContentControl.Resources>
-                                                    <DataTemplate DataType="{x:Type moduleCofiguration:FileSystemItem}">
-                                                        <TextBlock Height="16"
-                                                                   VerticalAlignment="Center"
-                                                                   Text="file"
-                                                                   TextTrimming="CharacterEllipsis" />
-                                                    </DataTemplate>
-                                                    <DataTemplate
-                                                        DataType="{x:Type moduleCofiguration:FolderSystemItem}">
-                                                        <TextBlock Height="16"
-                                                                   VerticalAlignment="Center"
-                                                                   Text="Folder"
-                                                                   TextTrimming="CharacterEllipsis" />
-                                                    </DataTemplate>
-                                                </ContentControl.Resources>
-                                            </ContentControl>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Source path">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate DataType="moduleCofiguration:SystemItem">
-                                            <TextBlock Height="16"
-                                                       VerticalAlignment="Center"
-                                                       Text="{Binding Source}"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       ToolTip="{Binding Source}" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Destination path">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate DataType="moduleCofiguration:SystemItem">
-                                            <TextBlock Height="16"
-                                                       VerticalAlignment="Center"
-                                                       Text="{Binding Destination}"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       ToolTip="{Binding Destination}" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView.Columns>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </TabItem>
-        </TabControl>
-    </GroupBox>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Column="0" Text="Description" />
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

@@ -17,7 +17,7 @@
     </UserControl.Resources>
 
     <Grid Grid.IsSharedSizeScope="True">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+        <ScrollViewer>
             <StackPanel MaxWidth="1000">
                 <GroupBox Header="Install step info" DataContext="{Binding Data}">
                     <StackPanel>

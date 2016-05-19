@@ -19,7 +19,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Grid.Column="0" Text="Название модификации" />
+                    <TextBlock Grid.Column="0" Text="Mod Name" />
                 </Grid>
 
                 <Grid>
@@ -28,7 +28,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Grid.Column="0" Text="Автор" />
+                    <TextBlock Grid.Column="0" Text="Author" />
                 </Grid>
 
                 <Grid>
@@ -37,7 +37,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Version, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Grid.Column="0" Text="Версия" />
+                    <TextBlock Grid.Column="0" Text="Version" />
                 </Grid>
 
                 <Grid>
@@ -46,7 +46,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Website, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Grid.Column="0" Text="Ссылка" />
+                    <TextBlock Grid.Column="0" Text="URL Link" />
                 </Grid>
 
                 <Grid>
@@ -61,7 +61,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <TextBlock Grid.Column="0" Text="Категория" />
+                    <TextBlock Grid.Column="0" Text="Category" />
                 </Grid>
 
                 <Grid>
@@ -70,7 +70,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Grid.Column="0" Text="Описание" />
+                    <TextBlock Grid.Column="0" Text="Description" />
                 </Grid>
 
             </StackPanel>
