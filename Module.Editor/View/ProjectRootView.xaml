@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ucontrol="clr-namespace:Module.Editor.Resources"
              d:DesignHeight="800"
              d:DesignWidth="1200"
              mc:Ignorable="d">
@@ -10,82 +11,12 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Enums.xaml" />
+                <ResourceDictionary Source="../Resources/NewStyles.xaml" />
                 <ResourceDictionary Source="../Resources/Config/CompositeDependencyTemplate.xaml" />
-                <ResourceDictionary Source="../Resources/Config/InformationTemplate.xaml" />
-                <ResourceDictionary Source="../Resources/Config/NameTemplate.xaml" />
-                <ResourceDictionary Source="../Resources/Config/ImageTemplate.xaml" />
-                <ResourceDictionary Source="../Resources/Config/OtherTemplate.xaml" />
                 <ResourceDictionary Source="../Resources/Config/FileListTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <Thickness x:Key="DefMargin"
-                       Left="6"
-                       Top="3"
-                       Right="6"
-                       Bottom="3" />
 
-            <ControlTemplate x:Key="DefGroupBoxTemplate"
-                             TargetType="{x:Type GroupBox}">
-                <Grid x:Name="GroupBoxRoot">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Border x:Name="HeaderSite"
-                            Grid.Row="0"
-                            Padding="6,6"
-                            TextBlock.FontSize="14"
-                            BorderBrush="{x:Null}"
-                            BorderThickness="0"
-                            Background="{TemplateBinding Background}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            UseLayoutRounding="True">
-                        <ContentControl Content="{TemplateBinding Header}" />
-                    </Border>
-                    <Border Grid.Row="1"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="1,0,1,1"
-                            Background="Transparent"
-                            Padding="3"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            UseLayoutRounding="True">
-                        <ContentPresenter Margin="{TemplateBinding Padding}"
-                                          Cursor="{TemplateBinding Cursor}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          Content="{TemplateBinding Content}"
-                                          UseLayoutRounding="False" />
-                    </Border>
-                </Grid>
-            </ControlTemplate>
-            <Style x:Key="DefTestBlockStyle"
-                   TargetType="{x:Type TextBlock}">
-                <Setter Property="Padding" Value="{StaticResource DefMargin}" />
-                <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="FontSize" Value="14" />
-            </Style>
-            <Style x:Key="DefTestBoxStyle"
-                   TargetType="{x:Type TextBox}">
-                <Setter Property="Margin" Value="{StaticResource DefMargin}" />
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="TextAlignment" Value="Left" />
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="TextWrapping" Value="Wrap" />
-            </Style>
-
-            <!--BasedOn="{StaticResource {x:Type ComboBox}}"-->
-            <Style x:Key="DefComboBoxStyle"
-                   
-                   TargetType="{x:Type ComboBox}">
-                <Setter Property="Margin" Value="{StaticResource DefMargin}" />
-            </Style>
-
-            <Style TargetType="{x:Type GroupBox}">
-                <Setter Property="Template" Value="{StaticResource DefGroupBoxTemplate}" />
-                <Setter Property="Background" Value="DarkOliveGreen" />
-                <Setter Property="BorderBrush" Value="DarkOliveGreen" />
-                <Setter Property="Foreground" Value="White" />
-                <Setter Property="Margin" Value="6" />
-            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Grid.IsSharedSizeScope="True">
@@ -156,7 +87,8 @@
                                   ItemsSource="{converters:EnumValues {x:Type base:CategoriesEnum}}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Mode=OneTime, Converter={StaticResource EnumValueToDecriptionConverter}}" />
+                                    <TextBlock Text="{Binding Mode=OneTime, Converter={StaticResource EnumValueToDecriptionConverter}}"
+                                               Style="{StaticResource DefTestBlockStyle}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
@@ -248,27 +180,44 @@
                                   Grid.Column="1"
                                   ItemsSource="{Binding Source={StaticResource OrderEnum}}"
                                   SelectedValue="{Binding Order}" />
-
                     </Grid>
-
-
                 </GroupBox>
 
-                <!--<ContentControl Content="{Binding Data.ModuleInformation}" ContentTemplate="{StaticResource InformationTemplate}" />
-                <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleName}" ContentTemplate="{StaticResource ModuleName}" />-->
-                <!--<ContentControl Content="{Binding ''}"
-                                ContentTemplate="{StaticResource OtherTemplate}" />-->
 
-                <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleImage}">
+
+                <ContentControl>
                     <ContentControl.Style>
                         <Style TargetType="{x:Type ContentControl}">
                             <Style.Triggers>
-                                <Trigger Property="Content" Value="{x:Null}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource NullHeaderImage}" />
-                                </Trigger>
+                                <DataTrigger Binding="{Binding Data.ModuleConfiguration.ModuleImage}"
+                                             Value="{x:Null}">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+
+                                                <GroupBox Background="Gray">
+                                                    <GroupBox.Header>
+                                                        <DockPanel>
+                                                            <Button Width="18"
+                                                                    Height="18"
+                                                                    Style="{StaticResource AddButton}"
+                                                                    Command="{Binding DataContext.AddImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                                    DockPanel.Dock="Right" />
+                                                            <TextBlock VerticalAlignment="Center"
+                                                                       Text="IMAGE"
+                                                                       FontSize="12"
+                                                                       FontFamily="Segoe UI" />
+                                                        </DockPanel>
+                                                    </GroupBox.Header>
+                                                </GroupBox>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </ContentControl.Style>
+                    <ucontrol:ImageControl />
                 </ContentControl>
 
                 <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleDependencies}">
