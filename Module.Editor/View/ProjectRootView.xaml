@@ -12,8 +12,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Enums.xaml" />
                 <ResourceDictionary Source="../Resources/NewStyles.xaml" />
-                <ResourceDictionary Source="../Resources/Config/CompositeDependencyTemplate.xaml" />
-                <ResourceDictionary Source="../Resources/Config/FileListTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
 
@@ -183,66 +181,9 @@
                     </Grid>
                 </GroupBox>
 
-
-
-                <ContentControl>
-                    <ContentControl.Style>
-                        <Style TargetType="{x:Type ContentControl}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Data.ModuleConfiguration.ModuleImage}"
-                                             Value="{x:Null}">
-                                    <Setter Property="ContentTemplate">
-                                        <Setter.Value>
-                                            <DataTemplate>
-
-                                                <GroupBox Background="Gray">
-                                                    <GroupBox.Header>
-                                                        <DockPanel>
-                                                            <Button Width="18"
-                                                                    Height="18"
-                                                                    Style="{StaticResource AddButton}"
-                                                                    Command="{Binding DataContext.AddImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                                                    DockPanel.Dock="Right" />
-                                                            <TextBlock VerticalAlignment="Center"
-                                                                       Text="IMAGE"
-                                                                       FontSize="12"
-                                                                       FontFamily="Segoe UI" />
-                                                        </DockPanel>
-                                                    </GroupBox.Header>
-                                                </GroupBox>
-                                            </DataTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>
-                    <ucontrol:ImageControl />
-                </ContentControl>
-
-                <ContentControl Content="{Binding Data.ModuleConfiguration.ModuleDependencies}">
-                    <ContentControl.Style>
-                        <Style TargetType="{x:Type ContentControl}">
-                            <Style.Triggers>
-                                <Trigger Property="Content" Value="{x:Null}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource NullDependencies}" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
-                <ContentControl ContentTemplate="{StaticResource FileList}"
-                                Content="{Binding Data.ModuleConfiguration.RequiredInstallFiles}">
-                    <!--<ContentControl.Style>
-                        <Style TargetType="{x:Type ContentControl}">
-                            <Style.Triggers>
-                                <Trigger Property="Content" Value="{x:Null}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource NullFileList}" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>-->
-                </ContentControl>
+                <ucontrol:ImageControl />
+                <ucontrol:CompositeDependencyControl />
+                <ucontrol:FileFolderList />
             </StackPanel>
         </ScrollViewer>
 

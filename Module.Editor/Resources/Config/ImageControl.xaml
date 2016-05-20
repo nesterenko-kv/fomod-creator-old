@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Module.Editor.Resources"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignHeight="400"
+             d:DesignWidth="700"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -33,109 +33,145 @@
             </DrawingBrush>
         </ResourceDictionary>
     </UserControl.Resources>
-    <GroupBox DataContext="{Binding Data.ModuleConfiguration.ModuleImage}">
-        <GroupBox.Header>
-            <DockPanel>
-                <Button Width="18"
+
+    <ContentControl>
+        <ContentControl.Style>
+            <Style TargetType="{x:Type ContentControl}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Data.ModuleConfiguration.ModuleImage}"
+                                             Value="{x:Null}">
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+
+                                    <GroupBox Background="Gray">
+                                        <GroupBox.Header>
+                                            <DockPanel>
+                                                <Button Width="18"
+                                                                    Height="18"
+                                                                    Style="{DynamicResource AddButton}"
+                                                                    Command="{Binding DataContext.AddImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                                    DockPanel.Dock="Right" />
+                                                <TextBlock VerticalAlignment="Center"
+                                                                       Text="Image"
+                                                                       Padding="0"
+                                                                       Style="{StaticResource DefTestBlockStyle}" />
+                                            </DockPanel>
+                                        </GroupBox.Header>
+                                    </GroupBox>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ContentControl.Style>
+        <GroupBox DataContext="{Binding Data.ModuleConfiguration.ModuleImage}">
+            <GroupBox.Header>
+                <DockPanel>
+                    <Button Width="18"
                         Height="18"
-                        Style="{StaticResource DeleteButton}"
+                        Style="{DynamicResource DeleteButton}"
                         Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                         DockPanel.Dock="Right" />
-                <TextBlock VerticalAlignment="Center"
-                           Text="IMAGE"
-                           FontSize="12"
-                           FontFamily="Segoe UI" />
-            </DockPanel>
-        </GroupBox.Header>
-        <Grid>
-            <Grid.Resources>
-                <Style TargetType="{x:Type TextBlock}"
+                    <TextBlock VerticalAlignment="Center"
+                           Text="Image" Style="{StaticResource DefTestBlockStyle}"
+                           Padding="0" />
+                </DockPanel>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type TextBlock}"
                                    BasedOn="{StaticResource DefTestBlockStyle}" />
-                <Style TargetType="{x:Type TextBox}"
+                    <Style TargetType="{x:Type TextBox}"
                                    BasedOn="{StaticResource DefTestBoxStyle}" />
-                <Style TargetType="{x:Type ComboBox}"
+                    <Style TargetType="{x:Type ComboBox}"
                                    BasedOn="{StaticResource DefComboBoxStyle}" />
-            </Grid.Resources>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition SharedSizeGroup="Column1" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Border Grid.ColumnSpan="2"
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Column1" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.ColumnSpan="2"
                     Height="150"
                     Margin="3"
                     BorderThickness="1"
                     BorderBrush="White">
-                <Image>
-                    <Image.Source>
-                        <MultiBinding Converter="{StaticResource ImageSourceConverter}">
-                            <Binding Path="DataContext.Data.FolderPath"
+                    <Image>
+                        <Image.Source>
+                            <MultiBinding Converter="{StaticResource ImageSourceConverter}">
+                                <Binding Path="DataContext.Data.FolderPath"
                                      RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
-                            <Binding Path="Path" />
-                        </MultiBinding>
-                    </Image.Source>
-                </Image>
-            </Border>
+                                <Binding Path="Path" />
+                            </MultiBinding>
+                        </Image.Source>
+                    </Image>
+                </Border>
 
-            <TextBlock Grid.Row="1"
+                <TextBlock Grid.Row="1"
                        Grid.Column="0"
                        Text="Path" />
 
-            <DockPanel Grid.Row="1"
+                <DockPanel Grid.Row="1"
                        Grid.Column="1">
-                <Button Width="16"
+                    <Button Width="16"
                         Height="16" Margin="3,0,9,0"
                         VerticalAlignment="Center"
                         DockPanel.Dock="Right"
                         Command="{Binding DataContext.BrowseImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Rectangle Fill="{StaticResource BrowseImageIcon}" />
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <TextBox Grid.Column="1"
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Rectangle Fill="{StaticResource BrowseImageIcon}" />
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <TextBox Grid.Column="1"
                          Text="{Binding Path}"
                          IsReadOnly="True" />
-            </DockPanel>
+                </DockPanel>
 
 
 
-            <TextBlock Grid.Row="2"
+                <TextBlock Grid.Row="2"
                        Grid.Column="0"
                        Text="Show Image" />
-            <ComboBox xmlns:system="clr-namespace:System;assembly=mscorlib"
+                <ComboBox xmlns:system="clr-namespace:System;assembly=mscorlib"
                       Grid.Row="2"
                       Grid.Column="1"
                       SelectedValue="{Binding ShowImage}">
-                <system:Boolean>true</system:Boolean>
-                <system:Boolean>false</system:Boolean>
-            </ComboBox>
+                    <system:Boolean>true</system:Boolean>
+                    <system:Boolean>false</system:Boolean>
+                </ComboBox>
 
-            <TextBlock Grid.Row="3"
+                <TextBlock Grid.Row="3"
                        Grid.Column="0"
                        Text="Show Fade" />
-            <ComboBox xmlns:system="clr-namespace:System;assembly=mscorlib"
+                <ComboBox xmlns:system="clr-namespace:System;assembly=mscorlib"
                       Grid.Row="3"
                       Grid.Column="1"
                       SelectedValue="{Binding ShowFade}">
-                <system:Boolean>true</system:Boolean>
-                <system:Boolean>false</system:Boolean>
-            </ComboBox>
+                    <system:Boolean>true</system:Boolean>
+                    <system:Boolean>false</system:Boolean>
+                </ComboBox>
 
 
 
-            <TextBlock Grid.Row="4"
+                <TextBlock Grid.Row="4"
                        Grid.Column="0"
                        Text="Height" />
-        </Grid>
-    </GroupBox>
+            </Grid>
+        </GroupBox>
+    </ContentControl>
+
+
+    
 
 
 

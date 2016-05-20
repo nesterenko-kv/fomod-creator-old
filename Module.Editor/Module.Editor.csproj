@@ -85,6 +85,12 @@
   <ItemGroup>
     <Compile Include="EditorRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Config\CompositeDependencyControl.xaml.cs">
+      <DependentUpon>CompositeDependencyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Config\FileFolderList.xaml.cs">
+      <DependentUpon>FileFolderList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Config\ImageControl.xaml.cs">
       <DependentUpon>ImageControl.xaml</DependentUpon>
     </Compile>
@@ -106,19 +112,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Resources\Config\CompositeDependencyTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Resources\Config\CompositeDependencyControl.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Config\FileFolderList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Config\ImageControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Config\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Config\FileListTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

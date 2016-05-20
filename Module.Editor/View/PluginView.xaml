@@ -10,7 +10,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Enums.xaml" />
-                <ResourceDictionary Source="../Resources/Config/Styles.xaml" />
+                <ResourceDictionary Source="../Resources/NewStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
