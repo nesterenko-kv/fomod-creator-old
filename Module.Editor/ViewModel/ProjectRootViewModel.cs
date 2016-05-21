@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.IO;
 using FomodInfrastructure.Interface;
+using System;
 
 namespace Module.Editor.ViewModel
 {
@@ -27,10 +28,11 @@ namespace Module.Editor.ViewModel
         public RelayCommand<CompositeDependency> AddFlagDependencyCommand { get; }
         public RelayCommand<FileDependency> RemoveFileDependencyCommand { get; }
         public RelayCommand<FlagDependency> RemoveFlagDependencyCommand { get; }
-        public RelayCommand ChkModuleNamePositionCommand { get; }
-        public RelayCommand AddFileCommand { get; }
-        public RelayCommand AddFolderCommand { get; }
+        public RelayCommand<object> AddFileCommand { get; }
+        public RelayCommand<object> AddFolderCommand { get; }
         public RelayCommand<SystemItem> RemoveSystemItemCommand { get; }
+
+        public RelayCommand AddConditionalFileInstallsCommand { get; }
 
         #endregion
 
@@ -48,10 +50,11 @@ namespace Module.Editor.ViewModel
             RemoveFileDependencyCommand = new RelayCommand<FileDependency>(RemoveFileDependency);
             AddFlagDependencyCommand = new RelayCommand<CompositeDependency>(AddFlagDependency);
             RemoveFlagDependencyCommand = new RelayCommand<FlagDependency>(RemoveFlagDependency);
-            ChkModuleNamePositionCommand = new RelayCommand(ChkModuleNamePosition);
-            AddFileCommand = new RelayCommand(AddFile);
-            AddFolderCommand = new RelayCommand(AddFolder);
+            AddFileCommand = new RelayCommand<object>(AddFile);
+            AddFolderCommand = new RelayCommand<object>(AddFolder);
             RemoveSystemItemCommand = new RelayCommand<SystemItem>(RemoveSystemItem);
+            AddConditionalFileInstallsCommand = new RelayCommand(AddConditionalFileInstalls);
+
             // ReSharper disable once SuspiciousTypeConversion.Global - аспект решает.
             var notifyPropertyChanged = this as INotifyPropertyChanged;
             if (notifyPropertyChanged != null)
@@ -59,13 +62,20 @@ namespace Module.Editor.ViewModel
                     (obj, args) => _data = args.PropertyName == nameof(Data) ? (ProjectRoot) Data : _data;
         }
 
+        private void AddConditionalFileInstalls()
+        {
+            if (_data.ModuleConfiguration.ConditionalFileInstalls == null) _data.ModuleConfiguration.ConditionalFileInstalls = new ConditionalFileInstallList
+            {
+                Patterns = new ObservableCollection<ConditionalInstallPattern>()
+            };
+            _data.ModuleConfiguration.ConditionalFileInstalls.Patterns.Add(new ConditionalInstallPattern
+            {
+                //Dependencies = new CompositeDependency()
+            });
+        }
+
         #region Methods
 
-        private void ChkModuleNamePosition()
-        {
-            //_data.ModuleConfiguration.ModuleName.Position = null; 
-            System.Diagnostics.Debug.Print("***Helow***");
-        }
 
         private string GetImage()
         {
@@ -159,7 +169,7 @@ namespace Module.Editor.ViewModel
         }
 
 
-        private void AddFile()
+        private void AddFile(object obj)
         {
             if (_data.ModuleConfiguration.RequiredInstallFiles == null)
                 _data.ModuleConfiguration.RequiredInstallFiles = new FileList();
@@ -173,7 +183,7 @@ namespace Module.Editor.ViewModel
                 Priority = "0"
             });
         }
-        private void AddFolder()
+        private void AddFolder(object obj)
         {
             if (_data.ModuleConfiguration.RequiredInstallFiles == null)
                 _data.ModuleConfiguration.RequiredInstallFiles = new FileList();

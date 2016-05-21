@@ -28,46 +28,7 @@
                Right="6"
                Bottom="3" />
 
-    <ControlTemplate x:Key="DefGroupBoxTemplate"
-                     TargetType="{x:Type GroupBox}">
-        <Grid x:Name="GroupBoxRoot">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Border x:Name="HeaderSite"
-                    Grid.Row="0"
-                    Padding="6,6"
-                    TextBlock.FontSize="14"
-                    BorderBrush="{x:Null}"
-                    BorderThickness="0"
-                    Background="{TemplateBinding Background}"
-                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                    UseLayoutRounding="True">
-                <ContentControl Content="{TemplateBinding Header}" />
-            </Border>
-            <Border Grid.Row="1"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="1,0,1,1"
-                    Background="Transparent"
-                    Padding="3"
-                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                    UseLayoutRounding="True">
-                <ContentPresenter Margin="{TemplateBinding Padding}"
-                                  Cursor="{TemplateBinding Cursor}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  Content="{TemplateBinding Content}"
-                                  UseLayoutRounding="False" />
-            </Border>
-        </Grid>
-    </ControlTemplate>
-    <Style TargetType="{x:Type GroupBox}">
-        <Setter Property="Template" Value="{StaticResource DefGroupBoxTemplate}" />
-        <Setter Property="Background" Value="{StaticResource GroupBoxBackGroundColor}" />
-        <Setter Property="BorderBrush" Value="{StaticResource GroupBoxBackGroundColor}" />
-        <Setter Property="Foreground" Value="{StaticResource GroupBoxForeGroundColor}" />
-        <Setter Property="Margin" Value="6" />
-    </Style>
+    
     <Style x:Key="DefTestBlockStyle"
            TargetType="{x:Type TextBlock}">
         <Setter Property="Margin" Value="{StaticResource DefMargin}" />

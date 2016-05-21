@@ -4,36 +4,36 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ucontrol="clr-namespace:Module.Editor.Resources"
-             d:DesignHeight="800"
+             d:DesignHeight="2000"
              d:DesignWidth="1200"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Enums.xaml" />
-                <ResourceDictionary Source="../Resources/NewStyles.xaml" />
+                <!--<ResourceDictionary Source="../Resources/NewStyles.xaml" />-->
+                <ResourceDictionary Source="../Resources/Blend/_Package.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Grid.IsSharedSizeScope="True">
-        <ScrollViewer>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
             <StackPanel MaxWidth="1000">
-                <GroupBox Header="Mod info"
-                          DataContext="{Binding Data.ModuleInformation}">
+                <GroupBox DataContext="{Binding Data.ModuleInformation}" Header="Mod info">
                     <Grid>
                         <Grid.Resources>
-                            <Style TargetType="{x:Type TextBlock}"
-                                   BasedOn="{StaticResource DefTestBlockStyle}" />
-                            <Style TargetType="{x:Type TextBox}"
-                                   BasedOn="{StaticResource DefTestBoxStyle}" />
-                            <Style TargetType="{x:Type ComboBox}"
-                                   BasedOn="{StaticResource DefComboBoxStyle}" />
+                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
+                            <Style BasedOn="{StaticResource TextBoxDefault}" TargetType="{x:Type TextBox}">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
+                            <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"
-                                              SharedSizeGroup="Column1" />
+                            <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -48,71 +48,75 @@
                         <TextBlock Grid.Row="0"
                                    Grid.Column="0"
                                    Text="ModuleName" />
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="0"
-                                   Text="Autor" />
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="0"
-                                   Text="Version" />
-                        <TextBlock Grid.Row="3"
-                                   Grid.Column="0"
-                                   Text="Website" />
-                        <TextBlock Grid.Row="4"
-                                   Grid.Column="0"
-                                   Text="Category" />
-                        <TextBlock Grid.Row="5"
-                                   Grid.Column="0"
-                                   Text="Description" />
 
                         <TextBox Grid.Row="0"
                                  Grid.Column="1"
                                  Text="{Binding Name}" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   Text="Autor" />
                         <TextBox Grid.Row="1"
                                  Grid.Column="1"
                                  Text="{Binding Author}" />
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="0"
+                                   Text="Version" />
                         <TextBox Grid.Row="2"
                                  Grid.Column="1"
                                  Text="{Binding Version}" />
+                        <TextBlock Grid.Row="3"
+                                   Grid.Column="0"
+                                   Text="Website" />
                         <TextBox Grid.Row="3"
                                  Grid.Column="1"
                                  Text="{Binding Website}" />
-                        <ComboBox xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
-                                  xmlns:base="clr-namespace:FomodModel.Base;assembly=FomodModel"
+                        <TextBlock Grid.Row="4"
+                                   Grid.Column="0"
+                                   Text="Category" />
+                        <ComboBox xmlns:base="clr-namespace:FomodModel.Base;assembly=FomodModel"
+                                  xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
                                   Grid.Row="4"
                                   Grid.Column="1"
                                   DisplayMemberPath=""
-                                  SelectedItem="{Binding CategoryId, Mode=TwoWay}"
-                                  ItemsSource="{converters:EnumValues {x:Type base:CategoriesEnum}}">
+                                  ItemsSource="{converters:EnumValues {x:Type base:CategoriesEnum}}"
+                                  SelectedItem="{Binding CategoryId,
+                                                         Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Mode=OneTime, Converter={StaticResource EnumValueToDecriptionConverter}}"
-                                               Style="{StaticResource DefTestBlockStyle}" />
+                                    <TextBlock Style="{StaticResource TextBlockDefault}" Text="{Binding Mode=OneTime, Converter={StaticResource EnumValueToDecriptionConverter}}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
+                        <TextBlock Grid.Row="5"
+                                   Grid.Column="0"
+                                   Text="Description" />
                         <TextBox Grid.Row="5"
                                  Grid.Column="1"
                                  HorizontalScrollBarVisibility="Disabled"
-                                 VerticalScrollBarVisibility="Disabled"
-                                 Text="{Binding Description}" />
+                                 Text="{Binding Description}"
+                                 VerticalScrollBarVisibility="Disabled" />
                     </Grid>
 
 
                 </GroupBox>
-                <GroupBox Header="Module name"
-                          DataContext="{Binding Data.ModuleConfiguration.ModuleName}">
+                <GroupBox DataContext="{Binding Data.ModuleConfiguration.ModuleName}" Header="Module name">
                     <Grid>
                         <Grid.Resources>
-                            <Style TargetType="{x:Type TextBlock}"
-                                   BasedOn="{StaticResource DefTestBlockStyle}" />
-                            <Style TargetType="{x:Type TextBox}"
-                                   BasedOn="{StaticResource DefTestBoxStyle}" />
-                            <Style TargetType="{x:Type ComboBox}"
-                                   BasedOn="{StaticResource DefComboBoxStyle}" />
+                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
+                            <Style BasedOn="{StaticResource TextBoxDefault}" TargetType="{x:Type TextBox}">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
+                            <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"
-                                              SharedSizeGroup="Column1" />
+                            <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -124,49 +128,47 @@
                         <TextBlock Grid.Row="0"
                                    Grid.Column="0"
                                    Text="Module Name" />
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="0"
-                                   Text="Color" />
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="0"
-                                   Text="Possition" />
 
 
                         <TextBox Grid.Row="0"
                                  Grid.Column="1"
                                  Text="{Binding Value}" />
-                        <StackPanel Grid.Row="1"
-                                    Grid.Column="1"
-                                    Margin="{StaticResource DefMargin}">
-                            <Border Height="20"
-                                    Background="Coral" />
-                            <TextBox Margin="0,3"
-                                     Text="{Binding Colour}" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   Text="Color" />
+                        <StackPanel Grid.Row="1" Grid.Column="1">
+                            <Border Height="{Binding ElementName=colorTb, Path=ActualHeight}" Background="Coral" />
+                            <TextBox x:Name="colorTb" Text="{Binding Colour}" />
                         </StackPanel>
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="0"
+                                   Text="Possition" />
                         <ComboBox Grid.Row="2"
                                   Grid.Column="1"
                                   ItemsSource="{Binding Source={StaticResource ModuleTitlePositionEnum}}"
-                                  SelectedValue="{Binding Position}" />
+                                  SelectedValue="{Binding Position}">
+                            <ComboBox.Resources>
+                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
+                            </ComboBox.Resources>
+                        </ComboBox>
 
                     </Grid>
 
 
                 </GroupBox>
 
-                <GroupBox Header="Others"
-                          DataContext="{Binding Data.ModuleConfiguration.InstallSteps}">
+                <GroupBox DataContext="{Binding Data.ModuleConfiguration.InstallSteps}" Header="Others">
                     <Grid>
                         <Grid.Resources>
-                            <Style TargetType="{x:Type TextBlock}"
-                                   BasedOn="{StaticResource DefTestBlockStyle}" />
-                            <Style TargetType="{x:Type TextBox}"
-                                   BasedOn="{StaticResource DefTestBoxStyle}" />
-                            <Style TargetType="{x:Type ComboBox}"
-                                   BasedOn="{StaticResource DefComboBoxStyle}" />
+                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
+                            <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"
-                                              SharedSizeGroup="Column1" />
+                            <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
@@ -177,13 +179,18 @@
                         <ComboBox Grid.Row="0"
                                   Grid.Column="1"
                                   ItemsSource="{Binding Source={StaticResource OrderEnum}}"
-                                  SelectedValue="{Binding Order}" />
+                                  SelectedValue="{Binding Order}">
+                            <ComboBox.Resources>
+                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
+                            </ComboBox.Resources>
+                        </ComboBox>
                     </Grid>
                 </GroupBox>
 
                 <ucontrol:ImageControl />
-                <ucontrol:CompositeDependencyControl />
-                <ucontrol:FileFolderList />
+                <ucontrol:CompositeDependencyControl Tag="{Binding Data.ModuleConfiguration.ModuleDependencies}" />
+                <ucontrol:FileFolderList Tag="{Binding Data.ModuleConfiguration.RequiredInstallFiles.Items}" />
+                <ucontrol:ConditionalFileInstallsControl/>
             </StackPanel>
         </ScrollViewer>
 

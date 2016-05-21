@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Module.Editor.Resources.ConditionalFileInstallsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Module.Editor.Resources"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+    <!--<Grid DataContext="{Binding Data.ModuleConfiguration.ConditionalFileInstalls.Patterns}" />-->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Enums.xaml" />
+                <ResourceDictionary Source="../Blend/_Package.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
+            <DataTemplate xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel" DataType="{x:Type model:ConditionalInstallPattern}">
+                <StackPanel>
+                    <local:CompositeDependencyControl DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" 
+                                                      Tag="{Binding Content.Dependencies, RelativeSource={RelativeSource TemplatedParent}}" />
+                    <local:FileFolderList DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" 
+                                          Tag="{Binding Content.Files, RelativeSource={RelativeSource TemplatedParent}}" />
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <GroupBox DataContext="{Binding Data.ModuleConfiguration.ConditionalFileInstalls}">
+        <GroupBox.Header>
+            <DockPanel>
+                <Button Command="{Binding DataContext.AddConditionalFileInstallsCommand,
+                                          RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                         AncestorType=UserControl}}"
+                        DockPanel.Dock="Right"
+                        Style="{StaticResource AddButton}" />
+                <TextBlock Margin="0"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource TextBlockHeaderStyle}"
+                           Text="Conditional File Installs" />
+            </DockPanel>
+        </GroupBox.Header>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ItemsControl ItemsSource="{Binding Patterns}" />
+
+        </Grid>
+    </GroupBox>
+
+
+
+</UserControl>

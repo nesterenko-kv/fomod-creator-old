@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Globals.xaml" />
+        <ResourceDictionary Source="Buttons.xaml" />
+        <ResourceDictionary Source="TextBoxDefault.xaml" />
+        <ResourceDictionary Source="TextBlockDefault.xaml" />
+        <ResourceDictionary Source="ComboBoxDefault.xaml" />
+        <ResourceDictionary Source="GroupBox.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

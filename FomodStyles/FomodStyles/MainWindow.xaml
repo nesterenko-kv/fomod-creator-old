@@ -1,0 +1,36 @@
+﻿<Window x:Class="FomodStyles.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FomodStyles"
+        mc:Ignorable="d"  Background="Black" 
+        Title="MainWindow" Height="350" Width="525">
+    <Grid Margin="0,25,15,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Mod name" Grid.Column="0" Grid.Row="0" Margin="{StaticResource Margin}" Style="{DynamicResource TextBlockDefault}" />
+        <TextBlock Text="Web site" Grid.Column="0" Grid.Row="2" Margin="{StaticResource Margin}" Style="{DynamicResource TextBlockDefault}" />
+        <TextBlock Text="Combobox setter" Grid.Column="0" Grid.Row="1" Margin="{StaticResource Margin}" Style="{DynamicResource TextBlockDefault}" />
+
+
+        <TextBox Text="Valdacil's Item Sorting" Style="{DynamicResource TextBoxDefault}" Grid.Column="1" Grid.Row="0" Margin="{StaticResource Margin}" />
+        <TextBox Text="http://www.nexusmods.com/fallout4/mods/3877/?" Style="{DynamicResource TextBoxDefault}" Grid.Column="1" Grid.Row="2" Margin="{StaticResource Margin}"/>
+        <ComboBox Grid.Column="1" Grid.Row="1" Margin="{StaticResource Margin}" Style="{DynamicResource ComboBoxDefault}">
+            <TextBlock Style="{DynamicResource TextBlockDefault}">Valdacil's Item Sorting 1 mods/3877/? mods/3877/?mods/3877/?mods/3877/?mods/3877/?mods/3877/?mods/3877/?mods/3877/?mods/3877/?mods/3877/?mods/3877/?</TextBlock>
+            <TextBlock Style="{DynamicResource TextBlockDefault}">MMMM 12</TextBlock>
+            <TextBlock Style="{DynamicResource TextBlockDefault}">hhhhh 13</TextBlock>
+            <TextBlock Style="{DynamicResource TextBlockDefault}">item 14</TextBlock>
+            <TextBlock Style="{DynamicResource TextBlockDefault}">item 15</TextBlock>
+            <TextBlock Style="{DynamicResource TextBlockDefault}">item 16</TextBlock>
+        </ComboBox>
+    </Grid>
+</Window>

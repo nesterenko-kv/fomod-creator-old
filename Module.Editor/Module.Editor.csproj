@@ -88,6 +88,9 @@
     <Compile Include="Resources\Config\CompositeDependencyControl.xaml.cs">
       <DependentUpon>CompositeDependencyControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Config\ConditionalFileInstallsControl.xaml.cs">
+      <DependentUpon>ConditionalFileInstallsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Config\FileFolderList.xaml.cs">
       <DependentUpon>FileFolderList.xaml</DependentUpon>
     </Compile>
@@ -112,7 +115,39 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\Blend\ComboBoxDefault.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Blend\Globals.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Blend\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Blend\GroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Blend\_Package.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Blend\TextBlockDefault.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Blend\TextBoxDefault.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Config\CompositeDependencyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Config\ConditionalFileInstallsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
