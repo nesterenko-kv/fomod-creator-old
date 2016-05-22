@@ -42,8 +42,10 @@
                                 CommandParameter="{Binding}" />
                         <Button Style="{StaticResource LinkButton}"
                                 Command="{Binding DataContext.GoToCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                CommandParameter="{Binding FolderPath}"
-                                Content="{Binding Path=FolderPath}">
+                                CommandParameter="{Binding FolderPath}">
+                            <Button.Content>
+                                <TextBlock Text="{Binding Path=FolderPath}" TextTrimming="CharacterEllipsis" />
+                            </Button.Content>
                         </Button>
                     </DockPanel>
                     <DataTemplate.Triggers>

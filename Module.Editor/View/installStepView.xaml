@@ -1,7 +1,6 @@
 ﻿<UserControl x:Class="Module.Editor.View.InstallStepView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="800"
@@ -11,7 +10,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Enums.xaml" />
-                <ResourceDictionary Source="../Resources/NewStyles.xaml" />
+                <ResourceDictionary Source="../Resources/Blend/_Package.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -19,28 +18,56 @@
     <Grid Grid.IsSharedSizeScope="True">
         <ScrollViewer>
             <StackPanel MaxWidth="1000">
-                <GroupBox Header="Install step info" DataContext="{Binding Data}">
+                <GroupBox Header="Install Step Info" DataContext="{Binding Data}">
                     <StackPanel>
                         <Grid>
+                            <Grid.Resources>
+                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                                <Style BasedOn="{StaticResource TextBoxDefault}" TargetType="{x:Type TextBox}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                                <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                            </Grid.Resources>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" SharedSizeGroup="a1" />
+                                <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBlock Grid.Column="0" Text="Step name" />
-                        </Grid>
-
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" SharedSizeGroup="a1" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <ComboBox ItemsSource="{Binding Source={StaticResource OrderEnum}}"
-                                      SelectedItem="{Binding OptionalFileGroups.Order, Mode=TwoWay}"  />
-                            <TextBlock Grid.Column="0" Text="Group sorting" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Step Name" />
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
+
+                <GroupBox Header="Other Settings" DataContext="{Binding Data}">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
+                            <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="Groups Order" />
+                        <ComboBox Grid.Row="0" Grid.Column="1"
+                                  ItemsSource="{Binding Source={StaticResource OrderEnum}}"
+                                  SelectedValue="{Binding OptionalFileGroups.Order}">
+                            <ComboBox.Resources>
+                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
+                            </ComboBox.Resources>
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+
             </StackPanel>
         </ScrollViewer>
     </Grid>

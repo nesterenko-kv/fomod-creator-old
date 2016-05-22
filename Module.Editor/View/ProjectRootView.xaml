@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ucontrol="clr-namespace:Module.Editor.Resources"
+             xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
              d:DesignHeight="2000"
              d:DesignWidth="1200"
              mc:Ignorable="d">
@@ -19,7 +20,7 @@
     <Grid Grid.IsSharedSizeScope="True">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled">
             <StackPanel MaxWidth="1000">
-                <GroupBox DataContext="{Binding Data.ModuleInformation}" Header="Mod info">
+                <GroupBox DataContext="{Binding Data.ModuleInformation}" Header="Mod Info Settings">
                     <Grid>
                         <Grid.Resources>
                             <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
@@ -44,17 +45,15 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-
                         <TextBlock Grid.Row="0"
                                    Grid.Column="0"
-                                   Text="ModuleName" />
-
+                                   Text="Module name" />
                         <TextBox Grid.Row="0"
                                  Grid.Column="1"
                                  Text="{Binding Name}" />
                         <TextBlock Grid.Row="1"
                                    Grid.Column="0"
-                                   Text="Autor" />
+                                   Text="Author" />
                         <TextBox Grid.Row="1"
                                  Grid.Column="1"
                                  Text="{Binding Author}" />
@@ -74,13 +73,11 @@
                                    Grid.Column="0"
                                    Text="Category" />
                         <ComboBox xmlns:base="clr-namespace:FomodModel.Base;assembly=FomodModel"
-                                  xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
                                   Grid.Row="4"
                                   Grid.Column="1"
                                   DisplayMemberPath=""
                                   ItemsSource="{converters:EnumValues {x:Type base:CategoriesEnum}}"
-                                  SelectedItem="{Binding CategoryId,
-                                                         Mode=TwoWay}">
+                                  SelectedItem="{Binding CategoryId, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Style="{StaticResource TextBlockDefault}" Text="{Binding Mode=OneTime, Converter={StaticResource EnumValueToDecriptionConverter}}" />
@@ -94,12 +91,12 @@
                                  Grid.Column="1"
                                  HorizontalScrollBarVisibility="Disabled"
                                  Text="{Binding Description}"
-                                 VerticalScrollBarVisibility="Disabled" />
+                                 VerticalScrollBarVisibility="Disabled" 
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap" />
                     </Grid>
-
-
                 </GroupBox>
-                <GroupBox DataContext="{Binding Data.ModuleConfiguration.ModuleName}" Header="Module name">
+                <GroupBox DataContext="{Binding Data.ModuleConfiguration.ModuleName}" Header="Module Title Settings">
                     <Grid>
                         <Grid.Resources>
                             <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
@@ -124,25 +121,23 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-
                         <TextBlock Grid.Row="0"
                                    Grid.Column="0"
-                                   Text="Module Name" />
-
-
+                                   Text="Title" />
                         <TextBox Grid.Row="0"
                                  Grid.Column="1"
                                  Text="{Binding Value}" />
                         <TextBlock Grid.Row="1"
                                    Grid.Column="0"
                                    Text="Color" />
-                        <StackPanel Grid.Row="1" Grid.Column="1">
-                            <Border Height="{Binding ElementName=colorTb, Path=ActualHeight}" Background="Coral" />
-                            <TextBox x:Name="colorTb" Text="{Binding Colour}" />
-                        </StackPanel>
+                        <DockPanel Grid.Row="1" Grid.Column="1">
+                            <Border DockPanel.Dock="Right" Height="31" Width="31" BorderBrush="White" BorderThickness="1" CornerRadius="1"
+                                    Background="{Binding Colour, Converter={StaticResource ColorToSolidBrushConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Text="{Binding Colour, UpdateSourceTrigger=PropertyChanged}" MaxLength="6"/>
+                        </DockPanel>
                         <TextBlock Grid.Row="2"
                                    Grid.Column="0"
-                                   Text="Possition" />
+                                   Text="Position" />
                         <ComboBox Grid.Row="2"
                                   Grid.Column="1"
                                   ItemsSource="{Binding Source={StaticResource ModuleTitlePositionEnum}}"
@@ -151,13 +146,9 @@
                                 <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
                             </ComboBox.Resources>
                         </ComboBox>
-
                     </Grid>
-
-
                 </GroupBox>
-
-                <GroupBox DataContext="{Binding Data.ModuleConfiguration.InstallSteps}" Header="Others">
+                <GroupBox DataContext="{Binding Data.ModuleConfiguration.InstallSteps}" Header="Other Settings">
                     <Grid>
                         <Grid.Resources>
                             <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
@@ -171,11 +162,9 @@
                             <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-
                         <TextBlock Grid.Row="0"
                                    Grid.Column="0"
-                                   Text="Module Name" />
-
+                                   Text="InstallStep Order" />
                         <ComboBox Grid.Row="0"
                                   Grid.Column="1"
                                   ItemsSource="{Binding Source={StaticResource OrderEnum}}"
