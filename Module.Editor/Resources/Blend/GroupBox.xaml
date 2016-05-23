@@ -1,4 +1,5 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Globals.xaml" />
@@ -12,7 +13,8 @@
 
     </Style>
 
-    <ControlTemplate x:Key="DefGroupBoxTemplate" TargetType="{x:Type GroupBox}">
+    <ControlTemplate x:Key="DefGroupBoxTemplate"
+                     TargetType="{x:Type GroupBox}">
         <Grid x:Name="GroupBoxRoot">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -25,7 +27,8 @@
                     BorderThickness="0"
                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                     UseLayoutRounding="True">
-                <ContentControl Content="{TemplateBinding Header}" Style="{StaticResource TextBlockHeaderStyle}" />
+                <ContentControl Content="{TemplateBinding Header}"
+                                Style="{StaticResource TextBlockHeaderStyle}" />
             </Border>
             <Border Grid.Row="1"
                     Background="Transparent"
@@ -47,6 +50,6 @@
         <Setter Property="Background" Value="{StaticResource GroupBoxBackGroundColor}" />
         <Setter Property="BorderBrush" Value="{StaticResource GroupBoxBackGroundColor}" />
         <Setter Property="Foreground" Value="{StaticResource GroupBoxForeGroundColor}" />
-        <Setter Property="Margin" Value="10" />
+        <Setter Property="Margin" Value="{StaticResource MarginGroupBox}" />
     </Style>
 </ResourceDictionary>

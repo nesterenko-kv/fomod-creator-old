@@ -19,7 +19,9 @@
     </UserControl.Resources>
     <Grid Grid.IsSharedSizeScope="True">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled">
-            <StackPanel MaxWidth="1000">
+            <StackPanel xmlns:uc="clr-namespace:Module.Editor.Resources.UserControls"
+                        MaxWidth="1000">
+               
                 <GroupBox DataContext="{Binding Data.ModuleInformation}"
                           Header="Mod Info Settings">
                     <Grid>
@@ -201,8 +203,15 @@
                 <ucontrol:CompositeDependencyControl CompositeDependency="{Binding Data.ModuleConfiguration.ModuleDependencies}"
                                                      AddDependencyCommand="{Binding AddCompositeDependencyCommand}"
                                                      RemoveDependencyCommand="{Binding RemoveCompositeDependencyCommand}" />
-                <ucontrol:FileFolderList Tag="{Binding Data.ModuleConfiguration.RequiredInstallFiles.Items}" />
+
+                <uc:FileListUserControl Header="Me config files and folder" 
+                                        CreateCommand="{Binding CreateFileLisCommand}" 
+                                        RemoveCommand="{Binding RemoveFileLisCommand}" 
+                                        Margin="{StaticResource MarginGroupBox}"
+                                        FileList="{Binding Data.ModuleConfiguration.RequiredInstallFiles}" />
+
                 <ucontrol:ConditionalFileInstallsControl />
+
             </StackPanel>
         </ScrollViewer>
 

@@ -20,5 +20,18 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlArray("patterns")]
         [XmlArrayItem("pattern", IsNullable = false)]
         public ObservableCollection<ConditionalInstallPattern> Patterns { get; set; }
+
+
+
+        public void AddPatern(ConditionalInstallPattern patern)
+        {
+            if (Patterns == null) Patterns = new ObservableCollection<ConditionalInstallPattern>();
+            Patterns.Add(patern);
+        }
+        public void RemovePatern(ConditionalInstallPattern patern)
+        {
+            if (Patterns != null) Patterns.Remove(patern);
+            if (Patterns.Count == 0) Patterns = null;
+        }
     }
 }

@@ -19,6 +19,53 @@ namespace Module.Editor.ViewModel
 
         #endregion
 
+
+        RelayCommand _createFileLisCommand; public RelayCommand CreateFileLisCommand
+        {
+            get
+            {
+                return _createFileLisCommand ?? (_createFileLisCommand = new RelayCommand(() =>
+                {
+                    _data.ModuleConfiguration.CreatRequiredInstallFiles();
+                }));
+            }
+        }
+
+
+        RelayCommand _removeFileLisCommand; public RelayCommand RemoveFileLisCommand
+        {
+            get
+            {
+                return _removeFileLisCommand ?? (_removeFileLisCommand = new RelayCommand(() =>
+                {
+                    _data.ModuleConfiguration.RemoveRequiredInstallFiles();
+                }));
+            }
+        }
+
+
+        RelayCommand<ConditionalInstallPattern> _createPaternCommand; public RelayCommand<ConditionalInstallPattern> CreatePaternCommand
+        {
+            get
+            {
+                return _createPaternCommand ?? (_createPaternCommand = new RelayCommand<ConditionalInstallPattern>((patern) =>
+                {
+                    patern.CreateFilesList();
+                }));
+            }
+        }
+
+        RelayCommand<ConditionalInstallPattern> _removePaternCommand; public RelayCommand<ConditionalInstallPattern> RemovePaternCommand
+        {
+            get
+            {
+                return _removePaternCommand ?? (_removePaternCommand = new RelayCommand<ConditionalInstallPattern>((patern) =>
+                {
+                    patern.RemoveFilesList();
+                }));
+            }
+        }
+
         #region Commands
 
         public RelayCommand AddImageCommand { get; }
@@ -74,14 +121,12 @@ namespace Module.Editor.ViewModel
 
         private void AddConditionalFileInstalls()
         {
-            if (_data.ModuleConfiguration.ConditionalFileInstalls == null) _data.ModuleConfiguration.ConditionalFileInstalls = new ConditionalFileInstallList
-            {
-                Patterns = new ObservableCollection<ConditionalInstallPattern>()
-            };
-            _data.ModuleConfiguration.ConditionalFileInstalls.Patterns.Add(new ConditionalInstallPattern
+            _data.ModuleConfiguration.CreatConditionalFileInstalls();
+            _data.ModuleConfiguration.ConditionalFileInstalls.AddPatern(new ConditionalInstallPattern
             {
                 //Dependencies = new CompositeDependency()
             });
+
         }
 
         #region Methods

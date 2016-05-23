@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
 using FomodModel.Base.ModuleCofiguration;
+using System.Collections.ObjectModel;
 
 namespace FomodModel.Base
 {
@@ -60,5 +61,25 @@ namespace FomodModel.Base
             "http://qconsulting.ca/fo3/ModConfig5.0.xsd";
 
         #endregion
+
+
+        public void CreatConditionalFileInstalls()
+        {
+            if (ConditionalFileInstalls == null) ConditionalFileInstalls = new ConditionalFileInstallList();
+        }
+        public void RemoveConditionalFileInstalls()
+        {
+            if (ConditionalFileInstalls != null) ConditionalFileInstalls = null;
+        }
+
+        public void CreatRequiredInstallFiles()
+        {
+            if (RequiredInstallFiles == null) RequiredInstallFiles = new FileList { Items = new ObservableCollection<SystemItem>()};
+        }
+        public void RemoveRequiredInstallFiles()
+        {
+            if (RequiredInstallFiles != null) RequiredInstallFiles = null;
+        }
+
     }
 }

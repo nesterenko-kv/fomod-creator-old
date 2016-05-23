@@ -97,6 +97,9 @@
     <Compile Include="Resources\Config\ImageControl.xaml.cs">
       <DependentUpon>ImageControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\UserControls\FileListUserControl.xaml.cs">
+      <DependentUpon>FileListUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainEditorViewModel.cs" />
     <Compile Include="ViewModel\GroupViewModel.cs" />
@@ -166,6 +169,10 @@
     <Page Include="Resources\NewStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\UserControls\FileListUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\GroupView.xaml">
       <SubType>Designer</SubType>

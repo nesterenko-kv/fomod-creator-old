@@ -2,6 +2,7 @@ using System;
 using System.Xml.Serialization;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
+using System.Collections.ObjectModel;
 
 namespace FomodModel.Base.ModuleCofiguration
 {
@@ -23,5 +24,15 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlElement("files")]
         public FileList Files { get; set; } = new FileList();
+
+
+        public void CreateFilesList()
+        {
+            if (Files == null) Files = new FileList { Items = new ObservableCollection<SystemItem>() };
+        }
+        public void RemoveFilesList()
+        {
+            if (Files != null) Files = null;
+        }
     }
 }
