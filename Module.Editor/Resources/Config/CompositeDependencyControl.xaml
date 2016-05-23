@@ -43,9 +43,12 @@
                         BorderThickness="0,0,0,1">
                     <Grid>
                         <Grid.Resources>
-                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
-                            <Style BasedOn="{StaticResource TextBoxForTable}" TargetType="{x:Type TextBox}" />
-                            <Style BasedOn="{StaticResource ComboBoxForTable}" TargetType="{x:Type ComboBox}" />
+                            <Style BasedOn="{StaticResource TextBlockDefault}"
+                                   TargetType="{x:Type TextBlock}" />
+                            <Style BasedOn="{StaticResource TextBoxForTable}"
+                                   TargetType="{x:Type TextBox}" />
+                            <Style BasedOn="{StaticResource ComboBoxForTable}"
+                                   TargetType="{x:Type ComboBox}" />
                         </Grid.Resources>
 
                         <Grid.ColumnDefinitions>
@@ -59,14 +62,13 @@
                                   SelectedItem="{Binding State}">
                             <ComboBox.Resources />
                         </ComboBox>
-                        <TextBox Grid.Column="1" Text="{Binding File}" />
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding File}" />
                         <Button Grid.Column="2"
                                 Width="14"
                                 Height="14"
                                 HorizontalAlignment="Center"
-                                Command="{Binding DataContext.RemoveFileDependencyCommand,
-                                                  RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                 AncestorType=UserControl}}"
+                                Command="{Binding DataContext.RemoveFileDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                 CommandParameter="{Binding}"
                                 Style="{StaticResource DeleteButton}" />
                     </Grid>
@@ -79,11 +81,16 @@
                         BorderThickness="0,0,0,1">
                     <Grid>
                         <Grid.Resources>
-                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
-                            <Style BasedOn="{StaticResource TextBoxForTable}" TargetType="{x:Type TextBox}" />
-                            <Style BasedOn="{StaticResource ComboBoxForTable}" TargetType="{x:Type ComboBox}" />
-                            <DataTemplate xmlns:sys="clr-namespace:System;assembly=mscorlib" DataType="{x:Type sys:String}">
-                                <TextBlock Style="{StaticResource TextBlockDefault}" Text="{Binding}" />
+                            <Style BasedOn="{StaticResource TextBlockDefault}"
+                                   TargetType="{x:Type TextBlock}" />
+                            <Style BasedOn="{StaticResource TextBoxForTable}"
+                                   TargetType="{x:Type TextBox}" />
+                            <Style BasedOn="{StaticResource ComboBoxForTable}"
+                                   TargetType="{x:Type ComboBox}" />
+                            <DataTemplate xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                          DataType="{x:Type sys:String}">
+                                <TextBlock Style="{StaticResource TextBlockDefault}"
+                                           Text="{Binding}" />
                             </DataTemplate>
                         </Grid.Resources>
 
@@ -92,20 +99,21 @@
                             <ColumnDefinition />
                             <ColumnDefinition SharedSizeGroup="u3" />
                         </Grid.ColumnDefinitions>
-                        <ComboBox xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                        <!--<ComboBox xmlns:sys="clr-namespace:System;assembly=mscorlib"
                                   Grid.Column="0"
                                   SelectedItem="{Binding Value}">
                             <sys:String>On</sys:String>
                             <sys:String>Off</sys:String>
-                        </ComboBox>
-                        <TextBox Grid.Column="1" Text="{Binding Flag, UpdateSourceTrigger=PropertyChanged}" />
+                        </ComboBox>-->
+                        <TextBox Grid.Column="0"
+                                 Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding Flag, UpdateSourceTrigger=PropertyChanged}" />
                         <Button Grid.Column="2"
                                 Width="14"
                                 Height="14"
                                 HorizontalAlignment="Center"
-                                Command="{Binding DataContext.RemoveFlagDependencyCommand,
-                                                  RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                 AncestorType=UserControl}}"
+                                Command="{Binding DataContext.RemoveFlagDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                 CommandParameter="{Binding}"
                                 Style="{StaticResource DeleteButton}" />
                     </Grid>
@@ -118,17 +126,12 @@
                             <DockPanel>
                                 <StackPanel DockPanel.Dock="Right"
                                             Orientation="Horizontal"
-                                            Visibility="{Binding Dependencies,
-                                                                 Converter={StaticResource IsNullToVisibleConverter}}">
-                                    <Button Command="{Binding DataContext.AddCompositeDependencyCommand,
-                                                              RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                             AncestorType=UserControl}}"
+                                            Visibility="{Binding Dependencies, Converter={StaticResource IsNullToVisibleConverter}}">
+                                    <Button Command="{Binding AddDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                             CommandParameter="{Binding}"
                                             Style="{StaticResource AddButton}" />
                                     <Button Margin="6,0,0,0"
-                                            Command="{Binding DataContext.RemoveCompositeDependencyCommand,
-                                                              RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                             AncestorType=UserControl}}"
+                                            Command="{Binding RemoveDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                             CommandParameter="{Binding}"
                                             Style="{StaticResource DeleteButton}" />
                                 </StackPanel>
@@ -142,13 +145,16 @@
 
                         <Grid>
                             <Grid.Resources>
-                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                                <Style BasedOn="{StaticResource TextBlockDefault}"
+                                       TargetType="{x:Type TextBlock}">
                                     <Setter Property="Margin" Value="{StaticResource Margin}" />
                                 </Style>
-                                <Style BasedOn="{StaticResource TextBoxDefault}" TargetType="{x:Type TextBox}">
+                                <Style BasedOn="{StaticResource TextBoxDefault}"
+                                       TargetType="{x:Type TextBox}">
                                     <Setter Property="Margin" Value="{StaticResource Margin}" />
                                 </Style>
-                                <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                                <Style BasedOn="{StaticResource ComboBoxDefault}"
+                                       TargetType="{x:Type ComboBox}">
                                     <Setter Property="Margin" Value="{StaticResource Margin}" />
                                 </Style>
                             </Grid.Resources>
@@ -170,7 +176,8 @@
                                       ItemsSource="{Binding Source={StaticResource CompositeDependencyOperator}}"
                                       SelectedValue="{Binding Operator}">
                                 <ComboBox.Resources>
-                                    <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
+                                    <Style BasedOn="{StaticResource TextBlockDefault}"
+                                           TargetType="{x:Type TextBlock}" />
                                 </ComboBox.Resources>
                             </ComboBox>
 
@@ -190,7 +197,8 @@
                                                 <ControlTemplate TargetType="{x:Type ItemsControl}">
                                                     <Grid>
                                                         <Grid.Resources>
-                                                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
+                                                            <Style BasedOn="{StaticResource TextBlockDefault}"
+                                                                   TargetType="{x:Type TextBlock}" />
                                                         </Grid.Resources>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition SharedSizeGroup="u1" />
@@ -219,9 +227,7 @@
                                                                 Grid.Column="2"
                                                                 Margin="6,0"
                                                                 HorizontalAlignment="Center"
-                                                                Command="{Binding DataContext.AddFileDependencyCommand,
-                                                                                  RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                                                 AncestorType=UserControl}}"
+                                                                Command="{Binding DataContext.AddFileDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                                                 CommandParameter="{Binding}"
                                                                 Style="{StaticResource AddButton}" />
                                                         <Border Grid.Row="2"
@@ -256,9 +262,12 @@
                                                 <ControlTemplate TargetType="{x:Type ItemsControl}">
                                                     <Grid>
                                                         <Grid.Resources>
-                                                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
-                                                            <Style BasedOn="{StaticResource TextBoxDefault}" TargetType="{x:Type TextBox}" />
-                                                            <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}" />
+                                                            <Style BasedOn="{StaticResource TextBlockDefault}"
+                                                                   TargetType="{x:Type TextBlock}" />
+                                                            <Style BasedOn="{StaticResource TextBoxDefault}"
+                                                                   TargetType="{x:Type TextBox}" />
+                                                            <Style BasedOn="{StaticResource ComboBoxDefault}"
+                                                                   TargetType="{x:Type ComboBox}" />
                                                         </Grid.Resources>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition SharedSizeGroup="u1" />
@@ -287,9 +296,7 @@
                                                                 Grid.Column="2"
                                                                 Margin="6,0"
                                                                 HorizontalAlignment="Center"
-                                                                Command="{Binding DataContext.AddFlagDependencyCommand,
-                                                                                  RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                                                 AncestorType=UserControl}}"
+                                                                Command="{Binding DataContext.AddFlagDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                                                 CommandParameter="{Binding}"
                                                                 Style="{StaticResource AddButton}" />
 
@@ -309,8 +316,6 @@
                                     </Style>
                                 </ItemsControl.Style>
                             </ItemsControl>
-
-
                         </Grid>
                     </GroupBox>
                     <ContentControl Content="{Binding Dependencies}" />
@@ -318,7 +323,7 @@
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ContentControl Content="{Binding Tag, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
+    <ContentControl Content="{Binding CompositeDependency, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
         <ContentControl.Style>
             <Style TargetType="{x:Type ContentControl}">
                 <Style.Triggers>
@@ -329,10 +334,8 @@
                                     <GroupBox Background="Gray">
                                         <GroupBox.Header>
                                             <DockPanel>
-                                                <Button Command="{Binding DataContext.AddCompositeDependencyCommand,
-                                                                          RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                                         AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ContentControl, Mode=FindAncestor, AncestorLevel=2}}"
+                                                <Button Command="{Binding AddDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding AddCommandParameter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                                         DockPanel.Dock="Right"
                                                         Style="{StaticResource AddButton}" />
                                                 <TextBlock Margin="0"

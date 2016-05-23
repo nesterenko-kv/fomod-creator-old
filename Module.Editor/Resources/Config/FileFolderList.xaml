@@ -23,11 +23,16 @@
                 <DrawingBrush.Drawing>
                     <DrawingGroup>
                         <DrawingGroup.Children>
-                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M12.4141,2L8.0001,2 7.0001,2 6.0001,2 6.0001,0 2.0001,0 2.0001,2 9.99999999997669E-05,2 9.99999999997669E-05,6 2.0001,6 2.0001,8 4.0001,8 4.0001,14C4.0001,15.299,5.0121,16,5.9651,16L13.9651,16C15.4071,16,15.9721,14.825,16.0001,14L16.0001,5.586z" />
-                            <GeometryDrawing Brush="#FF424242" Geometry="F1M15,6L15,14C15,14,14.965,15,13.965,15L5.965,15C5.965,15,5,15,5,14L5,8 6,8 6,14 14,14 14,7 11,7 11,4 8,4 8,3 12,3z" />
-                            <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M14,7L14,14 6,14 6,8 6,6 8,6 8,4 11,4 11,7z" />
-                            <GeometryDrawing Brush="#FF388A34" Geometry="F1M7,3.0181L5,3.0181 5,1.0001 3.019,1.0001 3.019,3.0181 1,3.0181 1,5.0001 3.019,5.0001 3.019,7.0001 5,7.0001 5,5.0001 7,5.0001z" />
+                            <GeometryDrawing Brush="#00FFFFFF"
+                                             Geometry="F1M16,16L0,16 0,0 16,0z" />
+                            <GeometryDrawing Brush="#FFF6F6F6"
+                                             Geometry="F1M12.4141,2L8.0001,2 7.0001,2 6.0001,2 6.0001,0 2.0001,0 2.0001,2 9.99999999997669E-05,2 9.99999999997669E-05,6 2.0001,6 2.0001,8 4.0001,8 4.0001,14C4.0001,15.299,5.0121,16,5.9651,16L13.9651,16C15.4071,16,15.9721,14.825,16.0001,14L16.0001,5.586z" />
+                            <GeometryDrawing Brush="#FF424242"
+                                             Geometry="F1M15,6L15,14C15,14,14.965,15,13.965,15L5.965,15C5.965,15,5,15,5,14L5,8 6,8 6,14 14,14 14,7 11,7 11,4 8,4 8,3 12,3z" />
+                            <GeometryDrawing Brush="#FFF0EFF1"
+                                             Geometry="F1M14,7L14,14 6,14 6,8 6,6 8,6 8,4 11,4 11,7z" />
+                            <GeometryDrawing Brush="#FF388A34"
+                                             Geometry="F1M7,3.0181L5,3.0181 5,1.0001 3.019,1.0001 3.019,3.0181 1,3.0181 1,5.0001 3.019,5.0001 3.019,7.0001 5,7.0001 5,5.0001 7,5.0001z" />
                         </DrawingGroup.Children>
                     </DrawingGroup>
                 </DrawingBrush.Drawing>
@@ -36,11 +41,16 @@
                 <DrawingBrush.Drawing>
                     <DrawingGroup>
                         <DrawingGroup.Children>
-                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M16,4.5L16,13.5C16,14.327,15.327,15,14.5,15L3.5,15C2.673,15,2,14.327,2,13.5L2,6 0,6 0,2 2,2 2,0 6,0 6,2 8,2 8,3 14.5,3C15.327,3,16,3.673,16,4.5" />
-                            <GeometryDrawing Brush="#FFDCB67A" Geometry="F1M14,6L8.504,6 9.004,5 9.008,5 14,5z M14.5,4L8.004,4 8,4.008 8,6 7.004,6 6,6 6,8 3,8 3,13.5C3,13.776,3.223,14,3.5,14L14.5,14C14.775,14,15,13.776,15,13.5L15,4.5C15,4.224,14.775,4,14.5,4" />
-                            <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M14.0078,5L14.0078,5.999C14.0038,5.999,14.0018,6,13.9998,6L8.5038,6 9.0038,5 9.0078,5z" />
-                            <GeometryDrawing Brush="#FF388A34" Geometry="F1M7,5L5,5 5,7 3.019,7 3.019,5 1,5 1,3.018 3.019,3.018 3.019,1 5,1 5,3.018 7,3.018z" />
+                            <GeometryDrawing Brush="#00FFFFFF"
+                                             Geometry="F1M16,16L0,16 0,0 16,0z" />
+                            <GeometryDrawing Brush="#FFF6F6F6"
+                                             Geometry="F1M16,4.5L16,13.5C16,14.327,15.327,15,14.5,15L3.5,15C2.673,15,2,14.327,2,13.5L2,6 0,6 0,2 2,2 2,0 6,0 6,2 8,2 8,3 14.5,3C15.327,3,16,3.673,16,4.5" />
+                            <GeometryDrawing Brush="#FFDCB67A"
+                                             Geometry="F1M14,6L8.504,6 9.004,5 9.008,5 14,5z M14.5,4L8.004,4 8,4.008 8,6 7.004,6 6,6 6,8 3,8 3,13.5C3,13.776,3.223,14,3.5,14L14.5,14C14.775,14,15,13.776,15,13.5L15,4.5C15,4.224,14.775,4,14.5,4" />
+                            <GeometryDrawing Brush="#FFF0EFF1"
+                                             Geometry="F1M14.0078,5L14.0078,5.999C14.0038,5.999,14.0018,6,13.9998,6L8.5038,6 9.0038,5 9.0078,5z" />
+                            <GeometryDrawing Brush="#FF388A34"
+                                             Geometry="F1M7,5L5,5 5,7 3.019,7 3.019,5 1,5 1,3.018 3.019,3.018 3.019,1 5,1 5,3.018 7,3.018z" />
                         </DrawingGroup.Children>
                     </DrawingGroup>
                 </DrawingBrush.Drawing>
@@ -49,10 +59,14 @@
                 <DrawingBrush.Drawing>
                     <DrawingGroup>
                         <DrawingGroup.Children>
-                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M4,15C3.03,15,2,14.299,2,13L2,3C2,1.701,3.03,1,4,1L10.061,1 14,4.556 14,13C14,13.97,13.299,15,12,15z" />
-                            <GeometryDrawing Brush="#FF424242" Geometry="F1M12,13L4,13 4,3 9,3 9,6 12,6z M9.641,2L3.964,2C3.964,2,3,2,3,3L3,13C3,14,3.965,14,3.965,14L11.965,14C12.965,14,13,13,13,13L13,5z" />
-                            <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M4,3L9,3 9,6 12,6 12,13 4,13z" />
+                            <GeometryDrawing Brush="#00FFFFFF"
+                                             Geometry="F1M16,16L0,16 0,0 16,0z" />
+                            <GeometryDrawing Brush="#FFF6F6F6"
+                                             Geometry="F1M4,15C3.03,15,2,14.299,2,13L2,3C2,1.701,3.03,1,4,1L10.061,1 14,4.556 14,13C14,13.97,13.299,15,12,15z" />
+                            <GeometryDrawing Brush="#FF424242"
+                                             Geometry="F1M12,13L4,13 4,3 9,3 9,6 12,6z M9.641,2L3.964,2C3.964,2,3,2,3,3L3,13C3,14,3.965,14,3.965,14L11.965,14C12.965,14,13,13,13,13L13,5z" />
+                            <GeometryDrawing Brush="#FFF0EFF1"
+                                             Geometry="F1M4,3L9,3 9,6 12,6 12,13 4,13z" />
                         </DrawingGroup.Children>
                     </DrawingGroup>
                 </DrawingBrush.Drawing>
@@ -61,10 +75,14 @@
                 <DrawingBrush.Drawing>
                     <DrawingGroup>
                         <DrawingGroup.Children>
-                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M16,2.5L16,12.5C16,13.327,15.327,14,14.5,14L2.504,14C1.677,14,1.004,13.327,1.004,12.5L1.004,4.5C1.004,3.673,1.677,3,2.504,3L5.39,3 6.39,1 14.5,1C15.327,1,16,1.673,16,2.5" />
-                            <GeometryDrawing Brush="#FFDCB67A" Geometry="F1M14.0039,4L7.5079,4 8.0079,3 8.0119,3 14.0039,3z M14.4999,2L7.0079,2 6.0079,4 2.5039,4C2.2269,4,2.0039,4.224,2.0039,4.5L2.0039,12.5C2.0039,12.776,2.2269,13,2.5039,13L14.4999,13C14.7749,13,14.9999,12.776,14.9999,12.5L14.9999,2.5C14.9999,2.224,14.7749,2,14.4999,2" />
-                            <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M8.0001,3.0004L7.5001,4.0004 14.0001,4.0004 14.0001,3.0004z" />
+                            <GeometryDrawing Brush="#00FFFFFF"
+                                             Geometry="F1M16,16L0,16 0,0 16,0z" />
+                            <GeometryDrawing Brush="#FFF6F6F6"
+                                             Geometry="F1M16,2.5L16,12.5C16,13.327,15.327,14,14.5,14L2.504,14C1.677,14,1.004,13.327,1.004,12.5L1.004,4.5C1.004,3.673,1.677,3,2.504,3L5.39,3 6.39,1 14.5,1C15.327,1,16,1.673,16,2.5" />
+                            <GeometryDrawing Brush="#FFDCB67A"
+                                             Geometry="F1M14.0039,4L7.5079,4 8.0079,3 8.0119,3 14.0039,3z M14.4999,2L7.0079,2 6.0079,4 2.5039,4C2.2269,4,2.0039,4.224,2.0039,4.5L2.0039,12.5C2.0039,12.776,2.2269,13,2.5039,13L14.4999,13C14.7749,13,14.9999,12.776,14.9999,12.5L14.9999,2.5C14.9999,2.224,14.7749,2,14.4999,2" />
+                            <GeometryDrawing Brush="#FFF0EFF1"
+                                             Geometry="F1M8.0001,3.0004L7.5001,4.0004 14.0001,4.0004 14.0001,3.0004z" />
                         </DrawingGroup.Children>
                     </DrawingGroup>
                 </DrawingBrush.Drawing>
@@ -93,9 +111,12 @@
             <DataTemplate x:Key="SystemItem">
                 <Grid>
                     <Grid.Resources>
-                        <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
-                        <Style BasedOn="{StaticResource TextBoxForTable}" TargetType="{x:Type TextBox}" />
-                        <Style BasedOn="{StaticResource ComboBoxForTable}" TargetType="{x:Type ComboBox}" />
+                        <Style BasedOn="{StaticResource TextBlockDefault}"
+                               TargetType="{x:Type TextBlock}" />
+                        <Style BasedOn="{StaticResource TextBoxForTable}"
+                               TargetType="{x:Type TextBox}" />
+                        <Style BasedOn="{StaticResource ComboBoxForTable}"
+                               TargetType="{x:Type ComboBox}" />
                     </Grid.Resources>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -108,12 +129,10 @@
 
                     <TextBlock Grid.Column="0"
                                Text="{Binding Path=Source}"
-                               ToolTip="{Binding Text,
-                                                 RelativeSource={RelativeSource Self}}" />
+                               ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
                     <TextBlock Grid.Column="1"
                                Text="{Binding Path=Destination}"
-                               ToolTip="{Binding Text,
-                                                 RelativeSource={RelativeSource Self}}" />
+                               ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
                     <ComboBox xmlns:sys="clr-namespace:System;assembly=mscorlib"
                               Grid.Column="2"
                               SelectedItem="{Binding AlwaysInstall}">
@@ -127,17 +146,14 @@
                         <sys:Boolean>False</sys:Boolean>
                     </ComboBox>
                     <TextBox Grid.Column="4"
-                             Text="{Binding Path=Priority,
-                                            UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Path=Priority, UpdateSourceTrigger=PropertyChanged}"
                              TextAlignment="Center" />
 
                     <Button Grid.Column="5"
                             Width="14"
                             Height="14"
                             HorizontalAlignment="Center"
-                            Command="{Binding DataContext.RemoveSystemItemCommand,
-                                              RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                             AncestorType=UserControl}}"
+                            Command="{Binding DataContext.RemoveSystemItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                             CommandParameter="{Binding}"
                             Style="{StaticResource DeleteButton}" />
 
@@ -151,7 +167,8 @@
                         BorderThickness="0,0,0,1">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition x:Name="icon" SharedSizeGroup="flist0" />
+                            <ColumnDefinition x:Name="icon"
+                                              SharedSizeGroup="flist0" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
@@ -179,7 +196,8 @@
                         BorderThickness="0,0,0,1">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition x:Name="icon" SharedSizeGroup="flist0" />
+                            <ColumnDefinition x:Name="icon"
+                                              SharedSizeGroup="flist0" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
@@ -306,15 +324,12 @@
     <GroupBox DataContext="{Binding Tag, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
         <GroupBox.Header>
             <DockPanel>
-                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <StackPanel DockPanel.Dock="Right"
+                            Orientation="Horizontal">
                     <Button Width="16"
                             Height="16"
-                            Command="{Binding DataContext.AddFileCommand,
-                                              RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                             AncestorType=UserControl}}"
-                            CommandParameter="{Binding DataContext,
-                                                       RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                      AncestorType=GroupBox}}"
+                            Command="{Binding DataContext.AddFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                            CommandParameter="{Binding}"
                             DockPanel.Dock="Right"
                             ToolTip="Add File">
                         <Button.Template>
@@ -326,12 +341,8 @@
                     <Button Width="16"
                             Height="16"
                             Margin="6,0,0,0"
-                            Command="{Binding DataContext.AddFolderCommand,
-                                              RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                             AncestorType=UserControl}}"
-                            CommandParameter="{Binding DataContext,
-                                                       RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                      AncestorType=GroupBox}}"
+                            Command="{Binding DataContext.AddFolderCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                            CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=GroupBox}}"
                             DockPanel.Dock="Right"
                             ToolTip="Add Folder">
                         <Button.Template>
@@ -357,9 +368,12 @@
                             <ControlTemplate TargetType="{x:Type ItemsControl}">
                                 <Grid>
                                     <Grid.Resources>
-                                        <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
-                                        <Style BasedOn="{StaticResource TextBoxDefault}" TargetType="{x:Type TextBox}" />
-                                        <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}" />
+                                        <Style BasedOn="{StaticResource TextBlockDefault}"
+                                               TargetType="{x:Type TextBlock}" />
+                                        <Style BasedOn="{StaticResource TextBoxDefault}"
+                                               TargetType="{x:Type TextBox}" />
+                                        <Style BasedOn="{StaticResource ComboBoxDefault}"
+                                               TargetType="{x:Type ComboBox}" />
                                     </Grid.Resources>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition x:Name="icon"
@@ -376,11 +390,16 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Column="1" Text="Source" />
-                                    <TextBlock Grid.Column="2" Text="Destination" />
-                                    <TextBlock Grid.Column="3" Text="Always Install" />
-                                    <TextBlock Grid.Column="4" Text="Install If Usable" />
-                                    <TextBlock Grid.Column="5" Text="Priority" />
+                                    <TextBlock Grid.Column="1"
+                                               Text="Source" />
+                                    <TextBlock Grid.Column="2"
+                                               Text="Destination" />
+                                    <TextBlock Grid.Column="3"
+                                               Text="Always Install" />
+                                    <TextBlock Grid.Column="4"
+                                               Text="Install If Usable" />
+                                    <TextBlock Grid.Column="5"
+                                               Text="Priority" />
                                     <Button Grid.Column="6"
                                             Margin="6,0"
                                             HorizontalAlignment="Center"

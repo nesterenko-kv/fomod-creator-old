@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using FomodInfrastructure.Interface;
 using System;
+using System.Linq;
+using System.Collections;
 
 namespace Module.Editor.ViewModel
 {
@@ -24,6 +26,8 @@ namespace Module.Editor.ViewModel
         public RelayCommand BrowseImageCommand { get; }
         public RelayCommand<CompositeDependency> AddCompositeDependencyCommand { get; }
         public RelayCommand<CompositeDependency> RemoveCompositeDependencyCommand { get; }
+        public RelayCommand<object> AddCompositeDependencyCommand2 { get; }
+        public RelayCommand<CompositeDependency> RemoveCompositeDependencyCommand2 { get; }
         public RelayCommand<CompositeDependency> AddFileDependencyCommand { get; }
         public RelayCommand<CompositeDependency> AddFlagDependencyCommand { get; }
         public RelayCommand<FileDependency> RemoveFileDependencyCommand { get; }
@@ -46,6 +50,12 @@ namespace Module.Editor.ViewModel
             BrowseImageCommand = new RelayCommand(BrowseImage);
             AddCompositeDependencyCommand = new RelayCommand<CompositeDependency>(AddCompositeDependency);
             RemoveCompositeDependencyCommand = new RelayCommand<CompositeDependency>(RemoveCompositeDependency);
+
+            //зависимости для ConditionalFileInstallsControl
+            AddCompositeDependencyCommand2 = new RelayCommand<object>(AddCompositeDependency2);
+            RemoveCompositeDependencyCommand2 = new RelayCommand<CompositeDependency>(RemoveCompositeDependency2);
+
+
             AddFileDependencyCommand = new RelayCommand<CompositeDependency>(AddFileDependency);
             RemoveFileDependencyCommand = new RelayCommand<FileDependency>(RemoveFileDependency);
             AddFlagDependencyCommand = new RelayCommand<CompositeDependency>(AddFlagDependency);
@@ -132,10 +142,28 @@ namespace Module.Editor.ViewModel
                 dependency.Dependencies = CompositeDependency.Create();
         }
 
+        
+
         private void RemoveCompositeDependency(CompositeDependency dependency)
         {
             if (dependency.Parent == null)
                 _data.ModuleConfiguration.ModuleDependencies = null;
+            else
+                dependency.Parent.Dependencies = null;
+        }
+
+
+        private void AddCompositeDependency2(object dependency)
+        {
+            if (dependency is ConditionalInstallPattern)
+                (dependency as ConditionalInstallPattern).Dependencies = CompositeDependency.Create();//TODO Немного говнокода который завязан на ткущем представлении вьюх
+            else if (dependency is CompositeDependency)
+                (dependency as CompositeDependency).Dependencies = CompositeDependency.Create();
+        }
+        private void RemoveCompositeDependency2(CompositeDependency dependency)
+        {
+            if (dependency.Parent == null)
+                _data.ModuleConfiguration.ConditionalFileInstalls.Patterns.First(i=>i.Dependencies == dependency).Dependencies = null;
             else
                 dependency.Parent.Dependencies = null;
         }
@@ -171,36 +199,38 @@ namespace Module.Editor.ViewModel
 
         private void AddFile(object obj)
         {
-            if (_data.ModuleConfiguration.RequiredInstallFiles == null)
-                _data.ModuleConfiguration.RequiredInstallFiles = new FileList();
-
-            _data.ModuleConfiguration.RequiredInstallFiles.Items.Add(new FileSystemItem
+            if(obj is IList)
             {
-                Source = @"\ffga\kfdd.exe",
-                Destination = @"\kfdd.exe",
-                AlwaysInstall = false,
-                InstallIfUsable = false,
-                Priority = "0"
-            });
+                (obj as IList).Add(new FileSystemItem
+                {
+                    Source = @"\ffga\kfdd.exe",
+                    Destination = @"\kfdd.exe",
+                    AlwaysInstall = false,
+                    InstallIfUsable = false,
+                    Priority = "0"
+                });
+                return;
+            }
         }
         private void AddFolder(object obj)
         {
-            if (_data.ModuleConfiguration.RequiredInstallFiles == null)
-                _data.ModuleConfiguration.RequiredInstallFiles = new FileList();
-
-            _data.ModuleConfiguration.RequiredInstallFiles.Items.Add(new FolderSystemItem
+            if (obj is IList)
             {
-                Source = @"\ffga\folder\1\folderNew",
-                Destination = @"\folderNew",
-                AlwaysInstall = false,
-                InstallIfUsable = false,
-                Priority = "0"
-            });
+                (obj as IList).Add(new FolderSystemItem
+                {
+                    Source = @"\ffga\folder\1\folderNew",
+                    Destination = @"\folderNew",
+                    AlwaysInstall = false,
+                    InstallIfUsable = false,
+                    Priority = "0"
+                });
+                return;
+            }
         }
 
         private void RemoveSystemItem(SystemItem systemItem)
         {
-            _data.ModuleConfiguration.RequiredInstallFiles.Items.Remove(systemItem);
+            systemItem.Parent.Remove(systemItem);
         }
         
         #endregion

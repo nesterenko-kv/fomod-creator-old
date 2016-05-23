@@ -23,7 +23,7 @@ namespace FomodModel.Base.ModuleCofiguration
         public CompositeDependency()
         {
             Operator = CompositeDependencyOperator.And;
-            FileDependencies.CollectionChanged += Dependencies_CollectionChanged;
+            FileDependencies.CollectionChanged -= Dependencies_CollectionChanged;
             FlagDependencies.CollectionChanged += Dependencies_CollectionChanged;
         }
 

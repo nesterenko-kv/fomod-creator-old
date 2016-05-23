@@ -15,21 +15,72 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Grid.IsSharedSizeScope="True">
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
-            <StackPanel MaxWidth="1000">
-                <GroupBox DataContext="{Binding Data}" Header="Plugin info">
+        <Grid.Resources>
+
+            <Style BasedOn="{StaticResource TextBlockDefault}"
+                   TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="{StaticResource Margin}" />
+            </Style>
+            <Style BasedOn="{StaticResource TextBoxDefault}"
+                   TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="{StaticResource Margin}" />
+            </Style>
+            <Style BasedOn="{StaticResource ComboBoxDefault}"
+                   TargetType="{x:Type ComboBox}">
+                <Setter Property="Margin" Value="{StaticResource Margin}" />
+            </Style>
+
+            <DataTemplate xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
+                          DataType="{x:Type model:SetConditionFlag}">
+                <Border Margin="0,0,0,-1"
+                        BorderBrush="#59FFFFFF"
+                        BorderThickness="0,0,0,1">
                     <Grid>
                         <Grid.Resources>
-                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
-                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            <Style BasedOn="{StaticResource TextBlockDefault}"
+                                   TargetType="{x:Type TextBlock}" />
+                            <Style BasedOn="{StaticResource TextBoxDefault}"
+                                   TargetType="{x:Type TextBox}">
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="MinWidth" Value="0" />
+                                <Setter Property="Margin" Value="0,1,0,0" />
+                                <Setter Property="VerticalAlignment" Value="Stretch" />
                             </Style>
-                            <Style BasedOn="{StaticResource TextBoxDefault}" TargetType="{x:Type TextBox}">
-                                <Setter Property="Margin" Value="{StaticResource Margin}" />
-                            </Style>
-                            <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
-                                <Setter Property="Margin" Value="{StaticResource Margin}" />
-                            </Style>
+
+                            <DataTemplate xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                          DataType="{x:Type sys:String}">
+                                <TextBlock Style="{StaticResource TextBlockDefault}"
+                                           Text="{Binding}" />
+                            </DataTemplate>
                         </Grid.Resources>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="u1" />
+                            <ColumnDefinition />
+                            <ColumnDefinition SharedSizeGroup="u3" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
+                                 Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Column="2"
+                                Width="14"
+                                Height="14"
+                                HorizontalAlignment="Center"
+                                Command="{Binding DataContext.RemoveFlagDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource DeleteButton}" />
+                    </Grid>
+                </Border>
+            </DataTemplate>
+
+        </Grid.Resources>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+            <StackPanel MaxWidth="1000">
+                <GroupBox DataContext="{Binding Data}"
+                          Header="Plugin info">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
                             <ColumnDefinition Width="*" />
@@ -43,13 +94,24 @@
                                    Grid.Column="0"
                                    Text="Plugin name" />
                         <TextBox Grid.Row="0"
-                                 Grid.Column="1" 
+                                 Grid.Column="1"
                                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <ComboBox Grid.Row="1"  Grid.Column="1" ItemsSource="{Binding Source={StaticResource PluginTypeEnum}}"
-                                      SelectedItem="{Binding TypeDescriptor.DependencyType.DefaultType.Name}" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Plugin type" />
-                        
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   Text="Plugin type" />
+
+                        <ComboBox Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Source={StaticResource PluginTypeEnum}}"
+                                  SelectedItem="{Binding TypeDescriptor.DependencyType.DefaultType.Name}">
+                            <ComboBox.Resources>
+                                <Style BasedOn="{StaticResource TextBlockDefault}"
+                                       TargetType="{x:Type TextBlock}" />
+                            </ComboBox.Resources>
+                        </ComboBox>
+
+
                         <TextBlock Grid.Row="2"
                                    Grid.Column="0"
                                    Text="Description" />
@@ -57,12 +119,157 @@
                                  Grid.Column="1"
                                  HorizontalScrollBarVisibility="Disabled"
                                  Text="{Binding Description}"
-                                 VerticalScrollBarVisibility="Disabled" 
+                                 VerticalScrollBarVisibility="Disabled"
                                  AcceptsReturn="True"
                                  TextWrapping="Wrap" />
-                        
+
                     </Grid>
                 </GroupBox>
+
+                <GroupBox DataContext="{Binding Data}"
+                          Header="Plugin image">
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.ColumnSpan="2"
+                                Height="150"
+                                Margin="3"
+                                BorderBrush="White"
+                                BorderThickness="1">
+                            <Image>
+                                <!--<Image.Source>
+                                    <MultiBinding Converter="{StaticResource ImageSourceConverter}">
+                                        <Binding Path="DataContext.Data.FolderPath" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
+                                        <Binding Path="Path" />
+                                    </MultiBinding>
+                                </Image.Source>-->
+                            </Image>
+                        </Border>
+
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   Text="Path" />
+
+                        <DockPanel Grid.Row="1"
+                                   Grid.Column="1">
+                            <Button Width="16"
+                                    Height="16"
+                                    Margin="3,0,9,0"
+                                    VerticalAlignment="Center"
+                                    Command="{Binding DataContext.BrowseImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                    DockPanel.Dock="Right">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <!--<Rectangle Fill="{StaticResource BrowseImageIcon}" />-->
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <TextBox Grid.Column="1"
+                                     IsReadOnly="True"
+                                     Text="{Binding Path}" />
+                        </DockPanel>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox DataContext="{Binding Data}"
+                          Header="Plugin Dependencies">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+
+
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="0"
+                                   Text="Flag dependency" />
+
+                        <ItemsControl Grid.Row="2"
+                                      Grid.Column="1"
+                                      Margin="{StaticResource Margin}"
+                                      ItemsSource="{Binding ConditionFlags.Flag, IsAsync=True}">
+                            <ItemsControl.Style>
+                                <Style TargetType="{x:Type ItemsControl}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                                <Grid>
+                                                    <Grid.Resources>
+                                                        <Style BasedOn="{StaticResource TextBlockDefault}"
+                                                               TargetType="{x:Type TextBlock}" />
+                                                        <Style BasedOn="{StaticResource TextBoxDefault}"
+                                                               TargetType="{x:Type TextBox}" />
+                                                        <Style BasedOn="{StaticResource ComboBoxDefault}"
+                                                               TargetType="{x:Type ComboBox}" />
+                                                    </Grid.Resources>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition SharedSizeGroup="u1" />
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition SharedSizeGroup="u3" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition />
+                                                    </Grid.RowDefinitions>
+
+                                                    <Border Grid.Row="1"
+                                                            Grid.ColumnSpan="3"
+                                                            Panel.ZIndex="-100"
+                                                            Background="{StaticResource TableHeaderBackGroundColor}"
+                                                            CornerRadius="{StaticResource CornerRadius}" />
+
+                                                    <TextBlock Grid.Row="1"
+                                                               Grid.Column="0"
+                                                               Text="Значение" />
+                                                    <TextBlock Grid.Row="1"
+                                                               Grid.Column="1"
+                                                               Text="Наименование флага" />
+                                                    <Button Grid.Row="1"
+                                                            Grid.Column="2"
+                                                            Margin="6,0"
+                                                            HorizontalAlignment="Center"
+                                                            Command="{Binding DataContext.AddFlagDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}"
+                                                            Style="{StaticResource AddButton}" />
+
+
+                                                    <Border Grid.Row="2"
+                                                            Grid.ColumnSpan="3"
+                                                            BorderBrush="{StaticResource TableHeaderBackGroundColor}"
+                                                            BorderThickness="1,0,1,1"
+                                                            CornerRadius="{StaticResource CornerRadius}">
+                                                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                    </Border>
+
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ItemsControl.Style>
+                        </ItemsControl>
+
+                    </Grid>
+                </GroupBox>
+                <uc:FileFolderList xmlns:uc="clr-namespace:Module.Editor.Resources"
+                                   DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                   Tag="{Binding Data.Files.Items}" />
+
             </StackPanel>
         </ScrollViewer>
     </Grid>

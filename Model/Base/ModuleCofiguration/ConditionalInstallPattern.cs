@@ -22,6 +22,6 @@ namespace FomodModel.Base.ModuleCofiguration
         ///     The files and filders to install if the pattern is matched.
         /// </summary>
         [XmlElement("files")]
-        public FileList Files { get; set; }
+        public FileList Files { get; set; } = new FileList();
     }
 }

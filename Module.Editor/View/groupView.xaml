@@ -43,7 +43,11 @@
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Group type" />
                             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                             <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={StaticResource GroupTypeEnum}}"
-                                      SelectedItem="{Binding Type, Mode=TwoWay}" />
+                                      SelectedItem="{Binding Type, Mode=TwoWay}" >
+                                <ComboBox.Resources>
+                                    <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}"/>
+                                </ComboBox.Resources>
+                            </ComboBox>
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -64,7 +68,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0"
                                    Text="Plugins Order" />
-                        <ComboBox Grid.Row="0" Grid.Column="1"
+                        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Source={StaticResource OrderEnum}}"
                                   SelectedItem="{Binding Plugins.Order}">
                             <ComboBox.Resources>
                                 <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />

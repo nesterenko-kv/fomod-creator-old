@@ -16,22 +16,29 @@
             </ResourceDictionary.MergedDictionaries>
 
 
-            <DataTemplate xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel" DataType="{x:Type model:ConditionalInstallPattern}">
-                <StackPanel>
-                    <local:CompositeDependencyControl DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" 
-                                                      Tag="{Binding Content.Dependencies, RelativeSource={RelativeSource TemplatedParent}}" />
-                    <local:FileFolderList DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" 
-                                          Tag="{Binding Content.Files, RelativeSource={RelativeSource TemplatedParent}}" />
-                </StackPanel>
+            <DataTemplate xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
+                          DataType="{x:Type model:ConditionalInstallPattern}">
+                <Border BorderThickness="1" BorderBrush="White" Background="#19FFFFFF" Margin="6,12,6,0" SnapsToDevicePixels="True">
+                    <StackPanel x:Name="parent">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="White">
+                            <TextBlock Text="Patern" Margin="{StaticResource Margin}" Style="{StaticResource TextBlockDefault}" Padding="6,0" />
+                        </Border>
+                        <local:CompositeDependencyControl DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                      CompositeDependency="{Binding Content.Dependencies, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      AddDependencyCommand="{Binding AddCompositeDependencyCommand2}"
+                                                      RemoveDependencyCommand="{Binding RemoveCompositeDependencyCommand2}"
+                                                      AddCommandParameter="{Binding DataContext, ElementName=parent}" />
+                        <local:FileFolderList DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                          Tag="{Binding Content.Files.Items, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </StackPanel>
+                </Border>
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <GroupBox DataContext="{Binding Data.ModuleConfiguration.ConditionalFileInstalls}">
         <GroupBox.Header>
             <DockPanel>
-                <Button Command="{Binding DataContext.AddConditionalFileInstallsCommand,
-                                          RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                         AncestorType=UserControl}}"
+                <Button Command="{Binding DataContext.AddConditionalFileInstallsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                         DockPanel.Dock="Right"
                         Style="{StaticResource AddButton}" />
                 <TextBlock Margin="0"

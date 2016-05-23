@@ -20,16 +20,20 @@
     <Grid Grid.IsSharedSizeScope="True">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled">
             <StackPanel MaxWidth="1000">
-                <GroupBox DataContext="{Binding Data.ModuleInformation}" Header="Mod Info Settings">
+                <GroupBox DataContext="{Binding Data.ModuleInformation}"
+                          Header="Mod Info Settings">
                     <Grid>
                         <Grid.Resources>
-                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                            <Style BasedOn="{StaticResource TextBlockDefault}"
+                                   TargetType="{x:Type TextBlock}">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
                             </Style>
-                            <Style BasedOn="{StaticResource TextBoxDefault}" TargetType="{x:Type TextBox}">
+                            <Style BasedOn="{StaticResource TextBoxDefault}"
+                                   TargetType="{x:Type TextBox}">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
                             </Style>
-                            <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                            <Style BasedOn="{StaticResource ComboBoxDefault}"
+                                   TargetType="{x:Type ComboBox}">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
                             </Style>
                         </Grid.Resources>
@@ -80,7 +84,8 @@
                                   SelectedItem="{Binding CategoryId, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Style="{StaticResource TextBlockDefault}" Text="{Binding Mode=OneTime, Converter={StaticResource EnumValueToDecriptionConverter}}" />
+                                    <TextBlock Style="{StaticResource TextBlockDefault}"
+                                               Text="{Binding Mode=OneTime, Converter={StaticResource EnumValueToDecriptionConverter}}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
@@ -91,24 +96,28 @@
                                  Grid.Column="1"
                                  HorizontalScrollBarVisibility="Disabled"
                                  Text="{Binding Description}"
-                                 VerticalScrollBarVisibility="Disabled" 
+                                 VerticalScrollBarVisibility="Disabled"
                                  AcceptsReturn="True"
                                  TextWrapping="Wrap" />
                     </Grid>
                 </GroupBox>
-                <GroupBox DataContext="{Binding Data.ModuleConfiguration.ModuleName}" Header="Module Title Settings">
+                <GroupBox DataContext="{Binding Data.ModuleConfiguration.ModuleName}"
+                          Header="Module Title Settings">
                     <Grid>
                         <Grid.Resources>
-                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                            <Style BasedOn="{StaticResource TextBlockDefault}"
+                                   TargetType="{x:Type TextBlock}">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
                             </Style>
-                            <Style BasedOn="{StaticResource TextBoxDefault}" TargetType="{x:Type TextBox}">
+                            <Style BasedOn="{StaticResource TextBoxDefault}"
+                                   TargetType="{x:Type TextBox}">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
                             </Style>
                             <Style TargetType="Border">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
                             </Style>
-                            <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                            <Style BasedOn="{StaticResource ComboBoxDefault}"
+                                   TargetType="{x:Type ComboBox}">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
                             </Style>
                         </Grid.Resources>
@@ -130,10 +139,17 @@
                         <TextBlock Grid.Row="1"
                                    Grid.Column="0"
                                    Text="Color" />
-                        <DockPanel Grid.Row="1" Grid.Column="1">
-                            <Border DockPanel.Dock="Right" Height="31" Width="31" BorderBrush="White" BorderThickness="1" CornerRadius="1"
+                        <DockPanel Grid.Row="1"
+                                   Grid.Column="1">
+                            <Border Width="31"
+                                    Height="31"
+                                    DockPanel.Dock="Right"
+                                    BorderBrush="White"
+                                    BorderThickness="1"
+                                    CornerRadius="1"
                                     Background="{Binding Colour, Converter={StaticResource ColorToSolidBrushConverter}, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBox Text="{Binding Colour, UpdateSourceTrigger=PropertyChanged}" MaxLength="6"/>
+                            <TextBox Text="{Binding Colour, UpdateSourceTrigger=PropertyChanged}"
+                                     MaxLength="6" />
                         </DockPanel>
                         <TextBlock Grid.Row="2"
                                    Grid.Column="0"
@@ -143,18 +159,22 @@
                                   ItemsSource="{Binding Source={StaticResource ModuleTitlePositionEnum}}"
                                   SelectedValue="{Binding Position}">
                             <ComboBox.Resources>
-                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
+                                <Style BasedOn="{StaticResource TextBlockDefault}"
+                                       TargetType="{x:Type TextBlock}" />
                             </ComboBox.Resources>
                         </ComboBox>
                     </Grid>
                 </GroupBox>
-                <GroupBox DataContext="{Binding Data.ModuleConfiguration.InstallSteps}" Header="Other Settings">
+                <GroupBox DataContext="{Binding Data.ModuleConfiguration.InstallSteps}"
+                          Header="Other Settings">
                     <Grid>
                         <Grid.Resources>
-                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                            <Style BasedOn="{StaticResource TextBlockDefault}"
+                                   TargetType="{x:Type TextBlock}">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
                             </Style>
-                            <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                            <Style BasedOn="{StaticResource ComboBoxDefault}"
+                                   TargetType="{x:Type ComboBox}">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
                             </Style>
                         </Grid.Resources>
@@ -170,16 +190,19 @@
                                   ItemsSource="{Binding Source={StaticResource OrderEnum}}"
                                   SelectedValue="{Binding Order}">
                             <ComboBox.Resources>
-                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
+                                <Style BasedOn="{StaticResource TextBlockDefault}"
+                                       TargetType="{x:Type TextBlock}" />
                             </ComboBox.Resources>
                         </ComboBox>
                     </Grid>
                 </GroupBox>
 
                 <ucontrol:ImageControl />
-                <ucontrol:CompositeDependencyControl Tag="{Binding Data.ModuleConfiguration.ModuleDependencies}" />
+                <ucontrol:CompositeDependencyControl CompositeDependency="{Binding Data.ModuleConfiguration.ModuleDependencies}"
+                                                     AddDependencyCommand="{Binding AddCompositeDependencyCommand}"
+                                                     RemoveDependencyCommand="{Binding RemoveCompositeDependencyCommand}" />
                 <ucontrol:FileFolderList Tag="{Binding Data.ModuleConfiguration.RequiredInstallFiles.Items}" />
-                <ucontrol:ConditionalFileInstallsControl/>
+                <ucontrol:ConditionalFileInstallsControl />
             </StackPanel>
         </ScrollViewer>
 

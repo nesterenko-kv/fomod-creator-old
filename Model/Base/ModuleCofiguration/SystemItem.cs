@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
+using System.Collections.ObjectModel;
 
 namespace FomodModel.Base.ModuleCofiguration
 {
@@ -58,5 +59,9 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlAttribute("priority", DataType = "integer")]
         [DefaultValue("0")]
         public string Priority { get; set; }
+
+
+        [XmlIgnore]
+        public ObservableCollection<SystemItem> Parent { get; set; }
     }
 }
