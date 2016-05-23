@@ -61,25 +61,28 @@ namespace FomodModel.Base
             "http://qconsulting.ca/fo3/ModConfig5.0.xsd";
 
         #endregion
-
-
+        
         public void CreatConditionalFileInstalls()
         {
-            if (ConditionalFileInstalls == null) ConditionalFileInstalls = new ConditionalFileInstallList();
+            if (ConditionalFileInstalls == null)
+                ConditionalFileInstalls = new ConditionalFileInstallList();
         }
         public void RemoveConditionalFileInstalls()
         {
-            if (ConditionalFileInstalls != null) ConditionalFileInstalls = null;
+            if (ConditionalFileInstalls != null)
+                ConditionalFileInstalls = null;
         }
 
         public void CreatRequiredInstallFiles()
         {
-            if (RequiredInstallFiles == null) RequiredInstallFiles = new FileList { Items = new ObservableCollection<SystemItem>()};
-        }
-        public void RemoveRequiredInstallFiles()
-        {
-            if (RequiredInstallFiles != null) RequiredInstallFiles = null;
+            if (RequiredInstallFiles == null)
+                RequiredInstallFiles = new FileList { Items = new ObservableCollection<SystemItem>()};
         }
 
+        public void RemoveRequiredInstallFiles()
+        {
+            if (RequiredInstallFiles != null)
+                RequiredInstallFiles = null;
+        }
     }
 }

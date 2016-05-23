@@ -30,5 +30,10 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlAttribute("name")]
         public string Name { get; set; }
+
+        public static InstallStep Create()
+        {
+            return new InstallStep {Name = "New Step"};
+        }
     }
 }

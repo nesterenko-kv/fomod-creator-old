@@ -20,5 +20,14 @@ namespace FomodModel.Base.ModuleCofiguration
 
         [XmlText]
         public string Value { get; set; }
+
+        public static SetConditionFlag Create()
+        {
+            return new SetConditionFlag
+            {
+                Name = "is Flag Flag Flag",
+                Value = "On"
+            };
+        }
     }
 }

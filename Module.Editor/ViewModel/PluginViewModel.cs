@@ -1,6 +1,5 @@
 ﻿using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base.ModuleCofiguration;
-using System.Collections;
 using System.Collections.ObjectModel;
 
 namespace Module.Editor.ViewModel
@@ -11,70 +10,54 @@ namespace Module.Editor.ViewModel
         {
             AddFlagDependencyCommand = new RelayCommand(AddFlagDependency);
             RemoveFlagDependencyCommand = new RelayCommand<SetConditionFlag>(RemoveFlagDependency);
-
-            AddFileCommand = new RelayCommand<object>(AddFile);
-            AddFolderCommand = new RelayCommand<object>(AddFolder);
+            AddFileCommand = new RelayCommand<ObservableCollection<SystemItem>>(AddFile);
+            AddFolderCommand = new RelayCommand<ObservableCollection<SystemItem>>(AddFolder);
             RemoveSystemItemCommand = new RelayCommand<SystemItem>(RemoveSystemItem);
-
         }
+        
+        #region Commands
 
         public RelayCommand AddFlagDependencyCommand { get; private set; }
         public RelayCommand<SetConditionFlag> RemoveFlagDependencyCommand { get; private set; }
         public RelayCommand<SystemItem> RemoveSystemItemCommand { get; private set; }
-        public RelayCommand<object> AddFolderCommand { get; private set; }
-        public RelayCommand<object> AddFileCommand { get; private set; }
+        public RelayCommand<ObservableCollection<SystemItem>> AddFolderCommand { get; private set; }
+        public RelayCommand<ObservableCollection<SystemItem>> AddFileCommand { get; private set; }
+        
+        #endregion
 
         private void AddFlagDependency()
         {
-            if ((Data as Plugin).ConditionFlags == null) (Data as Plugin).ConditionFlags = new ConditionFlagList { Flag = new ObservableCollection<SetConditionFlag>() };
-            (Data as Plugin).ConditionFlags.Flag.Add(new SetConditionFlag { Name = "New Flag", Value = "null" });
+            var plugin = Data as Plugin;
+            if (plugin == null) return;
+            if (plugin.ConditionFlags == null)
+                plugin.ConditionFlags = new ConditionFlagList();
+            if (plugin.ConditionFlags.Flag == null)
+                plugin.ConditionFlags.Flag = new ObservableCollection<SetConditionFlag>();
+            plugin.ConditionFlags.Flag.Add(SetConditionFlag.Create());
         }
-     
+
         private void RemoveFlagDependency(SetConditionFlag conditionFlag)
         {
-            (Data as Plugin).ConditionFlags.Flag.Remove(conditionFlag);
-            if ((Data as Plugin).ConditionFlags.Flag.Count == 0) (Data as Plugin).ConditionFlags = null;
+            var plugin = Data as Plugin;
+            if (plugin == null) return;
+            plugin.ConditionFlags.Flag.Remove(conditionFlag);
+            if (plugin.ConditionFlags.Flag.Count == 0)
+                plugin.ConditionFlags = null;
         }
 
-
-        private void AddFile(object obj)
+        private void AddFile(ObservableCollection<SystemItem> systemItems)
         {
-            if (obj is IList)
-            {
-                (obj as IList).Add(new FileSystemItem
-                {
-                    Source = @"\ffga\kfdd.exe",
-                    Destination = @"\kfdd.exe",
-                    AlwaysInstall = false,
-                    InstallIfUsable = false,
-                    Priority = "0"
-                });
-                return;
-            }
+            systemItems?.Add(FileSystemItem.Create());
         }
-        private void AddFolder(object obj)
+
+        private void AddFolder(ObservableCollection<SystemItem> systemItems)
         {
-            if (obj is IList)
-            {
-                (obj as IList).Add(new FolderSystemItem
-                {
-                    Source = @"\ffga\folder\1\folderNew",
-                    Destination = @"\folderNew",
-                    AlwaysInstall = false,
-                    InstallIfUsable = false,
-                    Priority = "0"
-                });
-                return;
-            }
+            systemItems?.Add(FolderSystemItem.Create());
         }
 
         private void RemoveSystemItem(SystemItem systemItem)
         {
-            systemItem.Parent.Remove(systemItem);
+            systemItem?.Parent.Remove(systemItem);
         }
-
     }
-
-
-
 }

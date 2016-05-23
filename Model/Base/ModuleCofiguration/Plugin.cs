@@ -41,5 +41,10 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlAttribute("name")]
         public string Name { get; set; }
+
+        public static Plugin Create()
+        {
+            return new Plugin {Name = "New Plugin"};
+        }
     }
 }

@@ -9,6 +9,7 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Interactivity.InteractionRequest;
 using System;
+using System.Collections.Generic;
 using FomodInfrastructure.Interface;
 
 namespace Module.Editor.ViewModel
@@ -122,50 +123,53 @@ namespace Module.Editor.ViewModel
 
         private void AddStep(ProjectRoot p)
         {
-            if (p.ModuleConfiguration.InstallSteps == null)
-                p.ModuleConfiguration.InstallSteps = new StepList();
-            if (p.ModuleConfiguration.InstallSteps.InstallStep == null)
-                p.ModuleConfiguration.InstallSteps.InstallStep = new ObservableCollection<InstallStep>();
-            p.ModuleConfiguration.InstallSteps.InstallStep.Add(new InstallStep { Name = "New Step" });
+            var steps = p.ModuleConfiguration.InstallSteps;
+            if (steps == null)
+                steps = new StepList();
+            if (steps.InstallStep == null)
+                steps.InstallStep = new ObservableCollection<InstallStep>();
+            steps.InstallStep.Add(InstallStep.Create());
         }
 
         private void AddGroup(InstallStep p)
         {
-            if (p.OptionalFileGroups == null)
-                p.OptionalFileGroups = new GroupList();
-            if (p.OptionalFileGroups.Group == null)
-                p.OptionalFileGroups.Group = new ObservableCollection<Group>();
-            p.OptionalFileGroups.Group.Add(new Group { Name = "New Group" });
+            var groups = p.OptionalFileGroups;
+            if (groups == null)
+                groups = new GroupList();
+            if (groups.Group == null)
+                groups.Group = new ObservableCollection<Group>();
+            groups.Group.Add(Group.Create());
         }
 
         private void AddPlugin(Group p)
         {
-            if (p.Plugins == null)
-                p.Plugins = new PluginList();
-            if (p.Plugins.Plugin == null)
-                p.Plugins.Plugin = new ObservableCollection<Plugin>();
-            p.Plugins.Plugin.Add(new Plugin { Name = "New Plugin" });
+            var plugins = p.Plugins;
+            if (plugins == null)
+                plugins = new PluginList();
+            if (plugins.Plugin == null)
+                plugins.Plugin = new ObservableCollection<Plugin>();
+            plugins.Plugin.Add(Plugin.Create());
         }
 
-        private void RemoveStep(object[] p)
+        private void RemoveStep(IReadOnlyList<object> p)
         {
-            var parent = (ProjectRoot)p[0];
-            var child = (InstallStep)p[1];
-            parent.ModuleConfiguration.InstallSteps.InstallStep.Remove(child);
+            var root = (ProjectRoot)p[0];
+            var step = (InstallStep)p[1];
+            root.ModuleConfiguration.InstallSteps.InstallStep.Remove(step);
         }
 
         private void RemoveGroup(object[] p)
         {
-            var parent = (InstallStep)p[0];
-            var child = (Group)p[1];
-            parent.OptionalFileGroups.Group.Remove(child);
+            var step = (InstallStep)p[0];
+            var group = (Group)p[1];
+            step.OptionalFileGroups.Group.Remove(group);
         }
 
         private void RemovePlugin(object[] p)
         {
-            var parent = (Group)p[0];
-            var child = (Plugin)p[1];
-            parent.Plugins.Plugin.Remove(child);
+            var group = (Group)p[0];
+            var plugin = (Plugin)p[1];
+            group.Plugins.Plugin.Remove(plugin);
         }
 
         public void Save()

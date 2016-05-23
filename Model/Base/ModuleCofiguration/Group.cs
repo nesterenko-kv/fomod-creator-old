@@ -30,5 +30,10 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlAttribute("type")]
         public GroupType Type { get; set; }
+
+        public static Group Create()
+        {
+            return new Group {Name = "New Group"};
+        }
     }
 }

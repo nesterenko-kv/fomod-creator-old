@@ -22,7 +22,9 @@ namespace FomodModel.Base.ModuleCofiguration
             ShowFade = true;
             Height = -1;
         }
-
+        
+        #region Properties
+        
         /// <summary>
         ///     The path to the image in the FOMod. If omitted the FOMod's screenshot is used.
         /// </summary>
@@ -49,5 +51,12 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlAttribute("height")]
         [DefaultValue(-1)]
         public int Height { get; set; }
+
+        #endregion
+
+        public static HeaderImage Create(string path)
+        {
+            return new HeaderImage {Path = path};
+        }
     }
 }

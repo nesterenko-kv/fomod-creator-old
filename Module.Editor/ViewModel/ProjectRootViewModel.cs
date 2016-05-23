@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.IO;
 using FomodInfrastructure.Interface;
-using System;
 using System.Linq;
 using System.Collections;
 
@@ -19,50 +18,41 @@ namespace Module.Editor.ViewModel
 
         #endregion
 
-
-        RelayCommand _createFileLisCommand; public RelayCommand CreateFileLisCommand
+        private RelayCommand _createFileListCommand;
+        public RelayCommand CreateFileListCommand
         {
             get
             {
-                return _createFileLisCommand ?? (_createFileLisCommand = new RelayCommand(() =>
-                {
-                    _data.ModuleConfiguration.CreatRequiredInstallFiles();
-                }));
+                return _createFileListCommand ?? (_createFileListCommand = new RelayCommand(_data.ModuleConfiguration.CreatRequiredInstallFiles));
             }
         }
 
 
-        RelayCommand _removeFileLisCommand; public RelayCommand RemoveFileLisCommand
+        private RelayCommand _removeFileLisCommand;
+        public RelayCommand RemoveFileLisCommand
         {
             get
             {
-                return _removeFileLisCommand ?? (_removeFileLisCommand = new RelayCommand(() =>
-                {
-                    _data.ModuleConfiguration.RemoveRequiredInstallFiles();
-                }));
+                return _removeFileLisCommand ?? (_removeFileLisCommand = new RelayCommand(_data.ModuleConfiguration.RemoveRequiredInstallFiles));
             }
         }
 
 
-        RelayCommand<ConditionalInstallPattern> _createPaternCommand; public RelayCommand<ConditionalInstallPattern> CreatePaternCommand
+        private RelayCommand<ConditionalInstallPattern> _createPaternCommand;
+        public RelayCommand<ConditionalInstallPattern> CreatePaternCommand
         {
             get
             {
-                return _createPaternCommand ?? (_createPaternCommand = new RelayCommand<ConditionalInstallPattern>((patern) =>
-                {
-                    patern.CreateFilesList();
-                }));
+                return _createPaternCommand ?? (_createPaternCommand = new RelayCommand<ConditionalInstallPattern>(patern => patern.CreateFilesList()));
             }
         }
 
-        RelayCommand<ConditionalInstallPattern> _removePaternCommand; public RelayCommand<ConditionalInstallPattern> RemovePaternCommand
+        private RelayCommand<ConditionalInstallPattern> _removePaternCommand;
+        public RelayCommand<ConditionalInstallPattern> RemovePaternCommand
         {
             get
             {
-                return _removePaternCommand ?? (_removePaternCommand = new RelayCommand<ConditionalInstallPattern>((patern) =>
-                {
-                    patern.RemoveFilesList();
-                }));
+                return _removePaternCommand ?? (_removePaternCommand = new RelayCommand<ConditionalInstallPattern>(patern => patern.RemoveFilesList()));
             }
         }
 
@@ -79,10 +69,9 @@ namespace Module.Editor.ViewModel
         public RelayCommand<CompositeDependency> AddFlagDependencyCommand { get; }
         public RelayCommand<FileDependency> RemoveFileDependencyCommand { get; }
         public RelayCommand<FlagDependency> RemoveFlagDependencyCommand { get; }
-        public RelayCommand<object> AddFileCommand { get; }
-        public RelayCommand<object> AddFolderCommand { get; }
+        public RelayCommand<ObservableCollection<SystemItem>> AddFileCommand { get; }
+        public RelayCommand<ObservableCollection<SystemItem>> AddFolderCommand { get; }
         public RelayCommand<SystemItem> RemoveSystemItemCommand { get; }
-
         public RelayCommand AddConditionalFileInstallsCommand { get; }
 
         #endregion
@@ -107,12 +96,10 @@ namespace Module.Editor.ViewModel
             RemoveFileDependencyCommand = new RelayCommand<FileDependency>(RemoveFileDependency);
             AddFlagDependencyCommand = new RelayCommand<CompositeDependency>(AddFlagDependency);
             RemoveFlagDependencyCommand = new RelayCommand<FlagDependency>(RemoveFlagDependency);
-            AddFileCommand = new RelayCommand<object>(AddFile);
-            AddFolderCommand = new RelayCommand<object>(AddFolder);
+            AddFileCommand = new RelayCommand<ObservableCollection<SystemItem>>(AddFile);
+            AddFolderCommand = new RelayCommand<ObservableCollection<SystemItem>>(AddFolder);
             RemoveSystemItemCommand = new RelayCommand<SystemItem>(RemoveSystemItem);
             AddConditionalFileInstallsCommand = new RelayCommand(AddConditionalFileInstalls);
-
-            // ReSharper disable once SuspiciousTypeConversion.Global - аспект решает.
             var notifyPropertyChanged = this as INotifyPropertyChanged;
             if (notifyPropertyChanged != null)
                 notifyPropertyChanged.PropertyChanged +=
@@ -162,16 +149,16 @@ namespace Module.Editor.ViewModel
 
         private void BrowseImage()
         {
-            var imagepath = GetImage();
-            if (!string.IsNullOrEmpty(imagepath))
-                _data.ModuleConfiguration.ModuleImage.Path = imagepath;
+            var imagePath = GetImage();
+            if (!string.IsNullOrEmpty(imagePath))
+                _data.ModuleConfiguration.ModuleImage.Path = imagePath;
         }
 
         private void AddImage()
         {
-            var imagepath = GetImage();
-            if (!string.IsNullOrEmpty(imagepath))
-                _data.ModuleConfiguration.ModuleImage = new HeaderImage { Path = imagepath };
+            var imagePath = GetImage();
+            if (!string.IsNullOrEmpty(imagePath))
+                _data.ModuleConfiguration.ModuleImage = HeaderImage.Create(imagePath);
         }
 
         private void RemoveImage()
@@ -186,9 +173,7 @@ namespace Module.Editor.ViewModel
             else
                 dependency.Dependencies = CompositeDependency.Create();
         }
-
         
-
         private void RemoveCompositeDependency(CompositeDependency dependency)
         {
             if (dependency.Parent == null)
@@ -197,11 +182,11 @@ namespace Module.Editor.ViewModel
                 dependency.Parent.Dependencies = null;
         }
 
-
         private void AddCompositeDependency2(object dependency)
         {
+            //TODO Немного говнокода который завязан на ткущем представлении вьюх
             if (dependency is ConditionalInstallPattern)
-                (dependency as ConditionalInstallPattern).Dependencies = CompositeDependency.Create();//TODO Немного говнокода который завязан на ткущем представлении вьюх
+                (dependency as ConditionalInstallPattern).Dependencies = CompositeDependency.Create();
             else if (dependency is CompositeDependency)
                 (dependency as CompositeDependency).Dependencies = CompositeDependency.Create();
         }
@@ -242,35 +227,14 @@ namespace Module.Editor.ViewModel
         }
 
 
-        private void AddFile(object obj)
+        private void AddFile(ObservableCollection<SystemItem> systemItems)
         {
-            if(obj is IList)
-            {
-                (obj as IList).Add(new FileSystemItem
-                {
-                    Source = @"\ffga\kfdd.exe",
-                    Destination = @"\kfdd.exe",
-                    AlwaysInstall = false,
-                    InstallIfUsable = false,
-                    Priority = "0"
-                });
-                return;
-            }
+            systemItems?.Add(FileSystemItem.Create());
         }
-        private void AddFolder(object obj)
+
+        private void AddFolder(ObservableCollection<SystemItem> systemItems)
         {
-            if (obj is IList)
-            {
-                (obj as IList).Add(new FolderSystemItem
-                {
-                    Source = @"\ffga\folder\1\folderNew",
-                    Destination = @"\folderNew",
-                    AlwaysInstall = false,
-                    InstallIfUsable = false,
-                    Priority = "0"
-                });
-                return;
-            }
+            systemItems?.Add(FolderSystemItem.Create());
         }
 
         private void RemoveSystemItem(SystemItem systemItem)

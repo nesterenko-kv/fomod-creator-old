@@ -22,7 +22,8 @@ namespace Module.Editor.ViewModel
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             Data = navigationContext.Parameters[_curentParamName];
-            if (Data == null) throw new ArgumentNullException(nameof(navigationContext), "При навигации обязательныо нужно передавать параметры");
+            if (Data == null)
+                throw new ArgumentNullException(nameof(navigationContext), "При навигации обязательныо нужно передавать параметры");
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
