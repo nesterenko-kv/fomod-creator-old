@@ -23,16 +23,24 @@ namespace FomodModel.Base.ModuleCofiguration
         ///     The files and filders to install if the pattern is matched.
         /// </summary>
         [XmlElement("files")]
-        public FileList Files { get; set; } = new FileList();
+        public FileList Files { get; set; } //= new FileList();
+
+        public static ConditionalInstallPattern Create()
+        {
+            return new ConditionalInstallPattern
+            {
+
+            };
+        }
 
 
-        public void CreateFilesList()
-        {
-            if (Files == null) Files = new FileList { Items = new ObservableCollection<SystemItem>() };
-        }
-        public void RemoveFilesList()
-        {
-            if (Files != null) Files = null;
-        }
+        //public void CreateFilesList()
+        //{
+        //    if (Files == null) Files = new FileList { Items = new ObservableCollection<SystemItem>() };
+        //}
+        //public void RemoveFilesList()
+        //{
+        //    if (Files != null) Files = null;
+        //}
     }
 }

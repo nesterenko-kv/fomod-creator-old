@@ -12,7 +12,6 @@
         <ResourceDictionary xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Enums.xaml" />
-                <!--<ResourceDictionary Source="../NewStyles.xaml" />-->
                 <ResourceDictionary Source="../Blend/_Package.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <DrawingBrush x:Key="AddFileIcon">
@@ -89,21 +88,10 @@
                     <Grid.Resources>
                         <Style BasedOn="{StaticResource TextBlockDefault}"
                                TargetType="{x:Type TextBlock}" />
-                        <Style BasedOn="{StaticResource TextBoxDefault}"
-                               TargetType="{x:Type TextBox}">
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                            <Setter Property="BorderThickness" Value="0" />
-                            <Setter Property="MinWidth" Value="0" />
-                            <Setter Property="Margin" Value="0,1,0,0" />
-                            <Setter Property="VerticalAlignment" Value="Stretch" />
-                        </Style>
-                        <Style BasedOn="{StaticResource ComboBoxDefault}"
-                               TargetType="{x:Type ComboBox}">
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                            <Setter Property="BorderThickness" Value="1" />
-                            <Setter Property="MinWidth" Value="0" />
-                            <Setter Property="Margin" Value="0,1,0,0" />
-                        </Style>
+                        <Style BasedOn="{StaticResource TextBoxForTable}"
+                               TargetType="{x:Type TextBox}" />
+                        <Style BasedOn="{StaticResource ComboBoxForTable}"
+                               TargetType="{x:Type ComboBox}" />
                     </Grid.Resources>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -149,9 +137,9 @@
                 </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type model:FileSystemItem}">
-                <Border Margin="0,0,0,-1"
-                        BorderBrush="#59FFFFFF"
-                        BorderThickness="0,0,0,1">
+                <Border Margin="0,0,0,-1" SnapsToDevicePixels="True" x:Name="decorator"
+                        BorderBrush="{StaticResource TableHeaderBackGroundColor}"
+                        BorderThickness="0,1,0,1" Padding="0,0,0,1">
                     <Grid SnapsToDevicePixels="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="icon"
@@ -176,11 +164,16 @@
 
                     </Grid>
                 </Border>
+                <DataTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="decorator" Property="Background" Value="{StaticResource TableIsMouseOverBackGroundColor}"/>
+                    </Trigger>
+                </DataTemplate.Triggers>
             </DataTemplate>
             <DataTemplate DataType="{x:Type model:FolderSystemItem}">
-                <Border Margin="0,0,0,-1"
-                        BorderBrush="#59FFFFFF"
-                        BorderThickness="0,0,0,1">
+                <Border Margin="0,0,0,-1" SnapsToDevicePixels="True" x:Name="decorator" 
+                        BorderBrush="{StaticResource TableHeaderBackGroundColor}"
+                        BorderThickness="0,1,0,1" Padding="0,0,0,1">
                     <Grid SnapsToDevicePixels="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="icon"
@@ -203,11 +196,15 @@
 
                     </Grid>
                 </Border>
+                <DataTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="decorator" Property="Background" Value="{StaticResource TableIsMouseOverBackGroundColor}"/>
+                    </Trigger>
+                </DataTemplate.Triggers>
             </DataTemplate>
-
-
         </ResourceDictionary>
     </UserControl.Resources>
+
     <StackPanel>
         <DockPanel Margin="3,3"
                    HorizontalAlignment="Stretch">
@@ -239,7 +236,8 @@
                        Text="{Binding Header, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
                        DockPanel.Dock="Left"
                        FontFamily="Segoe UI Semibold"
-                       FontSize="16" LineStackingStrategy="BlockLineHeight" />
+                       FontSize="16"
+                       LineStackingStrategy="BlockLineHeight" />
         </DockPanel>
         <ItemsControl Grid.IsSharedSizeScope="True"
                       ItemsSource="{Binding FileList.Items, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">

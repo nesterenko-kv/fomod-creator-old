@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="Module.Editor.Resources.UserControls.CompositeDependencyUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Module.Editor.Resources.UserControls"
+             xmlns:uc="clr-namespace:Module.Editor.Resources.UserControls"
+             xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Enums.xaml" />
+                <ResourceDictionary Source="../Blend/_Package.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type model:CompositeDependency}">
+                <StackPanel SnapsToDevicePixels="True">
+                    <GroupBox>
+                        <GroupBox.Header>
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Right"
+                                            Orientation="Horizontal"
+                                            Visibility="{Binding Dependencies, Converter={StaticResource IsNullToVisibleConverter}}">
+                                    <Button Command="{Binding CreateDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource AddButton}" />
+                                    <Button Margin="6,0,0,0"
+                                            Command="{Binding RemoveDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource DeleteButton}" />
+                                </StackPanel>
+                                <TextBlock Margin="0"
+                                           VerticalAlignment="Center"
+                                           Padding="0"
+                                           Style="{StaticResource TextBlockHeaderStyle}"
+                                           Text="Composite dependency" />
+                            </DockPanel>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.Resources>
+                                <Style BasedOn="{StaticResource TextBlockDefault}"
+                                       TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                                <Style BasedOn="{StaticResource TextBoxDefault}"
+                                       TargetType="{x:Type TextBox}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                                <Style BasedOn="{StaticResource ComboBoxDefault}"
+                                       TargetType="{x:Type ComboBox}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="Оператор" />
+                            <ComboBox Grid.Row="0"
+                                      Grid.Column="1"
+                                      ItemsSource="{Binding Source={StaticResource CompositeDependencyOperator}}"
+                                      SelectedValue="{Binding Operator}">
+                                <ComboBox.Resources>
+                                    <Style BasedOn="{StaticResource TextBlockDefault}"
+                                           TargetType="{x:Type TextBlock}" />
+                                </ComboBox.Resources>
+                            </ComboBox>
+
+
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="Files dependency" />
+
+                            <uc:FileDependencyUserControl Grid.Row="1"
+                                                          Grid.Column="1"
+                                                          Margin="{StaticResource Margin}"
+                                                          FileDependencies="{Binding FileDependencies}" />
+
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="0"
+                                       Text="Flag dependency" />
+
+                            <uc:FlagDependencyUserControl Grid.Row="2"
+                                                          Grid.Column="1"
+                                                          Margin="{StaticResource Margin}"
+                                                          FlagDependencies="{Binding FlagDependencies}" />
+                        </Grid>
+                    </GroupBox>
+                    <ContentControl Content="{Binding Dependencies}" />
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <ContentControl Content="{Binding CompositeDependency, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
+        <ContentControl.Style>
+            <Style TargetType="{x:Type ContentControl}">
+                <Style.Triggers>
+                    <Trigger Property="Content" Value="{x:Null}">
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <GroupBox Background="Gray">
+                                        <GroupBox.Header>
+                                            <DockPanel>
+                                                <Button Command="{Binding CreateDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                        DockPanel.Dock="Right"
+                                                        Style="{StaticResource AddButton}" />
+                                                <TextBlock Margin="0"
+                                                           VerticalAlignment="Center"
+                                                           Padding="0"
+                                                           Style="{StaticResource TextBlockHeaderStyle}"
+                                                           Text="Composite dependency" />
+                                            </DockPanel>
+                                        </GroupBox.Header>
+                                    </GroupBox>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ContentControl.Style>
+    </ContentControl>
+
+</UserControl>

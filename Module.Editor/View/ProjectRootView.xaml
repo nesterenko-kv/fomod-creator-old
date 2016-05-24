@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ucontrol="clr-namespace:Module.Editor.Resources"
+             xmlns:uc="clr-namespace:Module.Editor.Resources.UserControls"
              xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
              d:DesignHeight="2000"
              d:DesignWidth="1200"
@@ -12,7 +13,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Enums.xaml" />
-                <!--<ResourceDictionary Source="../Resources/NewStyles.xaml" />-->
                 <ResourceDictionary Source="../Resources/Blend/_Package.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -21,7 +21,7 @@
         <ScrollViewer HorizontalScrollBarVisibility="Disabled">
             <StackPanel xmlns:uc="clr-namespace:Module.Editor.Resources.UserControls"
                         MaxWidth="1000">
-               
+
                 <GroupBox DataContext="{Binding Data.ModuleInformation}"
                           Header="Mod Info Settings">
                     <Grid>
@@ -200,17 +200,18 @@
                 </GroupBox>
 
                 <ucontrol:ImageControl />
-                <ucontrol:CompositeDependencyControl CompositeDependency="{Binding Data.ModuleConfiguration.ModuleDependencies}"
+                <!--<ucontrol:CompositeDependencyControl CompositeDependency="{Binding Data.ModuleConfiguration.ModuleDependencies}"
                                                      AddDependencyCommand="{Binding AddCompositeDependencyCommand}"
-                                                     RemoveDependencyCommand="{Binding RemoveCompositeDependencyCommand}" />
+                                                     RemoveDependencyCommand="{Binding RemoveCompositeDependencyCommand}" />-->
+                <uc:CompositeDependencyUserControl CompositeDependency="{Binding Data.ModuleConfiguration.ModuleDependencies}" />
 
-                <uc:FileListUserControl Header="Me config files and folder" 
-                                        CreateCommand="{Binding CreateFileLisCommand}" 
-                                        RemoveCommand="{Binding RemoveFileLisCommand}" 
-                                        Margin="{StaticResource MarginGroupBox}"
+                <uc:FileListUserControl Margin="{StaticResource MarginGroupBox}"
+                                        Header="Me config files and folder"
                                         FileList="{Binding Data.ModuleConfiguration.RequiredInstallFiles}" />
 
-                <ucontrol:ConditionalFileInstallsControl />
+                <uc:ConditionalFileInstallsUserControl FileInstallList="{Binding Data.ModuleConfiguration.ConditionalFileInstalls}" />
+
+                <!--<ucontrol:ConditionalFileInstallsControl />-->
 
             </StackPanel>
         </ScrollViewer>

@@ -97,8 +97,20 @@
     <Compile Include="Resources\Config\ImageControl.xaml.cs">
       <DependentUpon>ImageControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\UserControls\CompositeDependencyUserControl.xaml.cs">
+      <DependentUpon>CompositeDependencyUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\ConditionalFileInstallsUserControl.xaml.cs">
+      <DependentUpon>ConditionalFileInstallsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\FileDependencyUserControl.xaml.cs">
+      <DependentUpon>FileDependencyUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UserControls\FileListUserControl.xaml.cs">
       <DependentUpon>FileListUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\FlagDependencyUserControl.xaml.cs">
+      <DependentUpon>FlagDependencyUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainEditorViewModel.cs" />
@@ -170,7 +182,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\UserControls\CompositeDependencyUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\ConditionalFileInstallsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\FileDependencyUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\UserControls\FileListUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\FlagDependencyUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

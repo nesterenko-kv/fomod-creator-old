@@ -8,6 +8,8 @@ using FomodModel.Base.ModuleCofiguration.Enum;
 
 namespace FomodModel.Base.ModuleCofiguration
 {
+    //TODO удалить закоментированное после отладки
+
     /// <summary>
     ///     A dependency that is made up of one or more dependencies.
     /// </summary>
@@ -23,9 +25,20 @@ namespace FomodModel.Base.ModuleCofiguration
         public CompositeDependency()
         {
             Operator = CompositeDependencyOperator.And;
-            FileDependencies.CollectionChanged -= Dependencies_CollectionChanged;
-            FlagDependencies.CollectionChanged += Dependencies_CollectionChanged;
         }
+
+       
+        [XmlElement("fileDependency", typeof(FileDependency))]
+        public ObservableCollection<FileDependency> FileDependencies { get; set; }//= new ObservableCollection<FileDependency>();
+
+        [XmlElement("flagDependency", typeof(FlagDependency))]
+        public ObservableCollection<FlagDependency> FlagDependencies { get; set; } //= new ObservableCollection<FlagDependency>();
+
+        [XmlElement("gameDependency", typeof(VersionDependency))]
+        public VersionDependency GameVersionDependencies { get; set; }
+
+        [XmlElement("fommDependency", typeof(VersionDependency))]
+        public VersionDependency FommVersionDependencies { get; set; }
 
         [XmlElement("dependencies", typeof(CompositeDependency))]
         public CompositeDependency Dependencies
@@ -38,39 +51,21 @@ namespace FomodModel.Base.ModuleCofiguration
                     value.Parent = this;
             }
         }
-
-        [XmlElement("fileDependency", typeof(FileDependency))]
-        public ObservableCollection<FileDependency> FileDependencies { get; private set; } = new ObservableCollection<FileDependency>();
-
-        [XmlElement("flagDependency", typeof(FlagDependency))]
-        public ObservableCollection<FlagDependency> FlagDependencies { get; private set; } = new ObservableCollection<FlagDependency>();
-
-        [XmlElement("fommDependency", typeof(VersionDependency))]
-        public VersionDependency FommVersionDependencies { get; set; }
-
-        [XmlElement("gameDependency", typeof(VersionDependency))]
-        public VersionDependency GameVersionDependencies { get; set; }
-
+        
         /// <summary>
         ///     The relation of the contained dependencies.
         /// </summary>
         [XmlAttribute("operator")]
-        [DefaultValue(CompositeDependencyOperator.And)]
+        //[DefaultValue(CompositeDependencyOperator.And)]
         public CompositeDependencyOperator Operator { get; set; }
 
         [XmlIgnore]
         public CompositeDependency Parent { get; set; }
 
-        private void Dependencies_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add) return;
-            foreach (var item in e.NewItems)
-                ((dynamic) item).Parent = this;
-        }
 
         public static CompositeDependency Create()
         {
-            return new CompositeDependency();
+            return new CompositeDependency { Operator = CompositeDependencyOperator.And};
         }
     }
 }

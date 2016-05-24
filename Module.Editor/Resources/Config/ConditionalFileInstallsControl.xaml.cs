@@ -24,5 +24,8 @@ namespace Module.Editor.Resources
         {
             InitializeComponent();
         }
+
+
+
     }
 }

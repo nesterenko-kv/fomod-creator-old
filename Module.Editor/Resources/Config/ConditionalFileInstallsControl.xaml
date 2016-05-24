@@ -33,18 +33,19 @@
                                        Style="{StaticResource TextBlockDefault}"
                                        Padding="6,0" />
                         </Border>
-                        <local:CompositeDependencyControl DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                        <!--<local:CompositeDependencyControl DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                                           CompositeDependency="{Binding Content.Dependencies, RelativeSource={RelativeSource TemplatedParent}}"
                                                           AddDependencyCommand="{Binding AddCompositeDependencyCommand2}"
                                                           RemoveDependencyCommand="{Binding RemoveCompositeDependencyCommand2}"
-                                                          AddCommandParameter="{Binding DataContext, ElementName=parent}" />
+                                                          AddCommandParameter="{Binding DataContext, ElementName=parent}" />-->
 
-                        <uc:FileListUserControl FileList="{Binding Content.Files, RelativeSource={RelativeSource TemplatedParent}}" Margin="{StaticResource MarginGroupBox}"
+                        <!--<uc:FileListUserControl Margin="{StaticResource MarginGroupBox}"
+                                                FileList="{Binding Content.Files, RelativeSource={RelativeSource TemplatedParent}}"
                                                 CreateCommand="{Binding DataContext.CreatePaternCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                                 CreateCommandParameter="{Binding}"
                                                 RemoveCommand="{Binding DataContext.RemovePaternCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                                 RemoveCommandParameter="{Binding}"
-                                                Header="Patern files and folder" />
+                                                Header="Patern files and folder" />-->
 
                         <!--<Border xmlns:userControls="clr-namespace:Module.Editor.Resources.UserControls;assembly=Module.Editor">
                             <userControls:FileListUserControl />

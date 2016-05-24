@@ -38,11 +38,16 @@
     <SolidColorBrush x:Key="TableTopHeaderBackGroundColor"
                      Color="#7FFFFFFF" />
 
+    <SolidColorBrush x:Key="TableIsMouseOverBackGroundColor"
+                     Color="#FFB40800" />
+
     <CornerRadius x:Key="CornerRadius"
                   BottomLeft="1"
                   BottomRight="1"
                   TopLeft="1"
                   TopRight="1" />
+
+
 
 
 

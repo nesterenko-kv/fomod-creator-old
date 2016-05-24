@@ -88,25 +88,6 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
-            <Style x:Key="TextBoxForTable"
-                   BasedOn="{StaticResource TextBoxDefault}"
-                   TargetType="{x:Type TextBox}">
-                <Setter Property="BorderBrush" Value="Transparent" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="MinWidth" Value="0" />
-                <Setter Property="Margin" Value="0,1,0,0" />
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-            </Style>
-
-            <Style x:Key="ComboBoxForTable"
-                   BasedOn="{StaticResource ComboBoxDefault}"
-                   TargetType="{x:Type ComboBox}">
-                <Setter Property="BorderBrush" Value="Transparent" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="MinWidth" Value="0" />
-                <Setter Property="Margin" Value="0,1,0,0" />
-            </Style>
-
 
             <DataTemplate x:Key="SystemItem">
                 <Grid>
@@ -157,14 +138,12 @@
                             CommandParameter="{Binding}"
                             Style="{StaticResource DeleteButton}" />
 
-
-
                 </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type model:FileSystemItem}">
-                <Border Margin="0,0,0,-1"
-                        BorderBrush="#59FFFFFF"
-                        BorderThickness="0,0,0,1">
+                <Border Margin="0,0,0,-1" SnapsToDevicePixels="True"
+                        BorderBrush="{StaticResource TableHeaderBackGroundColor}"
+                        BorderThickness="0,0,0,0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="icon"
@@ -191,9 +170,9 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type model:FolderSystemItem}">
-                <Border Margin="0,0,0,-1"
-                        BorderBrush="#59FFFFFF"
-                        BorderThickness="0,0,0,1">
+                <Border Margin="0,0,0,-1" SnapsToDevicePixels="True"
+                        BorderBrush="{StaticResource TableHeaderBackGroundColor}"
+                        BorderThickness="0,0,0,0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="icon"
@@ -218,106 +197,6 @@
                 </Border>
             </DataTemplate>
 
-            <!--<DataTemplate x:Key="FileList" DataType="{x:Type model:FileList}">
-                <GroupBox Background="Coral" BorderBrush="Coral">
-                    <GroupBox.Header>
-                        <DockPanel>
-                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                                <Button Width="16"
-                                        Height="16"
-                                        Command="{Binding DataContext.AddFileCommand,
-                                                          RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                         AncestorType=UserControl}}"
-                                        DockPanel.Dock="Right"
-                                        ToolTip="Add File">
-                                    <Button.Template>
-                                        <ControlTemplate>
-                                            <Rectangle Fill="{StaticResource AddFileIcon}" />
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-                                <Button Width="16"
-                                        Height="16"
-                                        Margin="6,0,0,0"
-                                        Command="{Binding DataContext.AddFolderCommand,
-                                                          RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                                         AncestorType=UserControl}}"
-                                        DockPanel.Dock="Right"
-                                        ToolTip="Add Folder">
-                                    <Button.Template>
-                                        <ControlTemplate>
-                                            <Rectangle Fill="{StaticResource AddFolderIcon}" />
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-                            </StackPanel>
-                            <TextBlock Style="{StaticResource LeftTextBlock}" Text="REQUIRED INSTALL FILES" />
-                        </DockPanel>
-                    </GroupBox.Header>
-
-                    <ItemsControl Margin="{StaticResource RightMargin}"
-                                  Grid.IsSharedSizeScope="True"
-                                  ItemsSource="{Binding Items}">
-                        <ItemsControl.Style>
-                            <Style TargetType="{x:Type ItemsControl}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ItemsControl}">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition x:Name="icon" SharedSizeGroup="flist0" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition SharedSizeGroup="flist3" />
-                                                    <ColumnDefinition SharedSizeGroup="flist4" />
-                                                    <ColumnDefinition SharedSizeGroup="flist5" />
-                                                    <ColumnDefinition SharedSizeGroup="flist6" />
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto" />
-                                                    <RowDefinition />
-                                                </Grid.RowDefinitions>
-                                                <TextBlock Grid.Column="1"
-                                                           Margin="6"
-                                                           Style="{StaticResource LeftTextBlock}"
-                                                           Text="Source" />
-                                                <TextBlock Grid.Column="2"
-                                                           Margin="6"
-                                                           Style="{StaticResource LeftTextBlock}"
-                                                           Text="Destination" />
-                                                <TextBlock Grid.Column="3"
-                                                           Margin="6"
-                                                           Style="{StaticResource LeftTextBlock}"
-                                                           Text="AlwaysInstall" />
-                                                <TextBlock Grid.Column="4"
-                                                           Margin="6"
-                                                           Style="{StaticResource LeftTextBlock}"
-                                                           Text="InstallIfUsable" />
-                                                <TextBlock Grid.Column="5"
-                                                           Margin="6"
-                                                           Style="{StaticResource LeftTextBlock}"
-                                                           Text="Priority" />
-                                                <Border x:Name="decorator"
-                                                        Grid.Row="0"
-                                                        Grid.ColumnSpan="100"
-                                                        Panel.ZIndex="-100"
-                                                        Background="#FF59ACFF" />
-                                                <Border Grid.Row="1"
-                                                        Grid.ColumnSpan="100"
-                                                        BorderBrush="#FF59ACFF"
-                                                        BorderThickness="1,0,1,1">
-                                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                                </Border>
-
-                                            </Grid>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ItemsControl.Style>
-                    </ItemsControl>
-                </GroupBox>
-            </DataTemplate>-->
         </ResourceDictionary>
     </UserControl.Resources>
 
