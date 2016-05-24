@@ -1,0 +1,197 @@
+﻿<UserControl x:Class="Module.Editor.Resources.UserControls.ImageUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Module.Editor.Resources.UserControls"
+             xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
+             d:DesignHeight="300"
+             d:DesignWidth="600"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Enums.xaml" />
+                <ResourceDictionary Source="../Blend/_Package.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DrawingBrush x:Key="BrowseImageIcon">
+                <DrawingBrush.Drawing>
+                    <DrawingGroup>
+                        <DrawingGroup.Children>
+                            <GeometryDrawing Brush="#00FFFFFF"
+                                             Geometry="F1M16,16L0,16 0,0 16,0z" />
+                            <GeometryDrawing Brush="#FFF6F6F6"
+                                             Geometry="F1M16,4L16,16 4,16 4,10.414 2,12.414 0,10.414 0,9.586 3.35,6.236C3.12,5.687 3,5.099 3,4.5 3,2.019 5.019,0 7.5,0 9.81,0 11.697,1.756 11.949,4z" />
+                            <GeometryDrawing Brush="#FF424242"
+                                             Geometry="F1M10,4.5C10,3.119 8.881,2 7.5,2 6.119,2 5,3.119 5,4.5 5,5.881 6.119,7 7.5,7 8.881,7 10,5.881 10,4.5 M11,4.5C11,6.433 9.433,8 7.5,8 6.789,8 6.131,7.785 5.578,7.422L2,11 1,10 4.578,6.422C4.215,5.869 4,5.211 4,4.5 4,2.567 5.567,1 7.5,1 9.433,1 11,2.567 11,4.5 M14,13L12.5,11.451 10.5,13 8,9.874 6,12.084 6,14 14,14z M15,5L15,15 5,15 5,9.414 5.764,8.65C5.84,8.682,5.922,8.695,6,8.723L6,10.084 7.024,8.952C7.182,8.969 7.339,9 7.5,9 7.934,9 8.346,8.919 8.744,8.803L10.5,11 12.5,10 14,11 14,6 11.724,6C11.837,5.681,11.911,5.347,11.949,5z M12,9L10,9 10,8.238C10.489,7.91,10.91,7.489,11.238,7L12,7z" />
+                            <GeometryDrawing Brush="#FFF0EFF1"
+                                             Geometry="F1M6,8.7225L6,10.0835 7.024,8.9525C6.673,8.9145,6.331,8.8405,6,8.7225" />
+                            <GeometryDrawing Brush="#FFF0EFF1"
+                                             Geometry="F1M7.5,7C6.119,7 5,5.881 5,4.5 5,3.119 6.119,2 7.5,2 8.881,2 10,3.119 10,4.5 10,5.881 8.881,7 7.5,7 M10.5,13L8,9.874 6,12.084 6,14 14,14 14,13 12.5,11.451z M14,6L14,11 12.5,10 10.5,11 8.744,8.803C9.193,8.673,9.62,8.493,10,8.238L10,9 12,9 12,7 11.238,7C11.444,6.693,11.598,6.353,11.724,6z" />
+                        </DrawingGroup.Children>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+
+
+            <DataTemplate DataType="{x:Type model:HeaderImage}">
+                <Grid>
+                    <Grid.Resources>
+                        <Style BasedOn="{StaticResource TextBlockDefault}"
+                           TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="{StaticResource Margin}" />
+                        </Style>
+                        <Style BasedOn="{StaticResource TextBoxDefault}"
+                           TargetType="{x:Type TextBox}">
+                            <Setter Property="Margin" Value="{StaticResource Margin}" />
+                        </Style>
+                        <Style BasedOn="{StaticResource ComboBoxDefault}"
+                           TargetType="{x:Type ComboBox}">
+                            <Setter Property="Margin" Value="{StaticResource Margin}" />
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Show Image" />
+                    <ComboBox xmlns:system="clr-namespace:System;assembly=mscorlib"
+                              Grid.Row="0"
+                              Grid.Column="1"
+                              SelectedValue="{Binding ShowImage, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBox.Resources>
+                            <Style BasedOn="{StaticResource TextBlockDefault}"
+                                   TargetType="{x:Type TextBlock}" />
+                        </ComboBox.Resources>
+                        <system:Boolean>true</system:Boolean>
+                        <system:Boolean>false</system:Boolean>
+                    </ComboBox>
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Show Fade" />
+                    <ComboBox xmlns:system="clr-namespace:System;assembly=mscorlib"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              SelectedValue="{Binding ShowFade, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBox.Resources>
+                            <Style BasedOn="{StaticResource TextBlockDefault}"
+                                   TargetType="{x:Type TextBlock}" />
+                        </ComboBox.Resources>
+                        <system:Boolean>true</system:Boolean>
+                        <system:Boolean>false</system:Boolean>
+                    </ComboBox>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Text="Height" />
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type model:Image}" />
+
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ContentControl>
+        <!--<ContentControl.Style>
+            <Style TargetType="{x:Type ContentControl}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Data.ModuleConfiguration.ModuleImage}" Value="{x:Null}">
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <GroupBox Background="Gray">
+                                        <GroupBox.Header>
+                                            <DockPanel>
+                                                <Button
+                                                        Command="{Binding DataContext.AddImageCommand,
+                                                                          RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                                         AncestorType=UserControl}}"
+                                                        DockPanel.Dock="Right" Margin="0"
+                                                        Style="{StaticResource AddButton}" />
+                                                <TextBlock VerticalAlignment="Center" Style="{StaticResource TextBlockHeaderStyle}"
+                                                           Margin="0"
+                                                           Text="Image" />
+                                            </DockPanel>
+                                        </GroupBox.Header>
+                                    </GroupBox>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ContentControl.Style>-->
+
+        <Grid>
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource TextBlockDefault}"
+                       TargetType="{x:Type TextBlock}">
+                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                </Style>
+                <Style BasedOn="{StaticResource TextBoxDefault}"
+                       TargetType="{x:Type TextBox}">
+                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                </Style>
+                <Style BasedOn="{StaticResource ComboBoxDefault}"
+                       TargetType="{x:Type ComboBox}">
+                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.ColumnSpan="2"
+                    Height="150"
+                    Margin="3"
+                    BorderBrush="White"
+                    BorderThickness="1">
+                <Image Source="{Binding Image, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+            </Border>
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Path" />
+
+            <DockPanel Grid.Row="1"
+                       Grid.Column="1">
+                <Button Width="16"
+                        Height="16"
+                        Margin="3,0,9,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding BrowseImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                        DockPanel.Dock="Right">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Rectangle Fill="{StaticResource BrowseImageIcon}" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <TextBox Grid.Column="1"
+                         IsReadOnly="True"
+                         Text="{Binding ImageDataSource.Path, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+            </DockPanel>
+
+
+            <ContentControl Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            Content="{Binding ImageDataSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+
+
+        </Grid>
+    </ContentControl>
+</UserControl>

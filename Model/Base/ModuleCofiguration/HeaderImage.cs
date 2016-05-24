@@ -22,9 +22,9 @@ namespace FomodModel.Base.ModuleCofiguration
             ShowFade = true;
             Height = -1;
         }
-        
+
         #region Properties
-        
+
         /// <summary>
         ///     The path to the image in the FOMod. If omitted the FOMod's screenshot is used.
         /// </summary>

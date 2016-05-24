@@ -112,6 +112,12 @@
     <Compile Include="Resources\UserControls\FlagDependencyUserControl.xaml.cs">
       <DependentUpon>FlagDependencyUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\UserControls\ImageHeaderUserControl.xaml.cs">
+      <DependentUpon>ImageHeaderUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\ImageUserControl.xaml.cs">
+      <DependentUpon>ImageUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainEditorViewModel.cs" />
     <Compile Include="ViewModel\GroupViewModel.cs" />
@@ -199,6 +205,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\UserControls\FlagDependencyUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\ImageHeaderUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\ImageUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

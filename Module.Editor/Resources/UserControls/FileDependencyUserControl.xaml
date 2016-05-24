@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Module.Editor.Resources.UserControls"
+             xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <ResourceDictionary xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel">
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Enums.xaml" />
                 <ResourceDictionary Source="../Blend/_Package.xaml" />
@@ -16,9 +17,12 @@
 
 
             <DataTemplate DataType="{x:Type model:FileDependency}">
-                <Border Margin="0,0,0,-1" SnapsToDevicePixels="True" x:Name="decorator"
+                <Border x:Name="decorator"
+                        Margin="0,0,0,-1"
+                        SnapsToDevicePixels="True"
                         BorderBrush="{StaticResource TableHeaderBackGroundColor}"
-                        BorderThickness="0,1,0,1" Padding="0,0,0,1">
+                        BorderThickness="0,1,0,1"
+                        Padding="0,0,0,1">
                     <Grid>
                         <Grid.Resources>
                             <Style BasedOn="{StaticResource TextBlockDefault}"
@@ -53,7 +57,7 @@
                 </Border>
                 <DataTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter TargetName="decorator" Property="Background" Value="{StaticResource TableIsMouseOverBackGroundColor}"/>
+                        <Setter TargetName="decorator" Property="Background" Value="{StaticResource TableIsMouseOverBackGroundColor}" />
                     </Trigger>
                 </DataTemplate.Triggers>
             </DataTemplate>

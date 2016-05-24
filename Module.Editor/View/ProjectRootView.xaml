@@ -199,20 +199,59 @@
                     </Grid>
                 </GroupBox>
 
-                <ucontrol:ImageControl />
-                <!--<ucontrol:CompositeDependencyControl CompositeDependency="{Binding Data.ModuleConfiguration.ModuleDependencies}"
-                                                     AddDependencyCommand="{Binding AddCompositeDependencyCommand}"
-                                                     RemoveDependencyCommand="{Binding RemoveCompositeDependencyCommand}" />-->
-                <uc:CompositeDependencyUserControl CompositeDependency="{Binding Data.ModuleConfiguration.ModuleDependencies}" />
+                <ContentControl x:Name="IMAGE">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Data.ModuleConfiguration.ModuleImage}"
+                                             Value="{x:Null}">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <GroupBox Background="Gray">
+                                                    <GroupBox.Header>
+                                                        <DockPanel>
+                                                            <Button Margin="0"
+                                                                    Command="{Binding DataContext.AddImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                                    DockPanel.Dock="Right"
+                                                                    Style="{StaticResource AddButton}" />
+                                                            <TextBlock Margin="0"
+                                                                       VerticalAlignment="Center"
+                                                                       Style="{StaticResource TextBlockHeaderStyle}"
+                                                                       Text="Image" />
+                                                        </DockPanel>
+                                                    </GroupBox.Header>
+                                                </GroupBox>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
 
+                    <GroupBox>
+                        <GroupBox.Header>
+                            <DockPanel>
+                                <Button Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                        DockPanel.Dock="Right"
+                                        Style="{StaticResource DeleteButton}" />
+                                <TextBlock Margin="0"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource TextBlockHeaderStyle}"
+                                           Text="Image" />
+                            </DockPanel>
+                        </GroupBox.Header>
+                        <uc:ImageUserControl ImageDataSource="{Binding Data.ModuleConfiguration.ModuleImage}"
+                                             ProjectFolderPath="{Binding Data.FolderPath}"
+                                             BrowseImageCommand="{Binding DataContext.BrowseImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+                    </GroupBox>
+                </ContentControl>
+                <uc:CompositeDependencyUserControl CompositeDependency="{Binding Data.ModuleConfiguration.ModuleDependencies}" />
                 <uc:FileListUserControl Margin="{StaticResource MarginGroupBox}"
                                         Header="Me config files and folder"
                                         FileList="{Binding Data.ModuleConfiguration.RequiredInstallFiles}" />
-
                 <uc:ConditionalFileInstallsUserControl FileInstallList="{Binding Data.ModuleConfiguration.ConditionalFileInstalls}" />
-
-                <!--<ucontrol:ConditionalFileInstallsControl />-->
-
             </StackPanel>
         </ScrollViewer>
 
