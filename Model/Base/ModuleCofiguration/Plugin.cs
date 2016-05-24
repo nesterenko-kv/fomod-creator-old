@@ -12,6 +12,8 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class Plugin
     {
+        #region Properties
+
         /// <summary>
         ///     A description of the Plugin.
         /// </summary>
@@ -41,6 +43,8 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlAttribute("name")]
         public string Name { get; set; }
+
+        #endregion
 
         public static Plugin Create()
         {

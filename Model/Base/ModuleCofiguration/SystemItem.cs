@@ -24,6 +24,8 @@ namespace FomodModel.Base.ModuleCofiguration
             Priority = "0";
         }
 
+        #region Properties
+
         /// <summary>
         ///     The path to the file or folder in the FOMod.
         /// </summary>
@@ -60,8 +62,6 @@ namespace FomodModel.Base.ModuleCofiguration
         [DefaultValue("0")]
         public string Priority { get; set; }
 
-
-        [XmlIgnore]
-        public ObservableCollection<SystemItem> Parent { get; set; }
+        #endregion
     }
 }

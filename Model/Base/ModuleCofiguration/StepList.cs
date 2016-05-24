@@ -22,6 +22,8 @@ namespace FomodModel.Base.ModuleCofiguration
         {
             Order = OrderEnum.Ascending;
         }
+        
+        #region Properties
 
         /// <summary>
         ///     A list of install steps for the mod.
@@ -35,5 +37,7 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlAttribute("order")]
         [DefaultValue(OrderEnum.Ascending)]
         public OrderEnum Order { get; set; }
+        
+        #endregion
     }
 }

@@ -12,6 +12,8 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class DependencyPattern
     {
+        #region Properties
+
         /// <summary>
         ///     The list of mods and their states against which to match the user's installation.
         /// </summary>
@@ -23,5 +25,7 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlElement("type")]
         public PluginType Type { get; set; }
+        
+        #endregion
     }
 }

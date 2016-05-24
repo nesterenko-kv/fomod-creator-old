@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace FomodModel.Base
+namespace FomodModel.Base.ModuleCofiguration.Enum
 {
     [Serializable]
     public enum CategoriesEnum

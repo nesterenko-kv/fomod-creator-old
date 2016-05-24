@@ -2,38 +2,26 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
   <moduleName>moduleName</moduleName>
   <installSteps order="Explicit">
-    <installStep name="Main">
+    <installStep name="Step #1">
       <optionalFileGroups order="Explicit">
-        <group name="Main group" type="SelectAtMostOne">
+        <group name="Group #1" type="SelectAtMostOne">
           <plugins order="Explicit">
-            <plugin name="Plagin">
-              <description>Set description</description>
-              <conditionFlags>
-                <flag name="Flag">On</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <type name="NotUsable" />
-              </typeDescriptor>
+            <plugin name="Plugin #1">
+              <description>Description</description>
             </plugin>
           </plugins>
         </group>
       </optionalFileGroups>
       <optionalFileGroups order="Explicit">
-          <group name="Main group 2" type="SelectAtMostOne">
+          <group name="Group #2" type="SelectAtMostOne">
             <plugins order="Explicit">
-              <plugin name="Plagin">
-                <description>Set description</description>
-                <conditionFlags>
-                  <flag name="Flag">On</flag>
-                </conditionFlags>
-                <typeDescriptor>
-                  <type name="NotUsable" />
-                </typeDescriptor>
+              <plugin name="Plugin #1">
+                <description>Description</description>
               </plugin>
             </plugins>
           </group>
         </optionalFileGroups>
     </installStep>
-    <installStep name="Main 22"></installStep>
+    <installStep name="Step #2"></installStep>
   </installSteps>
 </config>

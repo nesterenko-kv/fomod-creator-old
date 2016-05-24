@@ -22,7 +22,9 @@ namespace FomodModel.Base.ModuleCofiguration
             Position = ModuleTitlePosition.Left;
             Colour = "000000";
         }
-
+        
+        #region Properties
+        
         /// <summary>
         ///     The identifying name of the condition flag.
         /// </summary>
@@ -39,5 +41,7 @@ namespace FomodModel.Base.ModuleCofiguration
         
         [XmlText]
         public string Value { get; set; }
+        
+        #endregion
     }
 }

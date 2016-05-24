@@ -12,10 +12,14 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class PluginTypeDescriptor
     {
+        #region Properties
+         
         [XmlElement("dependencyType", typeof(DependencyPluginType))]
         public DependencyPluginType DependencyType { get; set; }
 
         [XmlElement("type", typeof(PluginType))]
         public PluginType Type { get; set; }
+        
+        #endregion
     }
 }

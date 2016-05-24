@@ -13,6 +13,8 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class DependencyPluginType
     {
+        #region Properties
+
         /// <summary>
         ///     The default type of the Plugin used if none of the specified dependency states are satisfied.
         /// </summary>
@@ -26,5 +28,7 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlArray("patterns")]
         [XmlArrayItem("pattern", IsNullable = false)]
         public ObservableCollection<DependencyPattern> Patterns { get; set; }
+        
+        #endregion
     }
 }

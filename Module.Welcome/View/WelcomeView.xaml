@@ -4,26 +4,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:names="clr-namespace:Module.Welcome.Resources"
              xmlns:regions="http://prismlibrary.com/"
+             xmlns:struct="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
+             dialog:DialogParticipation.Register="{Binding}"
              d:DesignHeight="320"
              d:DesignWidth="1100"
-             dialog:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="270" />
             <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
-        <Rectangle Grid.ColumnSpan="220" VerticalAlignment="Top"
+        <Rectangle Grid.ColumnSpan="2" VerticalAlignment="Top"
                       Height="1" Panel.ZIndex="99"
-                      Fill="#11FFFFFF" />
+                      Fill="{DynamicResource SeparatorBrush}" />
         <Rectangle Grid.Column="0" HorizontalAlignment="Right"
                       Width="1" Panel.ZIndex="99"
-                      Fill="#11FFFFFF" />
+                      Fill="{DynamicResource SeparatorBrush}" />
         <ContentControl Grid.Column="0"
                         Margin="6 6 6 6"
-                        regions:RegionManager.RegionName="{x:Static names:LocalNames.LeftRegion}" />
+                        regions:RegionManager.RegionName="{x:Static struct:Names.LeftRegion}" />
         <Border Grid.Column="1"
                 MinWidth="250"
                 HorizontalAlignment="Center"

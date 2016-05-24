@@ -13,6 +13,8 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class FileDependency
     {
+        #region Properties
+
         /// <summary>
         ///     The file of the mod upon which a the Plugin depends.
         /// </summary>
@@ -25,8 +27,7 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlAttribute("state")]
         public FileDependencyState State { get; set; }
         
-        [XmlIgnore]
-        public CompositeDependency Parent { get; set; }
+        #endregion
 
         public static FileDependency Create(string file)
         {

@@ -17,8 +17,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class CompositeDependency
     {
-        CompositeDependency _dependencies;
-
         /// <summary>
         ///     CompositeDependency class constructor
         /// </summary>
@@ -26,19 +24,29 @@ namespace FomodModel.Base.ModuleCofiguration
         {
             Operator = CompositeDependencyOperator.And;
         }
+        
+        #region Properties
 
-       
+        /// <summary>
+        ///     The relation of the contained dependencies.
+        /// </summary>
+        [XmlAttribute("operator")]
+        [DefaultValue(CompositeDependencyOperator.And)]
+        public CompositeDependencyOperator Operator { get; set; }
+
         [XmlElement("fileDependency", typeof(FileDependency))]
-        public ObservableCollection<FileDependency> FileDependencies { get; set; }//= new ObservableCollection<FileDependency>();
+        public ObservableCollection<FileDependency> FileDependencies { get; set; }
 
         [XmlElement("flagDependency", typeof(FlagDependency))]
-        public ObservableCollection<FlagDependency> FlagDependencies { get; set; } //= new ObservableCollection<FlagDependency>();
+        public ObservableCollection<FlagDependency> FlagDependencies { get; set; }
 
         [XmlElement("gameDependency", typeof(VersionDependency))]
         public VersionDependency GameVersionDependencies { get; set; }
 
         [XmlElement("fommDependency", typeof(VersionDependency))]
         public VersionDependency FommVersionDependencies { get; set; }
+
+        private CompositeDependency _dependencies;
 
         [XmlElement("dependencies", typeof(CompositeDependency))]
         public CompositeDependency Dependencies
@@ -52,20 +60,14 @@ namespace FomodModel.Base.ModuleCofiguration
             }
         }
         
-        /// <summary>
-        ///     The relation of the contained dependencies.
-        /// </summary>
-        [XmlAttribute("operator")]
-        //[DefaultValue(CompositeDependencyOperator.And)]
-        public CompositeDependencyOperator Operator { get; set; }
-
         [XmlIgnore]
         public CompositeDependency Parent { get; set; }
 
+        #endregion
 
         public static CompositeDependency Create()
         {
-            return new CompositeDependency { Operator = CompositeDependencyOperator.And};
+            return new CompositeDependency();
         }
     }
 }

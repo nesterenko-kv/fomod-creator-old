@@ -12,10 +12,14 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class VersionDependency
     {
+        #region Properties
+
         /// <summary>
         ///     The required minimum version of the item.
         /// </summary>
         [XmlAttribute("version")]
         public string Version { get; set; }
+        
+        #endregion
     }
 }

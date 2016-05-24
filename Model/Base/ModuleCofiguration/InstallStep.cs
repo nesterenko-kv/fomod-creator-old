@@ -12,6 +12,8 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class InstallStep
     {
+        #region Properties
+        
         /// <summary>
         ///     The pattern against which to match the conditional flags and installed files. If the pattern is matched, then the
         ///     install step will be visible.
@@ -31,9 +33,14 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlAttribute("name")]
         public string Name { get; set; }
 
+        #endregion
+
         public static InstallStep Create()
         {
-            return new InstallStep {Name = "New Step"};
+            return new InstallStep
+            {
+                Name = "New Step"
+            };
         }
     }
 }

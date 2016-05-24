@@ -133,7 +133,6 @@
                     <Button Grid.Column="5"
                             Width="14"
                             Height="14"
-                            HorizontalAlignment="Center"
                             Command="{Binding DataContext.RemoveSystemItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                             CommandParameter="{Binding}"
                             Style="{StaticResource DeleteButton}" />

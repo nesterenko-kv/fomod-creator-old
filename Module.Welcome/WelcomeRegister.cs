@@ -1,5 +1,4 @@
 ﻿using FomodInfrastructure;
-using Module.Welcome.Resources;
 using Module.Welcome.View;
 using Module.Welcome.ViewModel;
 using Prism.Modularity;
@@ -33,7 +32,7 @@ namespace Module.Welcome
                     .SetProperty(p => p.DataContext = _container.GetInstance<LastProjectsViewModel>());
             });
             _regionManager.Regions[Names.MainContentRegion].RequestNavigate(nameof(WelcomeView));
-            _regionManager.Regions[LocalNames.LeftRegion].RequestNavigate(nameof(LastProjectsView));
+            _regionManager.Regions[Names.LeftRegion].RequestNavigate(nameof(LastProjectsView));
         }
 
         #endregion

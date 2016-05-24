@@ -12,10 +12,14 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class Image
     {
+        #region Properties
+        
         /// <summary>
         ///     The path to the image in the FOMod.
         /// </summary>
         [XmlAttribute("path")]
         public string Path { get; set; }
+        
+        #endregion
     }
 }

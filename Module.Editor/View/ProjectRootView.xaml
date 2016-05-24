@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ucontrol="clr-namespace:Module.Editor.Resources"
-             xmlns:uc="clr-namespace:Module.Editor.Resources.UserControls"
              xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
+             xmlns:enum="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
              d:DesignHeight="2000"
              d:DesignWidth="1200"
              mc:Ignorable="d">
@@ -78,11 +77,11 @@
                         <TextBlock Grid.Row="4"
                                    Grid.Column="0"
                                    Text="Category" />
-                        <ComboBox xmlns:base="clr-namespace:FomodModel.Base;assembly=FomodModel"
+                        <ComboBox
                                   Grid.Row="4"
                                   Grid.Column="1"
                                   DisplayMemberPath=""
-                                  ItemsSource="{converters:EnumValues {x:Type base:CategoriesEnum}}"
+                                  ItemsSource="{converters:EnumValues {x:Type enum:CategoriesEnum}}"
                                   SelectedItem="{Binding CategoryId, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>

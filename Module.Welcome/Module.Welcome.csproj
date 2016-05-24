@@ -88,7 +88,6 @@
     <Compile Include="PrismEvent\OpenLink.cs" />
     <Compile Include="PrismEvent\OpenProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\LocalNames.cs" />
     <Compile Include="ViewModel\LastProjectsViewModel.cs" />
     <Compile Include="ViewModel\WelcomeViewModel.cs" />
     <Compile Include="WelcomeRegister.cs" />
@@ -115,6 +114,9 @@
       <Project>{344abc62-3d14-4471-a8a0-d4d2ad7d3e99}</Project>
       <Name>Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

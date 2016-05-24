@@ -57,32 +57,9 @@ namespace FomodModel.Base
         /// <summary>
         ///     Add namespace.
         /// </summary>
-        [XmlAttribute("noNamespaceSchemaLocation", Namespace = XmlSchema.InstanceNamespace)] public string Namespace =
-            "http://qconsulting.ca/fo3/ModConfig5.0.xsd";
+        [XmlAttribute("noNamespaceSchemaLocation", Namespace = XmlSchema.InstanceNamespace)]
+        public string Namespace = "http://qconsulting.ca/fo3/ModConfig5.0.xsd";
 
         #endregion
-        
-        public void CreatConditionalFileInstalls()
-        {
-            if (ConditionalFileInstalls == null)
-                ConditionalFileInstalls = new ConditionalFileInstallList();
-        }
-        public void RemoveConditionalFileInstalls()
-        {
-            if (ConditionalFileInstalls != null)
-                ConditionalFileInstalls = null;
-        }
-
-        public void CreatRequiredInstallFiles()
-        {
-            if (RequiredInstallFiles == null)
-                RequiredInstallFiles = new FileList { Items = new ObservableCollection<SystemItem>()};
-        }
-
-        public void RemoveRequiredInstallFiles()
-        {
-            if (RequiredInstallFiles != null)
-                RequiredInstallFiles = null;
-        }
     }
 }

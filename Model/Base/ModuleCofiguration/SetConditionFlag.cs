@@ -12,6 +12,8 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class SetConditionFlag
     {
+        #region Properties
+        
         /// <summary>
         ///     The identifying name of the condition flag.
         /// </summary>
@@ -20,6 +22,8 @@ namespace FomodModel.Base.ModuleCofiguration
 
         [XmlText]
         public string Value { get; set; }
+        
+        #endregion
 
         public static SetConditionFlag Create()
         {

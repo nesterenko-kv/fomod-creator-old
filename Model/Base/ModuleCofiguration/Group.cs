@@ -13,6 +13,8 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class Group
     {
+        #region Properties
+
         /// <summary>
         ///     The list of plugins in the Group.
         /// </summary>
@@ -30,6 +32,8 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlAttribute("type")]
         public GroupType Type { get; set; }
+
+        #endregion
 
         public static Group Create()
         {

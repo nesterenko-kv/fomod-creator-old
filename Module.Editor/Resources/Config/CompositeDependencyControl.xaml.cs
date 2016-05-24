@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace Module.Editor.Resources
+namespace Module.Editor.Resources.Config
 {
     /// <summary>
     /// Логика взаимодействия для CompositeDependencyControl.xaml
     /// </summary>
-    public partial class CompositeDependencyControl : UserControl
+    public partial class CompositeDependencyControl
     {
         public CompositeDependencyControl()
         {
@@ -44,14 +32,9 @@ namespace Module.Editor.Resources
         public static readonly DependencyProperty RemoveDependencyCommandProperty =
             DependencyProperty.Register("RemoveDependencyCommand", typeof(ICommand), typeof(CompositeDependencyControl), new PropertyMetadata(null));
 
-
-
-
-
-
         public object AddCommandParameter
         {
-            get { return (object)GetValue(AddCommandParametrProperty); }
+            get { return GetValue(AddCommandParametrProperty); }
             set { SetValue(AddCommandParametrProperty, value); }
         }
 
@@ -60,11 +43,9 @@ namespace Module.Editor.Resources
             DependencyProperty.Register("AddCommandParameter", typeof(object), typeof(CompositeDependencyControl), new PropertyMetadata(null));
 
 
-
-
         public object RemoveCommandParameter
         {
-            get { return (object)GetValue(RemoveCommandParameterProperty); }
+            get { return GetValue(RemoveCommandParameterProperty); }
             set { SetValue(RemoveCommandParameterProperty, value); }
         }
 
@@ -76,17 +57,12 @@ namespace Module.Editor.Resources
 
         public object CompositeDependency
         {
-            get { return (object)GetValue(CompositeDependencyProperty); }
+            get { return GetValue(CompositeDependencyProperty); }
             set { SetValue(CompositeDependencyProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CompositeDependency.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CompositeDependencyProperty =
             DependencyProperty.Register("CompositeDependency", typeof(object), typeof(CompositeDependencyControl), new PropertyMetadata(null));
-
-
-
-
-
     }
 }

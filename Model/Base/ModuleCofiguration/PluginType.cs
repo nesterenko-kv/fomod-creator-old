@@ -13,10 +13,14 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class PluginType
     {
+        #region Properties
+        
         /// <summary>
         ///     The name of the Plugin type.
         /// </summary>
         [XmlAttribute("name")]
         public PluginTypeEnum Name { get; set; }
+        
+        #endregion
     }
 }

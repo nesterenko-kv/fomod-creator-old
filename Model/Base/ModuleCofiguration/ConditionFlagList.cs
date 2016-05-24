@@ -13,10 +13,14 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class ConditionFlagList
     {
+        #region Properties
+        
         /// <summary>
         ///     A condition flag to set if the Plugin is selected.
         /// </summary>
         [XmlElement("flag")]
         public ObservableCollection<SetConditionFlag> Flag { get; set; }
+        
+        #endregion
     }
 }

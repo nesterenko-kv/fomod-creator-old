@@ -67,7 +67,6 @@
                         <Button Grid.Column="2"
                                 Width="14"
                                 Height="14"
-                                HorizontalAlignment="Center"
                                 Command="{Binding DataContext.RemoveFlagDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                 CommandParameter="{Binding}"
                                 Style="{StaticResource DeleteButton}" />

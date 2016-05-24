@@ -13,6 +13,8 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class ConditionalFileInstallList
     {
+        #region Properites
+
         /// <summary>
         ///     The list of patterns against which to match the conditional flags and installed files. All matching patterns will
         ///     have their files installed.
@@ -21,12 +23,11 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlArrayItem("pattern", IsNullable = false)]
         public ObservableCollection<ConditionalInstallPattern> Patterns { get; set; }
 
+        #endregion
+
         public static ConditionalFileInstallList Create()
         {
-            return new ConditionalFileInstallList
-            {
-                
-            };
+            return new ConditionalFileInstallList();
         }
     }
 }

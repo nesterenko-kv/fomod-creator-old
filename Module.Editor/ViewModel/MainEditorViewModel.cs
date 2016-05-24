@@ -9,7 +9,7 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Interactivity.InteractionRequest;
 using System;
-using System.Collections.Generic;
+using System.Windows.Input;
 using FomodInfrastructure.Interface;
 
 namespace Module.Editor.ViewModel
@@ -28,16 +28,11 @@ namespace Module.Editor.ViewModel
         public MainEditorViewModel(IMemoryService memoryService)
         {
             _memoryService = memoryService;
-
-            AddStepCommand = new RelayCommand<ProjectRoot>(AddStep);
-            AddGroupCommand = new RelayCommand<InstallStep>(AddGroup);
-            AddPluginCommand = new RelayCommand<Group>(AddPlugin);
-            DeleteDialogCommand = new RelayCommand<object[]>(DeleteDialog);
         }
-        
+
         public void ConfigurateViewModel(IRegionManager regionManager, IRepository<ProjectRoot> repository)
         {
-            if (repository == null) throw new NotImplementedException();
+            if (repository == null) throw new ArgumentNullException(nameof(repository));
             _repository = repository;
             _regionManager = regionManager;
             var root = Data.FirstOrDefault(i => i.FolderPath == repository.CurrentPath);
@@ -67,9 +62,9 @@ namespace Module.Editor.ViewModel
             }
         }
 
-        public InteractionRequest<IConfirmation> ConfirmationRequest { get; private set; } = new InteractionRequest<IConfirmation>();
+        public InteractionRequest<IConfirmation> ConfirmationRequest { get; } = new InteractionRequest<IConfirmation>();
 
-        public ObservableCollection<ProjectRoot> Data { get; set; } = new ObservableCollection<ProjectRoot>();
+        public ObservableCollection<ProjectRoot> Data { get; } = new ObservableCollection<ProjectRoot>();
 
         public ProjectRoot FirstData { get; private set; } //TODO Не забыть про очищение свойства при закрытии или удалении проекта, или сделать слабую ссылку
 
@@ -90,87 +85,68 @@ namespace Module.Editor.ViewModel
                 _regionManager.Regions["NodeRegion"].RequestNavigate(name + "View", param);
             }
         }
-        
+
         #endregion
 
         #region Commands
 
-        public RelayCommand<ProjectRoot> AddStepCommand { get; }
-        public RelayCommand<InstallStep> AddGroupCommand { get; }
-        public RelayCommand<Group> AddPluginCommand { get; }
-        public RelayCommand<object[]> DeleteDialogCommand { get; private set; }
+        private ICommand _addStepCommand;
+        public ICommand AddStepCommand
+        {
+            get
+            {
+                return _addStepCommand ?? (_addStepCommand = new RelayCommand<ProjectRoot>(p =>
+                {
+                    if (p.ModuleConfiguration.InstallSteps == null)
+                        p.ModuleConfiguration.InstallSteps = new StepList();
+                    if (p.ModuleConfiguration.InstallSteps.InstallStep == null)
+                        p.ModuleConfiguration.InstallSteps.InstallStep = new ObservableCollection<InstallStep>();
+                    p.ModuleConfiguration.InstallSteps.InstallStep.Add(InstallStep.Create());
+                }));
+            }
+        }
+
+        private ICommand _addGroupCommand;
+        public ICommand AddGroupCommand
+        {
+            get
+            {
+                return _addGroupCommand ?? (_addGroupCommand = new RelayCommand<InstallStep>(p =>
+                {
+                    if (p.OptionalFileGroups == null)
+                        p.OptionalFileGroups = new GroupList();
+                    if (p.OptionalFileGroups.Group == null)
+                        p.OptionalFileGroups.Group = new ObservableCollection<Group>();
+                    p.OptionalFileGroups.Group.Add(Group.Create());
+                }));
+            }
+        }
+
+        private ICommand _addPluginCommand;
+        public ICommand AddPluginCommand
+        {
+            get
+            {
+                return _addPluginCommand ?? (_addPluginCommand = new RelayCommand<Group>(p =>
+                {
+                    if (p.Plugins == null)
+                        p.Plugins = new PluginList();
+                    if (p.Plugins.Plugin == null)
+                        p.Plugins.Plugin = new ObservableCollection<Plugin>();
+                    p.Plugins.Plugin.Add(Plugin.Create());
+                }));
+            }
+        }
+
+        private ICommand _deleteDialogCommand;
+        public ICommand DeleteDialogCommand
+        {
+            get { return _deleteDialogCommand ?? (_deleteDialogCommand = new RelayCommand<object[]>(DeleteDialog)); }
+        }
 
         #endregion
 
         #region Methods
-
-        private void DeleteDialog(object[] obj)
-        {
-            var item = obj[1];
-            ConfirmationRequest.Raise(new Confirmation { Content = "Вы точно хотите удалить " + item.GetType().Name + " узел?", Title = "Удалить узел?" }, c =>
-            {
-                if (!c.Confirmed) return;
-                if (item is Plugin)
-                    RemovePlugin(obj);
-                else if (item is Group)
-                    RemoveGroup(obj);
-                else if (item is InstallStep)
-                    RemoveStep(obj);
-                else
-                    throw new NotImplementedException();
-            });
-        }
-
-        private void AddStep(ProjectRoot p)
-        {
-            var steps = p.ModuleConfiguration.InstallSteps;
-            if (steps == null)
-                steps = new StepList();
-            if (steps.InstallStep == null)
-                steps.InstallStep = new ObservableCollection<InstallStep>();
-            steps.InstallStep.Add(InstallStep.Create());
-        }
-
-        private void AddGroup(InstallStep p)
-        {
-            var groups = p.OptionalFileGroups;
-            if (groups == null)
-                groups = new GroupList();
-            if (groups.Group == null)
-                groups.Group = new ObservableCollection<Group>();
-            groups.Group.Add(Group.Create());
-        }
-
-        private void AddPlugin(Group p)
-        {
-            var plugins = p.Plugins;
-            if (plugins == null)
-                plugins = new PluginList();
-            if (plugins.Plugin == null)
-                plugins.Plugin = new ObservableCollection<Plugin>();
-            plugins.Plugin.Add(Plugin.Create());
-        }
-
-        private void RemoveStep(IReadOnlyList<object> p)
-        {
-            var root = (ProjectRoot)p[0];
-            var step = (InstallStep)p[1];
-            root.ModuleConfiguration.InstallSteps.InstallStep.Remove(step);
-        }
-
-        private void RemoveGroup(object[] p)
-        {
-            var step = (InstallStep)p[0];
-            var group = (Group)p[1];
-            step.OptionalFileGroups.Group.Remove(group);
-        }
-
-        private void RemovePlugin(object[] p)
-        {
-            var group = (Group)p[0];
-            var plugin = (Plugin)p[1];
-            group.Plugins.Plugin.Remove(plugin);
-        }
 
         public void Save()
         {
@@ -182,6 +158,31 @@ namespace Module.Editor.ViewModel
             _repository.SaveData();
         }
 
+        private void DeleteDialog(object[] objects)
+        {
+            ConfirmationRequest.Raise(new Confirmation { Content = "Вы точно хотите удалить узел?", Title = "Удалить узел?" }, c =>
+            {
+                if (!c.Confirmed) return;
+                if (objects[1] is InstallStep)
+                {
+                    var root = (ProjectRoot)objects[0];
+                    var step = (InstallStep)objects[1];
+                    root.ModuleConfiguration.InstallSteps.InstallStep.Remove(step);
+                }
+                else if (objects[1] is Group)
+                {
+                    var step = (InstallStep)objects[0];
+                    var group = (Group)objects[1];
+                    step.OptionalFileGroups.Group.Remove(@group);
+                }
+                else if (objects[1] is Plugin)
+                {
+                    var group = (Group)objects[0];
+                    var plugin = (Plugin)objects[1];
+                    group.Plugins.Plugin.Remove(plugin);
+                }
+            });
+        }
         #endregion
     }
 }

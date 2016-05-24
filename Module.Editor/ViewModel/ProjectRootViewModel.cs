@@ -2,11 +2,9 @@
 using FomodModel.Base;
 using FomodModel.Base.ModuleCofiguration;
 using System.ComponentModel;
-using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Input;
 using FomodInfrastructure.Interface;
-using System.Linq;
-using System.Collections;
 
 namespace Module.Editor.ViewModel
 {
@@ -18,12 +16,47 @@ namespace Module.Editor.ViewModel
 
         #endregion
 
-     
         #region Commands
 
-        public RelayCommand AddImageCommand { get; }
-        public RelayCommand RemoveImageCommand { get; }
-        public RelayCommand BrowseImageCommand { get; }
+        private ICommand _addImageCommand;
+        public ICommand AddImageCommand
+        {
+            get
+            {
+                return _addImageCommand ?? (_addImageCommand = new RelayCommand(() =>
+                {
+                    var imagePath = GetImage();
+                    if (!string.IsNullOrEmpty(imagePath))
+                        _data.ModuleConfiguration.ModuleImage = HeaderImage.Create(imagePath);
+                }));
+            }
+        }
+
+        private ICommand _removeImageCommand;
+        public ICommand RemoveImageCommand
+        {
+            get
+            {
+                return _removeImageCommand ?? (_removeImageCommand = new RelayCommand(() =>
+                {
+                    _data.ModuleConfiguration.ModuleImage = null;
+                }));
+            }
+        }
+
+        private ICommand _browseImageCommand;
+        public ICommand BrowseImageCommand
+        {
+            get
+            {
+                return _browseImageCommand ?? (_browseImageCommand = new RelayCommand(() =>
+                {
+                    var imagePath = GetImage();
+                    if (!string.IsNullOrEmpty(imagePath))
+                        _data.ModuleConfiguration.ModuleImage.Path = imagePath;
+                }));
+            }
+        }
 
         #endregion
 
@@ -32,25 +65,20 @@ namespace Module.Editor.ViewModel
         public ProjectRootViewModel(IFileBrowserDialog fileBrowserDialog)
         {
             _fileBrowserDialog = fileBrowserDialog;
-            AddImageCommand = new RelayCommand(AddImage);
-            RemoveImageCommand = new RelayCommand(RemoveImage);
-            BrowseImageCommand = new RelayCommand(BrowseImage);
             var notifyPropertyChanged = this as INotifyPropertyChanged;
             if (notifyPropertyChanged != null)
-                notifyPropertyChanged.PropertyChanged +=
-                    (obj, args) => _data = args.PropertyName == nameof(Data) ? (ProjectRoot) Data : _data;
+                notifyPropertyChanged.PropertyChanged += (obj, args) => _data = args.PropertyName == nameof(Data) ? (ProjectRoot) Data : _data;
         }
-
-
+        
         #region Methods
-
 
         private string GetImage()
         {
             _fileBrowserDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             _fileBrowserDialog.ShowDialog();
             var selectedPath = _fileBrowserDialog.SelectedPath;
-            if (!File.Exists(selectedPath)) return string.Empty;
+            if (!File.Exists(selectedPath))
+                return string.Empty;
             _fileBrowserDialog.Reset();
 
             var projectPath = _data.FolderPath + Path.DirectorySeparatorChar;
@@ -73,26 +101,6 @@ namespace Module.Editor.ViewModel
             return relativePath;
         }
 
-        private void BrowseImage()
-        {
-            var imagePath = GetImage();
-            if (!string.IsNullOrEmpty(imagePath))
-                _data.ModuleConfiguration.ModuleImage.Path = imagePath;
-        }
-
-        private void AddImage()
-        {
-            var imagePath = GetImage();
-            if (!string.IsNullOrEmpty(imagePath))
-                _data.ModuleConfiguration.ModuleImage = HeaderImage.Create(imagePath);
-        }
-
-        private void RemoveImage()
-        {
-            _data.ModuleConfiguration.ModuleImage = null;
-        }
-
-        
         #endregion
     }
 }

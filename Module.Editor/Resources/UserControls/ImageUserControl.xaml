@@ -181,8 +181,7 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <TextBox Grid.Column="1"
-                         IsReadOnly="True"
+                <TextBox IsReadOnly="True"
                          Text="{Binding ImageDataSource.Path, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
             </DockPanel>
 

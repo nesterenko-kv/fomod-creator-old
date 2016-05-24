@@ -12,6 +12,8 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class FlagDependency
     {
+        #region Properties
+
         /// <summary>
         ///     The name of the condition flag upon which a the Plugin depends.
         /// </summary>
@@ -21,8 +23,7 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlAttribute("value")]
         public string Value { get; set; }
 
-        [XmlIgnore]
-        public CompositeDependency Parent { get; set; }
+        #endregion
 
         public static FlagDependency Create()
         {
