@@ -17,11 +17,15 @@ namespace Module.Editor.ViewModel
         [Aspect(typeof(AspectINotifyPropertyChanged))]
         public object Data { get; set; }
 
+        [Aspect(typeof(AspectINotifyPropertyChanged))]
+        public string FolderPath { get; set; }
+
         #region INavigationAware
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             Data = navigationContext.Parameters[_curentParamName];
+            FolderPath = (string)navigationContext.Parameters["FolderPath"];
             if (Data == null)
                 throw new ArgumentNullException(nameof(navigationContext), "При навигации обязательныо нужно передавать параметры");
         }

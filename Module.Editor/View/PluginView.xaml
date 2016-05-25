@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:uc="clr-namespace:Module.Editor.Resources.UserControls"
              d:DesignHeight="800"
              d:DesignWidth="1200"
              mc:Ignorable="d">
@@ -124,147 +125,56 @@
                     </Grid>
                 </GroupBox>
 
-                <GroupBox DataContext="{Binding Data}"
-                          Header="Plugin image">
-                    <Grid>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.ColumnSpan="2"
-                                Height="150"
-                                Margin="3"
-                                BorderBrush="White"
-                                BorderThickness="1">
-                            <Image>
-                                <!--<Image.Source>
-                                    <MultiBinding Converter="{StaticResource ImageSourceConverter}">
-                                        <Binding Path="DataContext.Data.FolderPath" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
-                                        <Binding Path="Path" />
-                                    </MultiBinding>
-                                </Image.Source>-->
-                            </Image>
-                        </Border>
-
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="0"
-                                   Text="Path" />
-
-                        <DockPanel Grid.Row="1"
-                                   Grid.Column="1">
-                            <Button Width="16"
-                                    Height="16"
-                                    Margin="3,0,9,0"
-                                    VerticalAlignment="Center"
-                                    Command="{Binding DataContext.BrowseImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                    DockPanel.Dock="Right">
-                                <Button.Template>
-                                    <ControlTemplate>
-                                        <!--<Rectangle Fill="{StaticResource BrowseImageIcon}" />-->
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                            <TextBox IsReadOnly="True"
-                                     Text="{Binding Path}" />
-                        </DockPanel>
-                    </Grid>
-                </GroupBox>
-
-                <GroupBox DataContext="{Binding Data}"
-                          Header="Plugin Dependencies">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                        </Grid.RowDefinitions>
-
-
-
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="0"
-                                   Text="Flag dependency" />
-
-                        <ItemsControl Grid.Row="2"
-                                      Grid.Column="1"
-                                      Margin="{StaticResource Margin}"
-                                      ItemsSource="{Binding ConditionFlags.Flag, IsAsync=True}">
-                            <ItemsControl.Style>
-                                <Style TargetType="{x:Type ItemsControl}">
-                                    <Setter Property="Template">
+                <ContentControl x:Name="IMAGE">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Data.Image}"
+                                             Value="{x:Null}">
+                                    <Setter Property="ContentTemplate">
                                         <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type ItemsControl}">
-                                                <Grid>
-                                                    <Grid.Resources>
-                                                        <Style BasedOn="{StaticResource TextBlockDefault}"
-                                                               TargetType="{x:Type TextBlock}" />
-                                                        <Style BasedOn="{StaticResource TextBoxDefault}"
-                                                               TargetType="{x:Type TextBox}" />
-                                                        <Style BasedOn="{StaticResource ComboBoxDefault}"
-                                                               TargetType="{x:Type ComboBox}" />
-                                                    </Grid.Resources>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition SharedSizeGroup="u1" />
-                                                        <ColumnDefinition />
-                                                        <ColumnDefinition SharedSizeGroup="u3" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="Auto" />
-                                                        <RowDefinition Height="Auto" />
-                                                        <RowDefinition />
-                                                    </Grid.RowDefinitions>
-
-                                                    <Border Grid.Row="1"
-                                                            Grid.ColumnSpan="3"
-                                                            Panel.ZIndex="-100"
-                                                            Background="{StaticResource TableHeaderBackGroundColor}"
-                                                            CornerRadius="{StaticResource CornerRadius}" />
-
-                                                    <TextBlock Grid.Row="1"
-                                                               Grid.Column="0"
-                                                               Text="Значение" />
-                                                    <TextBlock Grid.Row="1"
-                                                               Grid.Column="1"
-                                                               Text="Наименование флага" />
-                                                    <Button Grid.Row="1"
-                                                            Grid.Column="2"
-                                                            Margin="6,0"
-                                                            Command="{Binding DataContext.AddFlagDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                                            CommandParameter="{Binding}"
-                                                            Style="{StaticResource AddButton}" />
-
-
-                                                    <Border Grid.Row="2"
-                                                            Grid.ColumnSpan="3"
-                                                            BorderBrush="{StaticResource TableHeaderBackGroundColor}"
-                                                            BorderThickness="1,0,1,1"
-                                                            CornerRadius="{StaticResource CornerRadius}">
-                                                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                                    </Border>
-
-                                                </Grid>
-                                            </ControlTemplate>
+                                            <DataTemplate>
+                                                <GroupBox Background="Gray">
+                                                    <GroupBox.Header>
+                                                        <DockPanel>
+                                                            <Button Margin="0"
+                                                                    Command="{Binding DataContext.AddImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                                    DockPanel.Dock="Right"
+                                                                    Style="{StaticResource AddButton}" />
+                                                            <TextBlock Margin="0"
+                                                                       VerticalAlignment="Center"
+                                                                       Style="{StaticResource TextBlockHeaderStyle}"
+                                                                       Text="Image" />
+                                                        </DockPanel>
+                                                    </GroupBox.Header>
+                                                </GroupBox>
+                                            </DataTemplate>
                                         </Setter.Value>
                                     </Setter>
-                                </Style>
-                            </ItemsControl.Style>
-                        </ItemsControl>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
 
-                    </Grid>
-                </GroupBox>
-                <uc:FileFolderList xmlns:uc="clr-namespace:Module.Editor.Resources"
-                                   DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                   Tag="{Binding Data.Files.Items}" />
+                    <GroupBox>
+                        <GroupBox.Header>
+                            <DockPanel>
+                                <Button Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                        DockPanel.Dock="Right"
+                                        Style="{StaticResource DeleteButton}" />
+                                <TextBlock Margin="0"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource TextBlockHeaderStyle}"
+                                           Text="Image" />
+                            </DockPanel>
+                        </GroupBox.Header>
+                        <uc:ImageUserControl ImageSource="{Binding Data.Image}"
+                                             ProjectFolderPath="{Binding FolderPath}"
+                                             BrowseImageCommand="{Binding DataContext.BrowseImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+                    </GroupBox>
+                </ContentControl>
+
+
 
             </StackPanel>
         </ScrollViewer>

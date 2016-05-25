@@ -31,7 +31,6 @@ namespace Module.Editor.ViewModel
                 }));
             }
         }
-
         private ICommand _removeImageCommand;
         public ICommand RemoveImageCommand
         {
@@ -43,7 +42,6 @@ namespace Module.Editor.ViewModel
                 }));
             }
         }
-
         private ICommand _browseImageCommand;
         public ICommand BrowseImageCommand
         {

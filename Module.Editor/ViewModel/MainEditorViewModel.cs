@@ -80,7 +80,8 @@ namespace Module.Editor.ViewModel
                 var name = value.GetType().Name;
                 var param = new NavigationParameters
                 {
-                    {name, value}
+                    {name, value},
+                    { "FolderPath", _repository.CurrentPath}
                 };
                 _regionManager.Regions["NodeRegion"].RequestNavigate(name + "View", param);
             }

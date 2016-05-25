@@ -38,15 +38,15 @@
                 <Grid>
                     <Grid.Resources>
                         <Style BasedOn="{StaticResource TextBlockDefault}"
-                           TargetType="{x:Type TextBlock}">
+                               TargetType="{x:Type TextBlock}">
                             <Setter Property="Margin" Value="{StaticResource Margin}" />
                         </Style>
                         <Style BasedOn="{StaticResource TextBoxDefault}"
-                           TargetType="{x:Type TextBox}">
+                               TargetType="{x:Type TextBox}">
                             <Setter Property="Margin" Value="{StaticResource Margin}" />
                         </Style>
                         <Style BasedOn="{StaticResource ComboBoxDefault}"
-                           TargetType="{x:Type ComboBox}">
+                               TargetType="{x:Type ComboBox}">
                             <Setter Property="Margin" Value="{StaticResource Margin}" />
                         </Style>
                     </Grid.Resources>
@@ -181,14 +181,29 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <TextBox IsReadOnly="True"
-                         Text="{Binding ImageDataSource.Path, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+                <TextBox IsReadOnly="False"
+                         Text="{Binding ImageSource.Path, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}" />
             </DockPanel>
 
 
             <ContentControl Grid.Row="2"
                             Grid.ColumnSpan="2"
-                            Content="{Binding ImageDataSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+                            Content="{Binding ImageSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
+                <!--<ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <Trigger Property="Content"
+                                         Value="{x:Type model:HeaderImage}">
+                                <Setter Property="ContentTemplate" Value="{StaticResource HeaderImage}" />
+                            </Trigger>
+                            <Trigger Property="Content"
+                                         Value="{x:Type model:Image}">
+                                <Setter Property="ContentTemplate" Value="{x:Null}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>-->
+            </ContentControl>
 
 
         </Grid>

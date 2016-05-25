@@ -77,8 +77,7 @@
                         <TextBlock Grid.Row="4"
                                    Grid.Column="0"
                                    Text="Category" />
-                        <ComboBox
-                                  Grid.Row="4"
+                        <ComboBox Grid.Row="4"
                                   Grid.Column="1"
                                   DisplayMemberPath=""
                                   ItemsSource="{converters:EnumValues {x:Type enum:CategoriesEnum}}"
@@ -241,8 +240,8 @@
                                            Text="Image" />
                             </DockPanel>
                         </GroupBox.Header>
-                        <uc:ImageUserControl ImageDataSource="{Binding Data.ModuleConfiguration.ModuleImage}"
-                                             ProjectFolderPath="{Binding Data.FolderPath}"
+                        <uc:ImageUserControl ImageSource="{Binding Data.ModuleConfiguration.ModuleImage}"
+                                             ProjectFolderPath="{Binding FolderPath}"
                                              BrowseImageCommand="{Binding DataContext.BrowseImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
                     </GroupBox>
                 </ContentControl>

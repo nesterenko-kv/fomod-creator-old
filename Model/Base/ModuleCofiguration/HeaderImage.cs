@@ -9,10 +9,14 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     An image.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
+    //[Aspect(typeof(AspectINotifyPropertyChanged))]
     [Serializable]
-    public class HeaderImage
+    public class HeaderImage: Image
     {
+        bool _showImage;
+        bool _showFade;
+        int _height;
+
         /// <summary>
         ///     HeaderImage class constructor
         /// </summary>
@@ -28,29 +32,29 @@ namespace FomodModel.Base.ModuleCofiguration
         /// <summary>
         ///     The path to the image in the FOMod. If omitted the FOMod's screenshot is used.
         /// </summary>
-        [XmlAttribute("path")]
-        public string Path { get; set; }
+        //[XmlAttribute("path")]
+        //public string Path { get; set; }
 
         /// <summary>
         ///     Whether or not the image should be displayed.
         /// </summary>
         [XmlAttribute("showImage")]
         [DefaultValue(true)]
-        public bool ShowImage { get; set; }
+        public bool ShowImage { get { return _showImage; } set { _showImage = value; OnPropertyChanged("ShowImage"); } }
 
         /// <summary>
         ///     Whether or not the fade effect should be displayed. This value is ignored if showImage is false.
         /// </summary>
         [XmlAttribute("showFade")]
         [DefaultValue(true)]
-        public bool ShowFade { get; set; }
+        public bool ShowFade { get { return _showFade; } set { _showFade = value; OnPropertyChanged("ShowFade"); } }
 
         /// <summary>
         ///     The height to use for the image. Note that there is a minimum height that is enforced based on the user's settings.
         /// </summary>
         [XmlAttribute("height")]
         [DefaultValue(-1)]
-        public int Height { get; set; }
+        public int Height { get { return _height; } set { _height = value; OnPropertyChanged("Height"); } }
 
         #endregion
 

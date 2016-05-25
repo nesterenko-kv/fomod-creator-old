@@ -1,8 +1,12 @@
-﻿using System.ComponentModel;
+﻿using FomodModel.Base.ModuleCofiguration;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System;
+using System.Windows.Data;
+using System.Globalization;
 
 namespace Module.Editor.Resources.UserControls
 {
@@ -16,14 +20,51 @@ namespace Module.Editor.Resources.UserControls
         public static readonly DependencyProperty BrowseImageCommandProperty =
               DependencyProperty.Register("BrowseImageCommand", typeof(ICommand), typeof(ImageUserControl), new PropertyMetadata(null));
 
-        public static readonly DependencyProperty ImageDataSourceProperty =
-            DependencyProperty.Register("ImageDataSource", typeof(object), typeof(ImageUserControl), new FrameworkPropertyMetadata(null, ImageSourceChanged)
-            {
-                BindsTwoWayByDefault = false
-            });
-
         public static readonly DependencyProperty ProjectFolderPathProperty =
-           DependencyProperty.Register("ProjectFolderPath", typeof(string), typeof(ImageUserControl), new FrameworkPropertyMetadata (null, ChangePath));
+           DependencyProperty.Register("ProjectFolderPath", typeof(string), typeof(ImageUserControl), 
+               new FrameworkPropertyMetadata
+               {
+                   DefaultValue = null,
+                   BindsTwoWayByDefault = true,
+                   PropertyChangedCallback = ChangeImageSource
+               });
+
+        public static readonly DependencyProperty ImageSourceProperty =
+            DependencyProperty.Register("ImageSource", typeof(Image), typeof(ImageUserControl), 
+                new FrameworkPropertyMetadata
+                {
+                    DefaultValue = null,
+                    BindsTwoWayByDefault = true,
+                    PropertyChangedCallback = ChangeImageSource
+                });
+
+        private static void ChangeImageSource(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var sender = (ImageUserControl)d;
+            var oldValue = (e.OldValue as INotifyPropertyChanged);
+            var newValue = (e.NewValue as INotifyPropertyChanged);
+            if (e.Property.Name == nameof(ImageUserControl.ProjectFolderPath))
+                sender.ChangeImagePaths();
+            else if(e.Property.Name == nameof(ImageUserControl.ImageSource))
+            {
+                if (oldValue != null)
+                    oldValue.PropertyChanged -= sender.Image_PropertyChanged;
+                if (newValue != null)
+                {
+                    newValue.PropertyChanged += sender.Image_PropertyChanged;
+                    sender.ChangeImagePaths();
+                }
+            }
+            else
+                throw new ArgumentException();
+        }
+
+        private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == nameof(FomodModel.Base.ModuleCofiguration.Image.Path))
+                this.ChangeImagePaths();
+        }
+
 
         #endregion
 
@@ -55,12 +96,11 @@ namespace Module.Editor.Resources.UserControls
             }
         }
 
-        public object ImageDataSource
+        public Image ImageSource
         {
-            get { return GetValue(ImageDataSourceProperty); }
-            set { SetValue(ImageDataSourceProperty, value); }
+            get { return (Image)GetValue(ImageSourceProperty); }
+            set { SetValue(ImageSourceProperty, value); }
         }
-
         public string ProjectFolderPath
         {
             get { return (string)GetValue(ProjectFolderPathProperty); }
@@ -73,24 +113,21 @@ namespace Module.Editor.Resources.UserControls
             set { SetValue(BrowseImageCommandProperty, value); }
         }
 
+
         #endregion
 
-        private static void ImageSourceChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            if (args.OldValue is INotifyPropertyChanged)
-                ((INotifyPropertyChanged)args.OldValue).PropertyChanged -= (s, a) => ChangePath(sender, args);
-            if (args.NewValue is INotifyPropertyChanged)
-                ((INotifyPropertyChanged)args.NewValue).PropertyChanged += (s, a) => ChangePath(sender, args);
-        }
-        
-        private static void ChangePath(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            var control = sender as ImageUserControl;
-            if (control == null) return;
-            var folderParh = control.ProjectFolderPath;
-            var imageSubPath = (control.ImageDataSource as dynamic).Path.Trim('\\', '/');
-            var fullpath = Path.Combine(folderParh, imageSubPath);
 
+        private void ChangeImagePaths()
+        {
+            var folderParh = this.ProjectFolderPath;
+            var imageSubPath = this.ImageSource?.Path;
+            if (string.IsNullOrWhiteSpace(folderParh) || string.IsNullOrWhiteSpace(imageSubPath))
+            {
+                Image = null;
+                return;
+            }
+
+            var fullpath = Path.Combine(folderParh, imageSubPath);
             if (Directory.Exists(folderParh) &&
                 File.Exists(fullpath))
             {
@@ -102,10 +139,10 @@ namespace Module.Editor.Resources.UserControls
                     bitmap.StreamSource = stream;
                     bitmap.EndInit();
                 }
-                control.Image = bitmap;
+                Image = bitmap;
             }
             else
-                control.Image = null;
+                Image = null;
         }
     }
 }
