@@ -37,7 +37,11 @@ namespace FomodModel.Base.ModuleCofiguration
 
         public static Group Create()
         {
-            return new Group {Name = "New Group"};
+            return new Group
+            {
+                Name = "New Group",
+                Type = GroupType.SelectAll
+            };
         }
     }
 }

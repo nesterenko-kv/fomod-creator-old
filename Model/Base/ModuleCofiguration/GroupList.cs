@@ -39,5 +39,14 @@ namespace FomodModel.Base.ModuleCofiguration
         public OrderEnum Order { get; set; }
         
         #endregion
+
+
+        public static GroupList Create()
+        {
+            return new GroupList
+            {
+                Order = OrderEnum.Ascending,
+            };
+        }
     }
 }

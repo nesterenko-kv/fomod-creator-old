@@ -19,7 +19,15 @@ namespace FomodModel.Base.ModuleCofiguration
 
         [XmlElement("type", typeof(PluginType))]
         public PluginType Type { get; set; }
-        
+
+        public static PluginTypeDescriptor Create()
+        {
+            return new PluginTypeDescriptor
+            {
+                Type = PluginType.Create()
+            };
+        }
+
         #endregion
     }
 }

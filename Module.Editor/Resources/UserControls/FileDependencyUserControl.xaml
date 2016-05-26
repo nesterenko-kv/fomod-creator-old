@@ -68,7 +68,7 @@
         <ItemsControl Grid.Row="1"
                       Grid.Column="1"
                       Margin="{StaticResource Margin}"
-                      ItemsSource="{Binding FileDependencies, IsAsync=True}">
+                      ItemsSource="{Binding FileDependencies, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
             <ItemsControl.Style>
                 <Style TargetType="{x:Type ItemsControl}">
                     <Setter Property="Template">

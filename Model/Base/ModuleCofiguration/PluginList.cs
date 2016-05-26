@@ -37,7 +37,15 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlAttribute("order")]
         [DefaultValue(OrderEnum.Ascending)]
         public OrderEnum Order { get; set; }
-        
+
+        public static PluginList Create()
+        {
+            return new PluginList
+            {
+
+            };
+        }
+
         #endregion
     }
 }

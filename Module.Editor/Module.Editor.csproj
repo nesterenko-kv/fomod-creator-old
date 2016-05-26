@@ -103,11 +103,20 @@
     <Compile Include="Resources\UserControls\ConditionalFileInstallsUserControl.xaml.cs">
       <DependentUpon>ConditionalFileInstallsUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\UserControls\DependencyPatternsUserControl.xaml.cs">
+      <DependentUpon>DependencyPatternsUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UserControls\FileDependencyUserControl.xaml.cs">
       <DependentUpon>FileDependencyUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\UserControls\FileListUserControl.xaml.cs">
       <DependentUpon>FileListUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\PluginTypeDescriptorUserControl.xaml.cs">
+      <DependentUpon>PluginTypeDescriptorUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\SetConditionFlagUserControl.xaml.cs">
+      <DependentUpon>SetConditionFlagUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\UserControls\FlagDependencyUserControl.xaml.cs">
       <DependentUpon>FlagDependencyUserControl.xaml</DependentUpon>
@@ -196,6 +205,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\UserControls\DependencyPatternsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\UserControls\FileDependencyUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -203,6 +216,14 @@
     <Page Include="Resources\UserControls\FileListUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\PluginTypeDescriptorUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\SetConditionFlagUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\UserControls\FlagDependencyUserControl.xaml">
       <SubType>Designer</SubType>

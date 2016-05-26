@@ -10,7 +10,7 @@ namespace Module.Editor.ViewModel
 {
     public class PluginViewModel : BaseViewModel
     {
-        private Plugin _data;
+        Plugin _data;
 
         #region Services
 

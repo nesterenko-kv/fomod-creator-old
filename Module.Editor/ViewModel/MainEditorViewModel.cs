@@ -115,7 +115,7 @@ namespace Module.Editor.ViewModel
                 return _addGroupCommand ?? (_addGroupCommand = new RelayCommand<InstallStep>(p =>
                 {
                     if (p.OptionalFileGroups == null)
-                        p.OptionalFileGroups = new GroupList();
+                        p.OptionalFileGroups = GroupList.Create();
                     if (p.OptionalFileGroups.Group == null)
                         p.OptionalFileGroups.Group = new ObservableCollection<Group>();
                     p.OptionalFileGroups.Group.Add(Group.Create());

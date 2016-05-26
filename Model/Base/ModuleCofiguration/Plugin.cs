@@ -12,6 +12,12 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class Plugin
     {
+
+        protected Plugin()
+        {
+            TypeDescriptor = PluginTypeDescriptor.Create();
+        }
+
         #region Properties
 
         /// <summary>
@@ -48,7 +54,10 @@ namespace FomodModel.Base.ModuleCofiguration
 
         public static Plugin Create()
         {
-            return new Plugin {Name = "New Plugin"};
+            return new Plugin
+            {
+                Name = "New Plugin"
+            };
         }
     }
 }

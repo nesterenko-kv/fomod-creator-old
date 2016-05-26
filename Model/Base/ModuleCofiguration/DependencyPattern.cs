@@ -25,7 +25,16 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlElement("type")]
         public PluginType Type { get; set; }
-        
+
+
+        public static DependencyPattern Create()
+        {
+            return new DependencyPattern
+            {
+                Type = new PluginType { Name = Enum.PluginTypeEnum.NotUsable},
+            };
+        }
+
         #endregion
     }
 }

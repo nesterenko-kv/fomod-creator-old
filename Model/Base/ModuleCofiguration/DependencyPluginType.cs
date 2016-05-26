@@ -28,7 +28,16 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlArray("patterns")]
         [XmlArrayItem("pattern", IsNullable = false)]
         public ObservableCollection<DependencyPattern> Patterns { get; set; }
-        
+
         #endregion
+
+
+        public static DependencyPluginType Create()
+        {
+            return new DependencyPluginType
+            {
+                DefaultType = PluginType.Create()
+            };
+        }
     }
 }

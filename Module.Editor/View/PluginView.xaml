@@ -96,22 +96,6 @@
                         <TextBox Grid.Row="0"
                                  Grid.Column="1"
                                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="0"
-                                   Text="Plugin type" />
-
-                        <ComboBox Grid.Row="1"
-                                  Grid.Column="1"
-                                  ItemsSource="{Binding Source={StaticResource PluginTypeEnum}}"
-                                  SelectedItem="{Binding TypeDescriptor.DependencyType.DefaultType.Name}">
-                            <ComboBox.Resources>
-                                <Style BasedOn="{StaticResource TextBlockDefault}"
-                                       TargetType="{x:Type TextBlock}" />
-                            </ComboBox.Resources>
-                        </ComboBox>
-
-
                         <TextBlock Grid.Row="2"
                                    Grid.Column="0"
                                    Text="Description" />
@@ -174,7 +158,12 @@
                     </GroupBox>
                 </ContentControl>
 
-
+                <uc:FileListUserControl Margin="{StaticResource MarginGroupBox}"
+                                        FileList="{Binding Data.Files}"
+                                        Header="Files and folder" />
+                <uc:SetConditionFlagUserControl Margin="{StaticResource MarginGroupBox}"
+                                                ConditionFlagList="{Binding Data.ConditionFlags}" />
+                <uc:PluginTypeDescriptorUserControl Descriptor="{Binding Data.TypeDescriptor}" />
 
             </StackPanel>
         </ScrollViewer>

@@ -20,7 +20,17 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlAttribute("name")]
         public PluginTypeEnum Name { get; set; }
-        
+
+        public static PluginType Create()
+        {
+            return new PluginType
+            {
+                Name = PluginTypeEnum.NotUsable
+            };
+        }
+
+
+
         #endregion
     }
 }
