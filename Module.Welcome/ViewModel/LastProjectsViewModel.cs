@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Windows.Input;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
 using FomodInfrastructure.Interface;
@@ -27,8 +28,23 @@ namespace Module.Welcome.ViewModel
 
         #region Commands
 
-        public RelayCommand<string> GoToCommand { get; private set; }
-        public RelayCommand<ProjectLinkModel> RemoveCommand { get; private set; }
+        private ICommand _goToCommand;
+        public ICommand GoToCommand
+        {
+            get
+            {
+                return _goToCommand ?? (_goToCommand = new RelayCommand<string>(_eventAggregator.GetEvent<OpenLink>().Publish));
+            }
+        }
+
+        private ICommand _removeCommand;
+        public ICommand RemoveCommand
+        {
+            get
+            {
+                return _removeCommand ?? (_removeCommand = new RelayCommand<ProjectLinkModel>(RemoveRecentProject));
+            }
+        }
 
         #endregion
         
@@ -43,8 +59,6 @@ namespace Module.Welcome.ViewModel
         {
             _eventAggregator = eventAggregator;
             _dataService = dataService;
-            GoToCommand = new RelayCommand<string>(_eventAggregator.GetEvent<OpenLink>().Publish);
-            RemoveCommand = new RelayCommand<ProjectLinkModel>(RemoveRecentProject);
             _eventAggregator.GetEvent<OpenProjectEvent>().Subscribe(AddProjectInListAfterOpen);
             var list = ReadProjectLinkListFile();
             if (list != null)

@@ -5,8 +5,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System;
-using System.Windows.Data;
-using System.Globalization;
 
 namespace Module.Editor.Resources.UserControls
 {

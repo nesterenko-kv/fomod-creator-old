@@ -6,6 +6,7 @@ using Microsoft.Practices.ServiceLocation;
 using Module.Welcome.PrismEvent;
 using Prism.Events;
 using System;
+using System.Windows.Input;
 
 namespace Module.Welcome.ViewModel
 {
@@ -24,9 +25,32 @@ namespace Module.Welcome.ViewModel
 
         #region Commands
 
-        public RelayCommand CloseApplicationCommand { get; private set; }
-        public RelayCommand<string> OpenProjectCommand { get; }
-        public RelayCommand CreateProjectCommand { get; private set; }
+        private ICommand _closeApplicationCommand;
+        public ICommand CloseApplicationCommand
+        {
+            get
+            {
+                return _closeApplicationCommand ?? (_closeApplicationCommand = new RelayCommand(_appService.CloseApp));
+            }
+        }
+
+        private ICommand _createProjectCommand;
+        public ICommand CreateProjectCommand
+        {
+            get
+            {
+                return _createProjectCommand ?? (_createProjectCommand = new RelayCommand(CreateProject));
+            }
+        }
+
+        private ICommand _openProjectCommand;
+        public ICommand OpenProjectCommand
+        {
+            get
+            {
+                return _openProjectCommand ?? (_openProjectCommand = new RelayCommand<string>(OpenProject));
+            }
+        }
 
         #endregion
 
@@ -34,11 +58,8 @@ namespace Module.Welcome.ViewModel
         {
             _appService = appService;
             _dialogCoordinator = dialogCoordinator;
-            _eventAggregator = eventAggregator;
             _serviceLocator = serviceLocator;
-            CloseApplicationCommand = new RelayCommand(_appService.CloseApp);
-            CreateProjectCommand = new RelayCommand(CreateProject);
-            OpenProjectCommand = new RelayCommand<string>(OpenProject);
+            _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<OpenLink>().Subscribe(OpenProject);
         }
 
@@ -54,7 +75,7 @@ namespace Module.Welcome.ViewModel
                     await _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Нельзя использовать папку в которой существуют файлы проекта");
                     break;
                 case RepositoryStatus.Ok:
-                    OpenProjectCommand.Execute(path);
+                    OpenProject(path);
                     break;
                 case RepositoryStatus.Cancel:
                     break;

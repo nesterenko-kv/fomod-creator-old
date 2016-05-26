@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
 using FomodModel.Base.ModuleCofiguration;
-using System.Collections.ObjectModel;
 
 namespace FomodModel.Base
 {

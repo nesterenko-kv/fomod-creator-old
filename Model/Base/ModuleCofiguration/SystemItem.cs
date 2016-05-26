@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
-using System.Collections.ObjectModel;
 
 namespace FomodModel.Base.ModuleCofiguration
 {

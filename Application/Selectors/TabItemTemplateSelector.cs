@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,24 +16,13 @@ namespace MainApplication.Selectors
         {
             if (item == null)
                 return DefaultStyle;
-
-            Type findType;
             var fe = item as FrameworkElement;
-            if (fe != null)
-                findType = fe.DataContext.GetType();
-            else
-                findType = item.GetType();
-
-
+            var findType = fe?.DataContext.GetType() ?? item.GetType();
             var t = TemplateList.FirstOrDefault(i => i.DataType == findType);
-            if (t != null) return t.Style;
-
-            return DefaultStyle;
+            return t != null ? t.Style : DefaultStyle;
         }
     }
-
-
-
+    
     public class SelectorItem
     {
         public Type DataType { get; set; }

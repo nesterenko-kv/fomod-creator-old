@@ -1,7 +1,6 @@
 ﻿using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base.ModuleCofiguration;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Input;
@@ -10,7 +9,7 @@ namespace Module.Editor.ViewModel
 {
     public class PluginViewModel : BaseViewModel
     {
-        Plugin _data;
+        private Plugin _data;
 
         #region Services
 
@@ -41,6 +40,7 @@ namespace Module.Editor.ViewModel
                 }));
             }
         }
+
         private ICommand _removeImageCommand;
         public ICommand RemoveImageCommand
         {
@@ -52,6 +52,7 @@ namespace Module.Editor.ViewModel
                 }));
             }
         }
+
         private ICommand _browseImageCommand;
         public ICommand BrowseImageCommand
         {

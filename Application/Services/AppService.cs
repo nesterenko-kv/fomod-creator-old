@@ -33,6 +33,7 @@ namespace MainApplication.Services
 
         public void CreateEditorModule<T>(IRepository<T> repository)
         {
+            // ReSharper disable once LoopCanBePartlyConvertedToQuery
             foreach (FrameworkElement element in _regionManager.Regions[Names.MainContentRegion].Views)
             {
                 if (!(element is MainEditorView)) continue;
@@ -41,12 +42,12 @@ namespace MainApplication.Services
                 _regionManager.Regions[Names.MainContentRegion].Activate(element);
                 return;
             }
-
             var view = _serviceLocator.GetInstance<object>(nameof(MainEditorView)) as FrameworkElement;
             var detailsRegion = _regionManager.Regions[Names.MainContentRegion];
             var detailsRegionManager = detailsRegion.Add(view, null, true);
-            //(view.DataContext as EditorViewModel).ConfigurateViewModel(detailsRegionManager, repository.GetData() as ProjectRoot);
-            (view.DataContext as MainEditorViewModel).ConfigurateViewModel(detailsRegionManager, repository as IRepository<ProjectRoot>);
+            if (view == null) return;
+            var mainEditorViewModel = view.DataContext as MainEditorViewModel;
+            mainEditorViewModel?.ConfigurateViewModel(detailsRegionManager, repository as IRepository<ProjectRoot>);
             detailsRegion.Activate(view);
         }
 
