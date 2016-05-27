@@ -1,29 +1,18 @@
 ﻿using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base.ModuleCofiguration;
-using System.ComponentModel;
 using System.IO;
 using System.Windows.Input;
 
 namespace Module.Editor.ViewModel
 {
-    public class PluginViewModel : BaseViewModel
+    public class PluginViewModel : BaseViewModel<Plugin>
     {
-        private Plugin _data;
-
         #region Services
 
         private readonly IFileBrowserDialog _fileBrowserDialog;
 
         #endregion
-
-        public PluginViewModel(IFileBrowserDialog fileBrowserDialog)
-        {
-            _fileBrowserDialog = fileBrowserDialog;
-            var notifyPropertyChanged = this as INotifyPropertyChanged;
-            if (notifyPropertyChanged != null)
-                notifyPropertyChanged.PropertyChanged += (obj, args) => _data = args.PropertyName == nameof(Data) ? (Plugin)Data : _data;
-        }
 
         #region Commands
 
@@ -36,7 +25,7 @@ namespace Module.Editor.ViewModel
                 {
                     var imagePath = GetImage();
                     if (!string.IsNullOrEmpty(imagePath))
-                        _data.Image = Image.Create(imagePath);
+                        Data.Image = Image.Create(imagePath);
                 }));
             }
         }
@@ -48,7 +37,7 @@ namespace Module.Editor.ViewModel
             {
                 return _removeImageCommand ?? (_removeImageCommand = new RelayCommand(() =>
                 {
-                    _data.Image = null;
+                    Data.Image = null;
                 }));
             }
         }
@@ -62,12 +51,19 @@ namespace Module.Editor.ViewModel
                 {
                     var imagePath = GetImage();
                     if (!string.IsNullOrEmpty(imagePath))
-                        _data.Image.Path = imagePath;
+                        Data.Image.Path = imagePath;
                 }));
             }
         }
 
         #endregion
+
+        public PluginViewModel(IFileBrowserDialog fileBrowserDialog)
+        {
+            _fileBrowserDialog = fileBrowserDialog;
+        }
+        
+        #region Methods
 
         private string GetImage()
         {
@@ -98,5 +94,6 @@ namespace Module.Editor.ViewModel
             return relativePath;
         }
 
+        #endregion
     }
 }

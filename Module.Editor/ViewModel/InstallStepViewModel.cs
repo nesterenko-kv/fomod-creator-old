@@ -1,6 +1,8 @@
-﻿namespace Module.Editor.ViewModel
+﻿using FomodModel.Base.ModuleCofiguration;
+
+namespace Module.Editor.ViewModel
 {
-    public class InstallStepViewModel : BaseViewModel
+    public class InstallStepViewModel : BaseViewModel<InstallStep>
     {
 
     }

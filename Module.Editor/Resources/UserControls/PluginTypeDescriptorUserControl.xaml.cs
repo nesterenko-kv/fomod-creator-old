@@ -3,15 +3,11 @@ using FomodModel.Base.ModuleCofiguration;
 using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Module.Editor.Resources.UserControls
 {
-    /// <summary>
-    /// Логика взаимодействия для PluginTypeDescriptorUserControl.xaml
-    /// </summary>
-    public partial class PluginTypeDescriptorUserControl : UserControl, INotifyPropertyChanged
+    public partial class PluginTypeDescriptorUserControl : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
 
@@ -46,13 +42,12 @@ namespace Module.Editor.Resources.UserControls
                 ((INotifyPropertyChanged)sender.Descriptor).PropertyChanged -= sender.TypeDescriptor_PropertyChanged;
             if (e.NewValue != null)
                 ((INotifyPropertyChanged)sender.Descriptor).PropertyChanged += sender.TypeDescriptor_PropertyChanged;
-
-            sender.TypeDescriptor_PropertyChanged(e.NewValue, new PropertyChangedEventArgs(""));
+            sender.TypeDescriptor_PropertyChanged(e.NewValue, new PropertyChangedEventArgs(string.Empty));
         }
 
         private void TypeDescriptor_PropertyChanged(object s, PropertyChangedEventArgs e)
         {
-            var sender = ((PluginTypeDescriptor)s);
+            var sender = (PluginTypeDescriptor)s;
 
             if (sender.DependencyType == null && sender.Type != null)
                 PluginTypeData = sender.Type;
@@ -64,7 +59,7 @@ namespace Module.Editor.Resources.UserControls
             //    sender.Type = null;
         }
 
-        object _pluginType;
+        private object _pluginType;
         public object PluginTypeData
         {
             get { return _pluginType; }
@@ -74,9 +69,8 @@ namespace Module.Editor.Resources.UserControls
                 OnPropertyChanged(nameof(PluginTypeData));
             }
         }
-
-
-        object _previewPluginType;
+        
+        private object _previewPluginType;
         private ICommand _changeTypeCommand;
         public ICommand ChangeTypeCommand
         {
@@ -87,20 +81,18 @@ namespace Module.Editor.Resources.UserControls
                     var temp = PluginTypeData;
 
                     if (_previewPluginType != null)
-                    {
                         if (_previewPluginType is PluginType)
                         {
                             Descriptor.DependencyType = null;
-                            Descriptor.Type = (PluginType)_previewPluginType;
+                            Descriptor.Type = (PluginType) _previewPluginType;
                         }
                         else if (_previewPluginType is DependencyPluginType)
                         {
                             Descriptor.Type = null;
-                            Descriptor.DependencyType = (DependencyPluginType)_previewPluginType;
+                            Descriptor.DependencyType = (DependencyPluginType) _previewPluginType;
                         }
                         else
                             throw new ArgumentException("при смене типа произошла ошибка (ChangeTypeCommand)");
-                    }
                     else if (PluginTypeData is PluginType)
                     {
                         Descriptor.Type = null;
@@ -111,7 +103,6 @@ namespace Module.Editor.Resources.UserControls
                         Descriptor.DependencyType = null;
                         Descriptor.Type = PluginType.Create();
                     }
-
                     _previewPluginType = temp;
                 }));
             }

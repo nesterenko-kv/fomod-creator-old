@@ -1,14 +1,13 @@
 ﻿using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base;
 using FomodModel.Base.ModuleCofiguration;
-using System.ComponentModel;
 using System.IO;
 using System.Windows.Input;
 using FomodInfrastructure.Interface;
 
 namespace Module.Editor.ViewModel
 {
-    public class ProjectRootViewModel : BaseViewModel
+    public class ProjectRootViewModel : BaseViewModel<ProjectRoot>
     {
         #region Services
 
@@ -27,7 +26,7 @@ namespace Module.Editor.ViewModel
                 {
                     var imagePath = GetImage();
                     if (!string.IsNullOrEmpty(imagePath))
-                        _data.ModuleConfiguration.ModuleImage = HeaderImage.Create(imagePath);
+                        Data.ModuleConfiguration.ModuleImage = HeaderImage.Create(imagePath);
                 }));
             }
         }
@@ -38,7 +37,7 @@ namespace Module.Editor.ViewModel
             {
                 return _removeImageCommand ?? (_removeImageCommand = new RelayCommand(() =>
                 {
-                    _data.ModuleConfiguration.ModuleImage = null;
+                    Data.ModuleConfiguration.ModuleImage = null;
                 }));
             }
         }
@@ -51,21 +50,16 @@ namespace Module.Editor.ViewModel
                 {
                     var imagePath = GetImage();
                     if (!string.IsNullOrEmpty(imagePath))
-                        _data.ModuleConfiguration.ModuleImage.Path = imagePath;
+                        Data.ModuleConfiguration.ModuleImage.Path = imagePath;
                 }));
             }
         }
 
         #endregion
 
-        private ProjectRoot _data;
-
         public ProjectRootViewModel(IFileBrowserDialog fileBrowserDialog)
         {
             _fileBrowserDialog = fileBrowserDialog;
-            var notifyPropertyChanged = this as INotifyPropertyChanged;
-            if (notifyPropertyChanged != null)
-                notifyPropertyChanged.PropertyChanged += (obj, args) => _data = args.PropertyName == nameof(Data) ? (ProjectRoot) Data : _data;
         }
         
         #region Methods
@@ -79,7 +73,7 @@ namespace Module.Editor.ViewModel
                 return string.Empty;
             _fileBrowserDialog.Reset();
 
-            var projectPath = _data.FolderPath + Path.DirectorySeparatorChar;
+            var projectPath = FolderPath + Path.DirectorySeparatorChar;
             string relativePath;
             if (!selectedPath.StartsWith(projectPath))
             {

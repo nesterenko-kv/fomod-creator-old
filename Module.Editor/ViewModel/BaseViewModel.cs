@@ -5,17 +5,17 @@ using Prism.Regions;
 
 namespace Module.Editor.ViewModel
 {
-    public class BaseViewModel : INavigationAware
+    public class BaseViewModel<T> : INavigationAware where T: class
     {
         private readonly string _curentParamName;
 
         public BaseViewModel()
         {
-            _curentParamName = GetType().Name.Replace("ViewModel", "");
+            _curentParamName = GetType().Name.Replace("ViewModel", string.Empty);
         }
 
         [Aspect(typeof(AspectINotifyPropertyChanged))]
-        public object Data { get; set; }
+        public T Data { get; set; }
 
         [Aspect(typeof(AspectINotifyPropertyChanged))]
         public string FolderPath { get; set; }
@@ -24,7 +24,9 @@ namespace Module.Editor.ViewModel
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            Data = navigationContext.Parameters[_curentParamName];
+            var param = navigationContext.Parameters[_curentParamName] as T;
+            if (param != null)
+                Data = param;
             FolderPath = (string)navigationContext.Parameters["FolderPath"];
             if (Data == null)
                 throw new ArgumentNullException(nameof(navigationContext), "При навигации обязательныо нужно передавать параметры");
