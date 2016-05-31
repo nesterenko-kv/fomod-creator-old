@@ -42,15 +42,19 @@ namespace MainApplication.Boot
                 r.For<IFolderBrowserDialog>().Use<FolderBrowserDialog>().Singleton();
                 r.For<IFileBrowserDialog>().Use<FileBrowserDialog>();
                 r.For<IMemoryService>().Use<MemoryService>();
+                r.For<ILogger>().Use<Logger>().Singleton();
             });
         }
 
-        protected override ILoggerFacade CreateLogger() => new Logger();
+        //protected override ILoggerFacade CreateLogger() => this.Container.GetInstance<Logger>();
 
         protected override void InitializeModules()
         {
-            Container.GetInstance<WelcomeRegister>().Initialize();
-            Container.GetInstance<EditorRegister>().Initialize();
+            //Container.GetInstance<WelcomeRegister>().Initialize();
+            //Container.GetInstance<EditorRegister>().Initialize();
+            Container.GetInstance<WelcomeNew.Register>().Initialize();
+            Container.GetInstance<Loger.Register>().Initialize();
+            Container.GetInstance<EditorNew.Register>().Initialize();
         }
         
         #endregion

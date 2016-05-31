@@ -15,7 +15,7 @@ namespace MainApplication.Services
 
         private readonly IDataService _dataService;
         private readonly IFolderBrowserDialog _folderBrowserDialog;
-        private readonly ILoggerFacade _loggerFacade;
+        private readonly ILogger _logger;
         private readonly IServiceLocator _serviceLocator;
 
         #endregion
@@ -107,7 +107,7 @@ namespace MainApplication.Services
             }
             catch (Exception e)
             {
-                _loggerFacade.Log(e.Message, Category.Exception, Priority.Medium);
+                _logger.Log(e.Message);
                 RepositoryStatus = RepositoryStatus.Error;
             }
             return null;
@@ -137,7 +137,7 @@ namespace MainApplication.Services
             }
             catch (Exception e)
             {
-                _loggerFacade.Log(e.Message, Category.Exception, Priority.Medium);
+                _logger.Log(e.Message);
                 RepositoryStatus = RepositoryStatus.Error;
             }
             return false;
@@ -162,12 +162,19 @@ namespace MainApplication.Services
 
         private ProjectRoot _projectRoot;
         
-        public Repository(IServiceLocator serviceLocator, ILoggerFacade loggerFacade, IFolderBrowserDialog folderBrowserDialog, IDataService dataService)
+        public Repository(IServiceLocator serviceLocator, ILogger logger, IFolderBrowserDialog folderBrowserDialog, IDataService dataService)
         {
             _serviceLocator = serviceLocator;
-            _loggerFacade = loggerFacade;
+            _logger = logger;
             _dataService = dataService;
             _folderBrowserDialog = folderBrowserDialog;
+
+            _logger.LogCreate(this);
+        }
+
+        ~Repository()
+        {
+            _logger.LogDisposable(this);
         }
 
     }
