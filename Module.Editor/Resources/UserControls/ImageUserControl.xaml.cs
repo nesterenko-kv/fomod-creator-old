@@ -41,9 +41,9 @@ namespace Module.Editor.Resources.UserControls
             var sender = (ImageUserControl)d;
             var oldValue = (e.OldValue as INotifyPropertyChanged);
             var newValue = (e.NewValue as INotifyPropertyChanged);
-            if (e.Property.Name == nameof(ImageUserControl.ProjectFolderPath))
+            if (e.Property.Name == nameof(ProjectFolderPath))
                 sender.ChangeImagePaths();
-            else if(e.Property.Name == nameof(ImageUserControl.ImageSource))
+            else if(e.Property.Name == nameof(ImageSource))
             {
                 if (oldValue != null)
                     oldValue.PropertyChanged -= sender.Image_PropertyChanged;
@@ -60,7 +60,7 @@ namespace Module.Editor.Resources.UserControls
         private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if(e.PropertyName == nameof(FomodModel.Base.ModuleCofiguration.Image.Path))
-                this.ChangeImagePaths();
+                ChangeImagePaths();
         }
 
 
@@ -117,8 +117,8 @@ namespace Module.Editor.Resources.UserControls
 
         private void ChangeImagePaths()
         {
-            var folderParh = this.ProjectFolderPath;
-            var imageSubPath = this.ImageSource?.Path;
+            var folderParh = ProjectFolderPath;
+            var imageSubPath = ImageSource?.Path;
             if (string.IsNullOrWhiteSpace(folderParh) || string.IsNullOrWhiteSpace(imageSubPath))
             {
                 Image = null;

@@ -6,18 +6,11 @@ using FomodModel.Base;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Events;
 using Prism.Regions;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace EditorNew
 {
-    /// <summary>
-    /// Класс отвечающий за открытие проектов
-    /// </summary>
     public class Watcher
     {
         #region Services
@@ -35,10 +28,10 @@ namespace EditorNew
             _serviceLocator = serviceLocator;
             _eventAggregator = eventAggregator;
             _logger = logger;
-
             _logger.LogCreate(this);
             _eventAggregator.GetEvent<PubSubEvent<IRepository<ProjectRoot>>>().Subscribe(OpenProject);
         }
+
         ~Watcher()
         {
             _logger.LogDisposable(this);
@@ -46,34 +39,25 @@ namespace EditorNew
 
         private void OpenProject(IRepository<ProjectRoot> dataObj)
         {
-            _logger.Log($"[Open Project Subscribe Event] " + dataObj.GetData().FolderPath);
+            _logger.Log($"[Open Project Subscribe Event] {dataObj.GetData().FolderPath}");
+            _logger.Log("[Find open view]");
+            
+            var views = _regionManager.Regions[Names.MainContentRegion].Views;
 
-            _logger.Log($"[Find open view]");
-
-
-            var reg = _regionManager.Regions[Names.MainContentRegion];
-            var views = reg.Views;
-
-            var openView = _regionManager.Regions[Names.MainContentRegion].Views.Cast<FrameworkElement>().FirstOrDefault(view =>
-            {
-                return 
-                view.DataContext is MainEditorViewModel
-                &&
-                (view.DataContext as MainEditorViewModel).Data.FolderPath == dataObj.GetData().FolderPath;
-            });
+            var openView = views.Cast<FrameworkElement>().FirstOrDefault(view => view.DataContext is MainEditorViewModel && ((MainEditorViewModel)view.DataContext).Data.FolderPath == dataObj.GetData().FolderPath);
 
             if (openView != null)
             {
-                _logger.Log($"[Activate old View] {openView.GetHashCode()}" + openView.GetHashCode());
+                _logger.Log($"[Activate old View] {openView.GetHashCode()}");
                 _regionManager.Regions[Names.MainContentRegion].Activate(openView);
             }
             else
             {
-                _logger.Log($"[Create new View]");
+                _logger.Log("[Create new View]");
                 var view = CreateNewView(dataObj);
                 _logger.LogCreate(view);
                 _regionManager.Regions[Names.MainContentRegion].Activate(view);
-                _logger.Log($"[Activate View] " + view.GetHashCode());
+                _logger.Log($"[Activate View] {view.GetHashCode()}");
             }
 
         }

@@ -10,7 +10,7 @@ namespace FomodInfrastructure.Aspect
             [AdviceArgument(AdviceArgumentSource.TargetName)] string propertyName,
             [AdviceArgument(AdviceArgumentSource.TargetValue)] object value)
         {
-            //Debug.Print($"Set ");
+            ////Debug.Print($"Set ");
             Debug.Print($"{Inst.GetType().Name} Set {propertyName} = {value} [{value?.GetHashCode()}]");
         }
 
@@ -19,7 +19,7 @@ namespace FomodInfrastructure.Aspect
             [AdviceArgument(AdviceArgumentSource.TargetName)] string propertyName,
             [AdviceArgument(AdviceArgumentSource.TargetValue)] object value)
         {
-            //Debug.Print($"Get ");
+            ////Debug.Print($"Get ");
             Debug.Print($"{Inst.GetType().Name} Get {propertyName} = {value} [{value?.GetHashCode()}]");
         }
     }

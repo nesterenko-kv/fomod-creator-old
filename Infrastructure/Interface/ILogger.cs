@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FomodInfrastructure.Interface
+﻿namespace FomodInfrastructure.Interface
 {
     public interface ILogger
     {
-        void Log(string Msg);
+        void Log(string msg);
         void LogCreate(object obj);
         void LogDisposable(object obj);
-      
     }
 }

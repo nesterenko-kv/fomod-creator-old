@@ -5,10 +5,11 @@ using System.Xml.Linq;
 using FomodInfrastructure.Interface;
 using FomodModel.Base;
 using Microsoft.Practices.ServiceLocation;
-using Prism.Logging;
 
 namespace MainApplication.Services
 {
+    using FomodInfrastructure;
+
     public class Repository : IRepository<ProjectRoot>
     {
         #region Services

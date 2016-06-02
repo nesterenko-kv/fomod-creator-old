@@ -38,15 +38,13 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                     return false;
                 if (_staticFunc == null)
                     return Reference.IsAlive;
-                if (Reference != null)
-                    return Reference.IsAlive;
-                return true;
+                return Reference == null || Reference.IsAlive;
             }
         }
 
         public object ExecuteWithObject(object parameter)
         {
-            return Execute((T) parameter);
+            return Execute((T)parameter);
         }
 
         public TResult Execute(T parameter = default(T))

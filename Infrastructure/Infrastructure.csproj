@@ -65,9 +65,7 @@
     <Compile Include="Interface\ILogger.cs" />
     <Compile Include="Interface\IMemoryService.cs" />
     <Compile Include="Interface\IRepository.cs" />
-    <Compile Include="Behaviors\DoubleClickSelectorItem.cs" />
-    <Compile Include="Behaviors\DropBehavior.cs" />
-    <Compile Include="MvvmLibrary\Async\NotifyTaskCompletion.cs" />
+    <Compile Include="RepositoryStatus.cs" />
     <Compile Include="MvvmLibrary\Attaches\TreeViewHelper.cs" />
     <Compile Include="MvvmLibrary\Commands\IExecuteWithObject.cs" />
     <Compile Include="MvvmLibrary\Commands\IExecuteWithObjectAndResult.cs" />

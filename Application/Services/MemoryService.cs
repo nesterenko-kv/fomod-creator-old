@@ -6,9 +6,13 @@ namespace MainApplication.Services
 {
     public class MemoryService: IMemoryService
     {
-        #region IMemoryService
+        #region Fields
 
-        public long LastMemorySize { get; private set; } = -1;
+        private long _lastMemorySize = -1;
+        
+        #endregion
+
+        #region IMemoryService
 
         public bool IsMemorySizeChanged { get; private set; }
 
@@ -19,9 +23,9 @@ namespace MainApplication.Services
                 var bf = new BinaryFormatter();
                 bf.Serialize(ms, obj);
                 var size = ms.Length;
-                if (LastMemorySize != -1 && LastMemorySize != size)
+                if (_lastMemorySize != -1 && _lastMemorySize != size)
                     IsMemorySizeChanged = true;
-                return LastMemorySize = size;
+                return _lastMemorySize = size;
             }
         }
 

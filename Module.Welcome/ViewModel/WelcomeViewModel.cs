@@ -10,6 +10,8 @@ using System.Windows.Input;
 
 namespace Module.Welcome.ViewModel
 {
+    using FomodInfrastructure;
+
     public class WelcomeViewModel
     {
         public string Header { get; } = "Welcome";

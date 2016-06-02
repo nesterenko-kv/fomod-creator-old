@@ -38,7 +38,7 @@ namespace FomodInfrastructure.Converters
                 return null;
             }
             var field = type.GetField(value.ToString());
-            var attr = field.GetCustomAttributes(typeof (DescriptionAttribute), true)
+            var attr = field.GetCustomAttributes(typeof(DescriptionAttribute), true)
                 .Cast<DescriptionAttribute>()
                 .FirstOrDefault();
             if (attr != null)

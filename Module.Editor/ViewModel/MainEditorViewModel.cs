@@ -184,7 +184,7 @@ namespace Module.Editor.ViewModel
 
         private void DeleteDialog(object[] objects)
         {
-            ConfirmationRequest.Raise(new Confirmation { Content = "Вы точно хотите удалить узел?", Title = "Удалить узел?" }, c =>
+            ConfirmationRequest.Raise(new Confirmation { Content = "Вы точно хотите удалить узел?", Title = "”далить узел?" }, c =>
             {
                 if (!c.Confirmed) return;
                 if (objects[1] is InstallStep)

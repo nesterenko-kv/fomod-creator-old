@@ -1,18 +1,13 @@
 ﻿using Prism.Events;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Loger
 {
 
-    public class viewmodel:BindableBase
+    public class Viewmodel: BindableBase
     {
-        string _log;
+        private string _log;
 
         #region Services
 
@@ -24,11 +19,11 @@ namespace Loger
         public string Log
         {
             get { return _log; }
-            set { _log = value; OnPropertyChanged(nameof(Log)); }
+            set { SetProperty(ref _log, value); }
         }
 
 
-        public viewmodel(IEventAggregator eventAggregator)
+        public Viewmodel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<PubSubEvent<string>>().Subscribe(PublishMsg);

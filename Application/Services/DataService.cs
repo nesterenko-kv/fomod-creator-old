@@ -6,12 +6,14 @@ namespace MainApplication.Services
 {
     public class DataService : IDataService
     {
+        #region IDataService
+
         public T DeserializeObject<T>(string path)
         {
             using (var fs = File.OpenRead(path))
             {
                 var xmlSerializer = new XmlSerializer(typeof(T));
-                return (T) xmlSerializer.Deserialize(fs);
+                return (T)xmlSerializer.Deserialize(fs);
             }
         }
 
@@ -43,5 +45,7 @@ namespace MainApplication.Services
                 xmlSerializer.Serialize(fs, data);
             }
         }
+        
+        #endregion
     }
 }

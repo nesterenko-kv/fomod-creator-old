@@ -7,11 +7,11 @@ namespace FomodInfrastructure.Converters
 {
     public class NullToVisibilityConverter : IValueConverter
     {
-        public bool IsNullToVisible { get; set; } = false;
+        public bool IsNullToVisible { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null )
+            if (value == null)
                 return IsNullToVisible ? Visibility.Visible : Visibility.Collapsed;
             return IsNullToVisible ? Visibility.Collapsed : Visibility.Visible;
         }
