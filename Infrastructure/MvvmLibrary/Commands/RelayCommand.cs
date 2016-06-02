@@ -74,7 +74,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
             if (parameter == null && typeof(T).GetTypeInfo().IsValueType)
                 return _canExecute.Execute();
             if (parameter == null || parameter is T)
-                return _canExecute.Execute((T) parameter);
+                return _canExecute.Execute((T)parameter);
             return false;
         }
 

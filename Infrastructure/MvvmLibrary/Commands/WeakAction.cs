@@ -44,7 +44,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
 
         public void ExecuteWithObject(object parameter)
         {
-            Execute((T) parameter);
+            Execute((T)parameter);
         }
 
         public new void MarkForDeletion()

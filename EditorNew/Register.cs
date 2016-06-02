@@ -1,7 +1,5 @@
 ﻿using EditorNew.View;
 using EditorNew.ViewModel;
-using FomodInfrastructure;
-
 using Prism.Modularity;
 using Prism.Regions;
 using StructureMap;
@@ -10,8 +8,7 @@ namespace EditorNew
 {
     public class Register : IModule
     {
-
-        Watcher _watcher;
+        private Watcher _watcher;
 
         #region Services
 

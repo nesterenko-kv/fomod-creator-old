@@ -19,14 +19,4 @@
         /// <returns>Возращет объект, если он был загружен в память</returns>
         T GetData();
     }
-
-    public enum RepositoryStatus
-    {
-        None,
-        Cancel,
-        Ok,
-        Error,
-        CantSelectFolder,
-        FolderIsAlreadyUse
-    }
 }

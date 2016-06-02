@@ -5,7 +5,6 @@ using MahApps.Metro.Controls.Dialogs;
 using MainApplication.Services;
 using Module.Editor;
 using Module.Welcome;
-using Prism.Logging;
 using Prism.StructureMap;
 using System.Windows.Markup;
 
@@ -46,18 +45,16 @@ namespace MainApplication.Boot
             });
         }
 
-        //protected override ILoggerFacade CreateLogger() => this.Container.GetInstance<Logger>();
+        ////protected override ILoggerFacade CreateLogger() => this.Container.GetInstance<Logger>();
 
         protected override void InitializeModules()
         {
             Container.GetInstance<Loger.Register>().Initialize();
             Container.GetInstance<WelcomeRegister>().Initialize();
             Container.GetInstance<EditorRegister>().Initialize();
-            //Container.GetInstance<WelcomeNew.Register>().Initialize();
-            
-            //Container.GetInstance<EditorNew.Register>().Initialize();
+            ////Container.GetInstance<WelcomeNew.Register>().Initialize();
+            ////Container.GetInstance<EditorNew.Register>().Initialize();
         }
-
         #endregion
     }
 }

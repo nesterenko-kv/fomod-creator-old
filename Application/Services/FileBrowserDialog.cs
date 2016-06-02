@@ -5,7 +5,11 @@ namespace MainApplication.Services
 {
     public class FileBrowserDialog : IFileBrowserDialog
     {
+        #region Fields
+
         private readonly OpenFileDialog _dialog = new OpenFileDialog();
+        
+        #endregion
 
         #region IFileBrowserDialog
 
@@ -26,7 +30,10 @@ namespace MainApplication.Services
             _dialog.Reset();
         }
 
-        public bool ShowDialog() => _dialog.ShowDialog() == DialogResult.OK;
+        public bool ShowDialog()
+        {
+            return _dialog.ShowDialog() == DialogResult.OK;
+        }
 
         #endregion
     }

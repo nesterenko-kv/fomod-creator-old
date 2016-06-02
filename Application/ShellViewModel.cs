@@ -27,7 +27,7 @@ namespace MainApplication
 
         public ShellViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator)
         {
-            Title = _defautlTitle = "FOMOD Creator beta v" + GetVersion();
+            Title = _defautlTitle = $"FOMOD Creator beta v{GetVersion()}";
             _regionManager = regionManager;
             _dialogCoordinator = dialogCoordinator;
             CloseTabCommand = new RelayCommand<object>(CloseTab);
@@ -86,16 +86,16 @@ namespace MainApplication
             removeView.DataContext = null;
             _regionManager.Regions[Names.MainContentRegion].Remove(removeView);
 
-            //removeView.Finalize();
-            //GC.SuppressFinalize(removeView);
-            (p as MainEditorViewModel)?.Dispose();
+            ////removeView.Finalize();
+            ////GC.SuppressFinalize(removeView);
+            ((MainEditorViewModel)p).Dispose();
             removeView = null;
             GC.Collect();
         }
 
         private void SaveProject()
         {
-            var vm = (MainEditorViewModel) ((FrameworkElement) CurentSelectedItem).DataContext;
+            var vm = (MainEditorViewModel)((FrameworkElement)CurentSelectedItem).DataContext;
             vm.IsNeedSave = false;
             vm.Save();
         }
