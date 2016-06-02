@@ -37,17 +37,29 @@ namespace Module.Editor.Resources.UserControls
 
         private static void TypeDescriptorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+
             var sender = (PluginTypeDescriptorUserControl)d;
-            if(e.OldValue!=null)
-                ((INotifyPropertyChanged)sender.Descriptor).PropertyChanged -= sender.TypeDescriptor_PropertyChanged;
+
+            if (e.OldValue != null)
+            {
+                var inpch = (e.OldValue as INotifyPropertyChanged);
+                if (inpch != null)
+                    inpch.PropertyChanged -= sender.TypeDescriptor_PropertyChanged;
+            }
             if (e.NewValue != null)
-                ((INotifyPropertyChanged)sender.Descriptor).PropertyChanged += sender.TypeDescriptor_PropertyChanged;
+            {
+                var inpch = (e.NewValue as INotifyPropertyChanged);
+                if (inpch != null)
+                    inpch.PropertyChanged += sender.TypeDescriptor_PropertyChanged;
+            }
+
             sender.TypeDescriptor_PropertyChanged(e.NewValue, new PropertyChangedEventArgs(string.Empty));
         }
 
         private void TypeDescriptor_PropertyChanged(object s, PropertyChangedEventArgs e)
         {
-            var sender = (PluginTypeDescriptor)s;
+            var sender = s as PluginTypeDescriptor;
+            if (sender == null) return;
 
             if (sender.DependencyType == null && sender.Type != null)
                 PluginTypeData = sender.Type;
@@ -69,7 +81,7 @@ namespace Module.Editor.Resources.UserControls
                 OnPropertyChanged(nameof(PluginTypeData));
             }
         }
-        
+
         private object _previewPluginType;
         private ICommand _changeTypeCommand;
         public ICommand ChangeTypeCommand
@@ -84,12 +96,12 @@ namespace Module.Editor.Resources.UserControls
                         if (_previewPluginType is PluginType)
                         {
                             Descriptor.DependencyType = null;
-                            Descriptor.Type = (PluginType) _previewPluginType;
+                            Descriptor.Type = (PluginType)_previewPluginType;
                         }
                         else if (_previewPluginType is DependencyPluginType)
                         {
                             Descriptor.Type = null;
-                            Descriptor.DependencyType = (DependencyPluginType) _previewPluginType;
+                            Descriptor.DependencyType = (DependencyPluginType)_previewPluginType;
                         }
                         else
                             throw new ArgumentException("при смене типа произошла ошибка (ChangeTypeCommand)");

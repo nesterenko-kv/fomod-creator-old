@@ -21,10 +21,13 @@ namespace Module.Editor.ViewModel
 
         public void Dispose()
         {
-            foreach (var item in _regionManager.Regions["NodeRegion"].Views.ToList())
+            var list = _regionManager.Regions["NodeRegion"].Views.ToList();
+            foreach (var item in list)
             {
+                ((FrameworkElement)item).DataContext = null;
+                _regionManager.Regions["NodeRegion"].Remove(item);
                 //((FrameworkElement)item).DataContext = null;
-                //if(_regionManager.Regions["NodeRegion"].Views.Contains(item))
+                //if (_regionManager.Regions["NodeRegion"].Views.Contains(item))
                 //    _regionManager.Regions["NodeRegion"].Remove(item);
             }
         }
@@ -205,7 +208,7 @@ namespace Module.Editor.ViewModel
             });
         }
 
-      
+
         #endregion
     }
 }
