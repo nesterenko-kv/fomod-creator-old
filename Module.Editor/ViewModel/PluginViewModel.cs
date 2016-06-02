@@ -1,97 +1,85 @@
-﻿using FomodInfrastructure.Interface;
+﻿using System.Collections.Generic;
+using System.Windows.Input;
+using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base.ModuleCofiguration;
-using System.IO;
-using System.Windows.Input;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Module.Editor.ViewModel
 {
-    public class PluginViewModel : BaseViewModel<Plugin>
+    public class PluginViewModel : FileWorkerBaseViewModel<Plugin>
     {
-        #region Services
+        public PluginViewModel(IFileBrowserDialog fileBrowserDialog, IFolderBrowserDialog folderBrowserDialog, IDialogCoordinator dialogCoordinator)
+            : base(fileBrowserDialog, folderBrowserDialog, dialogCoordinator) {}
 
-        private readonly IFileBrowserDialog _fileBrowserDialog;
+        #region Methods
+
+        private void AddImage()
+        {
+            string imagePath;
+            if (TryGetImage(out imagePath))
+                Data.Image = Image.Create(imagePath);
+        }
+
+        private void RemoveImage()
+        {
+            Data.Image = null;
+        }
+
+        private void BrowseImage()
+        {
+            string imagePath;
+            if (TryGetImage(out imagePath))
+                Data.Image.Path = imagePath;
+        }
+
+        private void AddFile(List<string> paths)
+        {
+            AddFile(Data.Files.Items, paths);
+        }
+
+        private void AddFolder(List<string> paths)
+        {
+            AddFolders(Data.Files.Items, paths);
+        }
 
         #endregion
 
         #region Commands
 
         private ICommand _addImageCommand;
+
         public ICommand AddImageCommand
         {
-            get
-            {
-                return _addImageCommand ?? (_addImageCommand = new RelayCommand(() =>
-                {
-                    var imagePath = GetImage();
-                    if (!string.IsNullOrEmpty(imagePath))
-                        Data.Image = Image.Create(imagePath);
-                }));
-            }
+            get { return _addImageCommand ?? (_addImageCommand = new RelayCommand(AddImage)); }
         }
 
         private ICommand _removeImageCommand;
+
         public ICommand RemoveImageCommand
         {
-            get
-            {
-                return _removeImageCommand ?? (_removeImageCommand = new RelayCommand(() =>
-                {
-                    Data.Image = null;
-                }));
-            }
+            get { return _removeImageCommand ?? (_removeImageCommand = new RelayCommand(RemoveImage)); }
         }
 
         private ICommand _browseImageCommand;
+
         public ICommand BrowseImageCommand
         {
-            get
-            {
-                return _browseImageCommand ?? (_browseImageCommand = new RelayCommand(() =>
-                {
-                    var imagePath = GetImage();
-                    if (!string.IsNullOrEmpty(imagePath))
-                        Data.Image.Path = imagePath;
-                }));
-            }
+            get { return _browseImageCommand ?? (_browseImageCommand = new RelayCommand(BrowseImage)); }
         }
 
-        #endregion
+        private ICommand _addFileCommand;
 
-        public PluginViewModel(IFileBrowserDialog fileBrowserDialog)
+        public ICommand AddFileCommand
         {
-            _fileBrowserDialog = fileBrowserDialog;
+            get { return _addFileCommand ?? (_addFileCommand = new RelayCommand<List<string>>(AddFile)); }
         }
-        
-        #region Methods
 
-        private string GetImage()
+        private ICommand _addFolderCommand;
+
+        public ICommand AddFolderCommand
         {
-            _fileBrowserDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
-            _fileBrowserDialog.ShowDialog();
-            var selectedPath = _fileBrowserDialog.SelectedPath;
-            if (!File.Exists(selectedPath))
-                return string.Empty;
-            _fileBrowserDialog.Reset();
-
-            var projectPath = FolderPath + Path.DirectorySeparatorChar;
-            string relativePath;
-            if (!selectedPath.StartsWith(projectPath))
-            {
-                var directoryName = Path.Combine(projectPath, "Image");
-                Directory.CreateDirectory(directoryName);
-                var fileNameOnly = Path.GetFileNameWithoutExtension(selectedPath);
-                var extension = Path.GetExtension(selectedPath);
-                var newPath = Path.Combine(directoryName, fileNameOnly + extension);
-                var count = 1;
-                while (File.Exists(newPath))
-                    newPath = Path.Combine(directoryName, $"{fileNameOnly}({count++})" + extension);
-                File.Copy(selectedPath, newPath);
-                relativePath = @"Image\" + Path.GetFileName(newPath);
-            }
-            else
-                relativePath = selectedPath.Substring(projectPath.Length);
-            return relativePath;
+            get { return _addFolderCommand ?? (_addFolderCommand = new RelayCommand<List<string>>(AddFolder)); }
         }
 
         #endregion

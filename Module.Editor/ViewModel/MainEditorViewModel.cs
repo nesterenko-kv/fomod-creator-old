@@ -1,24 +1,28 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
+using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base;
 using FomodModel.Base.ModuleCofiguration;
-using Prism.Mvvm;
-using Prism.Regions;
 using Prism.Interactivity.InteractionRequest;
-using System;
-using System.Windows.Input;
-using FomodInfrastructure.Interface;
-using System.Windows;
-using System.Windows.Controls;
+using Prism.Regions;
 
 namespace Module.Editor.ViewModel
 {
     [Aspect(typeof(AspectINotifyPropertyChanged))]
-    public class MainEditorViewModel : BindableBase, IDisposable
+    public class MainEditorViewModel : IDisposable
     {
+        public MainEditorViewModel(IMemoryService memoryService, ILogger logger)
+        {
+            _memoryService = memoryService;
+            _logger = logger;
+            _logger.LogCreate(this);
+        }
 
         public void Dispose()
         {
@@ -30,22 +34,6 @@ namespace Module.Editor.ViewModel
             }
         }
 
-        #region Services
-
-        private IRegionManager _regionManager;
-        private IRepository<ProjectRoot> _repository;
-        private readonly IMemoryService _memoryService;
-        private readonly ILogger _logger;
-
-        #endregion
-
-        public MainEditorViewModel(IMemoryService memoryService, ILogger logger)
-        {
-            _memoryService = memoryService;
-            _logger = logger;
-
-            _logger.LogCreate(this);
-        }
         ~MainEditorViewModel()
         {
             _logger.LogDisposable(this);
@@ -53,7 +41,8 @@ namespace Module.Editor.ViewModel
 
         public void ConfigurateViewModel(IRegionManager regionManager, IRepository<ProjectRoot> repository)
         {
-            if (repository == null) throw new ArgumentNullException(nameof(repository));
+            if (repository == null)
+                throw new ArgumentNullException(nameof(repository));
             _repository = repository;
             _regionManager = regionManager;
             var root = Data.FirstOrDefault(i => i.FolderPath == repository.CurrentPath);
@@ -66,6 +55,18 @@ namespace Module.Editor.ViewModel
             _memoryService.GetMemorySize(Data);
             SelectedNode = FirstData;
         }
+
+        #region Services
+
+        private IRegionManager _regionManager;
+
+        private IRepository<ProjectRoot> _repository;
+
+        private readonly IMemoryService _memoryService;
+
+        private readonly ILogger _logger;
+
+        #endregion
 
         #region Properties
 
@@ -87,7 +88,9 @@ namespace Module.Editor.ViewModel
 
         public ObservableCollection<ProjectRoot> Data { get; } = new ObservableCollection<ProjectRoot>();
 
-        public ProjectRoot FirstData { get; private set; } //TODO Не забыть про очищение свойства при закрытии или удалении проекта, или сделать слабую ссылку
+        public ProjectRoot FirstData { get; private set; }
+
+        //TODO Не забыть про очищение свойства при закрытии или удалении проекта, или сделать слабую ссылку
 
         private object _selectedNode;
 
@@ -97,13 +100,10 @@ namespace Module.Editor.ViewModel
             set
             {
                 _selectedNode = value;
-                if (value == null) return;
+                if (value == null)
+                    return;
                 var name = value.GetType().Name;
-                var param = new NavigationParameters
-                {
-                    {name, value},
-                    {"FolderPath", _repository.CurrentPath}
-                };
+                var param = new NavigationParameters { { name, value }, { "FolderPath", _repository.CurrentPath } };
                 _regionManager.Regions["NodeRegion"].RequestNavigate(name + "View", param);
             }
         }
@@ -113,6 +113,7 @@ namespace Module.Editor.ViewModel
         #region Commands
 
         private ICommand _addStepCommand;
+
         public ICommand AddStepCommand
         {
             get
@@ -129,6 +130,7 @@ namespace Module.Editor.ViewModel
         }
 
         private ICommand _addGroupCommand;
+
         public ICommand AddGroupCommand
         {
             get
@@ -145,6 +147,7 @@ namespace Module.Editor.ViewModel
         }
 
         private ICommand _addPluginCommand;
+
         public ICommand AddPluginCommand
         {
             get
@@ -152,7 +155,7 @@ namespace Module.Editor.ViewModel
                 return _addPluginCommand ?? (_addPluginCommand = new RelayCommand<Group>(p =>
                 {
                     if (p.Plugins == null)
-                        p.Plugins = new PluginList();
+                        p.Plugins = PluginList.Create();
                     if (p.Plugins.Plugin == null)
                         p.Plugins.Plugin = new ObservableCollection<Plugin>();
                     p.Plugins.Plugin.Add(Plugin.Create());
@@ -161,6 +164,7 @@ namespace Module.Editor.ViewModel
         }
 
         private ICommand _deleteDialogCommand;
+
         public ICommand DeleteDialogCommand
         {
             get { return _deleteDialogCommand ?? (_deleteDialogCommand = new RelayCommand<object[]>(DeleteDialog)); }
@@ -184,28 +188,34 @@ namespace Module.Editor.ViewModel
         {
             ConfirmationRequest.Raise(new Confirmation { Content = "Вы точно хотите удалить узел?", Title = "”далить узел?" }, c =>
             {
-                if (!c.Confirmed) return;
+                if (!c.Confirmed)
+                    return;
                 if (objects[1] is InstallStep)
                 {
                     var root = (ProjectRoot)objects[0];
                     var step = (InstallStep)objects[1];
                     root.ModuleConfiguration.InstallSteps.InstallStep.Remove(step);
                 }
-                else if (objects[1] is Group)
+                else
                 {
-                    var step = (InstallStep)objects[0];
-                    var group = (Group)objects[1];
-                    step.OptionalFileGroups.Group.Remove(@group);
-                }
-                else if (objects[1] is Plugin)
-                {
-                    var group = (Group)objects[0];
-                    var plugin = (Plugin)objects[1];
-                    group.Plugins.Plugin.Remove(plugin);
+                    if (objects[1] is Group)
+                    {
+                        var step = (InstallStep)objects[0];
+                        var group = (Group)objects[1];
+                        step.OptionalFileGroups.Group.Remove(@group);
+                    }
+                    else
+                    {
+                        if (objects[1] is Plugin)
+                        {
+                            var group = (Group)objects[0];
+                            var plugin = (Plugin)objects[1];
+                            group.Plugins.Plugin.Remove(plugin);
+                        }
+                    }
                 }
             });
         }
-
 
         #endregion
     }

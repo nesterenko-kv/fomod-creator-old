@@ -8,10 +8,16 @@ namespace MainApplication.Services
         #region Fields
 
         private readonly OpenFileDialog _dialog = new OpenFileDialog();
-        
+
         #endregion
 
         #region IFileBrowserDialog
+
+        public bool CheckFileExists
+        {
+            get { return _dialog.CheckFileExists; }
+            set { _dialog.CheckFileExists = value; }
+        }
 
         public string SelectedPath
         {
@@ -19,23 +25,15 @@ namespace MainApplication.Services
             set { _dialog.FileName = value; }
         }
 
-
         public string StartFolder
         {
-            get
-            {
-                return _dialog.InitialDirectory;
-            }
-            set
-            {
-                _dialog.InitialDirectory = value;
-            }
+            get { return _dialog.InitialDirectory; }
+            set { _dialog.InitialDirectory = value; }
         }
-
 
         public string[] SelectedPaths
         {
-            get { return _dialog.FileNames;  }
+            get { return _dialog.FileNames; }
         }
 
         public string Filter
@@ -54,18 +52,10 @@ namespace MainApplication.Services
             return _dialog.ShowDialog() == DialogResult.OK;
         }
 
-
-
         public bool Multiselect
         {
-            get
-            {
-                return _dialog.Multiselect; 
-            }
-            set
-            {
-                _dialog.Multiselect = value;
-            }
+            get { return _dialog.Multiselect; }
+            set { _dialog.Multiselect = value; }
         }
 
         #endregion

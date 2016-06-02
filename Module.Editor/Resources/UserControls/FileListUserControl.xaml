@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Module.Editor.Resources.UserControls"
+             xmlns:behavior="clr-namespace:FomodInfrastructure.MvvmLibrary.Behavior;assembly=FomodInfrastructure"
              d:DesignHeight="300"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -131,12 +131,10 @@
                             Width="16"
                             Height="16"
                             Margin="0,9,0,0"
-                            HorizontalAlignment="Center"
                             VerticalAlignment="Top"
                             Command="{Binding RemoveItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                             CommandParameter="{Binding}"
                             Style="{StaticResource DeleteButton}" />
-
 
 
                 </Grid>
@@ -165,17 +163,14 @@
                                    Fill="{StaticResource FileIcon}"
                                    SnapsToDevicePixels="True" />
                         <ContentControl Grid.Column="1"
-                                        Grid.ColumnSpan="100"
                                         Content="{Binding}"
                                         ContentTemplate="{StaticResource SystemItem}" />
-
-
-
                     </Grid>
                 </Border>
                 <DataTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter TargetName="decorator" Property="Background" Value="{StaticResource TableIsMouseOverBackGroundColor}" />
+                        <Setter TargetName="decorator" Property="Background"
+                                Value="{StaticResource TableIsMouseOverBackGroundColor}" />
                     </Trigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
@@ -211,7 +206,8 @@
                 </Border>
                 <DataTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter TargetName="decorator" Property="Background" Value="{StaticResource TableIsMouseOverBackGroundColor}" />
+                        <Setter TargetName="decorator" Property="Background"
+                                Value="{StaticResource TableIsMouseOverBackGroundColor}" />
                     </Trigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
@@ -219,45 +215,17 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <DockPanel Margin="3,3"
-                   HorizontalAlignment="Stretch">
-            <Button Width="20"
-                    Height="20"
-                    Margin="6,0,0,0"
-                    Command="{Binding AddFileCommandLocal, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-                    DockPanel.Dock="Right"
-                    ToolTip="Add File">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Rectangle Fill="{StaticResource AddFileIcon}" />
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button Width="20"
-                    Height="20"
-                    Margin="6,0,0,0"
-                    Command="{Binding AddFolderCommandLocal, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-                    DockPanel.Dock="Right"
-                    ToolTip="Add Folder">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Rectangle Fill="{StaticResource AddFolderIcon}" />
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <TextBlock Margin="0,3"
-                       Text="{Binding Header, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-                       DockPanel.Dock="Left"
-                       FontFamily="Segoe UI Semibold"
-                       FontSize="16"
-                       LineStackingStrategy="BlockLineHeight" />
-        </DockPanel>
-        <ItemsControl xmlns:beh="clr-namespace:FomodInfrastructure.MvvmLibrary.Behavior;assembly=FomodInfrastructure"
-                      beh:DropBehavior.PreviewDropCommand="{Binding DropItemCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-                      AllowDrop="True"
-                      Grid.IsSharedSizeScope="True"
-                      DataContext="{Binding FileList, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-                      ItemsSource="{Binding Items}">
+        <TextBlock Margin="0,3"
+                   Text="{Binding Header, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                   FontFamily="Segoe UI Semibold"
+                   FontSize="16"
+                   LineStackingStrategy="BlockLineHeight" />
+        <ItemsControl
+            behavior:DropBehavior.PreviewDropCommand="{Binding DropItemCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+            AllowDrop="True"
+            Grid.IsSharedSizeScope="True"
+            DataContext="{Binding FileList, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+            ItemsSource="{Binding Items}">
             <ItemsControl.Style>
                 <Style TargetType="{x:Type ItemsControl}">
                     <Setter Property="Template">
@@ -287,33 +255,57 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Column="1"
+                                    <DockPanel HorizontalAlignment="Stretch" LastChildFill="False">
+                                        <Button Width="20"
+                                                Height="20"
+                                                Margin="3,0,3,0"
+                                                Command="{Binding AddFileCommandLocal, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                                                DockPanel.Dock="Right"
+                                                ToolTip="Add File">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Rectangle Fill="{StaticResource AddFileIcon}" />
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                        <Button Width="20"
+                                                Height="20"
+                                                Margin="3,0,3,0"
+                                                Command="{Binding AddFolderCommandLocal, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                                                DockPanel.Dock="Right"
+                                                ToolTip="Add Folder">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Rectangle Fill="{StaticResource AddFolderIcon}" />
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </DockPanel>
+                                    <TextBlock Grid.Row="0" Grid.Column="1"
                                                Text="Source" />
-                                    <TextBlock Grid.Column="2"
+                                    <TextBlock Grid.Row="0" Grid.Column="2"
                                                Text="Destination" />
-                                    <TextBlock Grid.Column="3"
+                                    <TextBlock Grid.Row="0" Grid.Column="3"
                                                Text="Always Install" />
-                                    <TextBlock Grid.Column="4"
+                                    <TextBlock Grid.Row="0" Grid.Column="4"
                                                Text="Install If Usable" />
-                                    <TextBlock Grid.Column="5"
+                                    <TextBlock Grid.Row="0" Grid.Column="5"
                                                Text="Priority" />
-                                    <Button Grid.Column="6"
+                                    <Button Grid.Row="0" Grid.Column="6"
                                             Margin="6,0"
-                                            HorizontalAlignment="Center"
                                             Style="{StaticResource AddButton}"
                                             Visibility="Hidden" />
                                     <Border x:Name="decorator"
-                                            Grid.Row="0"
-                                            Grid.ColumnSpan="100"
-                                            Panel.ZIndex="-100"
+                                            Grid.Row="0" Grid.Column="0"
+                                            Grid.ColumnSpan="7"
+                                            Panel.ZIndex="-1"
                                             Background="{StaticResource TableHeaderBackGroundColor}" />
-                                    <Border Grid.Row="1"
-                                            Grid.ColumnSpan="100"
+                                    <Border Grid.Row="1" Grid.Column="0"
+                                            Grid.ColumnSpan="7"
                                             BorderBrush="{StaticResource TableHeaderBackGroundColor}"
                                             BorderThickness="1,0,1,1">
                                         <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                     </Border>
-
                                 </Grid>
                             </ControlTemplate>
                         </Setter.Value>

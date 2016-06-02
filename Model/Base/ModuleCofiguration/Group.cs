@@ -9,10 +9,14 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A Group of plugins.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class Group
     {
+        public static Group Create()
+        {
+            return new Group { Name = "New Group", Type = GroupType.SelectAny };
+        }
+
         #region Properties
 
         /// <summary>
@@ -34,14 +38,5 @@ namespace FomodModel.Base.ModuleCofiguration
         public GroupType Type { get; set; }
 
         #endregion
-
-        public static Group Create()
-        {
-            return new Group
-            {
-                Name = "New Group",
-                Type = GroupType.SelectAll
-            };
-        }
     }
 }

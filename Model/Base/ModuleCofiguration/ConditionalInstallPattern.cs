@@ -8,10 +8,14 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A pattern of mod files and conditional flags that determine whether to instal specific files.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class ConditionalInstallPattern
     {
+        public static ConditionalInstallPattern Create()
+        {
+            return new ConditionalInstallPattern();
+        }
+
         #region Properties
 
         /// <summary>
@@ -27,10 +31,5 @@ namespace FomodModel.Base.ModuleCofiguration
         public FileList Files { get; set; }
 
         #endregion
-
-        public static ConditionalInstallPattern Create()
-        {
-            return new ConditionalInstallPattern();
-        }
     }
 }

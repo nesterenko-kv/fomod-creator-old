@@ -45,9 +45,10 @@
                 <GroupBox>
                     <GroupBox.Header>
                         <DockPanel>
-                            <Button Command="{Binding RemoveConditionalFileInstalls, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                    DockPanel.Dock="Right"
-                                    Style="{StaticResource DeleteButton}" />
+                            <Button
+                                Command="{Binding RemoveConditionalFileInstalls, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                DockPanel.Dock="Right"
+                                Style="{StaticResource DeleteButton}" />
                             <TextBlock Margin="0"
                                        VerticalAlignment="Center"
                                        Padding="0"
@@ -67,7 +68,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <ContentControl Content="{Binding FileInstallList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
+    <ContentControl
+        Content="{Binding FileInstallList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
         <ContentControl.Style>
             <Style TargetType="{x:Type ContentControl}">
                 <Style.Triggers>
@@ -78,9 +80,10 @@
                                     <GroupBox Background="Gray">
                                         <GroupBox.Header>
                                             <DockPanel>
-                                                <Button Command="{Binding CreateConditionalFileInstalls, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                                        DockPanel.Dock="Right"
-                                                        Style="{StaticResource AddButton}" />
+                                                <Button
+                                                    Command="{Binding CreateConditionalFileInstalls, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                    DockPanel.Dock="Right"
+                                                    Style="{StaticResource AddButton}" />
                                                 <TextBlock Margin="0"
                                                            VerticalAlignment="Center"
                                                            Padding="0"

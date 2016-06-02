@@ -82,7 +82,7 @@
                           Header="Plugin info">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                            <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -109,7 +109,7 @@
                     </Grid>
                 </GroupBox>
 
-                <ContentControl x:Name="IMAGE">
+                <ContentControl>
                     <ContentControl.Style>
                         <Style TargetType="{x:Type ContentControl}">
                             <Style.Triggers>
@@ -121,10 +121,10 @@
                                                 <GroupBox Background="Gray">
                                                     <GroupBox.Header>
                                                         <DockPanel>
-                                                            <Button Margin="0"
-                                                                    Command="{Binding DataContext.AddImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                                                    DockPanel.Dock="Right"
-                                                                    Style="{StaticResource AddButton}" />
+                                                            <Button
+                                                                Command="{Binding DataContext.AddImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                                DockPanel.Dock="Right"
+                                                                Style="{StaticResource AddButton}" />
                                                             <TextBlock Margin="0"
                                                                        VerticalAlignment="Center"
                                                                        Style="{StaticResource TextBlockHeaderStyle}"
@@ -143,9 +143,10 @@
                     <GroupBox>
                         <GroupBox.Header>
                             <DockPanel>
-                                <Button Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                        DockPanel.Dock="Right"
-                                        Style="{StaticResource DeleteButton}" />
+                                <Button
+                                    Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                    DockPanel.Dock="Right"
+                                    Style="{StaticResource DeleteButton}" />
                                 <TextBlock Margin="0"
                                            VerticalAlignment="Center"
                                            Style="{StaticResource TextBlockHeaderStyle}"
@@ -157,10 +158,11 @@
                                              BrowseImageCommand="{Binding DataContext.BrowseImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
                     </GroupBox>
                 </ContentControl>
-
                 <uc:FileListUserControl Margin="{StaticResource MarginGroupBox}"
-                                        FileList="{Binding Data.Files}"
-                                        Header="Files and folder" />
+                                        AddFileCommand="{Binding AddFileCommand}"
+                                        AddFolderCommand="{Binding AddFolderCommand}"
+                                        Header="Files and folders"
+                                        FileList="{Binding Data.Files}" />
                 <uc:SetConditionFlagUserControl Margin="{StaticResource MarginGroupBox}"
                                                 ConditionFlagList="{Binding Data.ConditionFlags}" />
                 <uc:PluginTypeDescriptorUserControl Descriptor="{Binding Data.TypeDescriptor}" />

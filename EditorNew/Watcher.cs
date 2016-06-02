@@ -1,4 +1,6 @@
-﻿using EditorNew.View;
+﻿using System.Linq;
+using System.Windows;
+using EditorNew.View;
 using EditorNew.ViewModel;
 using FomodInfrastructure;
 using FomodInfrastructure.Interface;
@@ -6,22 +8,11 @@ using FomodModel.Base;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Events;
 using Prism.Regions;
-using System.Linq;
-using System.Windows;
 
 namespace EditorNew
 {
     public class Watcher
     {
-        #region Services
-
-        private readonly IRegionManager _regionManager;
-        private readonly IServiceLocator _serviceLocator;
-        private readonly IEventAggregator _eventAggregator;
-        private readonly ILogger _logger;
-
-        #endregion
-
         public Watcher(IRegionManager regionManager, IServiceLocator serviceLocator, IEventAggregator eventAggregator, ILogger logger)
         {
             _regionManager = regionManager;
@@ -41,7 +32,7 @@ namespace EditorNew
         {
             _logger.Log($"[Open Project Subscribe Event] {dataObj.GetData().FolderPath}");
             _logger.Log("[Find open view]");
-            
+
             var views = _regionManager.Regions[Names.MainContentRegion].Views;
 
             var openView = views.Cast<FrameworkElement>().FirstOrDefault(view => view.DataContext is MainEditorViewModel && ((MainEditorViewModel)view.DataContext).Data.FolderPath == dataObj.GetData().FolderPath);
@@ -59,7 +50,6 @@ namespace EditorNew
                 _regionManager.Regions[Names.MainContentRegion].Activate(view);
                 _logger.Log($"[Activate View] {view.GetHashCode()}");
             }
-
         }
 
         private MainEditorView CreateNewView(IRepository<ProjectRoot> dataObj)
@@ -71,5 +61,17 @@ namespace EditorNew
             viewmodel.ConfigurateViewModel(detailsRegionManager, dataObj);
             return view;
         }
+
+        #region Services
+
+        private readonly IRegionManager _regionManager;
+
+        private readonly IServiceLocator _serviceLocator;
+
+        private readonly IEventAggregator _eventAggregator;
+
+        private readonly ILogger _logger;
+
+        #endregion
     }
 }

@@ -1,29 +1,22 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using FomodInfrastructure;
-using FomodInfrastructure.MvvmLibrary.Commands;
-using Prism.Regions;
-using FomodInfrastructure.Aspect;
 using AspectInjector.Broker;
+using FomodInfrastructure;
+using FomodInfrastructure.Aspect;
+using FomodInfrastructure.MvvmLibrary.Commands;
 using MahApps.Metro.Controls.Dialogs;
 using Module.Editor.ViewModel;
-using System.Diagnostics;
-using System.Reflection;
-using System;
+using Prism.Regions;
 
 namespace MainApplication
 {
     public class ShellViewModel
     {
         private readonly string _defautlTitle;
-
-        #region Services
-
-        private readonly IRegionManager _regionManager;
-        private readonly IDialogCoordinator _dialogCoordinator;
-
-        #endregion
 
         public ShellViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator)
         {
@@ -35,10 +28,20 @@ namespace MainApplication
             SaveProjectAsCommand = new RelayCommand(SaveProjectAs, CanSaveProject);
         }
 
+        #region Services
+
+        private readonly IRegionManager _regionManager;
+
+        private readonly IDialogCoordinator _dialogCoordinator;
+
+        #endregion
+
         #region Commands
 
         public RelayCommand<object> CloseTabCommand { get; }
+
         public RelayCommand SaveProjectCommand { get; }
+
         public RelayCommand SaveProjectAsCommand { get; }
 
         #endregion
@@ -73,9 +76,11 @@ namespace MainApplication
 
         private async void CloseTab(object p)
         {
-            if (!(p is MainEditorViewModel)) return;
+            if (!(p is MainEditorViewModel))
+                return;
             var removeView = _regionManager.Regions[Names.MainContentRegion].Views.Cast<FrameworkElement>().FirstOrDefault(v => v.DataContext == p);
-            if (removeView == null) return;
+            if (removeView == null)
+                return;
             var needSave = ((MainEditorViewModel)p).IsNeedSave;
             if (needSave)
             {
@@ -110,7 +115,7 @@ namespace MainApplication
         private bool CanSaveProject() => (CurentSelectedItem as FrameworkElement)?.DataContext is MainEditorViewModel;
 
         private async Task<bool> CofirmDialog() => await _dialogCoordinator.ShowMessageAsync(this, "Закрыть проект", "Сохранить перед закрытием?", MessageDialogStyle.AffirmativeAndNegative) == MessageDialogResult.Affirmative;
-        
+
         private string GetVersion()
         {
             var assembly = Assembly.GetExecutingAssembly();

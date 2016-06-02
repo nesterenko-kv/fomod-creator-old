@@ -8,14 +8,17 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A Plugin.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class Plugin
     {
-
         protected Plugin()
         {
             TypeDescriptor = PluginTypeDescriptor.Create();
+        }
+
+        public static Plugin Create()
+        {
+            return new Plugin { Name = "New Plugin" };
         }
 
         #region Properties
@@ -51,13 +54,5 @@ namespace FomodModel.Base.ModuleCofiguration
         public string Name { get; set; }
 
         #endregion
-
-        public static Plugin Create()
-        {
-            return new Plugin
-            {
-                Name = "New Plugin"
-            };
-        }
     }
 }

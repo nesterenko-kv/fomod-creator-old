@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-                    xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" xmlns:Custom1="http://metro.mahapps.com/winfx/xaml/shared"
+                    xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:Custom1="http://metro.mahapps.com/winfx/xaml/shared"
                     mc:Ignorable="options">
 
     <!--  Background  -->
@@ -30,7 +31,8 @@
     <SolidColorBrush x:Key="ButtonMouseOverBorderBrush" options:Freeze="True" Color="{StaticResource BlackColor}" />
     <SolidColorBrush x:Key="ButtonMouseOverInnerBorderBrush" options:Freeze="True" Color="{StaticResource BlackColor}" />
     <SolidColorBrush x:Key="ComboBoxMouseOverBorderBrush" options:Freeze="True" Color="{StaticResource BlackColor}" />
-    <SolidColorBrush x:Key="ComboBoxMouseOverInnerBorderBrush" options:Freeze="True" Color="{StaticResource BlackColor}" />
+    <SolidColorBrush x:Key="ComboBoxMouseOverInnerBorderBrush" options:Freeze="True"
+                     Color="{StaticResource BlackColor}" />
 
     <SolidColorBrush x:Key="ControlBackgroundBrush" options:Freeze="True" Color="{StaticResource WhiteColor}" />
     <SolidColorBrush x:Key="WhiteBrush" options:Freeze="True" Color="{StaticResource WhiteColor}" />
@@ -38,8 +40,10 @@
     <SolidColorBrush x:Key="DisabledWhiteBrush" options:Freeze="True" Color="{StaticResource WhiteColor}" />
     <SolidColorBrush x:Key="WindowBackgroundBrush" options:Freeze="True" Color="{StaticResource WhiteColor}" />
 
-    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" options:Freeze="True" Color="{StaticResource WhiteColor}" />
-    <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" options:Freeze="True" Color="{StaticResource BlackColor}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" options:Freeze="True"
+                     Color="{StaticResource WhiteColor}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" options:Freeze="True"
+                     Color="{StaticResource BlackColor}" />
 
     <LinearGradientBrush x:Key="CheckBoxBackgroundBrush" options:Freeze="True" StartPoint="0.5,0" EndPoint="0.5,1">
         <GradientStop Offset="0" Color="{StaticResource Gray7}" />

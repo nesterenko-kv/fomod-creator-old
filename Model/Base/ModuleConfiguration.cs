@@ -10,9 +10,7 @@ namespace FomodModel.Base
     /// <summary>
     ///     Describes the configuration of a module.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
-    [XmlRoot("config", Namespace = "", IsNullable = false)]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable, XmlRoot("config", Namespace = "", IsNullable = false)]
     public class ModuleConfiguration
     {
         #region Properties

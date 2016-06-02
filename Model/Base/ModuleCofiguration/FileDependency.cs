@@ -9,10 +9,14 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A mod upon which the type of a Plugin depends.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class FileDependency
     {
+        public static FileDependency Create()
+        {
+            return new FileDependency { File = "file.esm", State = FileDependencyState.Active };
+        }
+
         #region Properties
 
         /// <summary>
@@ -26,16 +30,7 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlAttribute("state")]
         public FileDependencyState State { get; set; }
-        
-        #endregion
 
-        public static FileDependency Create(string file)
-        {
-            return new FileDependency
-            {
-                File = file,
-                State = FileDependencyState.Active
-            };
-        }
+        #endregion
     }
 }

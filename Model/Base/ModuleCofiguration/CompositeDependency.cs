@@ -8,13 +8,10 @@ using FomodModel.Base.ModuleCofiguration.Enum;
 
 namespace FomodModel.Base.ModuleCofiguration
 {
-    //TODO удалить закоментированное после отладки
-
     /// <summary>
     ///     A dependency that is made up of one or more dependencies.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class CompositeDependency
     {
         /// <summary>
@@ -24,14 +21,18 @@ namespace FomodModel.Base.ModuleCofiguration
         {
             Operator = CompositeDependencyOperator.And;
         }
-        
+
+        public static CompositeDependency Create()
+        {
+            return new CompositeDependency();
+        }
+
         #region Properties
 
         /// <summary>
         ///     The relation of the contained dependencies.
         /// </summary>
-        [XmlAttribute("operator")]
-        [DefaultValue(CompositeDependencyOperator.And)]
+        [XmlAttribute("operator"), DefaultValue(CompositeDependencyOperator.And)]
         public CompositeDependencyOperator Operator { get; set; }
 
         [XmlElement("fileDependency", typeof(FileDependency))]
@@ -59,15 +60,10 @@ namespace FomodModel.Base.ModuleCofiguration
                     value.Parent = this;
             }
         }
-        
+
         [XmlIgnore]
         public CompositeDependency Parent { get; set; }
 
         #endregion
-
-        public static CompositeDependency Create()
-        {
-            return new CompositeDependency();
-        }
     }
 }

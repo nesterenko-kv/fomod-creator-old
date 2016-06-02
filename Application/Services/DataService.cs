@@ -22,13 +22,14 @@ namespace MainApplication.Services
             using (var s = stream)
             {
                 var xmlSerializer = new XmlSerializer(typeof(T));
-                return (T) xmlSerializer.Deserialize(s);
+                return (T)xmlSerializer.Deserialize(s);
             }
         }
 
         public void SerializeObject<T>(T data, string path)
         {
-            if (data == null) return;
+            if (data == null)
+                return;
             using (var fs = File.Create(path))
             {
                 var xmlSerializer = new XmlSerializer(typeof(T));
@@ -38,14 +39,15 @@ namespace MainApplication.Services
 
         public void SerializeObject<T>(T data, Stream stream)
         {
-            if (data == null) return;
+            if (data == null)
+                return;
             using (var fs = stream)
             {
                 var xmlSerializer = new XmlSerializer(typeof(T));
                 xmlSerializer.Serialize(fs, data);
             }
         }
-        
+
         #endregion
     }
 }

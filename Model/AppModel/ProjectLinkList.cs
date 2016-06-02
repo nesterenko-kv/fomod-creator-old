@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace Module.Welcome.Model
+namespace FomodModel.AppModel
 {
     [Serializable]
     public class ProjectLinkList

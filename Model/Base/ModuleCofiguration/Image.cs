@@ -8,8 +8,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     An image.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class Image
     {
         #region Properties
@@ -22,10 +21,7 @@ namespace FomodModel.Base.ModuleCofiguration
 
         public static Image Create(string imagePath)
         {
-            return new Image
-            {
-                Path = imagePath
-            };
+            return new Image { Path = imagePath };
         }
 
         #endregion

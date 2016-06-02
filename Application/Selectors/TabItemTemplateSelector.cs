@@ -10,6 +10,7 @@ namespace MainApplication.Selectors
     {
         public Style DefaultStyle { get; set; }
 
+        // ReSharper disable once CollectionNeverUpdated.Global
         public ObservableCollection<SelectorItem> TemplateList { get; set; } = new ObservableCollection<SelectorItem>();
 
         public override Style SelectStyle(object item, DependencyObject container)
@@ -22,10 +23,11 @@ namespace MainApplication.Selectors
             return t != null ? t.Style : DefaultStyle;
         }
     }
-    
+
     public class SelectorItem
     {
         public Type DataType { get; set; }
+
         public Style Style { get; set; }
     }
 }

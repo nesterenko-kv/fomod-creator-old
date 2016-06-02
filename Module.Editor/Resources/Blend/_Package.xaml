@@ -10,7 +10,6 @@
     </ResourceDictionary.MergedDictionaries>
 
 
-
     <Style x:Key="TextBoxForTable"
            BasedOn="{StaticResource TextBoxDefault}"
            TargetType="{x:Type TextBox}">
@@ -25,7 +24,6 @@
            BasedOn="{StaticResource ComboBoxDefault}"
            TargetType="{x:Type ComboBox}">
         <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="MinWidth" Value="0" />
         <Setter Property="Margin" Value="0,1,0,0" />
     </Style>

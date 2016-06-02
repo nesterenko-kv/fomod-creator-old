@@ -8,12 +8,13 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      xmlns:editor="clr-namespace:Module.Editor.ViewModel;assembly=Module.Editor"
                       Title="{Binding Title}"
                       Width="1000"
                       Height="800"
                       dialogs:DialogParticipation.Register="{Binding}"
                       WindowStartupLocation="CenterScreen"
-                      Style="{DynamicResource MyVSWindowStyleKey}"
+                      Style="{DynamicResource MyVsWindowStyleKey}"
                       mc:Ignorable="d">
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -21,7 +22,6 @@
                 <ResourceDictionary Source="/Resources/VS Style/Colors.xaml" />
                 <ResourceDictionary Source="Resources/VS Style/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
             <Style x:Key="CloseTabButton"
                    TargetType="{x:Type Button}">
                 <Setter Property="Background" Value="Transparent" />
@@ -45,8 +45,12 @@
                             <ControlTemplate.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
-                                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
+                                        <Condition
+                                            Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}"
+                                            Value="false" />
+                                        <Condition
+                                            Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}"
+                                            Value="false" />
                                     </MultiDataTrigger.Conditions>
                                     <MultiDataTrigger.Setters>
                                         <Setter Property="Visibility" Value="Hidden" />
@@ -56,27 +60,29 @@
                                     <Setter Property="Visibility" Value="Hidden" />
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="{DynamicResource CloseButtonBackgroundHighlighted}" />
-                                    <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStrokeHighlighted}" />
+                                    <Setter Property="Background"
+                                            Value="{DynamicResource CloseButtonBackgroundHighlighted}" />
+                                    <Setter TargetName="ButtonPath" Property="Stroke"
+                                            Value="{DynamicResource CloseButtonStrokeHighlighted}" />
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="true">
-                                    <Setter Property="Background" Value="{DynamicResource CloseButtonBackgroundPressed}" />
+                                    <Setter Property="Background"
+                                            Value="{DynamicResource CloseButtonBackgroundPressed}" />
                                     <Setter TargetName="ButtonPath" Property="Margin" Value="2.5 2.5 1.5 1.5" />
-                                    <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStroke}" />
+                                    <Setter TargetName="ButtonPath" Property="Stroke"
+                                            Value="{DynamicResource CloseButtonStroke}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="BaseTabStyle"
                    TargetType="{x:Type TabItem}">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                 <Setter Property="Foreground" Value="{StaticResource Foreground}" />
             </Style>
-
             <Style x:Key="CloseTabStyle"
                    BasedOn="{StaticResource BaseTabStyle}"
                    TargetType="{x:Type TabItem}">
@@ -117,7 +123,6 @@
                                 <Trigger Property="IsSelected" Value="true">
                                     <Setter Property="Background" Value="{DynamicResource BackgroundSelected}" />
                                 </Trigger>
-
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
@@ -143,9 +148,6 @@
                                                 VerticalAlignment="Center"
                                                 Content="{Binding DataContext.Header}" />
                             </Grid>
-
-
-
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="false">
                                     <Setter Property="Background" Value="Transparent" />
@@ -161,16 +163,10 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-
-
-            <Style x:Key="MyVSWindowStyleKey"
+            <Style x:Key="MyVsWindowStyleKey"
                    BasedOn="{StaticResource VSWindowStyleKey}"
                    TargetType="{x:Type controls:MetroWindow}" />
-
         </ResourceDictionary>
-
-
     </controls:MetroWindow.Resources>
     <controls:MetroWindow.IconTemplate>
         <DataTemplate>
@@ -185,9 +181,12 @@
         </DataTemplate>
     </controls:MetroWindow.IconTemplate>
     <controls:MetroWindow.InputBindings>
-        <KeyBinding Key="S"
-                    Command="{Binding SaveProjectCommand}"
-                    Modifiers="Control" />
+        <KeyBinding Command="{Binding SaveProjectCommand}"
+                    Gesture="Ctrl + S" />
+        <KeyBinding Command="{Binding SaveProjectAsCommand}"
+                    Gesture="Ctrl + Shift + S" />
+        <KeyBinding Command="{Binding OpenProjectCommand}"
+                    Gesture="Ctrl + O" />
     </controls:MetroWindow.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -244,15 +243,14 @@
                 <TabControl.ItemContainerStyleSelector>
                     <selector:TabItemTemplateSelector DefaultStyle="{StaticResource NotCloseTabStyle}">
                         <selector:TabItemTemplateSelector.TemplateList>
-                            <selector:SelectorItem xmlns:editor="clr-namespace:Module.Editor.ViewModel;assembly=Module.Editor"
-                                                   DataType="{x:Type editor:MainEditorViewModel}"
-                                                   Style="{StaticResource CloseTabStyle}" />
+                            <selector:SelectorItem DataType="{x:Type editor:MainEditorViewModel}"
+                                Style="{StaticResource CloseTabStyle}" />
                         </selector:TabItemTemplateSelector.TemplateList>
                     </selector:TabItemTemplateSelector>
                 </TabControl.ItemContainerStyleSelector>
             </TabControl>
         </DockPanel>
-        <GridSplitter VerticalAlignment="Top" HorizontalAlignment="Stretch" Panel.ZIndex="100" Height="4" Grid.Row="1"/>
+        <GridSplitter VerticalAlignment="Top" HorizontalAlignment="Stretch" Panel.ZIndex="100" Height="4" Grid.Row="1" />
         <ContentControl Grid.Row="1"
                         region:RegionManager.RegionName="{x:Static names:Names.LogerRegion}" />
     </Grid>

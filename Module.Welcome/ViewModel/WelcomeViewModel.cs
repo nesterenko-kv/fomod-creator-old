@@ -1,61 +1,18 @@
-﻿using FomodInfrastructure.Interface;
+﻿using System;
+using System.Windows.Input;
+using FomodInfrastructure;
+using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Practices.ServiceLocation;
 using Module.Welcome.PrismEvent;
 using Prism.Events;
-using System;
-using System.Windows.Input;
 
 namespace Module.Welcome.ViewModel
 {
-    using FomodInfrastructure;
-
     public class WelcomeViewModel
     {
-        public string Header { get; } = "Welcome";
-
-        #region Services
-
-        private readonly IAppService _appService;
-        private readonly IDialogCoordinator _dialogCoordinator;
-        private readonly IEventAggregator _eventAggregator;
-        private readonly IServiceLocator _serviceLocator;
-
-        #endregion
-
-        #region Commands
-
-        private ICommand _closeApplicationCommand;
-        public ICommand CloseApplicationCommand
-        {
-            get
-            {
-                return _closeApplicationCommand ?? (_closeApplicationCommand = new RelayCommand(_appService.CloseApp));
-            }
-        }
-
-        private ICommand _createProjectCommand;
-        public ICommand CreateProjectCommand
-        {
-            get
-            {
-                return _createProjectCommand ?? (_createProjectCommand = new RelayCommand(CreateProject));
-            }
-        }
-
-        private ICommand _openProjectCommand;
-        public ICommand OpenProjectCommand
-        {
-            get
-            {
-                return _openProjectCommand ?? (_openProjectCommand = new RelayCommand<string>(OpenProject));
-            }
-        }
-
-        #endregion
-
         public WelcomeViewModel(IAppService appService, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator, IServiceLocator serviceLocator)
         {
             _appService = appService;
@@ -64,6 +21,45 @@ namespace Module.Welcome.ViewModel
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<OpenLink>().Subscribe(OpenProject);
         }
+
+        public string Header { get; } = "Welcome";
+
+        #region Services
+
+        private readonly IAppService _appService;
+
+        private readonly IDialogCoordinator _dialogCoordinator;
+
+        private readonly IEventAggregator _eventAggregator;
+
+        private readonly IServiceLocator _serviceLocator;
+
+        #endregion
+
+        #region Commands
+
+        private ICommand _closeApplicationCommand;
+
+        public ICommand CloseApplicationCommand
+        {
+            get { return _closeApplicationCommand ?? (_closeApplicationCommand = new RelayCommand(_appService.CloseApp)); }
+        }
+
+        private ICommand _createProjectCommand;
+
+        public ICommand CreateProjectCommand
+        {
+            get { return _createProjectCommand ?? (_createProjectCommand = new RelayCommand(CreateProject)); }
+        }
+
+        private ICommand _openProjectCommand;
+
+        public ICommand OpenProjectCommand
+        {
+            get { return _openProjectCommand ?? (_openProjectCommand = new RelayCommand<string>(OpenProject)); }
+        }
+
+        #endregion
 
         #region Methods
 
@@ -97,6 +93,7 @@ namespace Module.Welcome.ViewModel
             var repository = _serviceLocator.GetInstance<IRepository<ProjectRoot>>();
             var x = repository.LoadData(p);
             if (x == null)
+            {
                 switch (repository.RepositoryStatus)
                 {
                     case RepositoryStatus.CantSelectFolder:
@@ -116,6 +113,7 @@ namespace Module.Welcome.ViewModel
                     default:
                         throw new ApplicationException();
                 }
+            }
             else
             {
                 _appService.CreateEditorModule(repository);

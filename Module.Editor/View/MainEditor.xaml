@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:attaches="clr-namespace:FomodInfrastructure.MvvmLibrary.Attaches;assembly=FomodInfrastructure"
              xmlns:base="clr-namespace:FomodModel.Base;assembly=FomodModel"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -33,16 +31,15 @@
             <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
         <Rectangle Grid.ColumnSpan="220" VerticalAlignment="Top"
-                      Height="1" Panel.ZIndex="99"
-                      Fill="#11FFFFFF" />
+                   Height="1" Panel.ZIndex="99"
+                   Fill="#11FFFFFF" />
         <Rectangle Grid.Column="0" HorizontalAlignment="Right"
-                      Width="1" Panel.ZIndex="99"
-                      Fill="#11FFFFFF" />
+                   Width="1" Panel.ZIndex="99"
+                   Fill="#11FFFFFF" />
         <TreeView Grid.Column="0"
                   attaches:TreeViewHelper.SelectedItem="{Binding SelectedNode, Mode=TwoWay}"
                   ItemsSource="{Binding Data}"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <!--  Region TreeViewResources  -->
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type mcd:Plugin}">
                     <DockPanel Background="Transparent">
@@ -54,7 +51,8 @@
                                                                                  AncestorType=TreeView}}">
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource MultiCommandParamsConverter}">
-                                    <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
+                                    <Binding Path="Header"
+                                             RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
                                     <Binding />
                                 </MultiBinding>
                             </Button.CommandParameter>
@@ -82,7 +80,8 @@
                                                                                  AncestorType=TreeView}}">
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource MultiCommandParamsConverter}">
-                                    <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
+                                    <Binding Path="Header"
+                                             RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
                                     <Binding />
                                 </MultiBinding>
                             </Button.CommandParameter>
@@ -111,7 +110,8 @@
                         </Trigger>
                     </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type mcd:InstallStep}" ItemsSource="{Binding OptionalFileGroups.Group}">
+                <HierarchicalDataTemplate DataType="{x:Type mcd:InstallStep}"
+                                          ItemsSource="{Binding OptionalFileGroups.Group}">
                     <DockPanel Background="Transparent">
                         <Button x:Name="delete_button"
                                 Style="{DynamicResource DeleteButton}"
@@ -121,7 +121,8 @@
                                                                                  AncestorType=TreeView}}">
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource MultiCommandParamsConverter}">
-                                    <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
+                                    <Binding Path="Header"
+                                             RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
                                     <Binding />
                                 </MultiBinding>
                             </Button.CommandParameter>
@@ -150,7 +151,8 @@
                         </Trigger>
                     </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type base:ProjectRoot}" ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
+                <HierarchicalDataTemplate DataType="{x:Type base:ProjectRoot}"
+                                          ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
                     <DockPanel Background="Transparent">
                         <Button x:Name="add_button"
                                 Margin="3"
@@ -176,7 +178,6 @@
                     </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
-            <!--  EndRegion  -->
             <TreeView.ItemContainerStyle>
                 <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
                     <Setter Property="IsExpanded" Value="True" />

@@ -5,21 +5,9 @@ namespace FomodModel.Base.ModuleCofiguration
     [Serializable]
     public class FileSystemItem : SystemItem
     {
-        public static FileSystemItem Create()
+        public static FileSystemItem Create(string source, string destination)
         {
-            return new FileSystemItem
-            {
-                Source = @"\ffga\kfdd.exe",
-                Destination = @"\kfdd.exe"
-            };
-        }
-        public static FileSystemItem Create(string Source, string Destination)
-        {
-            return new FileSystemItem
-            {
-                Source = Source,
-                Destination = Destination
-            };
+            return new FileSystemItem { Source = source, Destination = destination };
         }
     }
 }

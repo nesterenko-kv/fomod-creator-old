@@ -32,20 +32,22 @@
                                 </Style>
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                                <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Group name" />
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Group type" />
-                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                            <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={StaticResource GroupTypeEnum}}"
-                                      SelectedItem="{Binding Type, Mode=TwoWay}" >
+                            <TextBox Grid.Row="0" Grid.Column="1"
+                                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                            <ComboBox Grid.Row="1" Grid.Column="1"
+                                      ItemsSource="{Binding Source={StaticResource GroupTypeEnum}}"
+                                      SelectedItem="{Binding Type, Mode=TwoWay}">
                                 <ComboBox.Resources>
-                                    <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}"/>
+                                    <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
                                 </ComboBox.Resources>
                             </ComboBox>
                         </Grid>
@@ -63,12 +65,13 @@
                             </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                            <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0"
                                    Text="Plugins Order" />
-                        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Source={StaticResource OrderEnum}}"
+                        <ComboBox Grid.Row="0" Grid.Column="1"
+                                  ItemsSource="{Binding Source={StaticResource OrderEnum}}"
                                   SelectedItem="{Binding Plugins.Order}">
                             <ComboBox.Resources>
                                 <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />

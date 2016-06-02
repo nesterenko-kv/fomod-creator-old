@@ -9,10 +9,14 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A Plugin type that is dependent upon the state of other mods.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class DependencyPluginType
     {
+        public static DependencyPluginType Create()
+        {
+            return new DependencyPluginType { DefaultType = PluginType.Create() };
+        }
+
         #region Properties
 
         /// <summary>
@@ -25,19 +29,9 @@ namespace FomodModel.Base.ModuleCofiguration
         ///     The list of dependency patterns against which to match the user's installation. The first pattern that matches the
         ///     user's installation determines the type of the Plugin.
         /// </summary>
-        [XmlArray("patterns")]
-        [XmlArrayItem("pattern", IsNullable = false)]
+        [XmlArray("patterns"), XmlArrayItem("pattern", IsNullable = false)]
         public ObservableCollection<DependencyPattern> Patterns { get; set; }
 
         #endregion
-
-
-        public static DependencyPluginType Create()
-        {
-            return new DependencyPluginType
-            {
-                DefaultType = PluginType.Create()
-            };
-        }
     }
 }

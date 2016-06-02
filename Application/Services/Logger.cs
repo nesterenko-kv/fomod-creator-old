@@ -1,7 +1,7 @@
 ﻿using System;
-using Prism.Events;
-using FomodInfrastructure.Interface;
 using System.Collections.Generic;
+using FomodInfrastructure.Interface;
+using Prism.Events;
 
 namespace MainApplication.Services
 {
@@ -17,19 +17,9 @@ namespace MainApplication.Services
             LogCreate(this);
         }
 
-        ~Logger()
-        {
-            LogDisposable(this);
-        }
-
         public void Log(string msg)
         {
             _eventAggregator.GetEvent<PubSubEvent<string>>().Publish($"[{DateTime.Now.ToLongTimeString()}] {msg}");
-        }
-
-        public void Log(string msg, object forName)
-        {
-            _eventAggregator.GetEvent<PubSubEvent<string>>().Publish($"[{DateTime.Now.ToLongTimeString()}] {msg} ({forName.GetType().Name})");
         }
 
         public void LogCreate(object obj)
@@ -41,7 +31,17 @@ namespace MainApplication.Services
         {
             _eventAggregator.GetEvent<PubSubEvent<string>>().Publish($"[{DateTime.Now.ToLongTimeString()}] [{obj.GetHashCode()}] [Disposable] [{Decrement(obj)}] {obj.GetType().Name}");
         }
-        
+
+        ~Logger()
+        {
+            LogDisposable(this);
+        }
+
+        public void Log(string msg, object forName)
+        {
+            _eventAggregator.GetEvent<PubSubEvent<string>>().Publish($"[{DateTime.Now.ToLongTimeString()}] {msg} ({forName.GetType().Name})");
+        }
+
         private int Increment(object obj)
         {
             int count;

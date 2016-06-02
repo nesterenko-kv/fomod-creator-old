@@ -8,8 +8,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A required minimum version of an item.
     /// </summary>
-    [Aspect(typeof (AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class VersionDependency
     {
         #region Properties
@@ -19,7 +18,7 @@ namespace FomodModel.Base.ModuleCofiguration
         /// </summary>
         [XmlAttribute("version")]
         public string Version { get; set; }
-        
+
         #endregion
     }
 }

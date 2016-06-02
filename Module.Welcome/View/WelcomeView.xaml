@@ -16,11 +16,11 @@
             <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
         <Rectangle Grid.ColumnSpan="2" VerticalAlignment="Top"
-                      Height="1" Panel.ZIndex="99"
-                      Fill="{DynamicResource SeparatorBrush}" />
+                   Height="1" Panel.ZIndex="99"
+                   Fill="{DynamicResource SeparatorBrush}" />
         <Rectangle Grid.Column="0" HorizontalAlignment="Right"
-                      Width="1" Panel.ZIndex="99"
-                      Fill="{DynamicResource SeparatorBrush}" />
+                   Width="1" Panel.ZIndex="99"
+                   Fill="{DynamicResource SeparatorBrush}" />
         <ContentControl Grid.Column="0"
                         Margin="6 6 6 6"
                         regions:RegionManager.RegionName="{x:Static struct:Names.LeftRegion}" />

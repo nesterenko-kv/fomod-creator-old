@@ -5,9 +5,9 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Styles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <SolidColorBrush x:Key="SeparatorBrush" 
+    <SolidColorBrush x:Key="SeparatorBrush"
                      Color="#11FFFFFF" />
-    
+
     <Style x:Key="DeleteButton"
            TargetType="Button">
         <Setter Property="Height" Value="15" />
@@ -39,11 +39,13 @@
                             <Setter Property="Visibility" Value="Hidden" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStrokeHighlighted}" />
+                            <Setter TargetName="ButtonPath" Property="Stroke"
+                                    Value="{DynamicResource CloseButtonStrokeHighlighted}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="ButtonPath" Property="Margin" Value="2.5 2.5 1.5 1.5" />
-                            <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStroke}" />
+                            <Setter TargetName="ButtonPath" Property="Stroke"
+                                    Value="{DynamicResource CloseButtonStroke}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -54,7 +56,6 @@
     <Style x:Key="AddButton"
            BasedOn="{StaticResource DeleteButton}"
            TargetType="Button">
-        <Setter Property="Margin" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -84,11 +85,13 @@
                             <Setter Property="Visibility" Value="Hidden" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStrokeHighlighted}" />
+                            <Setter TargetName="ButtonPath" Property="Stroke"
+                                    Value="{DynamicResource CloseButtonStrokeHighlighted}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="ButtonPath" Property="Margin" Value="1.5 1.5 0.5 0.5" />
-                            <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStroke}" />
+                            <Setter TargetName="ButtonPath" Property="Stroke"
+                                    Value="{DynamicResource CloseButtonStroke}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

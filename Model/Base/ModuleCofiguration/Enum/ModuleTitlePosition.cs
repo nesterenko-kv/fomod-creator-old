@@ -6,8 +6,7 @@ namespace FomodModel.Base.ModuleCofiguration.Enum
     /// <summary>
     ///     The possible title positions.
     /// </summary>
-    [Serializable]
-    [XmlType("moduleTitlePosition", AnonymousType = true)]
+    [Serializable, XmlType("moduleTitlePosition", AnonymousType = true)]
     public enum ModuleTitlePosition
     {
         /// <summary>

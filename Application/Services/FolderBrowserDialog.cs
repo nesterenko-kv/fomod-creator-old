@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.IO;
+using System.Windows.Forms;
 using FomodInfrastructure.Interface;
 
 namespace MainApplication.Services
@@ -13,9 +14,11 @@ namespace MainApplication.Services
 
         #region IFolderBrowserDialog
 
+        public bool CheckFolderExists { get; set; }
+
         public string Description
         {
-            get { return _dialog.Description;  }
+            get { return _dialog.Description; }
             set { _dialog.Description = value; }
         }
 
@@ -34,11 +37,15 @@ namespace MainApplication.Services
         public void Reset()
         {
             _dialog.Reset();
+            CheckFolderExists = false;
         }
 
         public bool ShowDialog()
         {
-            return _dialog.ShowDialog() == DialogResult.OK;
+            var successful = _dialog.ShowDialog() == DialogResult.OK;
+            if (CheckFolderExists)
+                return successful && Directory.Exists(_dialog.SelectedPath);
+            return successful;
         }
 
         #endregion

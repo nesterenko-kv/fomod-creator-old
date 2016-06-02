@@ -1,18 +1,19 @@
-﻿using System;
+﻿// ReSharper disable ExpressionIsAlwaysNull
+
+using System;
 using System.Reflection;
 using System.Windows.Input;
-// ReSharper disable ExpressionIsAlwaysNull
 
 namespace FomodInfrastructure.MvvmLibrary.Commands
 {
     public class RelayCommand : ICommand
     {
         private readonly WeakFunc<bool> _canExecute;
+
         private readonly WeakAction _execute;
 
-        public RelayCommand(Action execute) : this(execute, null)
-        {
-        }
+        public RelayCommand(Action execute)
+            : this(execute, null) {}
 
         public RelayCommand(Action execute, Func<bool> canExecute)
         {
@@ -52,6 +53,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
     public class RelayCommand<T> : ICommand
     {
         private readonly WeakFunc<T, bool> _canExecute;
+
         private readonly WeakAction<T> _execute;
 
         public RelayCommand(Action<T> execute, Func<T, bool> canExecute = null)
@@ -70,7 +72,8 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
         {
             if (_canExecute == null)
                 return true;
-            if (!_canExecute.IsStatic && !_canExecute.IsAlive) return false;
+            if (!_canExecute.IsStatic && !_canExecute.IsAlive)
+                return false;
             if (parameter == null && typeof(T).GetTypeInfo().IsValueType)
                 return _canExecute.Execute();
             if (parameter == null || parameter is T)

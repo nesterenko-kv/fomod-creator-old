@@ -2,8 +2,5 @@
 
 namespace Module.Editor.ViewModel
 {
-    public class InstallStepViewModel : BaseViewModel<InstallStep>
-    {
-
-    }
+    public class InstallStepViewModel : BaseViewModel<InstallStep> {}
 }

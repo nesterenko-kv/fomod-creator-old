@@ -1,15 +1,15 @@
-﻿using FomodInfrastructure.Interface;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using FomodInfrastructure.Interface;
 
 namespace MainApplication.Services
 {
-    public class MemoryService: IMemoryService
+    public class MemoryService : IMemoryService
     {
         #region Fields
 
         private long _lastMemorySize = -1;
-        
+
         #endregion
 
         #region IMemoryService
@@ -34,7 +34,7 @@ namespace MainApplication.Services
             GetMemorySize(obj);
             IsMemorySizeChanged = false;
         }
-        
+
         #endregion
     }
 }

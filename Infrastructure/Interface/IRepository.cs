@@ -6,11 +6,14 @@
     public interface IRepository<out T>
     {
         string CurrentPath { get; set; }
-        T LoadData(string path = null);
-        bool SaveData(string path = null);
-        string CreateData();
 
         RepositoryStatus RepositoryStatus { get; set; }
+
+        T LoadData(string path = null);
+
+        bool SaveData(string path = null);
+
+        string CreateData();
 
         /// <summary>
         ///     Получает ссылку на объект

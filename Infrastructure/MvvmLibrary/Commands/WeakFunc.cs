@@ -7,9 +7,8 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
     {
         private Func<T, TResult> _staticFunc;
 
-        public WeakFunc(Func<T, TResult> func) : this(func?.Target, func)
-        {
-        }
+        public WeakFunc(Func<T, TResult> func)
+            : this(func?.Target, func) {}
 
         private WeakFunc(object target, Func<T, TResult> func)
         {
@@ -54,7 +53,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
             var funcTarget = FuncTarget;
             if (!IsAlive || Method == null || FuncReference == null || funcTarget == null)
                 return default(TResult);
-            return (TResult) Method.Invoke(funcTarget, new object[] {parameter});
+            return (TResult)Method.Invoke(funcTarget, new object[] { parameter });
         }
 
         public new void MarkForDeletion()
@@ -68,13 +67,10 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
     {
         private Func<TResult> _staticFunc;
 
-        protected WeakFunc()
-        {
-        }
+        protected WeakFunc() {}
 
-        public WeakFunc(Func<TResult> func) : this(func?.Target, func)
-        {
-        }
+        public WeakFunc(Func<TResult> func)
+            : this(func?.Target, func) {}
 
         private WeakFunc(object target, Func<TResult> func)
         {
@@ -94,9 +90,13 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
         }
 
         protected MethodInfo Method { get; set; }
+
         public bool IsStatic => _staticFunc != null;
+
         public virtual string MethodName => _staticFunc?.GetMethodInfo().Name ?? Method.Name;
+
         protected WeakReference FuncReference { get; set; }
+
         protected WeakReference Reference { get; set; }
 
         public virtual bool IsAlive
@@ -112,6 +112,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
         }
 
         public object Target => Reference?.Target;
+
         protected object FuncTarget => FuncReference?.Target;
 
         public TResult Execute()
@@ -120,7 +121,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
                 return _staticFunc();
             var funcTarget = FuncTarget;
             if (IsAlive && Method != null && FuncReference != null && funcTarget != null)
-                return (TResult) Method.Invoke(funcTarget, null);
+                return (TResult)Method.Invoke(funcTarget, null);
             return default(TResult);
         }
 

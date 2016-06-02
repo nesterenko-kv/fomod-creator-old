@@ -3,18 +3,22 @@ using System.Xml.Serialization;
 
 namespace FomodModel.Base.ModuleCofiguration.Enum
 {
-    [Serializable]
-    [XmlType(IncludeInSchema = false)]
+    [Serializable, XmlType(IncludeInSchema = false)]
     public enum ItemsChoiceType
     {
-        [XmlEnum("dependencies")] Dependencies,
+        [XmlEnum("dependencies")]
+        Dependencies,
 
-        [XmlEnum("fileDependency")] FileDependency,
+        [XmlEnum("fileDependency")]
+        FileDependency,
 
-        [XmlEnum("flagDependency")] FlagDependency,
+        [XmlEnum("flagDependency")]
+        FlagDependency,
 
-        [XmlEnum("fommDependency")] FommDependency,
+        [XmlEnum("fommDependency")]
+        FommDependency,
 
-        [XmlEnum("gameDependency")] GameDependency
+        [XmlEnum("gameDependency")]
+        GameDependency
     }
 }

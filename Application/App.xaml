@@ -10,7 +10,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <!--  EndRegion  -->
                 <ResourceDictionary Source="Resources/UI/CustomStyles.xaml" />
                 <ResourceDictionary Source="Resources/UI/Icons/_icons.xaml" />
@@ -19,7 +20,6 @@
             </ResourceDictionary.MergedDictionaries>
             <converters:MultiCommandParamsConverter x:Key="MultiCommandParamsConverter" />
             <converters:EnumValueToDecriptionConverter x:Key="EnumValueToDecriptionConverter" />
-            <converters:ImageSourceConverter x:Key="ImageSourceConverter" />
             <converters:NullToVisibilityConverter x:Key="NotNullToVisibleConverter" />
             <converters:NullToVisibilityConverter x:Key="IsNullToVisibleConverter"
                                                   IsNullToVisible="True" />

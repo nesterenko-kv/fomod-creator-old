@@ -2,21 +2,47 @@
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
+using FomodInfrastructure;
 using FomodInfrastructure.Interface;
 using FomodModel.Base;
 using Microsoft.Practices.ServiceLocation;
 
 namespace MainApplication.Services
 {
-    using FomodInfrastructure;
-
     public class Repository : IRepository<ProjectRoot>
     {
+        private const string InfoSubPath = @"\fomod\Info.xml";
+
+        private const string ConfigurationSubPath = @"\fomod\ModuleConfig.xml";
+
+        private const string InfoResourcePath = @"FomodModel.XmlTemplates.Info.xml";
+
+        private const string ConfigResourcePath = @"FomodModel.XmlTemplates.ModuleConfig.xml";
+
+        private ProjectRoot _projectRoot;
+
+        public Repository(IServiceLocator serviceLocator, ILogger logger, IFolderBrowserDialog folderBrowserDialog, IDataService dataService)
+        {
+            _serviceLocator = serviceLocator;
+            _logger = logger;
+            _dataService = dataService;
+            _folderBrowserDialog = folderBrowserDialog;
+            _logger.LogCreate(this);
+        }
+
+        ~Repository()
+        {
+            _logger.LogDisposable(this);
+        }
+
         #region Services
 
         private readonly IDataService _dataService;
+
         private readonly IFolderBrowserDialog _folderBrowserDialog;
+
         private readonly ILogger _logger;
+
         private readonly IServiceLocator _serviceLocator;
 
         #endregion
@@ -50,7 +76,7 @@ namespace MainApplication.Services
 
                 Directory.CreateDirectory(path + @"\fomod");
                 Directory.CreateDirectory(path + @"\Data");
-                
+
                 if (!File.Exists(path + InfoSubPath))
                     GetXElementResource(InfoResourcePath).Save(path + InfoSubPath);
                 if (!File.Exists(path + ConfigurationSubPath))
@@ -73,15 +99,14 @@ namespace MainApplication.Services
         {
             var assembly = Assembly.GetAssembly(typeof(ProjectRoot));
             using (var stream = assembly.GetManifestResourceStream(path))
-            {
                 return XElement.Load(stream);
-            }
         }
 
         private bool CheckFiles(string folderPath)
         {
             var chk = File.Exists(folderPath + InfoSubPath) && File.Exists(folderPath + ConfigurationSubPath);
-            if (!chk) RepositoryStatus = RepositoryStatus.CantSelectFolder;
+            if (!chk)
+                RepositoryStatus = RepositoryStatus.CantSelectFolder;
             return chk;
         }
 
@@ -95,14 +120,14 @@ namespace MainApplication.Services
         {
             if (string.IsNullOrWhiteSpace(path))
                 throw new FileNotFoundException();
-            if (!CheckFiles(path)) return null;
+            if (!CheckFiles(path))
+                return null;
             var projectRoot = _serviceLocator.GetInstance<ProjectRoot>();
             try
             {
                 projectRoot.FolderPath = path;
                 projectRoot.ModuleInformation = _dataService.DeserializeObject<ModuleInformation>(path + InfoSubPath);
-                projectRoot.ModuleConfiguration =
-                    _dataService.DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
+                projectRoot.ModuleConfiguration = _dataService.DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
                 RepositoryStatus = RepositoryStatus.Ok;
                 return projectRoot;
             }
@@ -119,15 +144,16 @@ namespace MainApplication.Services
             if (_projectRoot == null)
                 throw new FileNotFoundException();
             var folderPath = GetFolderPath();
-            if (!SaveProjectFromPath(folderPath)) return false;
+            if (RepositoryStatus == RepositoryStatus.Cancel)
+                return false;
+            if (!SaveProjectFromPath(folderPath))
+                return false;
             _projectRoot.FolderPath = folderPath;
             return true;
         }
 
         private bool SaveProjectFromPath(string path)
         {
-            if (string.IsNullOrWhiteSpace(path))
-                throw new FileNotFoundException();
             Directory.CreateDirectory(path + @"\fomod\");
             try
             {
@@ -147,36 +173,14 @@ namespace MainApplication.Services
         private string GetFolderPath()
         {
             _folderBrowserDialog.Reset();
+            _folderBrowserDialog.CheckFolderExists = true;
             var result = _folderBrowserDialog.ShowDialog();
-            if (result && _folderBrowserDialog.SelectedPath != null)
+            if (result)
                 return _folderBrowserDialog.SelectedPath;
             RepositoryStatus = RepositoryStatus.Cancel;
             return null;
         }
 
         #endregion
-
-        private const string InfoSubPath = @"\fomod\Info.xml";
-        private const string ConfigurationSubPath = @"\fomod\ModuleConfig.xml";
-        private const string InfoResourcePath = "FomodModel.XmlTemplates.Info.xml";
-        private const string ConfigResourcePath = "FomodModel.XmlTemplates.ModuleConfig.xml";
-
-        private ProjectRoot _projectRoot;
-        
-        public Repository(IServiceLocator serviceLocator, ILogger logger, IFolderBrowserDialog folderBrowserDialog, IDataService dataService)
-        {
-            _serviceLocator = serviceLocator;
-            _logger = logger;
-            _dataService = dataService;
-            _folderBrowserDialog = folderBrowserDialog;
-
-            _logger.LogCreate(this);
-        }
-
-        ~Repository()
-        {
-            _logger.LogDisposable(this);
-        }
-
     }
 }

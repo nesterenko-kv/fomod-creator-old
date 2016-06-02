@@ -11,8 +11,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A list of install steps.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class StepList
     {
         /// <summary>
@@ -22,7 +21,7 @@ namespace FomodModel.Base.ModuleCofiguration
         {
             Order = OrderEnum.Ascending;
         }
-        
+
         #region Properties
 
         /// <summary>
@@ -34,10 +33,9 @@ namespace FomodModel.Base.ModuleCofiguration
         /// <summary>
         ///     The order by which to list the steps.
         /// </summary>
-        [XmlAttribute("order")]
-        [DefaultValue(OrderEnum.Ascending)]
+        [XmlAttribute("order"), DefaultValue(OrderEnum.Ascending)]
         public OrderEnum Order { get; set; }
-        
+
         #endregion
     }
 }

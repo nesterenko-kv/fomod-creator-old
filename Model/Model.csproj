@@ -51,7 +51,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppModel\Class1.cs" />
+    <Compile Include="AppModel\ProjectLinkList.cs" />
     <Compile Include="AppModel\ProjectLinkModel.cs" />
     <Compile Include="Base\ModuleCofiguration\Enum\CategoriesEnum.cs" />
     <Compile Include="Base\ModuleCofiguration\Enum\CompositeDependencyOperator.cs" />
@@ -105,7 +105,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XmlTemplates\info.xml" />
+    <EmbeddedResource Include="XmlTemplates\Info.xml" />
     <EmbeddedResource Include="XmlTemplates\ModuleConfig.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

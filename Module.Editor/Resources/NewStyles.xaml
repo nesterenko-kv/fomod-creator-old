@@ -27,7 +27,7 @@
                Right="6"
                Bottom="3" />
 
-    
+
     <Style x:Key="DefTestBlockStyle"
            TargetType="{x:Type TextBlock}">
         <Setter Property="Margin" Value="{StaticResource DefMargin}" />
@@ -53,7 +53,6 @@
         <Setter Property="Margin" Value="{StaticResource DefMargin}" />
         <Setter Property="Padding" Value="0" />
     </Style>
-
 
 
 </ResourceDictionary>

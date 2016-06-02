@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Module.Editor.Resources.UserControls"
              xmlns:uc="clr-namespace:Module.Editor.Resources.UserControls"
              xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
              d:DesignHeight="300"
@@ -23,9 +22,10 @@
                                 <StackPanel DockPanel.Dock="Right"
                                             Orientation="Horizontal"
                                             Visibility="{Binding Dependencies, Converter={StaticResource IsNullToVisibleConverter}}">
-                                    <Button Command="{Binding CreateDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                            CommandParameter="{Binding}"
-                                            Style="{StaticResource AddButton}" />
+                                    <Button
+                                        Command="{Binding CreateDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}"
+                                        Style="{StaticResource AddButton}" />
                                     <Button Margin="6,0,0,0"
                                             Command="{Binding RemoveDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                             CommandParameter="{Binding}"
@@ -59,7 +59,7 @@
                                 <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                                <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
@@ -101,7 +101,8 @@
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ContentControl Content="{Binding CompositeDependency, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
+    <ContentControl
+        Content="{Binding CompositeDependency, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
         <ContentControl.Style>
             <Style TargetType="{x:Type ContentControl}">
                 <Style.Triggers>
@@ -112,9 +113,10 @@
                                     <GroupBox Background="Gray">
                                         <GroupBox.Header>
                                             <DockPanel>
-                                                <Button Command="{Binding CreateDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                                        DockPanel.Dock="Right"
-                                                        Style="{StaticResource AddButton}" />
+                                                <Button
+                                                    Command="{Binding CreateDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                    DockPanel.Dock="Right"
+                                                    Style="{StaticResource AddButton}" />
                                                 <TextBlock Margin="0"
                                                            VerticalAlignment="Center"
                                                            Padding="0"

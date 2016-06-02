@@ -11,8 +11,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A list of plugins.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class PluginList
     {
         /// <summary>
@@ -22,9 +21,9 @@ namespace FomodModel.Base.ModuleCofiguration
         {
             Order = OrderEnum.Ascending;
         }
-        
+
         #region Properties
-        
+
         /// <summary>
         ///     A mod Plugin belonging to a Group.
         /// </summary>
@@ -34,18 +33,14 @@ namespace FomodModel.Base.ModuleCofiguration
         /// <summary>
         ///     The order by which to list the plugins.
         /// </summary>
-        [XmlAttribute("order")]
-        [DefaultValue(OrderEnum.Ascending)]
+        [XmlAttribute("order"), DefaultValue(OrderEnum.Ascending)]
         public OrderEnum Order { get; set; }
+
+        #endregion
 
         public static PluginList Create()
         {
-            return new PluginList
-            {
-
-            };
+            return new PluginList();
         }
-
-        #endregion
     }
 }

@@ -6,8 +6,7 @@ namespace FomodModel.Base.ModuleCofiguration.Enum
     /// <summary>
     ///     The type of the Group.
     /// </summary>
-    [Serializable]
-    [XmlType("groupType", AnonymousType = true)]
+    [Serializable, XmlType("groupType", AnonymousType = true)]
     public enum GroupType
     {
         /// <summary>

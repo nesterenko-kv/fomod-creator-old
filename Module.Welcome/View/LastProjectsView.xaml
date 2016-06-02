@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:model="clr-namespace:FomodModel.AppModel;assembly=FomodModel"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -32,9 +33,10 @@
                 </Style>
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="ListBoxItem">
+                <DataTemplate DataType="{x:Type model:ProjectLinkModel}">
                     <DockPanel Background="Transparent" Height="36" ToolTip="{Binding FolderPath}">
-                        <TextBlock DockPanel.Dock="Top" FontSize="16" FontWeight="UltraLight" Foreground="White" TextTrimming="CharacterEllipsis" Text="{Binding Path=ProjectName}" />
+                        <TextBlock DockPanel.Dock="Top" FontSize="16" FontWeight="UltraLight" Foreground="White"
+                                   TextTrimming="CharacterEllipsis" Text="{Binding Path=ProjectName}" />
                         <Button x:Name="delete_button"
                                 Style="{StaticResource DeleteButton}"
                                 DockPanel.Dock="Right"

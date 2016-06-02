@@ -5,7 +5,7 @@ using Prism.Regions;
 
 namespace EditorNew.ViewModel
 {
-    public class BaseViewModel<T> : INavigationAware where T: class
+    public class BaseViewModel<T> : INavigationAware where T : class
     {
         private readonly string _curentParamName;
 
@@ -37,12 +37,8 @@ namespace EditorNew.ViewModel
             return navigationContext.Parameters[_curentParamName] == Data;
         }
 
-        public void OnNavigatedFrom(NavigationContext navigationContext)
-        {
+        public void OnNavigatedFrom(NavigationContext navigationContext) {}
 
-        }
-        
         #endregion
-
     }
 }

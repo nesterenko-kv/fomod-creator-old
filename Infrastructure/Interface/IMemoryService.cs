@@ -2,8 +2,10 @@
 {
     public interface IMemoryService
     {
-        long GetMemorySize(object obj);
-        void Reset(object obj);
         bool IsMemorySizeChanged { get; }
+
+        long GetMemorySize(object obj);
+
+        void Reset(object obj);
     }
 }

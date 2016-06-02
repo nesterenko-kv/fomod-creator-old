@@ -6,8 +6,7 @@ namespace FomodModel.Base.ModuleCofiguration.Enum
     /// <summary>
     ///     The possible file state types.
     /// </summary>
-    [Serializable]
-    [XmlType("fileDependencyState", AnonymousType = true)]
+    [Serializable, XmlType("fileDependencyState", AnonymousType = true)]
     public enum FileDependencyState
     {
         /// <summary>

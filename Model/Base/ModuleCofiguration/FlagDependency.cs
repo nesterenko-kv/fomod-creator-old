@@ -8,10 +8,14 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A condition flag upon which the type of a Plugin depends.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class FlagDependency
     {
+        public static FlagDependency Create()
+        {
+            return new FlagDependency { Flag = "is Flag Flag Flag", Value = "On" };
+        }
+
         #region Properties
 
         /// <summary>
@@ -24,14 +28,5 @@ namespace FomodModel.Base.ModuleCofiguration
         public string Value { get; set; }
 
         #endregion
-
-        public static FlagDependency Create()
-        {
-            return new FlagDependency
-            {
-                Flag = "is Flag Flag Flag",
-                Value = "On"
-            };
-        }
     }
 }

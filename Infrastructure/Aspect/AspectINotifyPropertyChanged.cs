@@ -1,11 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using AspectInjector.Broker;
-using System;
 
 namespace FomodInfrastructure.Aspect
 {
-    [Serializable]
-    [AdviceInterfaceProxy(typeof(INotifyPropertyChanged))]
+    [Serializable, AdviceInterfaceProxy(typeof(INotifyPropertyChanged))]
     public class AspectINotifyPropertyChanged : INotifyPropertyChanged
     {
         [field: NonSerialized]

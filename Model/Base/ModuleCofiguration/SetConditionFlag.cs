@@ -8,12 +8,16 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     A condition flag to set if a Plugin is selected.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class SetConditionFlag
     {
+        public static SetConditionFlag Create()
+        {
+            return new SetConditionFlag { Name = "is Flag Flag Flag", Value = "On" };
+        }
+
         #region Properties
-        
+
         /// <summary>
         ///     The identifying name of the condition flag.
         /// </summary>
@@ -22,16 +26,7 @@ namespace FomodModel.Base.ModuleCofiguration
 
         [XmlText]
         public string Value { get; set; }
-        
-        #endregion
 
-        public static SetConditionFlag Create()
-        {
-            return new SetConditionFlag
-            {
-                Name = "is Flag Flag Flag",
-                Value = "On"
-            };
-        }
+        #endregion
     }
 }

@@ -1,53 +1,22 @@
-﻿using FomodInfrastructure.Interface;
-using FomodInfrastructure.MvvmLibrary.Commands;
-using FomodModel.Base.ModuleCofiguration;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using FomodInfrastructure.MvvmLibrary.Commands;
+using FomodModel.Base.ModuleCofiguration;
 
 namespace Module.Editor.Resources.UserControls
 {
     public partial class FileListUserControl
     {
-        #region DependencyProperty
-
-        public FileList FileList
-        {
-            get { return (FileList)GetValue(FileListProperty); }
-            set { SetValue(FileListProperty, value); }
-        }
-
-        public static readonly DependencyProperty FileListProperty =
-            DependencyProperty.Register("FileList", typeof(FileList), typeof(FileListUserControl), new FrameworkPropertyMetadata
-            {
-                BindsTwoWayByDefault = true,
-                DefaultValue = null
-            });
-
-
-        public string Header
-        {
-            get { return (string)GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
-        }
-
-        public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(string), typeof(FileListUserControl), new PropertyMetadata(null));
-
-        #endregion
-
-
-
         public FileListUserControl()
         {
             InitializeComponent();
         }
 
+        #region Properties
 
-
+        public static readonly DependencyProperty AddFileCommandProperty = DependencyProperty.Register("AddFileCommand", typeof(ICommand), typeof(FileListUserControl), new PropertyMetadata(null));
 
         public ICommand AddFileCommand
         {
@@ -55,11 +24,7 @@ namespace Module.Editor.Resources.UserControls
             set { SetValue(AddFileCommandProperty, value); }
         }
 
-        public static readonly DependencyProperty AddFileCommandProperty =
-            DependencyProperty.Register("AddFileCommand", typeof(ICommand), typeof(FileListUserControl), new PropertyMetadata(null));
-
-
-
+        public static readonly DependencyProperty AddFolderCommandProperty = DependencyProperty.Register("AddFolderCommand", typeof(ICommand), typeof(FileListUserControl), new PropertyMetadata(null));
 
         public ICommand AddFolderCommand
         {
@@ -67,107 +32,110 @@ namespace Module.Editor.Resources.UserControls
             set { SetValue(AddFolderCommandProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for AddFolderCommand.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AddFolderCommandProperty =
-            DependencyProperty.Register("AddFolderCommand", typeof(ICommand), typeof(FileListUserControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty FileListProperty = DependencyProperty.Register("FileList", typeof(FileList), typeof(FileListUserControl), new FrameworkPropertyMetadata { BindsTwoWayByDefault = true, DefaultValue = null });
 
+        public FileList FileList
+        {
+            get { return (FileList)GetValue(FileListProperty); }
+            set { SetValue(FileListProperty, value); }
+        }
 
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(string), typeof(FileListUserControl), new PropertyMetadata(null));
 
+        public string Header
+        {
+            get { return (string)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
+        }
+
+        #endregion
+
+        #region Commands
 
         private ICommand _addFileCommandLocal;
-        private ICommand _dropItemCommand = null;
-        private ICommand _addFolderCommandLocal;
-        private ICommand _removeItemCommand;
-
 
         public ICommand AddFileCommandLocal
         {
-            get
-            {
-                return _addFileCommandLocal ?? (_addFileCommandLocal = new RelayCommand<string[]>(path =>
-                {
-                    
-                    if (FileList == null)
-                        FileList = new FileList
-                        {
-                            Items = new ObservableCollection<SystemItem>()
-                        };
-                    if (AddFileCommand != null)
-                        AddFileCommand.Execute(path);
-
-                    if (FileList.Items.Count == 0) FileList = null;
-                }));
-            }
+            get { return _addFileCommandLocal ?? (_addFileCommandLocal = new RelayCommand<List<string>>(AddFileLocal)); }
         }
+
+        private ICommand _addFolderCommandLocal;
 
         public ICommand AddFolderCommandLocal
         {
-            get
-            {
-                return _addFolderCommandLocal ?? (_addFolderCommandLocal = new RelayCommand<string[]>(path =>
-                {
-                    if (FileList == null)
-                        FileList = new FileList
-                        {
-                            Items = new ObservableCollection<SystemItem>()
-                        };
-
-                    if (AddFolderCommand != null)
-                        AddFolderCommand.Execute(path);
-
-                    if (FileList.Items.Count == 0) FileList = null;
-                }));
-            }
+            get { return _addFolderCommandLocal ?? (_addFolderCommandLocal = new RelayCommand<List<string>>(AddFolderLocal)); }
         }
+
+        private ICommand _removeItemCommand;
 
         public ICommand RemoveItemCommand
         {
-            get
-            {
-                return _removeItemCommand ?? (_removeItemCommand = new RelayCommand<SystemItem>(item =>
-                {
-                    if (FileList?.Items == null) return;
-                    FileList.Items.Remove(item);
-                    if (FileList.Items.Count == 0)
-                        FileList = null;
-                }));
-            }
+            get { return _removeItemCommand ?? (_removeItemCommand = new RelayCommand<SystemItem>(RemoveItem)); }
         }
-        
+
+        private ICommand _dropItemCommand;
+
         public ICommand DropItemCommand
         {
-            get
-            {
-                return _dropItemCommand ?? (_dropItemCommand = new RelayCommand<object>(
-                (param) =>
-                {
-                    IDataObject ido = param as IDataObject;
-
-                    if (ido.GetDataPresent(DataFormats.FileDrop))
-                    {
-                        var filePath = (string[])ido.GetData(DataFormats.FileDrop);
-
-                        List<string> folderMassive = new List<string>();
-                        List<string> fileMassive = new List<string>();
-                        
-                        foreach (var fp in filePath)
-                        {
-                            if(Directory.Exists(fp))
-                                folderMassive.Add(fp);
-                            else if (File.Exists(fp))
-                                fileMassive.Add(fp);
-                            else
-                            {
-                                //TODO придумать обработку
-                            }
-                        }
-
-                        if (folderMassive.Count > 0) AddFolderCommandLocal.Execute(folderMassive.ToArray());
-                        if (fileMassive.Count > 0) AddFileCommandLocal.Execute(fileMassive.ToArray());
-                    }
-                }));
-            }
+            get { return _dropItemCommand ?? (_dropItemCommand = new RelayCommand<object>(OnDropItem)); }
         }
 
+        #endregion
+
+        #region Methods
+
+        private void AddFileLocal(List<string> path)
+        {
+            if (FileList == null)
+                FileList = FileList.Create();
+            AddFileCommand?.Execute(path);
+            if (FileList.Items.Count == 0)
+                FileList = null;
+        }
+
+        private void AddFolderLocal(List<string> path)
+        {
+            if (FileList == null)
+                FileList = FileList.Create();
+            AddFolderCommand?.Execute(path);
+            if (FileList.Items.Count == 0)
+                FileList = null;
+        }
+
+        private void RemoveItem(SystemItem item)
+        {
+            if (FileList?.Items == null)
+                return;
+            FileList.Items.Remove(item);
+            if (FileList.Items.Count == 0)
+                FileList = null;
+        }
+
+        private void OnDropItem(object param)
+        {
+            var data = param as IDataObject;
+            if (data == null || !data.GetDataPresent(DataFormats.FileDrop))
+                return;
+            var filePath = (string[])data.GetData(DataFormats.FileDrop);
+            var foldes = new List<string>();
+            var files = new List<string>();
+            foreach (var fp in filePath)
+            {
+                if (!Directory.Exists(fp))
+                {
+                    if (!File.Exists(fp))
+                        continue;
+                    files.Add(fp);
+                }
+                else
+                    foldes.Add(fp);
+            }
+            if (foldes.Count > 0)
+                AddFolderLocal(foldes);
+            if (files.Count > 0)
+                AddFileLocal(files);
+        }
+
+        #endregion
     }
 }

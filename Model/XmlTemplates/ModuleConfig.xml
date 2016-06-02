@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
   <moduleName>moduleName</moduleName>
   <installSteps order="Explicit">
     <installStep name="Step #1">
@@ -13,14 +15,14 @@
         </group>
       </optionalFileGroups>
       <optionalFileGroups order="Explicit">
-          <group name="Group #2" type="SelectAtMostOne">
-            <plugins order="Explicit">
-              <plugin name="Plugin #1">
-                <description>Description</description>
-              </plugin>
-            </plugins>
-          </group>
-        </optionalFileGroups>
+        <group name="Group #2" type="SelectAtMostOne">
+          <plugins order="Explicit">
+            <plugin name="Plugin #1">
+              <description>Description</description>
+            </plugin>
+          </plugins>
+        </group>
+      </optionalFileGroups>
     </installStep>
     <installStep name="Step #2"></installStep>
   </installSteps>

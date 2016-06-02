@@ -10,8 +10,7 @@ namespace FomodModel.Base.ModuleCofiguration
     /// <summary>
     ///     Describes the display properties of the module title.
     /// </summary>
-    [Aspect(typeof(AspectINotifyPropertyChanged))]
-    [Serializable]
+    [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class ModuleTitle
     {
         /// <summary>
@@ -22,26 +21,24 @@ namespace FomodModel.Base.ModuleCofiguration
             Position = ModuleTitlePosition.Left;
             Colour = "000000";
         }
-        
+
         #region Properties
-        
+
         /// <summary>
         ///     The identifying name of the condition flag.
         /// </summary>
-        [XmlAttribute("position")]
-        [DefaultValue(ModuleTitlePosition.Left)]
+        [XmlAttribute("position"), DefaultValue(ModuleTitlePosition.Left)]
         public ModuleTitlePosition Position { get; set; }
 
         /// <summary>
         ///     The colour to use for the title."hexBinary"
         /// </summary>
-        [XmlAttribute("colour")]
-        [DefaultValue("000000")]
+        [XmlAttribute("colour"), DefaultValue("000000")]
         public string Colour { get; set; }
-        
+
         [XmlText]
         public string Value { get; set; }
-        
+
         #endregion
     }
 }

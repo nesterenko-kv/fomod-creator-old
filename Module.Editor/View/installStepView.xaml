@@ -33,11 +33,12 @@
                                 </Style>
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                                <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Step Name" />
-                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Grid.Row="0" Grid.Column="1"
+                                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -53,7 +54,7 @@
                             </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                            <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0"

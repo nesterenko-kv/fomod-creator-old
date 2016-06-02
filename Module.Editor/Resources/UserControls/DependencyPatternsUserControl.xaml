@@ -3,13 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Module.Editor.Resources.UserControls"
-             xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
              xmlns:uc="clr-namespace:Module.Editor.Resources.UserControls"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-
     <UserControl.Resources>
         <ResourceDictionary xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel">
             <ResourceDictionary.MergedDictionaries>
@@ -48,7 +45,7 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="{StaticResource GridColumn_1_Width}" />
+                                <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0"
@@ -63,11 +60,10 @@
                                            TargetType="{x:Type TextBlock}" />
                                 </ComboBox.Resources>
                             </ComboBox>
-
-                            <uc:CompositeDependencyUserControl Grid.Row="1"
+                            <uc:CompositeDependencyUserControl CompositeDependency="{Binding Dependencies}"
                                                                Grid.ColumnSpan="2"
-                                                               CompositeDependency="{Binding Dependencies}" />
-
+                                                               Grid.Row="1"
+                                                               Grid.Column="0" />
                         </Grid>
                     </StackPanel>
                 </Border>
@@ -75,13 +71,7 @@
 
         </ResourceDictionary>
     </UserControl.Resources>
-
-
-    <!--<ItemsControl ItemsSource="{Binding Patterns}" />-->
-
-    <ItemsControl Grid.Row="2"
-                  Grid.Column="1"
-                  ItemsSource="{Binding Patterns, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
+    <ItemsControl ItemsSource="{Binding Patterns, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
         <ItemsControl.Style>
             <Style TargetType="{x:Type ItemsControl}">
                 <Setter Property="Template">
@@ -96,15 +86,13 @@
                                     <Style BasedOn="{StaticResource ComboBoxDefault}"
                                            TargetType="{x:Type ComboBox}" />
                                 </Grid.Resources>
-
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-
                                 <Border Grid.Row="0"
                                         Grid.ColumnSpan="3"
-                                        Panel.ZIndex="-100"
+                                        Panel.ZIndex="-1"
                                         Background="{StaticResource TableHeaderBackGroundColor}"
                                         CornerRadius="{StaticResource CornerRadius}" />
 
@@ -114,7 +102,7 @@
                                         HorizontalAlignment="Right"
                                         Command="{Binding AddDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                         Style="{StaticResource AddButton}" />
-                                <Border Grid.Row="2"
+                                <Border Grid.Row="1"
                                         Grid.ColumnSpan="3"
                                         BorderBrush="{StaticResource TableHeaderBackGroundColor}"
                                         BorderThickness="1,0,1,1"

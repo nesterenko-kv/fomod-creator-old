@@ -24,8 +24,7 @@ namespace FomodInfrastructure.MvvmLibrary.Attaches
             if (treeView == null)
                 return;
             treeView.SelectedItemChanged -= TreeViewItemChanged;
-            var treeViewItem = SelectTreeViewItemForBinding(args.NewValue,
-                treeView);
+            var treeViewItem = SelectTreeViewItemForBinding(args.NewValue, treeView);
             if (treeViewItem != null)
                 treeViewItem.IsSelected = true;
             treeView.SelectedItemChanged += TreeViewItemChanged;

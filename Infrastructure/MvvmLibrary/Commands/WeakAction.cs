@@ -7,9 +7,8 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
     {
         private Action<T> _staticAction;
 
-        public WeakAction(Action<T> action) : this(action?.Target, action)
-        {
-        }
+        public WeakAction(Action<T> action)
+            : this(action?.Target, action) {}
 
         private WeakAction(object target, Action<T> action)
         {
@@ -61,10 +60,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
             {
                 var actionTarget = ActionTarget;
                 if (IsAlive && Method != null && ActionReference != null && actionTarget != null)
-                    Method.Invoke(actionTarget, new object[]
-                    {
-                        parameter
-                    });
+                    Method.Invoke(actionTarget, new object[] { parameter });
             }
         }
     }
@@ -73,13 +69,10 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
     {
         private Action _staticAction;
 
-        protected WeakAction()
-        {
-        }
+        protected WeakAction() {}
 
-        public WeakAction(Action action) : this(action?.Target, action)
-        {
-        }
+        public WeakAction(Action action)
+            : this(action?.Target, action) {}
 
         private WeakAction(object target, Action action)
         {
@@ -99,17 +92,19 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
         }
 
         protected MethodInfo Method { get; set; }
+
         public virtual string MethodName => _staticAction?.GetMethodInfo().Name ?? Method.Name;
+
         protected WeakReference ActionReference { get; set; }
+
         protected WeakReference Reference { get; set; }
+
         public bool IsStatic => _staticAction != null;
 
-        public virtual bool IsAlive
-            =>
-                (_staticAction != null || Reference != null) &&
-                (_staticAction != null && Reference == null || Reference.IsAlive);
+        public virtual bool IsAlive => (_staticAction != null || Reference != null) && (_staticAction != null && Reference == null || Reference.IsAlive);
 
         public object Target => Reference?.Target;
+
         protected object ActionTarget => ActionReference?.Target;
 
         public void Execute()

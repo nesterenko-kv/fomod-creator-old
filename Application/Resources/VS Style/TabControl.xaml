@@ -1,4 +1,5 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Colors.xaml" />
@@ -72,8 +73,12 @@
                                                         <ControlTemplate.Triggers>
                                                             <MultiDataTrigger>
                                                                 <MultiDataTrigger.Conditions>
-                                                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
-                                                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
+                                                                    <Condition
+                                                                        Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}"
+                                                                        Value="false" />
+                                                                    <Condition
+                                                                        Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}"
+                                                                        Value="false" />
                                                                 </MultiDataTrigger.Conditions>
                                                                 <MultiDataTrigger.Setters>
                                                                     <Setter Property="Visibility" Value="Hidden" />
@@ -83,13 +88,18 @@
                                                                 <Setter Property="Visibility" Value="Hidden" />
                                                             </Trigger>
                                                             <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="Background" Value="{DynamicResource CloseButtonBackgroundHighlighted}" />
-                                                                <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStrokeHighlighted}" />
+                                                                <Setter Property="Background"
+                                                                        Value="{DynamicResource CloseButtonBackgroundHighlighted}" />
+                                                                <Setter TargetName="ButtonPath" Property="Stroke"
+                                                                        Value="{DynamicResource CloseButtonStrokeHighlighted}" />
                                                             </Trigger>
                                                             <Trigger Property="IsPressed" Value="true">
-                                                                <Setter Property="Background" Value="{DynamicResource CloseButtonBackgroundPressed}" />
-                                                                <Setter TargetName="ButtonPath" Property="Margin" Value="2.5 2.5 1.5 1.5" />
-                                                                <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStroke}" />
+                                                                <Setter Property="Background"
+                                                                        Value="{DynamicResource CloseButtonBackgroundPressed}" />
+                                                                <Setter TargetName="ButtonPath" Property="Margin"
+                                                                        Value="2.5 2.5 1.5 1.5" />
+                                                                <Setter TargetName="ButtonPath" Property="Stroke"
+                                                                        Value="{DynamicResource CloseButtonStroke}" />
                                                             </Trigger>
                                                         </ControlTemplate.Triggers>
                                                     </ControlTemplate>

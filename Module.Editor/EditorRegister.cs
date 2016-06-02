@@ -8,16 +8,16 @@ namespace Module.Editor
 {
     public class EditorRegister : IModule
     {
-        public EditorRegister(IContainer container)
-        {
-            _container = container;
-        }
-
         #region Services
 
         private readonly IContainer _container;
 
         #endregion
+
+        public EditorRegister(IContainer container)
+        {
+            _container = container;
+        }
 
         #region IModule
 
@@ -32,14 +32,10 @@ namespace Module.Editor
 
         #endregion
 
-        private void Registry<TView, TViewmodel>() where TView : FrameworkElement
+        private void Registry<TView, TViewModel>() where TView : FrameworkElement
         {
             var name = typeof(TView).Name;
-            _container.Configure(r => r.For<object>()
-                                       .Use<TView>()
-                                       .Named(name)
-                                       .SetProperty(p => p.DataContext = _container.GetInstance<TViewmodel>()));
+            _container.Configure(r => r.For<object>().Use<TView>().Named(name).SetProperty(p => p.DataContext = _container.GetInstance<TViewModel>()));
         }
-
     }
 }

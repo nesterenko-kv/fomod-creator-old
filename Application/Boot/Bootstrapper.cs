@@ -1,12 +1,13 @@
 ﻿using System.Windows;
+using System.Windows.Markup;
 using FomodInfrastructure.Interface;
 using FomodModel.Base;
+using Loger;
 using MahApps.Metro.Controls.Dialogs;
 using MainApplication.Services;
 using Module.Editor;
 using Module.Welcome;
 using Prism.StructureMap;
-using System.Windows.Markup;
 
 namespace MainApplication.Boot
 {
@@ -24,7 +25,7 @@ namespace MainApplication.Boot
 
         protected override void InitializeShell()
         {
-            Application.Current.MainWindow = (Window) Shell;
+            Application.Current.MainWindow = (Window)Shell;
             Application.Current.MainWindow.Show();
         }
 
@@ -49,12 +50,13 @@ namespace MainApplication.Boot
 
         protected override void InitializeModules()
         {
-            Container.GetInstance<Loger.Register>().Initialize();
+            Container.GetInstance<Register>().Initialize();
             Container.GetInstance<WelcomeRegister>().Initialize();
             Container.GetInstance<EditorRegister>().Initialize();
             ////Container.GetInstance<WelcomeNew.Register>().Initialize();
             ////Container.GetInstance<EditorNew.Register>().Initialize();
         }
+
         #endregion
     }
 }
