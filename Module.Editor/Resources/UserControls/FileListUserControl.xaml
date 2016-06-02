@@ -105,17 +105,20 @@
                     <TextBlock Grid.Column="0"
                                Text="{Binding Path=Source}"
                                ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
-                    <TextBlock Grid.Column="1"
-                               Text="{Binding Path=Destination}"
-                               ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                    <TextBox Grid.Column="1"
+                             TextAlignment="Left"
+                             Text="{Binding Path=Destination}"
+                             ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
                     <ComboBox xmlns:sys="clr-namespace:System;assembly=mscorlib"
                               Grid.Column="2"
+                              VerticalAlignment="Top"
                               SelectedItem="{Binding AlwaysInstall}">
                         <sys:Boolean>True</sys:Boolean>
                         <sys:Boolean>False</sys:Boolean>
                     </ComboBox>
                     <ComboBox xmlns:sys="clr-namespace:System;assembly=mscorlib"
                               Grid.Column="3"
+                              VerticalAlignment="Top"
                               SelectedItem="{Binding InstallIfUsable}">
                         <sys:Boolean>True</sys:Boolean>
                         <sys:Boolean>False</sys:Boolean>
@@ -125,9 +128,11 @@
                              TextAlignment="Center" />
 
                     <Button Grid.Column="5"
-                            Width="14"
-                            Height="14"
+                            Width="16"
+                            Height="16"
+                            Margin="0,9,0,0"
                             HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
                             Command="{Binding RemoveItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                             CommandParameter="{Binding}"
                             Style="{StaticResource DeleteButton}" />
@@ -137,9 +142,12 @@
                 </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type model:FileSystemItem}">
-                <Border Margin="0,0,0,-1" SnapsToDevicePixels="True" x:Name="decorator"
+                <Border x:Name="decorator"
+                        Margin="0,0,0,-1"
+                        SnapsToDevicePixels="True"
                         BorderBrush="{StaticResource TableHeaderBackGroundColor}"
-                        BorderThickness="0,1,0,1" Padding="0,0,0,1">
+                        BorderThickness="0,1,0,1"
+                        Padding="0,0,0,1">
                     <Grid SnapsToDevicePixels="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="icon"
@@ -151,8 +159,9 @@
                                    Grid.Column="0"
                                    Width="16"
                                    Height="16"
+                                   Margin="0,9,0,0"
                                    HorizontalAlignment="Right"
-                                   VerticalAlignment="Center"
+                                   VerticalAlignment="Top"
                                    Fill="{StaticResource FileIcon}"
                                    SnapsToDevicePixels="True" />
                         <ContentControl Grid.Column="1"
@@ -166,14 +175,17 @@
                 </Border>
                 <DataTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter TargetName="decorator" Property="Background" Value="{StaticResource TableIsMouseOverBackGroundColor}"/>
+                        <Setter TargetName="decorator" Property="Background" Value="{StaticResource TableIsMouseOverBackGroundColor}" />
                     </Trigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
             <DataTemplate DataType="{x:Type model:FolderSystemItem}">
-                <Border Margin="0,0,0,-1" SnapsToDevicePixels="True" x:Name="decorator" 
+                <Border x:Name="decorator"
+                        Margin="0,0,0,-1"
+                        SnapsToDevicePixels="True"
                         BorderBrush="{StaticResource TableHeaderBackGroundColor}"
-                        BorderThickness="0,1,0,1" Padding="0,0,0,1">
+                        BorderThickness="0,1,0,1"
+                        Padding="0,0,0,1">
                     <Grid SnapsToDevicePixels="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="icon"
@@ -185,8 +197,9 @@
                                    Grid.Column="0"
                                    Width="16"
                                    Height="16"
+                                   Margin="0,9,0,0"
                                    HorizontalAlignment="Right"
-                                   VerticalAlignment="Center"
+                                   VerticalAlignment="Top"
                                    Fill="{StaticResource FolderIcon}"
                                    SnapsToDevicePixels="True" />
                         <ContentControl Grid.Column="1"
@@ -198,7 +211,7 @@
                 </Border>
                 <DataTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter TargetName="decorator" Property="Background" Value="{StaticResource TableIsMouseOverBackGroundColor}"/>
+                        <Setter TargetName="decorator" Property="Background" Value="{StaticResource TableIsMouseOverBackGroundColor}" />
                     </Trigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
@@ -211,7 +224,7 @@
             <Button Width="20"
                     Height="20"
                     Margin="6,0,0,0"
-                    Command="{Binding AddFileCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                    Command="{Binding AddFileCommandLocal, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
                     DockPanel.Dock="Right"
                     ToolTip="Add File">
                 <Button.Template>
@@ -223,7 +236,7 @@
             <Button Width="20"
                     Height="20"
                     Margin="6,0,0,0"
-                    Command="{Binding AddFolderCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                    Command="{Binding AddFolderCommandLocal, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
                     DockPanel.Dock="Right"
                     ToolTip="Add Folder">
                 <Button.Template>
@@ -239,8 +252,12 @@
                        FontSize="16"
                        LineStackingStrategy="BlockLineHeight" />
         </DockPanel>
-        <ItemsControl Grid.IsSharedSizeScope="True"
-                      ItemsSource="{Binding FileList.Items, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
+        <ItemsControl xmlns:beh="clr-namespace:FomodInfrastructure.MvvmLibrary.Behavior;assembly=FomodInfrastructure"
+                      beh:DropBehavior.PreviewDropCommand="{Binding DropItemCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                      AllowDrop="True"
+                      Grid.IsSharedSizeScope="True"
+                      DataContext="{Binding FileList, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                      ItemsSource="{Binding Items}">
             <ItemsControl.Style>
                 <Style TargetType="{x:Type ItemsControl}">
                     <Setter Property="Template">

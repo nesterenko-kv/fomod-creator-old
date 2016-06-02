@@ -8,14 +8,14 @@ namespace MainApplication.Services
         #region Fields
 
         private readonly System.Windows.Forms.FolderBrowserDialog _dialog = new System.Windows.Forms.FolderBrowserDialog();
-        
+
         #endregion
 
         #region IFolderBrowserDialog
 
         public string Description
         {
-            get { return _dialog.Description; }
+            get { return _dialog.Description;  }
             set { _dialog.Description = value; }
         }
 

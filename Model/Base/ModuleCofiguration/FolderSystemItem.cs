@@ -13,5 +13,14 @@ namespace FomodModel.Base.ModuleCofiguration
                 Destination = @"\folderNew"
             };
         }
+
+        public static SystemItem Create(string directory, string destination)
+        {
+            return new FolderSystemItem
+            {
+                Source = directory,
+                Destination = destination
+            };
+        }
     }
 }

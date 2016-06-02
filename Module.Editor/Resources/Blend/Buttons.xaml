@@ -26,7 +26,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Grid Background="{TemplateBinding Background}">
+                    <Grid Background="{TemplateBinding Background}" 
+                          >
                         <Path x:Name="ButtonPath"
                               Margin="2"
                               HorizontalAlignment="Center"

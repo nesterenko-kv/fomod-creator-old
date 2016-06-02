@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
              xmlns:enum="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
+             xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             dialog:DialogParticipation.Register="{Binding}"
              d:DesignHeight="2000"
              d:DesignWidth="1200"
              mc:Ignorable="d">
@@ -147,7 +149,7 @@
                                     BorderBrush="White"
                                     BorderThickness="1"
                                     CornerRadius="1"
-                                    Background="{Binding Colour, Converter={StaticResource ColorToSolidBrushConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                                    Background="{Binding Colour, Converter={StaticResource ColorToSolidBrushConverter}}" />
                             <TextBox Text="{Binding Colour, UpdateSourceTrigger=PropertyChanged}"
                                      MaxLength="6" />
                         </DockPanel>
@@ -247,9 +249,11 @@
                 </ContentControl>
                 <uc:CompositeDependencyUserControl CompositeDependency="{Binding Data.ModuleConfiguration.ModuleDependencies}" />
                 <uc:FileListUserControl Margin="{StaticResource MarginGroupBox}"
+                                        AddFileCommand="{Binding AddFileCommand}"
+                                        AddFolderCommand="{Binding AddFolderCommand}"
                                         Header="Me config files and folder"
                                         FileList="{Binding Data.ModuleConfiguration.RequiredInstallFiles}" />
-                <uc:ConditionalFileInstallsUserControl FileInstallList="{Binding Data.ModuleConfiguration.ConditionalFileInstalls}" />
+                <uc:ConditionalFileInstallsUserControl FileInstallList="{Binding Data.ModuleConfiguration.ConditionalFileInstalls}" ServiceLocator="{Binding PublicServiceLocator}" />
             </StackPanel>
         </ScrollViewer>
 

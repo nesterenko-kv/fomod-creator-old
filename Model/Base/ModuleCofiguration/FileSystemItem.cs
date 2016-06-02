@@ -13,5 +13,13 @@ namespace FomodModel.Base.ModuleCofiguration
                 Destination = @"\kfdd.exe"
             };
         }
+        public static FileSystemItem Create(string Source, string Destination)
+        {
+            return new FileSystemItem
+            {
+                Source = Source,
+                Destination = Destination
+            };
+        }
     }
 }

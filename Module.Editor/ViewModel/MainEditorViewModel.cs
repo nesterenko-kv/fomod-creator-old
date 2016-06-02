@@ -12,6 +12,7 @@ using System;
 using System.Windows.Input;
 using FomodInfrastructure.Interface;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Module.Editor.ViewModel
 {
@@ -26,9 +27,6 @@ namespace Module.Editor.ViewModel
             {
                 ((FrameworkElement)item).DataContext = null;
                 _regionManager.Regions["NodeRegion"].Remove(item);
-                //((FrameworkElement)item).DataContext = null;
-                //if (_regionManager.Regions["NodeRegion"].Views.Contains(item))
-                //    _regionManager.Regions["NodeRegion"].Remove(item);
             }
         }
 
