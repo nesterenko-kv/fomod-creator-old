@@ -133,6 +133,7 @@
     <Compile Include="ViewModel\InstallStepViewModel.cs" />
     <Compile Include="ViewModel\ProjectRootViewModel.cs" />
     <Compile Include="ViewModel\PluginViewModel.cs" />
+    <Compile Include="View\GC_Loger.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">

@@ -244,14 +244,15 @@
                 <TabControl.ItemContainerStyleSelector>
                     <selector:TabItemTemplateSelector DefaultStyle="{StaticResource NotCloseTabStyle}">
                         <selector:TabItemTemplateSelector.TemplateList>
-                            <selector:SelectorItem xmlns:editor="clr-namespace:EditorNew.View;assembly=EditorNew"
-                                                   DataType="{x:Type editor:MainEditorView}"
+                            <selector:SelectorItem xmlns:editor="clr-namespace:Module.Editor.ViewModel;assembly=Module.Editor"
+                                                   DataType="{x:Type editor:MainEditorViewModel}"
                                                    Style="{StaticResource CloseTabStyle}" />
                         </selector:TabItemTemplateSelector.TemplateList>
                     </selector:TabItemTemplateSelector>
                 </TabControl.ItemContainerStyleSelector>
             </TabControl>
         </DockPanel>
+        <GridSplitter VerticalAlignment="Top" HorizontalAlignment="Stretch" Panel.ZIndex="100" Height="4" Grid.Row="1"/>
         <ContentControl Grid.Row="1"
                         region:RegionManager.RegionName="{x:Static names:Names.LogerRegion}" />
     </Grid>

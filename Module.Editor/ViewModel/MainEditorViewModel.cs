@@ -11,23 +11,43 @@ using Prism.Interactivity.InteractionRequest;
 using System;
 using System.Windows.Input;
 using FomodInfrastructure.Interface;
+using System.Windows;
 
 namespace Module.Editor.ViewModel
 {
     [Aspect(typeof(AspectINotifyPropertyChanged))]
-    public class MainEditorViewModel : BindableBase
+    public class MainEditorViewModel : BindableBase, IDisposable
     {
+
+        public void Dispose()
+        {
+            foreach (var item in _regionManager.Regions["NodeRegion"].Views.ToList())
+            {
+                //((FrameworkElement)item).DataContext = null;
+                //if(_regionManager.Regions["NodeRegion"].Views.Contains(item))
+                //    _regionManager.Regions["NodeRegion"].Remove(item);
+            }
+        }
+
         #region Services
 
         private IRegionManager _regionManager;
         private IRepository<ProjectRoot> _repository;
         private readonly IMemoryService _memoryService;
+        private readonly ILogger _logger;
 
         #endregion
 
-        public MainEditorViewModel(IMemoryService memoryService)
+        public MainEditorViewModel(IMemoryService memoryService, ILogger logger)
         {
             _memoryService = memoryService;
+            _logger = logger;
+
+            _logger.LogCreate(this);
+        }
+        ~MainEditorViewModel()
+        {
+            _logger.LogDisposable(this);
         }
 
         public void ConfigurateViewModel(IRegionManager regionManager, IRepository<ProjectRoot> repository)
@@ -184,6 +204,8 @@ namespace Module.Editor.ViewModel
                 }
             });
         }
+
+      
         #endregion
     }
 }

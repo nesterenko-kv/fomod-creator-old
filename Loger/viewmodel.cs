@@ -31,7 +31,6 @@ namespace Loger
         public viewmodel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
-
             _eventAggregator.GetEvent<PubSubEvent<string>>().Subscribe(PublishMsg);
         }
 

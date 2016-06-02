@@ -2,12 +2,15 @@
 using AspectInjector.Broker;
 using FomodInfrastructure.Aspect;
 using Prism.Regions;
+using FomodInfrastructure.Interface;
 
 namespace Module.Editor.ViewModel
 {
     public class BaseViewModel<T> : INavigationAware where T: class
     {
         private readonly string _curentParamName;
+
+        
 
         public BaseViewModel()
         {

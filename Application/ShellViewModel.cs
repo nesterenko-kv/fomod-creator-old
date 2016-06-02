@@ -10,6 +10,7 @@ using MahApps.Metro.Controls.Dialogs;
 using Module.Editor.ViewModel;
 using System.Diagnostics;
 using System.Reflection;
+using System;
 
 namespace MainApplication
 {
@@ -82,7 +83,14 @@ namespace MainApplication
                 if (result)
                     SaveProject();
             }
+            removeView.DataContext = null;
             _regionManager.Regions[Names.MainContentRegion].Remove(removeView);
+
+            //removeView.Finalize();
+            //GC.SuppressFinalize(removeView);
+            (p as MainEditorViewModel)?.Dispose();
+            removeView = null;
+            GC.Collect();
         }
 
         private void SaveProject()

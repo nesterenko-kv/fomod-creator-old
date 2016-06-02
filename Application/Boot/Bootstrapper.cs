@@ -50,13 +50,14 @@ namespace MainApplication.Boot
 
         protected override void InitializeModules()
         {
-            //Container.GetInstance<WelcomeRegister>().Initialize();
-            //Container.GetInstance<EditorRegister>().Initialize();
-            Container.GetInstance<WelcomeNew.Register>().Initialize();
             Container.GetInstance<Loger.Register>().Initialize();
-            Container.GetInstance<EditorNew.Register>().Initialize();
+            Container.GetInstance<WelcomeRegister>().Initialize();
+            Container.GetInstance<EditorRegister>().Initialize();
+            //Container.GetInstance<WelcomeNew.Register>().Initialize();
+            
+            //Container.GetInstance<EditorNew.Register>().Initialize();
         }
-        
+
         #endregion
     }
 }

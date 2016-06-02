@@ -19,7 +19,10 @@ namespace MainApplication.Services
             _eventAggregator = eventAggregator;
             LogCreate(this);
         }
-
+        ~Logger()
+        {
+            LogDisposable(this);
+        }
 
         public void Log(string message)
         {
