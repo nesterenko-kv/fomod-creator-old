@@ -13,11 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Welcome", "Module.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Editor", "Module.Editor\Module.Editor.csproj", "{4A96AC17-DBE0-499E-BE8B-09F5C6AAF20C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Loger", "Module.Loger\Module.Loger.csproj", "{0622170E-8624-413B-927C-3BCF4C323DCF}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{344ABC62-3D14-4471-A8A0-D4D2AD7D3E99}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WelcomeNew", "WelcomeNew\WelcomeNew.csproj", "{A527AA14-21F8-4C4D-9A4A-F63C87043BA4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loger", "Loger\Loger.csproj", "{0622170E-8624-413B-927C-3BCF4C323DCF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorNew", "EditorNew\EditorNew.csproj", "{FE239C37-D9E5-413E-826C-116F026AEE7A}"
 EndProject

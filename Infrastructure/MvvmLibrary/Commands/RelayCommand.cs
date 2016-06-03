@@ -12,10 +12,7 @@ namespace FomodInfrastructure.MvvmLibrary.Commands
 
         private readonly WeakAction _execute;
 
-        public RelayCommand(Action execute)
-            : this(execute, null) {}
-
-        public RelayCommand(Action execute, Func<bool> canExecute)
+        public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
             if (execute == null)
                 throw new ArgumentNullException(nameof(execute));

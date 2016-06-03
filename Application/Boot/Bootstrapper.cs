@@ -2,7 +2,7 @@
 using System.Windows.Markup;
 using FomodInfrastructure.Interface;
 using FomodModel.Base;
-using Loger;
+using Module.Loger;
 using MahApps.Metro.Controls.Dialogs;
 using MainApplication.Services;
 using Module.Editor;

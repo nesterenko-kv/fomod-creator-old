@@ -13,5 +13,10 @@ namespace FomodModel.AppModel
 
         [XmlAttribute]
         public string ProjectName { get; set; }
+
+        public static ProjectLinkModel Create(string projectName, string folderPath)
+        {
+            return new ProjectLinkModel { ProjectName = projectName, FolderPath = folderPath };
+        }
     }
 }

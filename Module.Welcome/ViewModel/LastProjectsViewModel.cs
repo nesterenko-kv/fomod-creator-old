@@ -24,15 +24,13 @@ namespace Module.Welcome.ViewModel
             _eventAggregator = eventAggregator;
             _dataService = dataService;
             _eventAggregator.GetEvent<OpenProjectEvent>().Subscribe(AddProjectInList);
-            var list = ReadProjectLinkListFile();
-            if (list != null)
-                ProjectLinkList = list;
+            ProjectLinkList = ReadProjectLinkListFile() ?? new ProjectLinkList();
         }
 
         #region Properties
 
         [Aspect(typeof(AspectINotifyPropertyChanged))]
-        public ProjectLinkList ProjectLinkList { get; set; } = new ProjectLinkList();
+        public ProjectLinkList ProjectLinkList { get; }
 
         #endregion
 
@@ -75,7 +73,7 @@ namespace Module.Welcome.ViewModel
         {
             var item = ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p.FolderPath);
             if (item == null)
-                ProjectLinkList.Links.Add(new ProjectLinkModel { FolderPath = p.FolderPath, ProjectName = p.ModuleInformation.Name });
+                ProjectLinkList.Links.Add(ProjectLinkModel.Create(p.ModuleInformation.Name, p.FolderPath));
             else
                 item.ProjectName = p.ModuleInformation.Name;
             SaveProjectLinkListFile();

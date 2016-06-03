@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FomodInfrastructure.Interface;
+using Module.Loger.PrismEvent;
 using Prism.Events;
 
 namespace MainApplication.Services
@@ -19,17 +20,17 @@ namespace MainApplication.Services
 
         public void Log(string msg)
         {
-            _eventAggregator.GetEvent<PubSubEvent<string>>().Publish($"[{DateTime.Now.ToLongTimeString()}] {msg}");
+            _eventAggregator.GetEvent<SendLog>().Publish($"[{DateTime.Now.ToLongTimeString()}] {msg}");
         }
 
         public void LogCreate(object obj)
         {
-            _eventAggregator.GetEvent<PubSubEvent<string>>().Publish($"[{DateTime.Now.ToLongTimeString()}] [{obj.GetHashCode()}] [Create] [{Increment(obj)}] {obj.GetType().Name}");
+            _eventAggregator.GetEvent<SendLog>().Publish($"[{DateTime.Now.ToLongTimeString()}] [{obj.GetHashCode()}] [Create] [{Increment(obj)}] {obj.GetType().Name}");
         }
 
         public void LogDisposable(object obj)
         {
-            _eventAggregator.GetEvent<PubSubEvent<string>>().Publish($"[{DateTime.Now.ToLongTimeString()}] [{obj.GetHashCode()}] [Disposable] [{Decrement(obj)}] {obj.GetType().Name}");
+            _eventAggregator.GetEvent<SendLog>().Publish($"[{DateTime.Now.ToLongTimeString()}] [{obj.GetHashCode()}] [Disposable] [{Decrement(obj)}] {obj.GetType().Name}");
         }
 
         ~Logger()
@@ -39,7 +40,7 @@ namespace MainApplication.Services
 
         public void Log(string msg, object forName)
         {
-            _eventAggregator.GetEvent<PubSubEvent<string>>().Publish($"[{DateTime.Now.ToLongTimeString()}] {msg} ({forName.GetType().Name})");
+            _eventAggregator.GetEvent<SendLog>().Publish($"[{DateTime.Now.ToLongTimeString()}] {msg} ({forName.GetType().Name})");
         }
 
         private int Increment(object obj)

@@ -1,9 +1,10 @@
 ﻿using FomodInfrastructure;
+using Module.Loger.ViewModel;
 using Prism.Modularity;
 using Prism.Regions;
 using StructureMap;
 
-namespace Loger
+namespace Module.Loger
 {
     public class Register : IModule
     {
@@ -17,8 +18,8 @@ namespace Loger
 
         public void Initialize()
         {
-            _container.Configure(r => r.For<object>().Use<LogerView>().Named(nameof(LogerView)).SetProperty(p => p.DataContext = _container.GetInstance<LogerViewModel>()));
-            _regionManager.Regions[Names.LogerRegion].RequestNavigate(nameof(LogerView));
+            _container.Configure(r => r.For<object>().Use<View.LogerView>().Named(nameof(View.LogerView)).SetProperty(p => p.DataContext = _container.GetInstance<LogerViewModel>()));
+            _regionManager.Regions[Names.LogerRegion].RequestNavigate(nameof(View.LogerView));
         }
 
         #endregion
