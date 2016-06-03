@@ -11,9 +11,11 @@ namespace MainApplication.Services
 {
     public class Repository : IRepository<ProjectRoot>
     {
-        private const string InfoSubPath = @"\fomod\Info.xml";
+        private const string ProjectFolder = @"fomod";
 
-        private const string ConfigurationSubPath = @"\fomod\ModuleConfig.xml";
+        private const string InfoSubPath = ProjectFolder + @"\Info.xml";
+
+        private const string ConfigurationSubPath = ProjectFolder + @"\ModuleConfig.xml";
 
         private const string InfoResourcePath = @"FomodModel.XmlTemplates.Info.xml";
 
@@ -49,11 +51,20 @@ namespace MainApplication.Services
 
         #region IRepository
 
-        public ProjectRoot LoadData(string path = null) => _projectRoot = path != null ? LoadProjectFromPath(path) : LoadProjectIfPathNull();
+        public ProjectRoot LoadData(string path = null)
+        {
+            return _projectRoot = path != null ? LoadDataFromPath(path) : LoadDataIfPathNull();
+        }
 
-        public bool SaveData(string path = null) => path != null ? SaveProjectFromPath(path) : SaveProjectIfPathNull();
+        public bool SaveData(string path = null)
+        {
+            return path != null ? SaveDataToPath(path) : SaveDataIfPathNull();
+        }
 
-        public ProjectRoot GetData() => _projectRoot;
+        public ProjectRoot GetData()
+        {
+            return _projectRoot;
+        }
 
         public string CurrentPath
         {
@@ -63,29 +74,25 @@ namespace MainApplication.Services
 
         public string CreateData()
         {
-            _folderBrowserDialog.ShowDialog();
-            var path = _folderBrowserDialog.SelectedPath;
-            _folderBrowserDialog.Reset();
-            if (!string.IsNullOrWhiteSpace(path))
+            var path = GetFolderPath();
+            if (CheckFiles(path))
             {
-                if (CheckFiles(path))
-                {
-                    RepositoryStatus = RepositoryStatus.FolderIsAlreadyUse;
-                    return null;
-                }
-
-                Directory.CreateDirectory(path + @"\fomod");
-                Directory.CreateDirectory(path + @"\Data");
-
-                if (!File.Exists(path + InfoSubPath))
-                    GetXElementResource(InfoResourcePath).Save(path + InfoSubPath);
-                if (!File.Exists(path + ConfigurationSubPath))
-                    GetXElementResource(ConfigResourcePath).Save(path + ConfigurationSubPath);
-
+                RepositoryStatus = RepositoryStatus.FolderIsAlreadyUsed;
+                return null;
+            }
+            try
+            {
+                Directory.CreateDirectory(Path.Combine(path, ProjectFolder));
+                GetXElementResource(InfoResourcePath).Save(Path.Combine(path, InfoSubPath));
+                GetXElementResource(ConfigResourcePath).Save(Path.Combine(path, ConfigurationSubPath));
                 RepositoryStatus = RepositoryStatus.Ok;
                 return path;
             }
-            RepositoryStatus = RepositoryStatus.Cancel;
+            catch (Exception e)
+            {
+                _logger.Log(e.Message);
+                RepositoryStatus = RepositoryStatus.Error;
+            }
             return null;
         }
 
@@ -93,41 +100,31 @@ namespace MainApplication.Services
 
         #endregion
 
-        #region Private methods
+        #region Methods
 
-        private XElement GetXElementResource(string path)
+        private static XElement GetXElementResource(string path)
         {
             var assembly = Assembly.GetAssembly(typeof(ProjectRoot));
             using (var stream = assembly.GetManifestResourceStream(path))
                 return XElement.Load(stream);
         }
-
-        private bool CheckFiles(string folderPath)
-        {
-            var chk = File.Exists(folderPath + InfoSubPath) && File.Exists(folderPath + ConfigurationSubPath);
-            if (!chk)
-                RepositoryStatus = RepositoryStatus.CantSelectFolder;
-            return chk;
-        }
-
-        private ProjectRoot LoadProjectIfPathNull()
+        
+        private ProjectRoot LoadDataIfPathNull()
         {
             var folderPath = GetFolderPath();
-            return folderPath != null ? LoadProjectFromPath(folderPath) : null;
+            return folderPath != null ? LoadDataFromPath(folderPath) : null;
         }
 
-        private ProjectRoot LoadProjectFromPath(string path)
+        private ProjectRoot LoadDataFromPath(string path)
         {
-            if (string.IsNullOrWhiteSpace(path))
-                throw new FileNotFoundException();
             if (!CheckFiles(path))
                 return null;
             var projectRoot = _serviceLocator.GetInstance<ProjectRoot>();
             try
             {
                 projectRoot.FolderPath = path;
-                projectRoot.ModuleInformation = _dataService.DeserializeObject<ModuleInformation>(path + InfoSubPath);
-                projectRoot.ModuleConfiguration = _dataService.DeserializeObject<ModuleConfiguration>(path + ConfigurationSubPath);
+                projectRoot.ModuleInformation = _dataService.DeserializeObject<ModuleInformation>(Path.Combine(path, InfoSubPath));
+                projectRoot.ModuleConfiguration = _dataService.DeserializeObject<ModuleConfiguration>(Path.Combine(path, ConfigurationSubPath));
                 RepositoryStatus = RepositoryStatus.Ok;
                 return projectRoot;
             }
@@ -139,35 +136,44 @@ namespace MainApplication.Services
             return null;
         }
 
-        private bool SaveProjectIfPathNull()
+        private bool SaveDataIfPathNull()
         {
             if (_projectRoot == null)
-                throw new FileNotFoundException();
+                throw new ArgumentNullException(nameof(_projectRoot));
             var folderPath = GetFolderPath();
             if (RepositoryStatus == RepositoryStatus.Cancel)
                 return false;
-            if (!SaveProjectFromPath(folderPath))
+            if (!SaveDataToPath(folderPath))
                 return false;
             _projectRoot.FolderPath = folderPath;
             return true;
         }
 
-        private bool SaveProjectFromPath(string path)
+        private bool SaveDataToPath(string path)
         {
-            Directory.CreateDirectory(path + @"\fomod\");
             try
             {
-                _dataService.SerializeObject(_projectRoot.ModuleInformation, path + InfoSubPath);
-                _dataService.SerializeObject(_projectRoot.ModuleConfiguration, path + ConfigurationSubPath);
+                Directory.CreateDirectory(Path.Combine(path, ProjectFolder));
+                _dataService.SerializeObject(_projectRoot.ModuleInformation, Path.Combine(path, InfoSubPath));
+                _dataService.SerializeObject(_projectRoot.ModuleConfiguration, Path.Combine(path, ConfigurationSubPath));
                 RepositoryStatus = RepositoryStatus.Ok;
-                return true;
             }
             catch (Exception e)
             {
                 _logger.Log(e.Message);
                 RepositoryStatus = RepositoryStatus.Error;
             }
-            return false;
+            return RepositoryStatus == RepositoryStatus.Ok;
+        }
+
+        private bool CheckFiles(string folderPath)
+        {
+            if (string.IsNullOrWhiteSpace(folderPath))
+                return false;
+            var chk = File.Exists(Path.Combine(folderPath, InfoSubPath)) && File.Exists(Path.Combine(folderPath, ConfigurationSubPath));
+            if (!chk)
+                RepositoryStatus = RepositoryStatus.CantUseFolder;
+            return chk;
         }
 
         private string GetFolderPath()

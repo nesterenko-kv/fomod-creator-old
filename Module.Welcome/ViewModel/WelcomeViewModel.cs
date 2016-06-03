@@ -71,8 +71,8 @@ namespace Module.Welcome.ViewModel
             var path = repository.CreateData();
             switch (repository.RepositoryStatus)
             {
-                case RepositoryStatus.FolderIsAlreadyUse:
-                    await _dialogCoordinator.ShowMessageAsync(this, "Error", "Folder already in use."); //TODO: Localize
+                case RepositoryStatus.FolderIsAlreadyUsed:
+                    await _dialogCoordinator.ShowMessageAsync(this, "Error", "Folder already used."); //TODO: Localize
                     break;
                 case RepositoryStatus.Ok:
                     OpenProject(path);
@@ -84,7 +84,8 @@ namespace Module.Welcome.ViewModel
                 case RepositoryStatus.Error:
                     await _dialogCoordinator.ShowMessageAsync(this, "Error", "An error occurred while creating the project."); //TODO: Localize
                     break;
-                case RepositoryStatus.CantSelectFolder:
+                case RepositoryStatus.CantUseFolder:
+                    await _dialogCoordinator.ShowMessageAsync(this, "Error", "The specified folder doesn't correspond to necessary requirements."); //TODO: Localize
                     break;
                 default:
                     throw new ApplicationException();
@@ -99,7 +100,7 @@ namespace Module.Welcome.ViewModel
             {
                 switch (repository.RepositoryStatus)
                 {
-                    case RepositoryStatus.CantSelectFolder:
+                    case RepositoryStatus.CantUseFolder:
                         await _dialogCoordinator.ShowMessageAsync(this, "Error", "The specified folder doesn't correspond to necessary requirements."); //TODO: Localize
                         break;
                     case RepositoryStatus.Error:
@@ -111,7 +112,7 @@ namespace Module.Welcome.ViewModel
                         break;
                     case RepositoryStatus.Ok:
                         break;
-                    case RepositoryStatus.FolderIsAlreadyUse:
+                    case RepositoryStatus.FolderIsAlreadyUsed:
                         break;
                     default:
                         throw new ApplicationException();

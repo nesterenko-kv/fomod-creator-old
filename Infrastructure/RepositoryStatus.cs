@@ -10,8 +10,8 @@ namespace FomodInfrastructure
 
         Error,
 
-        CantSelectFolder,
+        CantUseFolder,
 
-        FolderIsAlreadyUse
+        FolderIsAlreadyUsed
     }
 }
