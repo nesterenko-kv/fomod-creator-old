@@ -68,7 +68,7 @@
                                    ToolTip="Plagun"
                                    DockPanel.Dock="Left"
                                    FontSize="14"
-                                   FontFamily="FontAwesome" />
+                                   FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome" />
                         <TextBlock Height="16"
                                    Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
                                    TextTrimming="CharacterEllipsis"
@@ -110,7 +110,7 @@
                                    ToolTip="Group"
                                    DockPanel.Dock="Left"
                                    FontSize="14"
-                                   FontFamily="FontAwesome" />
+                                   FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome" />
                         <TextBlock Height="16"
                                    VerticalAlignment="Center"
                                    Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
@@ -154,7 +154,7 @@
                                    Text="&#xf233;"
                                    DockPanel.Dock="Left"
                                    FontSize="16"
-                                   FontFamily="FontAwesome" />
+                                   FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome" />
                         <TextBlock Height="16"
                                    VerticalAlignment="Center"
                                    Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
@@ -186,7 +186,7 @@
                                    ToolTip="Project Root"
                                    DockPanel.Dock="Left"
                                    FontSize="14"
-                                   FontFamily="FontAwesome" />
+                                   FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome" />
                         <TextBlock Height="16"
                                    VerticalAlignment="Center"
                                    Text="{Binding ModuleInformation.Name, UpdateSourceTrigger=PropertyChanged}"
