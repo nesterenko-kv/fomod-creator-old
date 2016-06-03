@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base.ModuleCofiguration;
+using System.Windows.Controls;
 
 namespace Module.Editor.Resources.UserControls
 {
@@ -59,6 +60,8 @@ namespace Module.Editor.Resources.UserControls
         {
             get { return _removeDependencyCommand ?? (_removeDependencyCommand = new RelayCommand<SetConditionFlag>(RemoveDependency)); }
         }
+
+       
 
         #endregion
     }

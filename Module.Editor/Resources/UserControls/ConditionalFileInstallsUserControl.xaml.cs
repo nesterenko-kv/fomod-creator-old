@@ -4,6 +4,7 @@ using System.Windows.Input;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base.ModuleCofiguration;
 using Microsoft.Practices.ServiceLocation;
+using System.Windows.Controls;
 
 namespace Module.Editor.Resources.UserControls
 {
@@ -20,6 +21,9 @@ namespace Module.Editor.Resources.UserControls
         private ICommand _removeConditionalFileInstalls;
 
         private ICommand _removePatern;
+
+        private ICommand _refreshItemsCommand;
+
 
         public ConditionalFileInstallsUserControl()
         {
@@ -90,6 +94,12 @@ namespace Module.Editor.Resources.UserControls
                         FileInstallList.Patterns = null;
                 }));
             }
+        }
+
+
+        public ICommand RefreshItemsCommand
+        {
+            get { return _refreshItemsCommand ?? (_refreshItemsCommand = new RelayCommand<ItemsControl>(ic => ic.Items.Refresh())); }
         }
     }
 }

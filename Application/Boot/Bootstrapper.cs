@@ -32,6 +32,7 @@ namespace MainApplication.Boot
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
+            
             Container.Configure(r =>
             {
                 r.For<IComponentConnector>().OnCreationForAll(s => s.InitializeComponent());

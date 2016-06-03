@@ -15,37 +15,23 @@
                 <ResourceDictionary Source="../Blend/_Package.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type model:ConditionalInstallPattern}">
-                <Border Margin="6,12,6,0"
-                        BorderThickness="1"
-                        BorderBrush="White"
-                        Background="#19FFFFFF"
-                        SnapsToDevicePixels="True">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
                     <StackPanel x:Name="parent">
-                        <Border BorderThickness="0,0,0,1"
-                                BorderBrush="White">
-                            <DockPanel>
-                                <Button DockPanel.Dock="Right"
-                                        Command="{Binding RemovePaternCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                        CommandParameter="{Binding}"
-                                        Style="{StaticResource DeleteButton}" />
-                                <TextBlock Margin="{StaticResource Margin}"
-                                           Text="Patern"
-                                           Style="{StaticResource TextBlockDefault}"
-                                           Padding="6,0"
-                                           DockPanel.Dock="Left" />
-                            </DockPanel>
-                        </Border>
+                        <local:FileListUserControl Margin="{StaticResource MarginGroupBox}"
+                                                   Header="File list"
+                                                   FileList="{Binding Files}"
+                                                   AddFileSystemItemsMethod="{Binding DataContext.AddFileSystemItemsMethod, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                                                   AddFileMethod="{Binding DataContext.AddFileMethod, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                                                   AddFolderMethod="{Binding DataContext.AddFolderMethod, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}" />
                         <local:CompositeDependencyUserControl CompositeDependency="{Binding Dependencies}" />
-                        <local:FileListUserControl FileList="{Binding Files}"
-                                                   AddFileSystemItemsMethod="{Binding DataContext.AddFileSystemItemsMethod, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}"
-                                                   AddFileMethod="{Binding DataContext.AddFileMethod, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}"
-                                                   AddFolderMethod="{Binding DataContext.AddFolderMethod, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" />
                     </StackPanel>
-                </Border>
+                </ScrollViewer>
+
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type model:ConditionalFileInstallList}">
-                <GroupBox>
+                <GroupBox Padding="0">
                     <GroupBox.Header>
                         <DockPanel>
                             <Button Command="{Binding RemoveConditionalFileInstalls, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
@@ -58,13 +44,63 @@
                                        Text="Conditional File Installs" />
                         </DockPanel>
                     </GroupBox.Header>
-                    <StackPanel>
-                        <ItemsControl ItemsSource="{Binding Patterns}" />
-                        <Button Margin="12"
-                                HorizontalAlignment="Right"
-                                Command="{Binding AddPaternCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                Style="{StaticResource AddButton}" />
-                    </StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="450" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="200" />
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Grid.Column="0"
+                                        Content="{Binding SelectedItem, ElementName=PatternsList}" />
+
+                        <GridSplitter Width="2"
+                                      Margin="0,0,-1,0"
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Stretch"
+                                      Background="Gray" />
+                        <DockPanel Grid.Column="1">
+                            <StackPanel HorizontalAlignment="Right" DockPanel.Dock="Top"
+                                        Orientation="Horizontal">
+                                <Button Margin="3"
+                                        Style="{StaticResource ContentButton}"
+                                        Content="&#xf021;"
+                                        ToolTip="Refresh patterns numbers"
+                                        FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome"
+                                        Command="{Binding RefreshItemsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                        CommandParameter="{Binding ., ElementName=PatternsList}" />
+                                <Button Margin="3"
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding AddPaternCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                        Style="{StaticResource AddButton}" />
+                            </StackPanel>
+                            <ListBox x:Name="PatternsList" DockPanel.Dock="Bottom"
+                                     Margin="0"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ItemsSource="{Binding Patterns}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="ListBoxItem">
+                                        <DockPanel>
+                                            <TextBlock Margin="0,0,6,0"
+                                                       VerticalAlignment="Center"
+                                                       Text="&#xf277;"
+                                                       DockPanel.Dock="Left"
+                                                       FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome" />
+                                            <Button Style="{StaticResource DeleteButton}"
+                                                    DockPanel.Dock="Right"
+                                                    Command="{Binding RemovePaternCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}" />
+                                            <TextBlock DockPanel.Dock="Left"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       Text="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Converter={StaticResource ItemControlIndexConverter}, StringFormat=Pattetn {0}}" />
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                        </DockPanel>
+                    </Grid>
                 </GroupBox>
             </DataTemplate>
 
@@ -82,6 +118,7 @@
                                     <GroupBox Background="Gray">
                                         <GroupBox.Header>
                                             <DockPanel>
+
                                                 <Button Command="{Binding CreateConditionalFileInstalls, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                                         DockPanel.Dock="Right"
                                                         Style="{StaticResource AddButton}" />

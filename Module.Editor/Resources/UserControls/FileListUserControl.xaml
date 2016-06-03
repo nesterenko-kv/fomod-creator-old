@@ -404,9 +404,14 @@
                                             Grid.ColumnSpan="7"
                                             BorderBrush="{StaticResource TableHeaderBackGroundColor}"
                                             BorderThickness="1,0,1,1">
-                                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                        <ItemsPresenter x:Name="ItemsList" Margin="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                     </Border>
                                 </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="ItemsSource" Value="{x:Null}">
+                                        <Setter Property="Margin" TargetName="ItemsList" Value="0,0,0,12"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>

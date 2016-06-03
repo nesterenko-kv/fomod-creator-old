@@ -54,6 +54,7 @@
     <Compile Include="Aspect\AcpectDebugLoger.cs" />
     <Compile Include="Aspect\AspectINotifyPropertyChanged.cs" />
     <Compile Include="Converters\CategoriesEnumConverter.cs" />
+    <Compile Include="Converters\ItemControlIndexConverter.cs" />
     <Compile Include="Converters\ColorToSolidBrushConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\MultiCommandParamsConverter.cs" />
