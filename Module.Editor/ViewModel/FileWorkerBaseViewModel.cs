@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -5,7 +6,6 @@ using System.Linq;
 using FomodInfrastructure.Interface;
 using FomodModel.Base.ModuleCofiguration;
 using MahApps.Metro.Controls.Dialogs;
-using System;
 
 namespace Module.Editor.ViewModel
 {
@@ -17,12 +17,12 @@ namespace Module.Editor.ViewModel
             _folderBrowserDialog = folderBrowserDialog;
             _dialogCoordinator = dialogCoordinator;
 
-            AddFileSystemItemsMethmod = AddFileSystemItemsMethmodPrivate;
-            AddFileMethmod = AddFileMethmodPrivate;
-            AddFolderMethmod = AddFolderMethmodPrivate;
+            AddFileSystemItemsMethod = AddFileSystemItemsMethodPrivate;
+            AddFileMethod = AddFileMethodPrivate;
+            AddFolderMethod = AddFolderMethodPrivate;
         }
 
-        private List<string> AddFolderMethmodPrivate()
+        private List<string> AddFolderMethodPrivate()
         {
             _folderBrowserDialog.CheckFolderExists = true;
             if (_folderBrowserDialog.ShowDialog() && !string.IsNullOrWhiteSpace(_folderBrowserDialog.SelectedPath))
@@ -31,43 +31,43 @@ namespace Module.Editor.ViewModel
             return null;
         }
 
-        private List<string> AddFileMethmodPrivate()
+        private List<string> AddFileMethodPrivate()
         {
             _fileBrowserDialog.Multiselect = true;
             _fileBrowserDialog.CheckFileExists = true;
             _fileBrowserDialog.StartFolder = FolderPath;
-            if (_fileBrowserDialog.ShowDialog() && _fileBrowserDialog.SelectedPaths.Count() > 0)
+            if (_fileBrowserDialog.ShowDialog() && _fileBrowserDialog.SelectedPaths.Any())
                 return _fileBrowserDialog.SelectedPaths.ToList();
             _fileBrowserDialog.Reset();
             return null;
         }
 
-        private List<SystemItem> AddFileSystemItemsMethmodPrivate(List<string> paths)
+        private List<SystemItem> AddFileSystemItemsMethodPrivate(List<string> paths)
         {
-            if (paths == null) return null;
-
+            if (paths == null)
+                return null;
             var returnList = new List<SystemItem>();
             var filesAndFolders = paths;
-            if (filesAndFolders.FirstOrDefault(i => i == FolderPath)!=null)
-                _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Не льзя добавлять в проект самого себя");
-            else if(filesAndFolders.All(fileName => fileName.StartsWith(FolderPath)))
-            {
-                foreach (var path in filesAndFolders)
-                {
-                    var source = path.Substring(FolderPath.Length + 1);
-                    var destination = path.Substring(FolderPath.Length + 1);
-                    SystemItem item = null;
-                    if (File.Exists(path))
-                        item = FileSystemItem.Create(source, destination);
-                    else if (Directory.Exists(path))
-                        item = FolderSystemItem.Create(source, destination);
-                    else
-                        throw new ArgumentException(); //TODO обработать исключение
-                    returnList.Add(item);
-                }
-            }
+            if (filesAndFolders.Any(path => path == FolderPath))
+                _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Нельзя добавлять в проект самого себя");
             else
-                _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Допускается добавлять файлы и папки только из директории проекта");
+                if (filesAndFolders.All(fileName => fileName.StartsWith(FolderPath)))
+                    foreach (var path in filesAndFolders)
+                    {
+                        var source = path.Substring(FolderPath.Length + 1);
+                        var destination = path.Substring(FolderPath.Length + 1);
+                        SystemItem item;
+                        if (File.Exists(path))
+                            item = FileSystemItem.Create(source, destination);
+                        else
+                            if (Directory.Exists(path))
+                                item = FolderSystemItem.Create(source, destination);
+                            else
+                                throw new NotImplementedException();
+                        returnList.Add(item);
+                    }
+                else
+                    _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Допускается добавлять файлы и папки только из директории проекта");
             return returnList;
         }
 
@@ -83,9 +83,11 @@ namespace Module.Editor.ViewModel
 
         #region Methods
 
-        public Func<List<string>, List<SystemItem>> AddFileSystemItemsMethmod { get; }
-        public Func<List<string>> AddFileMethmod { get; }
-        public Func<List<string>> AddFolderMethmod { get; }
+        public Func<List<string>, List<SystemItem>> AddFileSystemItemsMethod { get; }
+
+        public Func<List<string>> AddFileMethod { get; }
+
+        public Func<List<string>> AddFolderMethod { get; }
 
         protected async void AddFile(ObservableCollection<SystemItem> itemSource, List<string> paths)
         {
