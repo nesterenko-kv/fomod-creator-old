@@ -83,7 +83,8 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
-            <DataTemplate x:Key="SystemItem">
+            <DataTemplate x:Key="SystemItem"
+                          x:Shared="false">
                 <Grid>
                     <Grid.Resources>
                         <Style BasedOn="{StaticResource TextBlockDefault}"
@@ -105,10 +106,103 @@
                     <TextBlock Grid.Column="0"
                                Text="{Binding Path=Source}"
                                ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
-                    <TextBox Grid.Column="1"
+                    <ContentControl Grid.Column="1">
+                        <ContentControl.Style>
+                            <Style TargetType="ContentControl">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Grid>
+                                            <ToggleButton Panel.ZIndex="100"
+                                                          OverridesDefaultStyle="True"
+                                                          Background="Transparent">
+                                                <ToggleButton.Style>
+                                                    <Style TargetType="{x:Type ToggleButton}">
+                                                        <Setter Property="OverridesDefaultStyle" Value="true" />
+                                                        <Setter Property="IsTabStop" Value="false" />
+                                                        <Setter Property="Focusable" Value="True" />
+                                                        <Setter Property="ClickMode" Value="Press" />
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Setter Property="Foreground" Value="Transparent" />
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                                                            Background="{TemplateBinding Background}"
+                                                                            SnapsToDevicePixels="true">
+                                                                        <Grid>
+                                                                            <Grid.ColumnDefinitions>
+                                                                                <ColumnDefinition />
+                                                                                <ColumnDefinition Width="auto" />
+                                                                            </Grid.ColumnDefinitions>
+                                                                            <TextBlock x:Name="Viewer"
+                                                                                       Text="{Binding Text, ElementName=Editor}"
+                                                                                       Style="{StaticResource TextBlockForTable}"
+                                                                                       ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                                            <TextBox x:Name="Editor"
+                                                                                     Style="{StaticResource TextBoxForTable}"
+                                                                                     Text="{Binding Destination, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+
+                                                                            <ContentPresenter Content="{TemplateBinding Content}" />
+                                                                            <Button x:Name="okButton"
+                                                                                    Grid.Column="1"
+                                                                                    Content="ok" />
+                                                                        </Grid>
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger SourceName="okButton" Property="IsPressed" Value="true">
+                                                                            <Setter Property="IsChecked" Value="false" />
+                                                                        </Trigger>
+                                                                        <Trigger Property="IsChecked" Value="false">
+                                                                            <Setter TargetName="okButton" Property="Visibility" Value="Collapsed" />
+                                                                            <Setter TargetName="Editor" Property="Visibility" Value="Collapsed" />
+                                                                            <Setter TargetName="Viewer" Property="Visibility" Value="Visible" />
+                                                                            <Setter Property="Background" Value="Transparent" />
+                                                                        </Trigger>
+                                                                        <Trigger Property="IsChecked" Value="true">
+                                                                            <Setter TargetName="okButton" Property="Visibility" Value="Visible" />
+                                                                            <Setter TargetName="Editor" Property="Visibility" Value="Visible" />
+                                                                            <Setter TargetName="Viewer" Property="Visibility" Value="Collapsed" />
+                                                                            <Setter Property="Background" Value="{x:Null}" />
+                                                                        </Trigger>
+                                                                        <Trigger Property="IsEnabled" Value="false">
+                                                                            <!--<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource IsDisabledBackgroundColor}" />-->
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+
+
+                                                </ToggleButton.Style>
+                                            </ToggleButton>
+                                        </Grid>
+                                    </Setter.Value>
+                                </Setter>
+                                <!--<Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <Grid>
+                                                    <TextBox TextWrapping="Wrap"
+                                                             HorizontalScrollBarVisibility="Hidden"
+                                                             TextAlignment="Left"
+                                                             Text="{Binding Destination}"
+                                                             ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                </Grid>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>-->
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>
+                    <!--<TextBox Grid.Column="1" TextWrapping="NoWrap" HorizontalScrollBarVisibility="Hidden"
                              TextAlignment="Left"
                              Text="{Binding Path=Destination}"
-                             ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                             ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />-->
                     <ComboBox xmlns:sys="clr-namespace:System;assembly=mscorlib"
                               Grid.Column="2"
                               VerticalAlignment="Top"
@@ -250,11 +344,13 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <DockPanel HorizontalAlignment="Stretch"
+                                    <DockPanel Grid.Column="6"
+                                               Margin="6,0,12,0"
+                                               HorizontalAlignment="Stretch"
                                                LastChildFill="False">
                                         <Button Width="20"
-                                                Height="20"
-                                                Margin="3,0,3,0"
+                                                Height="24"
+                                                Margin="3,0,0,0"
                                                 Command="{Binding AddFileCommandLocal, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
                                                 DockPanel.Dock="Right"
                                                 ToolTip="Add File">
@@ -265,8 +361,8 @@
                                             </Button.Template>
                                         </Button>
                                         <Button Width="20"
-                                                Height="20"
-                                                Margin="3,0,3,0"
+                                                Height="24"
+                                                Margin="0,0,3,0"
                                                 Command="{Binding AddFolderCommandLocal, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
                                                 DockPanel.Dock="Right"
                                                 ToolTip="Add Folder">

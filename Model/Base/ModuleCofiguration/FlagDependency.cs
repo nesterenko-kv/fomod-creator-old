@@ -26,7 +26,7 @@ namespace FomodModel.Base.ModuleCofiguration
 
         public static FlagDependency Create()
         {
-            return new FlagDependency { Flag = "is Flag Flag Flag", Value = "On" };
+            return new FlagDependency { Flag = "Flag", Value = "On" };
         }
     }
 }

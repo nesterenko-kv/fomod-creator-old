@@ -26,7 +26,7 @@ namespace FomodModel.Base.ModuleCofiguration
 
         public static SetConditionFlag Create()
         {
-            return new SetConditionFlag { Name = "is Flag Flag Flag", Value = "On" };
+            return new SetConditionFlag { Name = "Flag", Value = "On" };
         }
     }
 }
