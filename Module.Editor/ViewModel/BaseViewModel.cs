@@ -29,7 +29,7 @@ namespace Module.Editor.ViewModel
                 Data = param;
             FolderPath = (string)navigationContext.Parameters["FolderPath"];
             if (Data == null)
-                throw new ArgumentNullException(nameof(navigationContext), "При навигации обязательныо нужно передавать параметры");
+                throw new ArgumentNullException(nameof(navigationContext), "When navigating necessarily need to pass parameters"); //TODO: Localize
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

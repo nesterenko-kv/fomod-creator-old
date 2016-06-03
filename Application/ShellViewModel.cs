@@ -9,6 +9,7 @@ using FomodInfrastructure;
 using FomodInfrastructure.Aspect;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Practices.ServiceLocation;
 using Module.Editor.ViewModel;
 using Prism.Regions;
 using Module.Welcome.PrismEvent;
@@ -20,12 +21,13 @@ namespace MainApplication
     {
         private readonly string _defautlTitle;
 
-        public ShellViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator)
+        public ShellViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator, IServiceLocator serviceLocator)
         {
             Title = _defautlTitle = $"FOMOD Creator beta v{GetVersion()}";
             _regionManager = regionManager;
             _dialogCoordinator = dialogCoordinator;
             _eventAggregator = eventAggregator;
+            _serviceLocator = serviceLocator;
             CloseTabCommand = new RelayCommand<object>(CloseTab);
             SaveProjectCommand = new RelayCommand(SaveProject, CanSaveProject);
             SaveProjectAsCommand = new RelayCommand(SaveProjectAs, CanSaveProject);
@@ -36,6 +38,7 @@ namespace MainApplication
         private readonly IRegionManager _regionManager;
         private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
+        private readonly IServiceLocator _serviceLocator;
 
         #endregion
 
@@ -108,10 +111,7 @@ namespace MainApplication
             vm.IsNeedSave = false;
             vm.Save();
             foreach (var projectRoot in vm.Data)
-            {
                 _eventAggregator.GetEvent<OpenProjectEvent>().Publish(projectRoot);
-            }
-            
         }
 
         private void SaveProjectAs()
@@ -123,7 +123,9 @@ namespace MainApplication
 
         private bool CanSaveProject() => (CurentSelectedItem as FrameworkElement)?.DataContext is MainEditorViewModel;
 
-        private async Task<bool> CofirmDialogAsync() => await _dialogCoordinator.ShowMessageAsync(this, "Закрыть проект", "Сохранить перед закрытием?", MessageDialogStyle.AffirmativeAndNegative) == MessageDialogResult.Affirmative;
+        private async Task<bool> CofirmDialogAsync() => 
+            await _dialogCoordinator.ShowMessageAsync(this, "Close", "Save project before closing?", MessageDialogStyle.AffirmativeAndNegative,
+            _serviceLocator.GetInstance<MetroDialogSettings>()) == MessageDialogResult.Affirmative; //TODO: Localize
 
         private string GetVersion()
         {

@@ -9,5 +9,7 @@
         public static string RightRegion { get; } = "RightRegion";
 
         public static string LogerRegion { get; } = "LogerRegion";
+
+        public static string NodeRegion { get; } = "NodeRegion";
     }
 }

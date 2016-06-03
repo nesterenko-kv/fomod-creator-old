@@ -43,6 +43,9 @@ namespace MainApplication.Boot
                 r.For<IFileBrowserDialog>().Use<FileBrowserDialog>();
                 r.For<IMemoryService>().Use<MemoryService>();
                 r.For<ILogger>().Use<Logger>().Singleton();
+                r.ForConcreteType<MetroDialogSettings>().Configure
+                    .Ctor<string>("AffirmativeButtonText").Is("ЕПТЫ БЛЯ")
+                    .Ctor<string>("NegativeButtonText").Is("НЕТ ТЫ ЧЕ"); //TODO: Localize
             });
         }
 
