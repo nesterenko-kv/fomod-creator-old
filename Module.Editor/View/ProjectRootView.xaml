@@ -57,25 +57,25 @@
                                    Text="Module name" />
                         <TextBox Grid.Row="0"
                                  Grid.Column="1"
-                                 Text="{Binding Name}" />
+                                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="1"
                                    Grid.Column="0"
                                    Text="Author" />
                         <TextBox Grid.Row="1"
                                  Grid.Column="1"
-                                 Text="{Binding Author}" />
+                                 Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="2"
                                    Grid.Column="0"
                                    Text="Version" />
                         <TextBox Grid.Row="2"
                                  Grid.Column="1"
-                                 Text="{Binding Version}" />
+                                 Text="{Binding Version, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="3"
                                    Grid.Column="0"
                                    Text="Website" />
                         <TextBox Grid.Row="3"
                                  Grid.Column="1"
-                                 Text="{Binding Website}" />
+                                 Text="{Binding Website, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="4"
                                    Grid.Column="0"
                                    Text="Category" />
@@ -83,7 +83,7 @@
                                   Grid.Column="1"
                                   DisplayMemberPath=""
                                   ItemsSource="{converters:EnumValues {x:Type enum:CategoriesEnum}}"
-                                  SelectedItem="{Binding CategoryId, Mode=TwoWay}">
+                                  SelectedItem="{Binding CategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Style="{StaticResource TextBlockDefault}"
@@ -97,7 +97,7 @@
                         <TextBox Grid.Row="5"
                                  Grid.Column="1"
                                  HorizontalScrollBarVisibility="Disabled"
-                                 Text="{Binding Description}"
+                                 Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
                                  VerticalScrollBarVisibility="Disabled"
                                  AcceptsReturn="True"
                                  TextWrapping="Wrap" />
@@ -137,7 +137,7 @@
                                    Text="Title" />
                         <TextBox Grid.Row="0"
                                  Grid.Column="1"
-                                 Text="{Binding Value}" />
+                                 Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="1"
                                    Grid.Column="0"
                                    Text="Color" />
@@ -159,7 +159,7 @@
                         <ComboBox Grid.Row="2"
                                   Grid.Column="1"
                                   ItemsSource="{Binding Source={StaticResource ModuleTitlePositionEnum}}"
-                                  SelectedValue="{Binding Position}">
+                                  SelectedValue="{Binding Position, UpdateSourceTrigger=PropertyChanged}">
                             <ComboBox.Resources>
                                 <Style BasedOn="{StaticResource TextBlockDefault}"
                                        TargetType="{x:Type TextBlock}" />
@@ -190,7 +190,7 @@
                         <ComboBox Grid.Row="0"
                                   Grid.Column="1"
                                   ItemsSource="{Binding Source={StaticResource OrderEnum}}"
-                                  SelectedValue="{Binding Order}">
+                                  SelectedValue="{Binding Order, UpdateSourceTrigger=PropertyChanged}">
                             <ComboBox.Resources>
                                 <Style BasedOn="{StaticResource TextBlockDefault}"
                                        TargetType="{x:Type TextBlock}" />

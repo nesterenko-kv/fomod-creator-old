@@ -169,8 +169,7 @@
                 </Border>
                 <DataTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter TargetName="decorator" Property="Background"
-                                Value="{StaticResource TableIsMouseOverBackGroundColor}" />
+                        <Setter TargetName="decorator" Property="Background" Value="{StaticResource TableIsMouseOverBackGroundColor}" />
                     </Trigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
@@ -206,8 +205,7 @@
                 </Border>
                 <DataTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter TargetName="decorator" Property="Background"
-                                Value="{StaticResource TableIsMouseOverBackGroundColor}" />
+                        <Setter TargetName="decorator" Property="Background" Value="{StaticResource TableIsMouseOverBackGroundColor}" />
                     </Trigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
@@ -215,17 +213,14 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <TextBlock Margin="0,3"
-                   Text="{Binding Header, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-                   FontFamily="Segoe UI Semibold"
-                   FontSize="16"
+        <TextBlock Text="{Binding Header, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                   Style="{StaticResource TextBlockHeaderStyle}"
                    LineStackingStrategy="BlockLineHeight" />
-        <ItemsControl
-            behavior:DropBehavior.PreviewDropCommand="{Binding DropItemCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-            AllowDrop="True"
-            Grid.IsSharedSizeScope="True"
-            DataContext="{Binding FileList, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-            ItemsSource="{Binding Items}">
+        <ItemsControl behavior:DropBehavior.PreviewDropCommand="{Binding DropItemCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                      AllowDrop="True"
+                      Grid.IsSharedSizeScope="True"
+                      DataContext="{Binding FileList, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                      ItemsSource="{Binding Items}">
             <ItemsControl.Style>
                 <Style TargetType="{x:Type ItemsControl}">
                     <Setter Property="Template">
@@ -255,7 +250,8 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <DockPanel HorizontalAlignment="Stretch" LastChildFill="False">
+                                    <DockPanel HorizontalAlignment="Stretch"
+                                               LastChildFill="False">
                                         <Button Width="20"
                                                 Height="20"
                                                 Margin="3,0,3,0"
@@ -281,26 +277,34 @@
                                             </Button.Template>
                                         </Button>
                                     </DockPanel>
-                                    <TextBlock Grid.Row="0" Grid.Column="1"
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="1"
                                                Text="Source" />
-                                    <TextBlock Grid.Row="0" Grid.Column="2"
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="2"
                                                Text="Destination" />
-                                    <TextBlock Grid.Row="0" Grid.Column="3"
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="3"
                                                Text="Always Install" />
-                                    <TextBlock Grid.Row="0" Grid.Column="4"
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="4"
                                                Text="Install If Usable" />
-                                    <TextBlock Grid.Row="0" Grid.Column="5"
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="5"
                                                Text="Priority" />
-                                    <Button Grid.Row="0" Grid.Column="6"
+                                    <Button Grid.Row="0"
+                                            Grid.Column="6"
                                             Margin="6,0"
                                             Style="{StaticResource AddButton}"
                                             Visibility="Hidden" />
                                     <Border x:Name="decorator"
-                                            Grid.Row="0" Grid.Column="0"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
                                             Grid.ColumnSpan="7"
                                             Panel.ZIndex="-1"
                                             Background="{StaticResource TableHeaderBackGroundColor}" />
-                                    <Border Grid.Row="1" Grid.Column="0"
+                                    <Border Grid.Row="1"
+                                            Grid.Column="0"
                                             Grid.ColumnSpan="7"
                                             BorderBrush="{StaticResource TableHeaderBackGroundColor}"
                                             BorderThickness="1,0,1,1">

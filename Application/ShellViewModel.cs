@@ -11,6 +11,8 @@ using FomodInfrastructure.MvvmLibrary.Commands;
 using MahApps.Metro.Controls.Dialogs;
 using Module.Editor.ViewModel;
 using Prism.Regions;
+using Module.Welcome.PrismEvent;
+using Prism.Events;
 
 namespace MainApplication
 {
@@ -18,11 +20,12 @@ namespace MainApplication
     {
         private readonly string _defautlTitle;
 
-        public ShellViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator)
+        public ShellViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator)
         {
             Title = _defautlTitle = $"FOMOD Creator beta v{GetVersion()}";
             _regionManager = regionManager;
             _dialogCoordinator = dialogCoordinator;
+            _eventAggregator = eventAggregator;
             CloseTabCommand = new RelayCommand<object>(CloseTab);
             SaveProjectCommand = new RelayCommand(SaveProject, CanSaveProject);
             SaveProjectAsCommand = new RelayCommand(SaveProjectAs, CanSaveProject);
@@ -31,7 +34,7 @@ namespace MainApplication
         #region Services
 
         private readonly IRegionManager _regionManager;
-
+        private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
 
         #endregion
@@ -100,9 +103,15 @@ namespace MainApplication
 
         private void SaveProject()
         {
+            
             var vm = (MainEditorViewModel)((FrameworkElement)CurentSelectedItem).DataContext;
             vm.IsNeedSave = false;
             vm.Save();
+            foreach (var projectRoot in vm.Data)
+            {
+                _eventAggregator.GetEvent<OpenProjectEvent>().Publish(projectRoot);
+            }
+            
         }
 
         private void SaveProjectAs()
