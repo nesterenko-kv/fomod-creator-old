@@ -116,6 +116,10 @@
     <Compile Include="Selectors\TabItemTemplateSelector.cs" />
     <Compile Include="Services\MemoryService.cs" />
     <Compile Include="ShellViewModel.cs" />
+    <Page Include="Resources\UI\ScrollViewerStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\UI\DataGrid\ComboBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

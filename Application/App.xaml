@@ -5,6 +5,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+
+                
                 <!--  Region MahApps.Metro resource dictionaries  -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
@@ -12,10 +14,13 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <!--  EndRegion  -->
+                
+                
                 <ResourceDictionary Source="Resources/UI/CustomStyles.xaml" />
                 <ResourceDictionary Source="Resources/UI/Icons/_icons.xaml" />
                 <ResourceDictionary Source="Resources/UI/DataGrid/DataGridStyle.xaml" />
                 <ResourceDictionary Source="Resources/UI/DataGrid/ComboBoxStyle.xaml" />
+                <ResourceDictionary Source="Resources/UI/ScrollViewerStyle.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
             <converters:MultiCommandParamsConverter x:Key="MultiCommandParamsConverter" />
