@@ -36,7 +36,10 @@
                             </DockPanel>
                         </Border>
                         <local:CompositeDependencyUserControl CompositeDependency="{Binding Dependencies}" />
-                        <local:FileListUserControl FileList="{Binding Files}" />
+                        <local:FileListUserControl FileList="{Binding Files}"
+                                                   AddFileSystemItemsMethmod="{Binding DataContext.AddFileSystemItemsMethmod, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}"
+                                                   AddFileMethmod="{Binding DataContext.AddFileMethmod, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}"
+                                                   AddFolderMethmod="{Binding DataContext.AddFolderMethmod, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" />
                     </StackPanel>
                 </Border>
             </DataTemplate>
@@ -45,10 +48,9 @@
                 <GroupBox>
                     <GroupBox.Header>
                         <DockPanel>
-                            <Button
-                                Command="{Binding RemoveConditionalFileInstalls, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                DockPanel.Dock="Right"
-                                Style="{StaticResource DeleteButton}" />
+                            <Button Command="{Binding RemoveConditionalFileInstalls, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                    DockPanel.Dock="Right"
+                                    Style="{StaticResource DeleteButton}" />
                             <TextBlock Margin="0"
                                        VerticalAlignment="Center"
                                        Padding="0"
@@ -58,7 +60,8 @@
                     </GroupBox.Header>
                     <StackPanel>
                         <ItemsControl ItemsSource="{Binding Patterns}" />
-                        <Button HorizontalAlignment="Right" Margin="12"
+                        <Button Margin="12"
+                                HorizontalAlignment="Right"
                                 Command="{Binding AddPaternCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                 Style="{StaticResource AddButton}" />
                     </StackPanel>
@@ -68,8 +71,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <ContentControl
-        Content="{Binding FileInstallList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
+    <ContentControl Content="{Binding FileInstallList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
         <ContentControl.Style>
             <Style TargetType="{x:Type ContentControl}">
                 <Style.Triggers>
@@ -80,10 +82,9 @@
                                     <GroupBox Background="Gray">
                                         <GroupBox.Header>
                                             <DockPanel>
-                                                <Button
-                                                    Command="{Binding CreateConditionalFileInstalls, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                                    DockPanel.Dock="Right"
-                                                    Style="{StaticResource AddButton}" />
+                                                <Button Command="{Binding CreateConditionalFileInstalls, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                        DockPanel.Dock="Right"
+                                                        Style="{StaticResource AddButton}" />
                                                 <TextBlock Margin="0"
                                                            VerticalAlignment="Center"
                                                            Padding="0"

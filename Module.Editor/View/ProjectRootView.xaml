@@ -233,10 +233,9 @@
                     <GroupBox>
                         <GroupBox.Header>
                             <DockPanel>
-                                <Button
-                                    Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                    DockPanel.Dock="Right"
-                                    Style="{StaticResource DeleteButton}" />
+                                <Button Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                        DockPanel.Dock="Right"
+                                        Style="{StaticResource DeleteButton}" />
                                 <TextBlock Margin="0"
                                            VerticalAlignment="Center"
                                            Style="{StaticResource TextBlockHeaderStyle}"
@@ -248,16 +247,15 @@
                                              BrowseImageCommand="{Binding DataContext.BrowseImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
                     </GroupBox>
                 </ContentControl>
-                <uc:CompositeDependencyUserControl
-                    CompositeDependency="{Binding Data.ModuleConfiguration.ModuleDependencies}" />
+                <uc:CompositeDependencyUserControl CompositeDependency="{Binding Data.ModuleConfiguration.ModuleDependencies}" />
                 <uc:FileListUserControl Margin="{StaticResource MarginGroupBox}"
-                                        AddFileCommand="{Binding AddFileCommand}"
-                                        AddFolderCommand="{Binding AddFolderCommand}"
+                                        AddFileSystemItemsMethmod="{Binding AddFileSystemItemsMethmod}"
+                                        AddFileMethmod="{Binding AddFileMethmod}"
+                                        AddFolderMethmod="{Binding AddFolderMethmod}"
                                         Header="Files and folders"
                                         FileList="{Binding Data.ModuleConfiguration.RequiredInstallFiles}" />
-                <uc:ConditionalFileInstallsUserControl
-                    FileInstallList="{Binding Data.ModuleConfiguration.ConditionalFileInstalls}"
-                    ServiceLocator="{Binding PublicServiceLocator}" />
+                <uc:ConditionalFileInstallsUserControl FileInstallList="{Binding Data.ModuleConfiguration.ConditionalFileInstalls}"
+                                                       ServiceLocator="{Binding PublicServiceLocator}" />
             </StackPanel>
         </ScrollViewer>
 

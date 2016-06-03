@@ -4,6 +4,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:uc="clr-namespace:Module.Editor.Resources.UserControls"
+             xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             dialog:DialogParticipation.Register="{Binding}"
              d:DesignHeight="800"
              d:DesignWidth="1200"
              mc:Ignorable="d">
@@ -121,10 +123,9 @@
                                                 <GroupBox Background="Gray">
                                                     <GroupBox.Header>
                                                         <DockPanel>
-                                                            <Button
-                                                                Command="{Binding DataContext.AddImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                                                DockPanel.Dock="Right"
-                                                                Style="{StaticResource AddButton}" />
+                                                            <Button Command="{Binding DataContext.AddImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                                    DockPanel.Dock="Right"
+                                                                    Style="{StaticResource AddButton}" />
                                                             <TextBlock Margin="0"
                                                                        VerticalAlignment="Center"
                                                                        Style="{StaticResource TextBlockHeaderStyle}"
@@ -143,10 +144,9 @@
                     <GroupBox>
                         <GroupBox.Header>
                             <DockPanel>
-                                <Button
-                                    Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                    DockPanel.Dock="Right"
-                                    Style="{StaticResource DeleteButton}" />
+                                <Button Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                        DockPanel.Dock="Right"
+                                        Style="{StaticResource DeleteButton}" />
                                 <TextBlock Margin="0"
                                            VerticalAlignment="Center"
                                            Style="{StaticResource TextBlockHeaderStyle}"
@@ -159,10 +159,11 @@
                     </GroupBox>
                 </ContentControl>
                 <uc:FileListUserControl Margin="{StaticResource MarginGroupBox}"
-                                        AddFileCommand="{Binding AddFileCommand}"
-                                        AddFolderCommand="{Binding AddFolderCommand}"
                                         Header="Files and folders"
-                                        FileList="{Binding Data.Files}" />
+                                        FileList="{Binding Data.Files}"
+                                        AddFileSystemItemsMethmod="{Binding AddFileSystemItemsMethmod}"
+                                        AddFileMethmod="{Binding AddFileMethmod}"
+                                        AddFolderMethmod="{Binding AddFolderMethmod}" />
                 <uc:SetConditionFlagUserControl Margin="{StaticResource MarginGroupBox}"
                                                 ConditionFlagList="{Binding Data.ConditionFlags}" />
                 <uc:PluginTypeDescriptorUserControl Descriptor="{Binding Data.TypeDescriptor}" />

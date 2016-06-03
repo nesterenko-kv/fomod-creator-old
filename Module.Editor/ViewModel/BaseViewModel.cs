@@ -5,6 +5,7 @@ using Prism.Regions;
 
 namespace Module.Editor.ViewModel
 {
+    [Aspect(typeof(AspectINotifyPropertyChanged))]
     public class BaseViewModel<T> : INavigationAware where T : class
     {
         private readonly string _curentParamName;
@@ -14,10 +15,9 @@ namespace Module.Editor.ViewModel
             _curentParamName = GetType().Name.Replace("ViewModel", string.Empty);
         }
 
-        [Aspect(typeof(AspectINotifyPropertyChanged))]
+        
         public T Data { get; set; }
 
-        [Aspect(typeof(AspectINotifyPropertyChanged))]
         public string FolderPath { get; set; }
 
         #region INavigationAware
