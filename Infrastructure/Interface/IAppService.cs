@@ -9,6 +9,8 @@
 
         void InitilizeBaseModules();
 
+        string[] CommandLineArgs { get; set; }
+
         void CreateEditorModule<T>(IRepository<T> repository);
     }
 }
