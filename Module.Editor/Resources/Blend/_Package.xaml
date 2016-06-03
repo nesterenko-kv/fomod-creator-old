@@ -7,25 +7,11 @@
         <ResourceDictionary Source="TextBlockDefault.xaml" />
         <ResourceDictionary Source="ComboBoxDefault.xaml" />
         <ResourceDictionary Source="GroupBox.xaml" />
+        <ResourceDictionary Source="ToggleButton.xaml" />
+        <ResourceDictionary Source="ForTable.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 
-    <Style x:Key="TextBoxForTable"
-           BasedOn="{StaticResource TextBoxDefault}"
-           TargetType="{x:Type TextBox}">
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="MinWidth" Value="0" />
-        <Setter Property="Margin" Value="0,1,0,0" />
-        <Setter Property="VerticalAlignment" Value="Stretch" />
-    </Style>
 
-    <Style x:Key="ComboBoxForTable"
-           BasedOn="{StaticResource ComboBoxDefault}"
-           TargetType="{x:Type ComboBox}">
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="MinWidth" Value="0" />
-        <Setter Property="Margin" Value="0,1,0,0" />
-    </Style>
 
 </ResourceDictionary>
