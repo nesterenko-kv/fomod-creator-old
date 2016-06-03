@@ -49,7 +49,7 @@ namespace Module.Editor.ViewModel
             var returnList = new List<SystemItem>();
             var filesAndFolders = paths;
             if (filesAndFolders.Any(path => path == FolderPath))
-                _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Нельзя добавлять в проект самого себя");
+                _dialogCoordinator.ShowMessageAsync(this, "Error", "You can't add root project path."); //TODO: Localize
             else
                 if (filesAndFolders.All(fileName => fileName.StartsWith(FolderPath)))
                     foreach (var path in filesAndFolders)
@@ -67,7 +67,7 @@ namespace Module.Editor.ViewModel
                         returnList.Add(item);
                     }
                 else
-                    _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Допускается добавлять файлы и папки только из директории проекта");
+                    _dialogCoordinator.ShowMessageAsync(this, "Error", "Allowed to add files and folders only from the project directory."); //TODO: Localize
             return returnList;
         }
 
@@ -114,7 +114,7 @@ namespace Module.Editor.ViewModel
                 }
             }
             else
-                await _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Допускается добавлять файлы только из директории проекта");
+                await _dialogCoordinator.ShowMessageAsync(this, "Error", "Allowed to add files and folders only from the project directory."); //TODO: Localize
         }
 
         protected async void AddFolders(ObservableCollection<SystemItem> itemSource, List<string> paths)
@@ -140,7 +140,7 @@ namespace Module.Editor.ViewModel
                 }
             }
             else
-                await _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Допускается добавлять папки только из директории проекта");
+                await _dialogCoordinator.ShowMessageAsync(this, "Error", "Allowed to add files and folders only from the project directory."); //TODO: Localize
         }
 
         protected bool TryGetImage(out string result)

@@ -72,7 +72,7 @@ namespace Module.Welcome.ViewModel
             switch (repository.RepositoryStatus)
             {
                 case RepositoryStatus.FolderIsAlreadyUse:
-                    await _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Нельзя использовать папку в которой существуют файлы проекта");
+                    await _dialogCoordinator.ShowMessageAsync(this, "Error", "Folder already in use."); //TODO: Localize
                     break;
                 case RepositoryStatus.Ok:
                     OpenProject(path);
@@ -82,6 +82,7 @@ namespace Module.Welcome.ViewModel
                 case RepositoryStatus.None:
                     break;
                 case RepositoryStatus.Error:
+                    await _dialogCoordinator.ShowMessageAsync(this, "Error", "An error occurred while creating the project."); //TODO: Localize
                     break;
                 case RepositoryStatus.CantSelectFolder:
                     break;
@@ -99,10 +100,10 @@ namespace Module.Welcome.ViewModel
                 switch (repository.RepositoryStatus)
                 {
                     case RepositoryStatus.CantSelectFolder:
-                        await _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Указанная папка не соответствует необходимым требованиям.");
+                        await _dialogCoordinator.ShowMessageAsync(this, "Error", "The specified folder doesn't correspond to necessary requirements."); //TODO: Localize
                         break;
                     case RepositoryStatus.Error:
-                        await _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Произошла ошибка при загрузки проекта - обратитесь к разработчику");
+                        await _dialogCoordinator.ShowMessageAsync(this, "Error", "An error occured while loading the project folder."); //TODO: Localize
                         break;
                     case RepositoryStatus.Cancel:
                         break;

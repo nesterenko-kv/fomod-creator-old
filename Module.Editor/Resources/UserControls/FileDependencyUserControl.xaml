@@ -90,12 +90,14 @@
                                             Panel.ZIndex="-100"
                                             Background="{StaticResource TableHeaderBackGroundColor}"
                                             CornerRadius="{StaticResource CornerRadius}" />
+                                    <!--TODO Localize-->
                                     <TextBlock Grid.Row="1"
                                                Grid.Column="0"
-                                               Text="Статус" />
+                                               Text="Status" />
+                                    <!--TODO Localize-->
                                     <TextBlock Grid.Row="1"
                                                Grid.Column="1"
-                                               Text="Относительный путь" />
+                                               Text="File Name" />
                                     <Button Grid.Row="1"
                                             Grid.Column="2"
                                             Margin="6,0"

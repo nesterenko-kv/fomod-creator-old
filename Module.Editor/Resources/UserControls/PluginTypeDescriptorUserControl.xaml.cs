@@ -61,7 +61,7 @@ namespace Module.Editor.Resources.UserControls
                                 Descriptor.DependencyType = (DependencyPluginType)_previewPluginType;
                             }
                             else
-                                throw new ArgumentException("при смене типа произошла ошибка (ChangeTypeCommand)");
+                                throw new ArgumentException("при смене типа произошла ошибка (ChangeTypeCommand)"); //TODO: Localize
                         }
                     }
                     else

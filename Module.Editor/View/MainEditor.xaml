@@ -9,6 +9,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mcd="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
              xmlns:regions="http://prismlibrary.com/"
+             xmlns:names="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
              d:DesignHeight="320"
              d:DesignWidth="1100"
              dialogs:DialogParticipation.Register="{Binding}"
@@ -208,6 +209,6 @@
             </TreeView.ItemContainerStyle>
         </TreeView>
         <ContentControl Grid.Column="1"
-                        regions:RegionManager.RegionName="NodeRegion" />
+                        regions:RegionManager.RegionName="{x:Static names:Names.NodeRegion}" />
     </Grid>
 </UserControl>

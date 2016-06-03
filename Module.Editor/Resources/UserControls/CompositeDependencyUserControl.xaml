@@ -62,10 +62,10 @@
                                 <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-
+                            <!--TODO Localize-->
                             <TextBlock Grid.Row="0"
                                        Grid.Column="0"
-                                       Text="Оператор" />
+                                       Text="Operator" />
                             <ComboBox Grid.Row="0"
                                       Grid.Column="1"
                                       ItemsSource="{Binding Source={StaticResource CompositeDependencyOperator}}"

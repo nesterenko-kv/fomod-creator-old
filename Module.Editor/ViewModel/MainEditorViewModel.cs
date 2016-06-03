@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using AspectInjector.Broker;
+using FomodInfrastructure;
 using FomodInfrastructure.Aspect;
 using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
@@ -26,11 +27,11 @@ namespace Module.Editor.ViewModel
 
         public void Dispose()
         {
-            var list = _regionManager.Regions["NodeRegion"].Views.ToList();
+            var list = _regionManager.Regions[Names.NodeRegion].Views.ToList();
             foreach (var item in list)
             {
                 ((FrameworkElement)item).DataContext = null;
-                _regionManager.Regions["NodeRegion"].Remove(item);
+                _regionManager.Regions[Names.NodeRegion].Remove(item);
             }
         }
 
@@ -104,7 +105,7 @@ namespace Module.Editor.ViewModel
                     return;
                 var name = value.GetType().Name;
                 var param = new NavigationParameters { { name, value }, { "FolderPath", _repository.CurrentPath } };
-                _regionManager.Regions["NodeRegion"].RequestNavigate(name + "View", param);
+                _regionManager.Regions[Names.NodeRegion].RequestNavigate(name + "View", param);
             }
         }
 
@@ -186,7 +187,8 @@ namespace Module.Editor.ViewModel
 
         private void DeleteDialog(object[] objects)
         {
-            ConfirmationRequest.Raise(new Confirmation { Content = "Вы точно хотите удалить узел?", Title = "”далить узел?" }, c =>
+            //TODO: Localize
+            ConfirmationRequest.Raise(new Confirmation { Content = "You sure you want remove a node ?", Title = "Удалить узел?" }, c =>
             {
                 if (!c.Confirmed)
                     return;
