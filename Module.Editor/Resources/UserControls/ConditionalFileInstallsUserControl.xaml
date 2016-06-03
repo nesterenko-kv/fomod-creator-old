@@ -55,8 +55,8 @@
                         <ContentControl Grid.Column="0"
                                         Content="{Binding SelectedItem, ElementName=PatternsList}" />
 
-                        <GridSplitter Width="2"
-                                      Margin="0,0,-1,0"
+                        <GridSplitter Width="1"
+                                      Margin="0,0,0,0"
                                       HorizontalAlignment="Right"
                                       VerticalAlignment="Stretch"
                                       Background="Gray" />
@@ -76,7 +76,7 @@
                                         Style="{StaticResource AddButton}" />
                             </StackPanel>
                             <ListBox x:Name="PatternsList" DockPanel.Dock="Bottom"
-                                     Margin="0"
+                                     Margin="0" SelectedItem="{Binding SelectedPattern, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                      ItemsSource="{Binding Patterns}">
                                 <ListBox.ItemTemplate>

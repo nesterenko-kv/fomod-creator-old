@@ -15,8 +15,21 @@ namespace Module.Editor.ViewModel
             _curentParamName = GetType().Name.Replace("ViewModel", string.Empty);
         }
 
-        
-        public T Data { get; set; }
+        public Action ThenDataSet { get; set; }
+
+        T _data;
+        public T Data
+        {
+            get
+            {
+                return _data;
+            }
+            set
+            {
+                _data = value;
+                ThenDataSet?.Invoke();
+            }
+        }
 
         public string FolderPath { get; set; }
 

@@ -255,7 +255,7 @@
                                         Header="Files and folders"
                                         FileList="{Binding Data.ModuleConfiguration.RequiredInstallFiles}" />
                 <uc:ConditionalFileInstallsUserControl FileInstallList="{Binding Data.ModuleConfiguration.ConditionalFileInstalls}"
-                                                       ServiceLocator="{Binding PublicServiceLocator}" />
+                                                        />
             </StackPanel>
         </ScrollViewer>
 

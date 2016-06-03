@@ -5,14 +5,23 @@ using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base.ModuleCofiguration;
 using Microsoft.Practices.ServiceLocation;
 using System.Windows.Controls;
+using System.Linq;
+using System;
 
 namespace Module.Editor.Resources.UserControls
 {
     public partial class ConditionalFileInstallsUserControl
     {
-        public static readonly DependencyProperty ServiceLocatorProperty = DependencyProperty.Register("ServiceLocator", typeof(IServiceLocator), typeof(ConditionalFileInstallsUserControl), new PropertyMetadata(null));
 
-        public static readonly DependencyProperty FileInstallListProperty = DependencyProperty.Register("FileInstallList", typeof(ConditionalFileInstallList), typeof(ConditionalFileInstallsUserControl), new FrameworkPropertyMetadata { DefaultValue = null, BindsTwoWayByDefault = true });
+        public static readonly DependencyProperty FileInstallListProperty = DependencyProperty.Register("FileInstallList", typeof(ConditionalFileInstallList), typeof(ConditionalFileInstallsUserControl), new FrameworkPropertyMetadata { DefaultValue = null, BindsTwoWayByDefault = true, PropertyChangedCallback= FileInstallListChange });
+
+        private static void FileInstallListChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var s = d as ConditionalFileInstallsUserControl;
+            s.SelectedPattern = s.FileInstallList?.Patterns?.FirstOrDefault();
+        }
+
+        public static readonly DependencyProperty SelectedPatternProperty = DependencyProperty.Register("SelectedPattern", typeof(object), typeof(ConditionalFileInstallsUserControl), new FrameworkPropertyMetadata { DefaultValue = null, BindsTwoWayByDefault = true });
 
         private ICommand _addPatern;
 
@@ -28,19 +37,23 @@ namespace Module.Editor.Resources.UserControls
         public ConditionalFileInstallsUserControl()
         {
             InitializeComponent();
+            var firstItem = FileInstallList?.Patterns?.FirstOrDefault();
+            SelectedPattern = firstItem != null ? firstItem : null;
         }
 
-        public IServiceLocator ServiceLocator
-        {
-            get { return (IServiceLocator)GetValue(ServiceLocatorProperty); }
-            set { SetValue(ServiceLocatorProperty, value); }
-        }
 
         public ConditionalFileInstallList FileInstallList
         {
             get { return (ConditionalFileInstallList)GetValue(FileInstallListProperty); }
             set { SetValue(FileInstallListProperty, value); }
         }
+
+        public object SelectedPattern
+        {
+            get { return (object)GetValue(SelectedPatternProperty); }
+            set { SetValue(SelectedPatternProperty, value); }
+        }
+
 
         public ICommand CreateConditionalFileInstalls
         {
@@ -49,7 +62,12 @@ namespace Module.Editor.Resources.UserControls
                 return _createConditionalFileInstalls ?? (_createConditionalFileInstalls = new RelayCommand(() =>
                 {
                     if (FileInstallList == null)
+                    {
+                        var pattern = ConditionalInstallPattern.Create();
                         FileInstallList = ConditionalFileInstallList.Create();
+                        FileInstallList.Patterns.Add(pattern);
+                        SelectedPattern = pattern;
+                    }
                 }));
             }
         }
@@ -101,5 +119,12 @@ namespace Module.Editor.Resources.UserControls
         {
             get { return _refreshItemsCommand ?? (_refreshItemsCommand = new RelayCommand<ItemsControl>(ic => ic.Items.Refresh())); }
         }
+
+
+
+
+       
+
+
     }
 }

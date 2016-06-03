@@ -5,13 +5,15 @@ using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base;
 using FomodModel.Base.ModuleCofiguration;
 using MahApps.Metro.Controls.Dialogs;
+using System.Linq;
 
 namespace Module.Editor.ViewModel
 {
     public class ProjectRootViewModel : FileWorkerBaseViewModel<ProjectRoot>
     {
         public ProjectRootViewModel(IFileBrowserDialog fileBrowserDialog, IFolderBrowserDialog folderBrowserDialog, IDialogCoordinator dialogCoordinator)
-            : base(fileBrowserDialog, folderBrowserDialog, dialogCoordinator) {}
+            : base(fileBrowserDialog, folderBrowserDialog, dialogCoordinator)
+        { }
 
         #region Methods
 
@@ -45,6 +47,9 @@ namespace Module.Editor.ViewModel
         }
 
         #endregion
+
+
+        
 
         #region Commands
 

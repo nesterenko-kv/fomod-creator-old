@@ -25,7 +25,10 @@ namespace FomodModel.Base.ModuleCofiguration
 
         public static ConditionalFileInstallList Create()
         {
-            return new ConditionalFileInstallList();
+            return new ConditionalFileInstallList()
+            {
+                Patterns = new ObservableCollection<ConditionalInstallPattern>()
+            };
         }
     }
 }
