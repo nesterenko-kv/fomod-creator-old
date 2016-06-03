@@ -37,9 +37,9 @@
                         </Border>
                         <local:CompositeDependencyUserControl CompositeDependency="{Binding Dependencies}" />
                         <local:FileListUserControl FileList="{Binding Files}"
-                                                   AddFileSystemItemsMethmod="{Binding DataContext.AddFileSystemItemsMethmod, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}"
-                                                   AddFileMethmod="{Binding DataContext.AddFileMethmod, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}"
-                                                   AddFolderMethmod="{Binding DataContext.AddFolderMethmod, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" />
+                                                   AddFileSystemItemsMethod="{Binding DataContext.AddFileSystemItemsMethod, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}"
+                                                   AddFileMethod="{Binding DataContext.AddFileMethod, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}"
+                                                   AddFolderMethod="{Binding DataContext.AddFolderMethod, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" />
                     </StackPanel>
                 </Border>
             </DataTemplate>

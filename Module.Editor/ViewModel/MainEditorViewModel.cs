@@ -90,7 +90,7 @@ namespace Module.Editor.ViewModel
 
         public ProjectRoot FirstData { get; private set; }
 
-        //TODO Не забыть про очищение свойства при закрытии или удалении проекта, или сделать слабую ссылку
+        //TODO: Не забыть про очищение свойства при закрытии или удалении проекта, или сделать слабую ссылку
 
         private object _selectedNode;
 

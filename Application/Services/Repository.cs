@@ -93,7 +93,7 @@ namespace MainApplication.Services
 
         #endregion
 
-        #region Private methmods
+        #region Private methods
 
         private XElement GetXElementResource(string path)
         {

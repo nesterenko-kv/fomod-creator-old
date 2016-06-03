@@ -249,9 +249,9 @@
                 </ContentControl>
                 <uc:CompositeDependencyUserControl CompositeDependency="{Binding Data.ModuleConfiguration.ModuleDependencies}" />
                 <uc:FileListUserControl Margin="{StaticResource MarginGroupBox}"
-                                        AddFileSystemItemsMethmod="{Binding AddFileSystemItemsMethmod}"
-                                        AddFileMethmod="{Binding AddFileMethmod}"
-                                        AddFolderMethmod="{Binding AddFolderMethmod}"
+                                        AddFileSystemItemsMethod="{Binding AddFileSystemItemsMethod}"
+                                        AddFileMethod="{Binding AddFileMethod}"
+                                        AddFolderMethod="{Binding AddFolderMethod}"
                                         Header="Files and folders"
                                         FileList="{Binding Data.ModuleConfiguration.RequiredInstallFiles}" />
                 <uc:ConditionalFileInstallsUserControl FileInstallList="{Binding Data.ModuleConfiguration.ConditionalFileInstalls}"

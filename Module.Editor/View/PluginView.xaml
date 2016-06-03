@@ -161,9 +161,9 @@
                 <uc:FileListUserControl Margin="{StaticResource MarginGroupBox}"
                                         Header="Files and folders"
                                         FileList="{Binding Data.Files}"
-                                        AddFileSystemItemsMethmod="{Binding AddFileSystemItemsMethmod}"
-                                        AddFileMethmod="{Binding AddFileMethmod}"
-                                        AddFolderMethmod="{Binding AddFolderMethmod}" />
+                                        AddFileSystemItemsMethod="{Binding AddFileSystemItemsMethod}"
+                                        AddFileMethod="{Binding AddFileMethod}"
+                                        AddFolderMethod="{Binding AddFolderMethod}" />
                 <uc:SetConditionFlagUserControl Margin="{StaticResource MarginGroupBox}"
                                                 ConditionFlagList="{Binding Data.ConditionFlags}" />
                 <uc:PluginTypeDescriptorUserControl Descriptor="{Binding Data.TypeDescriptor}" />
