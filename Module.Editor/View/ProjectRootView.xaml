@@ -6,6 +6,7 @@
              xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"
              xmlns:enum="clr-namespace:FomodModel.Base.ModuleCofiguration.Enum;assembly=FomodModel"
              xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:uc="clr-namespace:Module.Editor.Resources.UserControls"
              dialog:DialogParticipation.Register="{Binding}"
              d:DesignHeight="2000"
              d:DesignWidth="1200"
@@ -20,8 +21,7 @@
     </UserControl.Resources>
     <Grid Grid.IsSharedSizeScope="True">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled">
-            <StackPanel xmlns:uc="clr-namespace:Module.Editor.Resources.UserControls"
-                        MaxWidth="1000">
+            <StackPanel MaxWidth="1000">
 
                 <GroupBox DataContext="{Binding Data.ModuleInformation}"
                           Header="Mod Info Settings">

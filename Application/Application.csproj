@@ -235,10 +235,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EditorNew\EditorNew.csproj">
-      <Project>{fe239c37-d9e5-413e-826c-116f026aee7a}</Project>
-      <Name>EditorNew</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{d6ff4295-8252-49e7-9e97-eb998c7c25af}</Project>
       <Name>Infrastructure</Name>
@@ -258,10 +254,6 @@
     <ProjectReference Include="..\Module.Welcome\Module.Welcome.csproj">
       <Project>{194d7e2f-3290-47d0-94a9-11bd7ab3fa18}</Project>
       <Name>Module.Welcome</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WelcomeNew\WelcomeNew.csproj">
-      <Project>{a527aa14-21f8-4c4d-9a4a-f63c87043ba4}</Project>
-      <Name>WelcomeNew</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
