@@ -11,11 +11,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class InstallStep
     {
-        public static InstallStep Create()
-        {
-            return new InstallStep { Name = "New Step" };
-        }
-
         #region Properties
 
         /// <summary>
@@ -38,5 +33,10 @@ namespace FomodModel.Base.ModuleCofiguration
         public string Name { get; set; }
 
         #endregion
+
+        public static InstallStep Create()
+        {
+            return new InstallStep { Name = "New Step" };
+        }
     }
 }

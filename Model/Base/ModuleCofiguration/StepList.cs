@@ -14,14 +14,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class StepList
     {
-        /// <summary>
-        ///     StepList class constructor
-        /// </summary>
-        public StepList()
-        {
-            Order = OrderEnum.Ascending;
-        }
-
         #region Properties
 
         /// <summary>
@@ -37,5 +29,15 @@ namespace FomodModel.Base.ModuleCofiguration
         public OrderEnum Order { get; set; }
 
         #endregion
+
+        public StepList()
+        {
+            Order = OrderEnum.Ascending;
+        }
+
+        public static StepList Create()
+        {
+            return new StepList();
+        }
     }
 }

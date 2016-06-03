@@ -11,11 +11,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class ConditionalInstallPattern
     {
-        public static ConditionalInstallPattern Create()
-        {
-            return new ConditionalInstallPattern();
-        }
-
         #region Properties
 
         /// <summary>
@@ -31,5 +26,10 @@ namespace FomodModel.Base.ModuleCofiguration
         public FileList Files { get; set; }
 
         #endregion
+
+        public static ConditionalInstallPattern Create()
+        {
+            return new ConditionalInstallPattern();
+        }
     }
 }

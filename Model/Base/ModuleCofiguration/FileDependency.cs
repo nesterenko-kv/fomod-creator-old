@@ -12,11 +12,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class FileDependency
     {
-        public static FileDependency Create()
-        {
-            return new FileDependency { File = "file.esm", State = FileDependencyState.Active };
-        }
-
         #region Properties
 
         /// <summary>
@@ -32,5 +27,10 @@ namespace FomodModel.Base.ModuleCofiguration
         public FileDependencyState State { get; set; }
 
         #endregion
+
+        public static FileDependency Create()
+        {
+            return new FileDependency { File = "file.esm", State = FileDependencyState.Active };
+        }
     }
 }

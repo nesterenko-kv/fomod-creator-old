@@ -19,11 +19,11 @@ namespace FomodModel.Base.ModuleCofiguration
         [XmlAttribute("path")]
         public string Path { get; set; }
 
+        #endregion
+
         public static Image Create(string imagePath)
         {
             return new Image { Path = imagePath };
         }
-
-        #endregion
     }
 }

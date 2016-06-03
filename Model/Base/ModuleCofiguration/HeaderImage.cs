@@ -5,26 +5,11 @@ using System.Xml.Serialization;
 namespace FomodModel.Base.ModuleCofiguration
 {
     /// <summary>
-    ///     An image.
+    ///     An header image.
     /// </summary>
     [Serializable]
     public class HeaderImage : Image
     {
-        /// <summary>
-        ///     HeaderImage class constructor
-        /// </summary>
-        public HeaderImage()
-        {
-            ShowImage = true;
-            ShowFade = true;
-            Height = -1;
-        }
-
-        public new static HeaderImage Create(string path)
-        {
-            return new HeaderImage { Path = path };
-        }
-
         #region Properties
 
         /// <summary>
@@ -46,5 +31,17 @@ namespace FomodModel.Base.ModuleCofiguration
         public int Height { get; set; }
 
         #endregion
+        
+        public HeaderImage()
+        {
+            ShowImage = true;
+            ShowFade = true;
+            Height = -1;
+        }
+
+        public new static HeaderImage Create(string path)
+        {
+            return new HeaderImage { Path = path };
+        }
     }
 }

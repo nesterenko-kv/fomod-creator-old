@@ -14,19 +14,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class CompositeDependency
     {
-        /// <summary>
-        ///     CompositeDependency class constructor
-        /// </summary>
-        public CompositeDependency()
-        {
-            Operator = CompositeDependencyOperator.And;
-        }
-
-        public static CompositeDependency Create()
-        {
-            return new CompositeDependency();
-        }
-
         #region Properties
 
         /// <summary>
@@ -65,5 +52,15 @@ namespace FomodModel.Base.ModuleCofiguration
         public CompositeDependency Parent { get; set; }
 
         #endregion
+
+        public CompositeDependency()
+        {
+            Operator = CompositeDependencyOperator.And;
+        }
+
+        public static CompositeDependency Create()
+        {
+            return new CompositeDependency();
+        }
     }
 }

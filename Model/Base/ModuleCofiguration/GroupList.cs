@@ -14,19 +14,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class GroupList
     {
-        /// <summary>
-        ///     GroupList class constructor
-        /// </summary>
-        public GroupList()
-        {
-            Order = OrderEnum.Ascending;
-        }
-
-        public static GroupList Create()
-        {
-            return new GroupList();
-        }
-
         #region Properties
 
         /// <summary>
@@ -42,5 +29,15 @@ namespace FomodModel.Base.ModuleCofiguration
         public OrderEnum Order { get; set; }
 
         #endregion
+
+        public GroupList()
+        {
+            Order = OrderEnum.Ascending;
+        }
+
+        public static GroupList Create()
+        {
+            return new GroupList();
+        }
     }
 }

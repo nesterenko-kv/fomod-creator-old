@@ -12,11 +12,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class DependencyPluginType
     {
-        public static DependencyPluginType Create()
-        {
-            return new DependencyPluginType { DefaultType = PluginType.Create() };
-        }
-
         #region Properties
 
         /// <summary>
@@ -33,5 +28,10 @@ namespace FomodModel.Base.ModuleCofiguration
         public ObservableCollection<DependencyPattern> Patterns { get; set; }
 
         #endregion
+
+        public static DependencyPluginType Create()
+        {
+            return new DependencyPluginType { DefaultType = PluginType.Create() };
+        }
     }
 }

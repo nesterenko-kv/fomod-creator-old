@@ -84,7 +84,7 @@ namespace MainApplication
             var needSave = ((MainEditorViewModel)p).IsNeedSave;
             if (needSave)
             {
-                var result = await CofirmDialog();
+                var result = await CofirmDialogAsync();
                 if (result)
                     SaveProject();
             }
@@ -114,7 +114,7 @@ namespace MainApplication
 
         private bool CanSaveProject() => (CurentSelectedItem as FrameworkElement)?.DataContext is MainEditorViewModel;
 
-        private async Task<bool> CofirmDialog() => await _dialogCoordinator.ShowMessageAsync(this, "Закрыть проект", "Сохранить перед закрытием?", MessageDialogStyle.AffirmativeAndNegative) == MessageDialogResult.Affirmative;
+        private async Task<bool> CofirmDialogAsync() => await _dialogCoordinator.ShowMessageAsync(this, "Закрыть проект", "Сохранить перед закрытием?", MessageDialogStyle.AffirmativeAndNegative) == MessageDialogResult.Affirmative;
 
         private string GetVersion()
         {

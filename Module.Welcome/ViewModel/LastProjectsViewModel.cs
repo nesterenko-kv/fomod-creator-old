@@ -17,13 +17,13 @@ namespace Module.Welcome.ViewModel
     {
         private const string SubPath = @"\FOMODplist.xml";
 
-        private readonly string _basePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+        private readonly string _personalPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
         public LastProjectsViewModel(IEventAggregator eventAggregator, IDataService dataService)
         {
             _eventAggregator = eventAggregator;
             _dataService = dataService;
-            _eventAggregator.GetEvent<OpenProjectEvent>().Subscribe(AddProjectInList);
+            _eventAggregator.GetEvent<OpenProjectEvent>().Subscribe(UpdateProjectList);
             ProjectLinkList = ReadProjectLinkListFile() ?? new ProjectLinkList();
         }
 
@@ -69,7 +69,7 @@ namespace Module.Welcome.ViewModel
             SaveProjectLinkListFile();
         }
 
-        private void AddProjectInList(ProjectRoot p)
+        private void UpdateProjectList(ProjectRoot p)
         {
             var item = ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p.FolderPath);
             if (item == null)
@@ -81,9 +81,9 @@ namespace Module.Welcome.ViewModel
 
         private ProjectLinkList ReadProjectLinkListFile()
         {
-            if (!File.Exists(_basePath + SubPath))
+            if (!File.Exists(_personalPath + SubPath))
                 return null;
-            var link = _dataService.DeserializeObject<ProjectLinkList>(_basePath + SubPath);
+            var link = _dataService.DeserializeObject<ProjectLinkList>(_personalPath + SubPath);
             foreach (var item in link.Links.Where(item => string.IsNullOrWhiteSpace(item.FolderPath)))
                 link.Links.Remove(item);
             return link;
@@ -91,8 +91,8 @@ namespace Module.Welcome.ViewModel
 
         private void SaveProjectLinkListFile()
         {
-            if (Directory.Exists(_basePath))
-                _dataService.SerializeObject(ProjectLinkList, _basePath + SubPath);
+            if (Directory.Exists(_personalPath))
+                _dataService.SerializeObject(ProjectLinkList, _personalPath + SubPath);
         }
 
         #endregion

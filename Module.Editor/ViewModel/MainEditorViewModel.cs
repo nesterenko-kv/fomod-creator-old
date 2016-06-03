@@ -121,7 +121,7 @@ namespace Module.Editor.ViewModel
                 return _addStepCommand ?? (_addStepCommand = new RelayCommand<ProjectRoot>(p =>
                 {
                     if (p.ModuleConfiguration.InstallSteps == null)
-                        p.ModuleConfiguration.InstallSteps = new StepList();
+                        p.ModuleConfiguration.InstallSteps = StepList.Create();
                     if (p.ModuleConfiguration.InstallSteps.InstallStep == null)
                         p.ModuleConfiguration.InstallSteps.InstallStep = new ObservableCollection<InstallStep>();
                     p.ModuleConfiguration.InstallSteps.InstallStep.Add(InstallStep.Create());

@@ -12,11 +12,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class Group
     {
-        public static Group Create()
-        {
-            return new Group { Name = "New Group", Type = GroupType.SelectAny };
-        }
-
         #region Properties
 
         /// <summary>
@@ -38,5 +33,10 @@ namespace FomodModel.Base.ModuleCofiguration
         public GroupType Type { get; set; }
 
         #endregion
+
+        public static Group Create()
+        {
+            return new Group { Name = "New Group", Type = GroupType.SelectAny };
+        }
     }
 }

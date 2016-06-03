@@ -12,16 +12,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public abstract class SystemItem
     {
-        /// <summary>
-        ///     FileSystemItem class constructor
-        /// </summary>
-        protected SystemItem()
-        {
-            AlwaysInstall = false;
-            InstallIfUsable = false;
-            Priority = "0";
-        }
-
         #region Properties
 
         /// <summary>
@@ -58,5 +48,12 @@ namespace FomodModel.Base.ModuleCofiguration
         public string Priority { get; set; }
 
         #endregion
+
+        protected SystemItem()
+        {
+            AlwaysInstall = false;
+            InstallIfUsable = false;
+            Priority = "0";
+        }
     }
 }

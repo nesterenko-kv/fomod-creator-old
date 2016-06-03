@@ -11,11 +11,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class SetConditionFlag
     {
-        public static SetConditionFlag Create()
-        {
-            return new SetConditionFlag { Name = "is Flag Flag Flag", Value = "On" };
-        }
-
         #region Properties
 
         /// <summary>
@@ -28,5 +23,10 @@ namespace FomodModel.Base.ModuleCofiguration
         public string Value { get; set; }
 
         #endregion
+
+        public static SetConditionFlag Create()
+        {
+            return new SetConditionFlag { Name = "is Flag Flag Flag", Value = "On" };
+        }
     }
 }

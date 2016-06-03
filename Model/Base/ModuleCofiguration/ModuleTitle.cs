@@ -13,15 +13,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class ModuleTitle
     {
-        /// <summary>
-        ///     ModuleTitle class constructor
-        /// </summary>
-        public ModuleTitle()
-        {
-            Position = ModuleTitlePosition.Left;
-            Colour = "000000";
-        }
-
         #region Properties
 
         /// <summary>
@@ -40,5 +31,11 @@ namespace FomodModel.Base.ModuleCofiguration
         public string Value { get; set; }
 
         #endregion
+
+        public ModuleTitle()
+        {
+            Position = ModuleTitlePosition.Left;
+            Colour = "000000";
+        }
     }
 }

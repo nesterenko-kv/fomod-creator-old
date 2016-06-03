@@ -14,14 +14,6 @@ namespace FomodModel.Base.ModuleCofiguration
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
     public class PluginList
     {
-        /// <summary>
-        ///     PluginList class constructor
-        /// </summary>
-        public PluginList()
-        {
-            Order = OrderEnum.Ascending;
-        }
-
         #region Properties
 
         /// <summary>
@@ -37,6 +29,11 @@ namespace FomodModel.Base.ModuleCofiguration
         public OrderEnum Order { get; set; }
 
         #endregion
+
+        public PluginList()
+        {
+            Order = OrderEnum.Ascending;
+        }
 
         public static PluginList Create()
         {
