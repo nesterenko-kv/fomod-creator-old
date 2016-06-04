@@ -1,4 +1,6 @@
-﻿namespace FomodInfrastructure.Interface
+﻿using System;
+
+namespace FomodInfrastructure.Interface
 {
     /// <summary>
     ///     Обеспечивает инфраструктуру приложения
@@ -9,7 +11,9 @@
 
         void InitilizeBaseModules();
 
-        string[] CommandLineArgs { get; set; }
+        string[] CommandLineArgs { get; }
+
+        Version Version { get; }
 
         void CreateEditorModule<T>(IRepository<T> repository);
     }

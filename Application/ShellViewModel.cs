@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using AspectInjector.Broker;
 using FomodInfrastructure;
 using FomodInfrastructure.Aspect;
+using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Practices.ServiceLocation;
@@ -21,9 +20,9 @@ namespace MainApplication
     {
         private readonly string _defautlTitle;
 
-        public ShellViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator, IServiceLocator serviceLocator)
+        public ShellViewModel(IRegionManager regionManager, IAppService appService, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator, IServiceLocator serviceLocator)
         {
-            Title = _defautlTitle = $"FOMOD Creator beta v{GetVersion()}";
+            Title = _defautlTitle = $"FOMOD Creator beta v{appService.Version}";
             _regionManager = regionManager;
             _dialogCoordinator = dialogCoordinator;
             _eventAggregator = eventAggregator;
@@ -106,7 +105,6 @@ namespace MainApplication
 
         private void SaveProject()
         {
-            
             var vm = (MainEditorViewModel)((FrameworkElement)CurentSelectedItem).DataContext;
             vm.IsNeedSave = false;
             vm.Save();
@@ -119,6 +117,8 @@ namespace MainApplication
             var vm = (MainEditorViewModel)((FrameworkElement)CurentSelectedItem).DataContext;
             vm.IsNeedSave = false;
             vm.SaveAs();
+            foreach (var projectRoot in vm.Data)
+                _eventAggregator.GetEvent<OpenProjectEvent>().Publish(projectRoot);
         }
 
         private bool CanSaveProject() => (CurentSelectedItem as FrameworkElement)?.DataContext is MainEditorViewModel;
@@ -126,13 +126,6 @@ namespace MainApplication
         private async Task<bool> CofirmDialogAsync() => 
             await _dialogCoordinator.ShowMessageAsync(this, "Close", "Save project before closing?", MessageDialogStyle.AffirmativeAndNegative,
             _serviceLocator.GetInstance<MetroDialogSettings>()) == MessageDialogResult.Affirmative; //TODO: Localize
-
-        private string GetVersion()
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            return fvi.FileVersion;
-        }
 
         #endregion
     }

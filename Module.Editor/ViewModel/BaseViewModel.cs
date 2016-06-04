@@ -15,21 +15,7 @@ namespace Module.Editor.ViewModel
             _curentParamName = GetType().Name.Replace("ViewModel", string.Empty);
         }
 
-        public Action ThenDataSet { get; set; }
-
-        T _data;
-        public T Data
-        {
-            get
-            {
-                return _data;
-            }
-            set
-            {
-                _data = value;
-                ThenDataSet?.Invoke();
-            }
-        }
+        public T Data { get; set; }
 
         public string FolderPath { get; set; }
 
@@ -37,12 +23,10 @@ namespace Module.Editor.ViewModel
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            var param = navigationContext.Parameters[_curentParamName] as T;
-            if (param != null)
-                Data = param;
-            FolderPath = (string)navigationContext.Parameters["FolderPath"];
+            Data = navigationContext.Parameters[_curentParamName] as T;
             if (Data == null)
                 throw new ArgumentNullException(nameof(navigationContext), "When navigating necessarily need to pass parameters"); //TODO: Localize
+            FolderPath = navigationContext.Parameters["FolderPath"] as string;
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

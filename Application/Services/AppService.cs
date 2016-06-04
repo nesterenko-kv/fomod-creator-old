@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using FomodInfrastructure;
 using FomodInfrastructure.Interface;
@@ -17,7 +18,6 @@ namespace MainApplication.Services
         {
             _serviceLocator = serviceLocator;
             _regionManager = regionManager;
-            CommandLineArgs = Environment.GetCommandLineArgs();
         }
         
         #region Services
@@ -37,7 +37,9 @@ namespace MainApplication.Services
 
         public void InitilizeBaseModules() {}
 
-        public string[] CommandLineArgs { get; set; }
+        public string[] CommandLineArgs { get; } = Environment.GetCommandLineArgs();
+
+        public Version Version { get; } = Assembly.GetExecutingAssembly().GetName().Version;
 
         public void CreateEditorModule<T>(IRepository<T> repository)
         {
