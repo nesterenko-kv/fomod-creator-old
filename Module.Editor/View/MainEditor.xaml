@@ -37,12 +37,12 @@
                    VerticalAlignment="Top"
                    Panel.ZIndex="99"
                    Fill="#11FFFFFF" />
-        <GridSplitter Grid.Column="0"
+        <GridSplitter Grid.Column="0" 
                       Width="1"
                       HorizontalAlignment="Right"
                       Panel.ZIndex="99"
-                      Background="#11FFFFFF" />
-        <TreeView Grid.Column="0"
+                      Background="#11FFFFFF" ShowsPreview="True" />
+        <TreeView Grid.Column="0" Padding="0"
                   attaches:TreeViewHelper.SelectedItem="{Binding SelectedNode, Mode=TwoWay}"
                   ItemsSource="{Binding Data}"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">

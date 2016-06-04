@@ -191,7 +191,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="150" />
+            <RowDefinition Height="0" />
         </Grid.RowDefinitions>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
@@ -250,7 +250,7 @@
                 </TabControl.ItemContainerStyleSelector>
             </TabControl>
         </DockPanel>
-        <GridSplitter VerticalAlignment="Top" HorizontalAlignment="Stretch" Panel.ZIndex="100" Height="4" Grid.Row="1" />
+        <GridSplitter VerticalAlignment="Top" HorizontalAlignment="Stretch" Panel.ZIndex="100" Height="4" Grid.Row="1" ShowsPreview="True" />
         <ContentControl Grid.Row="1"
                         region:RegionManager.RegionName="{x:Static names:Names.LogerRegion}" />
     </Grid>
