@@ -208,7 +208,7 @@
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
-        <ContentControl Grid.Column="1"
+        <ContentControl Grid.Column="1" Margin="0,0,6,0"
                         regions:RegionManager.RegionName="{x:Static names:Names.NodeRegion}" />
     </Grid>
 </UserControl>
