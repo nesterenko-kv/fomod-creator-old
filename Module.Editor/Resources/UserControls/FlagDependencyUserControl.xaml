@@ -54,8 +54,7 @@
 
     </UserControl.Resources>
 
-    <ItemsControl Margin="{StaticResource Margin}"
-                  ItemsSource="{Binding FlagDependencies, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
+    <ItemsControl ItemsSource="{Binding FlagDependencies, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}">
         <ItemsControl.Style>
             <Style TargetType="{x:Type ItemsControl}">
                 <Setter Property="Template">

@@ -91,6 +91,8 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="0"
                                Text="Height" />
+                    <TextBox Text="{Binding Height, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"
+                               Grid.Column="1"/>
                 </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type model:Image}" />

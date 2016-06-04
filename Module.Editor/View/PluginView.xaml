@@ -164,7 +164,7 @@
                                         AddFileSystemItemsMethod="{Binding AddFileSystemItemsMethod}"
                                         AddFileMethod="{Binding AddFileMethod}"
                                         AddFolderMethod="{Binding AddFolderMethod}" />
-                <uc:SetConditionFlagUserControl Margin="{StaticResource MarginGroupBox}"
+                <uc:SetConditionFlagUserControl Margin="{StaticResource MarginGroupBox}" Header="Condition Flags"
                                                 ConditionFlagList="{Binding Data.ConditionFlags}" />
                 <uc:PluginTypeDescriptorUserControl Descriptor="{Binding Data.TypeDescriptor}" />
 

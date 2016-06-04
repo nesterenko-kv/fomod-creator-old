@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="Module.Editor.Resources.UserControls.PluginTypeDescriptorUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:model="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
              xmlns:uc="clr-namespace:Module.Editor.Resources.UserControls"
              d:DesignHeight="300"
@@ -16,94 +16,101 @@
             </ResourceDictionary.MergedDictionaries>
 
 
-            <DockPanel x:Key="Header">
-                <Button Content="Change type"
-                        DockPanel.Dock="Right"
-                        Command="{Binding ChangeTypeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
-                <TextBlock Margin="0"
-                           VerticalAlignment="Center"
-                           Style="{StaticResource TextBlockHeaderStyle}"
-                           Text="Plugin type" />
-            </DockPanel>
+            <DataTemplate DataType="{x:Type model:PluginType}">
+                <StackPanel>
 
-            <DataTemplate x:Shared="False"
-                          DataType="{x:Type model:PluginType}">
-                <GroupBox Header="{StaticResource Header}">
-                    <Grid>
-                        <Grid.Resources>
-                            <Style BasedOn="{StaticResource TextBlockDefault}"
-                                   TargetType="{x:Type TextBlock}">
-                                <Setter Property="Margin" Value="{StaticResource Margin}" />
-                            </Style>
-                            <Style BasedOn="{StaticResource ComboBoxDefault}"
-                                   TargetType="{x:Type ComboBox}">
-                                <Setter Property="Margin" Value="{StaticResource Margin}" />
-                            </Style>
-                        </Grid.Resources>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0"
-                                   Text="Plugin type" />
-                        <ComboBox Grid.Column="1"
-                                  ItemsSource="{Binding Source={StaticResource PluginTypeEnum}}"
-                                  SelectedItem="{Binding Name}">
-                            <ComboBox.Resources>
-                                <Style BasedOn="{StaticResource TextBlockDefault}"
-                                       TargetType="{x:Type TextBlock}" />
-                            </ComboBox.Resources>
-                        </ComboBox>
-                    </Grid>
-                </GroupBox>
+                    <GroupBox Header="Plugin type">
+                        <Grid>
+                            <Grid.Resources>
+                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                                <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Plugin type" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding Source={StaticResource PluginTypeEnum}}"
+                                      SelectedItem="{Binding Name}">
+                                <ComboBox.Resources>
+                                    <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
+                                </ComboBox.Resources>
+                            </ComboBox>
+
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Background="Gray">
+                        <GroupBox.Header>
+                            <DockPanel>
+                                <Button Margin="0"
+                                        Command="{Binding ChangeTypeCommand,
+                                                          RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                         AncestorType=UserControl}}"
+                                        DockPanel.Dock="Right"
+                                        Style="{StaticResource AddButton}" />
+                                <TextBlock Margin="0"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource TextBlockHeaderStyle}"
+                                           Text="Dependency Type" />
+                            </DockPanel>
+                        </GroupBox.Header>
+                    </GroupBox>
+
+                </StackPanel>
             </DataTemplate>
 
-            <DataTemplate x:Shared="False"
-                          DataType="{x:Type model:DependencyPluginType}">
-                <GroupBox Header="{StaticResource Header}">
-                    <Grid>
-                        <Grid.Resources>
-                            <Style BasedOn="{StaticResource TextBlockDefault}"
-                                   TargetType="{x:Type TextBlock}">
-                                <Setter Property="Margin" Value="{StaticResource Margin}" />
-                            </Style>
-                            <Style BasedOn="{StaticResource TextBoxDefault}"
-                                   TargetType="{x:Type TextBox}">
-                                <Setter Property="Margin" Value="{StaticResource Margin}" />
-                            </Style>
-                            <Style BasedOn="{StaticResource ComboBoxDefault}"
-                                   TargetType="{x:Type ComboBox}">
-                                <Setter Property="Margin" Value="{StaticResource Margin}" />
-                            </Style>
-                        </Grid.Resources>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="0"
-                                   Text="Default plugin type" />
-                        <ComboBox Grid.Row="0"
-                                  Grid.Column="1"
-                                  ItemsSource="{Binding Source={StaticResource PluginTypeEnum}}"
-                                  SelectedItem="{Binding DefaultType.Name}">
-                            <ComboBox.Resources>
-                                <Style BasedOn="{StaticResource TextBlockDefault}"
-                                       TargetType="{x:Type TextBlock}" />
-                            </ComboBox.Resources>
-                        </ComboBox>
+            <DataTemplate DataType="{x:Type model:DependencyPluginType}">
+                <StackPanel>
+                    <GroupBox Header="Plugin type">
+                        <Grid>
+                            <Grid.Resources>
+                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                                <Style BasedOn="{StaticResource TextBoxDefault}" TargetType="{x:Type TextBox}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                                <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="Default plugin type" />
+                            <ComboBox Grid.Row="0"
+                                      Grid.Column="1"
+                                      ItemsSource="{Binding Source={StaticResource PluginTypeEnum}}"
+                                      SelectedItem="{Binding DefaultType.Name}">
+                                <ComboBox.Resources>
+                                    <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
+                                </ComboBox.Resources>
+                            </ComboBox>
 
-                        <uc:DependencyPatternsUserControl Grid.Row="1"
-                                                          Grid.Column="0"
-                                                          Grid.ColumnSpan="2"
-                                                          Margin="{StaticResource Margin}"
-                                                          Patterns="{Binding Patterns}" />
-                    </Grid>
-                </GroupBox>
+
+                        </Grid>
+                    </GroupBox>
+
+                    <uc:DependencyPatternsUserControl Grid.Row="1"
+                                                      Grid.Column="0"
+                                                      Grid.ColumnSpan="2"
+                                                      Patterns="{Binding Patterns}" />
+
+
+                </StackPanel>
 
             </DataTemplate>
 
@@ -111,8 +118,7 @@
     </UserControl.Resources>
 
 
-    <ContentControl
-        Content="{Binding PluginTypeData, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+    <ContentControl Content="{Binding PluginTypeData, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
 
 
 </UserControl>

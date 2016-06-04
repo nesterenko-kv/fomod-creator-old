@@ -27,9 +27,9 @@
                                    TargetType="{x:Type TextBox}" />
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="u1" />
+                            <ColumnDefinition SharedSizeGroup="uu1" />
                             <ColumnDefinition />
-                            <ColumnDefinition SharedSizeGroup="u3" />
+                            <ColumnDefinition SharedSizeGroup="uu3" />
                         </Grid.ColumnDefinitions>
                         <TextBox Grid.Column="0"
                                  Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
@@ -53,67 +53,69 @@
         </ResourceDictionary>
 
     </UserControl.Resources>
-
-    <ItemsControl Margin="{StaticResource Margin}"
-                  DataContext="{Binding ConditionFlagList, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+    <StackPanel>
+        <TextBlock Text="{Binding Header, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                   Style="{StaticResource TextBlockHeaderStyle}"
+                   LineStackingStrategy="BlockLineHeight" />
+        <ItemsControl DataContext="{Binding ConditionFlagList, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
                   ItemsSource="{Binding Flag}">
-        <ItemsControl.Style>
-            <Style TargetType="{x:Type ItemsControl}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ItemsControl}">
-                            <Grid>
-                                <Grid.Resources>
-                                    <Style BasedOn="{StaticResource TextBlockDefault}"
+            <ItemsControl.Style>
+                <Style TargetType="{x:Type ItemsControl}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                <Grid>
+                                    <Grid.Resources>
+                                        <Style BasedOn="{StaticResource TextBlockDefault}"
                                            TargetType="{x:Type TextBlock}" />
-                                    <Style BasedOn="{StaticResource TextBoxDefault}"
+                                        <Style BasedOn="{StaticResource TextBoxDefault}"
                                            TargetType="{x:Type TextBox}" />
-                                    <Style BasedOn="{StaticResource ComboBoxDefault}"
+                                        <Style BasedOn="{StaticResource ComboBoxDefault}"
                                            TargetType="{x:Type ComboBox}" />
-                                </Grid.Resources>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition SharedSizeGroup="u1" />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition SharedSizeGroup="u3" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
+                                    </Grid.Resources>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition SharedSizeGroup="uu1" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition SharedSizeGroup="uu3" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
 
-                                <Border Grid.Row="1"
+                                    <Border Grid.Row="1"
                                         Grid.ColumnSpan="3"
                                         Panel.ZIndex="-100"
                                         Background="{StaticResource TableHeaderBackGroundColor}"
                                         CornerRadius="{StaticResource CornerRadius}" />
-                                <!--TODO Localize-->
-                                <TextBlock Grid.Row="1"
+                                    <!--TODO Localize-->
+                                    <TextBlock Grid.Row="1"
                                            Grid.Column="0"
                                            Text="Value" />
-                                <!--TODO Localize-->
-                                <TextBlock Grid.Row="1"
+                                    <!--TODO Localize-->
+                                    <TextBlock Grid.Row="1"
                                            Grid.Column="1"
                                            Text="Flag Name" />
-                                <Button Grid.Row="1"
+                                    <Button Grid.Row="1"
                                         Grid.Column="2"
                                         Margin="6,0"
                                         Command="{Binding AddDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                         CommandParameter="{Binding}"
                                         Style="{StaticResource AddButton}" />
-                                <Border Grid.Row="2"
+                                    <Border Grid.Row="2"
                                         Grid.ColumnSpan="3" Grid.Column="0"
                                         BorderBrush="{StaticResource TableHeaderBackGroundColor}"
                                         BorderThickness="1,0,1,1"
                                         CornerRadius="{StaticResource CornerRadius}">
-                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                </Border>
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </ItemsControl.Style>
-    </ItemsControl>
-
+                                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    </Border>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.Style>
+        </ItemsControl>
+    </StackPanel>
 </UserControl>

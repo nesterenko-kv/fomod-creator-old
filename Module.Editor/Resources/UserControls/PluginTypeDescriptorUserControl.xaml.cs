@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base.ModuleCofiguration;
+using System.Collections.ObjectModel;
 
 namespace Module.Editor.Resources.UserControls
 {
@@ -50,15 +51,18 @@ namespace Module.Editor.Resources.UserControls
                     {
                         if (_previewPluginType is PluginType)
                         {
+                            var dependency = Descriptor.DependencyType.DefaultType;
                             Descriptor.DependencyType = null;
-                            Descriptor.Type = (PluginType)_previewPluginType;
+                            Descriptor.Type = dependency;// (PluginType)_previewPluginType;
                         }
                         else
                         {
                             if (_previewPluginType is DependencyPluginType)
                             {
+                                var dependency = Descriptor.Type;
                                 Descriptor.Type = null;
                                 Descriptor.DependencyType = (DependencyPluginType)_previewPluginType;
+                                Descriptor.DependencyType.DefaultType = dependency;
                             }
                             else
                                 throw new ArgumentException("при смене типа произошла ошибка (ChangeTypeCommand)"); //TODO: Localize
@@ -68,15 +72,19 @@ namespace Module.Editor.Resources.UserControls
                     {
                         if (PluginTypeData is PluginType)
                         {
+                            var dependency = DependencyPluginType.Create();
+                            dependency.DefaultType = Descriptor.Type;
                             Descriptor.Type = null;
-                            Descriptor.DependencyType = DependencyPluginType.Create();
+                            Descriptor.DependencyType = dependency;
+                            Descriptor.DependencyType.Patterns = new ObservableCollection<DependencyPattern>();
                         }
                         else
                         {
                             if (PluginTypeData is DependencyPluginType)
                             {
+                                var dependency = Descriptor.DependencyType.DefaultType;
                                 Descriptor.DependencyType = null;
-                                Descriptor.Type = PluginType.Create();
+                                Descriptor.Type = dependency;
                             }
                         }
                     }

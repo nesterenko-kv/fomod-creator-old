@@ -15,24 +15,21 @@
                 <ResourceDictionary Source="../Blend/_Package.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type model:ConditionalInstallPattern}">
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                    <StackPanel x:Name="parent">
-                        <local:FileListUserControl Margin="{StaticResource MarginGroupBox}"
-                                                   AddFileMethod="{Binding DataContext.AddFileMethod,
-                                                                           RelativeSource={RelativeSource AncestorType=UserControl,
-                                                                                                          Mode=FindAncestor}}"
-                                                   AddFileSystemItemsMethod="{Binding DataContext.AddFileSystemItemsMethod,
-                                                                                      RelativeSource={RelativeSource AncestorType=UserControl,
-                                                                                                                     Mode=FindAncestor}}"
-                                                   AddFolderMethod="{Binding DataContext.AddFolderMethod,
-                                                                             RelativeSource={RelativeSource AncestorType=UserControl,
-                                                                                                            Mode=FindAncestor}}"
-                                                   FileList="{Binding Files}"
-                                                   Header="File list" />
-                        <local:CompositeDependencyUserControl CompositeDependency="{Binding Dependencies}" />
-                    </StackPanel>
-                </ScrollViewer>
-
+                <StackPanel x:Name="parent">
+                    <local:FileListUserControl Margin="{StaticResource MarginGroupBox}"
+                                               AddFileMethod="{Binding DataContext.AddFileMethod,
+                                                                       RelativeSource={RelativeSource AncestorType=UserControl,
+                                                                                                      Mode=FindAncestor}}"
+                                               AddFileSystemItemsMethod="{Binding DataContext.AddFileSystemItemsMethod,
+                                                                                  RelativeSource={RelativeSource AncestorType=UserControl,
+                                                                                                                 Mode=FindAncestor}}"
+                                               AddFolderMethod="{Binding DataContext.AddFolderMethod,
+                                                                         RelativeSource={RelativeSource AncestorType=UserControl,
+                                                                                                        Mode=FindAncestor}}"
+                                               FileList="{Binding Files}"
+                                               Header="File list" />
+                    <local:CompositeDependencyUserControl CompositeDependency="{Binding Dependencies}" />
+                </StackPanel>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type model:ConditionalFileInstallList}">
@@ -53,17 +50,18 @@
                     </GroupBox.Header>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="450" />
+                            <RowDefinition MinHeight="445" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="200" />
                         </Grid.ColumnDefinitions>
 
-                        <GridSplitter Width="1"
+                        <GridSplitter Width="2"
                                       Margin="0,0,0,0"
                                       HorizontalAlignment="Right"
                                       VerticalAlignment="Stretch"
+                                      Panel.ZIndex="200"
                                       Background="Gray"
                                       ShowsPreview="True" />
                         <ContentControl Grid.Column="0" Content="{Binding SelectedItem, ElementName=PatternsList}" />
@@ -89,7 +87,9 @@
                                         Style="{StaticResource AddButton}" />
                             </StackPanel>
                             <ListBox x:Name="PatternsList"
+                                     MaxHeight="415"
                                      Margin="0"
+                                     VerticalAlignment="Top"
                                      DockPanel.Dock="Bottom"
                                      ItemsSource="{Binding Patterns}"
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
