@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using AspectInjector.Broker;
 using FomodInfrastructure;
 using FomodInfrastructure.Aspect;
@@ -10,24 +11,19 @@ using FomodInfrastructure.MvvmLibrary.Commands;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Practices.ServiceLocation;
 using Module.Editor.ViewModel;
-using Prism.Regions;
 using Module.Welcome.PrismEvent;
 using Prism.Events;
+using Prism.Regions;
 
 namespace MainApplication
 {
-    public class ShellViewModel
+    public class ShellViewModel : ProjectWorkerBaseViewModel
     {
-        private readonly string _defautlTitle;
-
         public ShellViewModel(IRegionManager regionManager, IAppService appService, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator, IServiceLocator serviceLocator)
+            : base(eventAggregator, dialogCoordinator, serviceLocator, appService)
         {
-            Title = _defautlTitle = $"FOMOD Creator beta v{appService.Version}";
+            Title = _defaultTitle = $"FOMOD Creator beta v{appService.Version}";
             _regionManager = regionManager;
-            _dialogCoordinator = dialogCoordinator;
-            _eventAggregator = eventAggregator;
-            _serviceLocator = serviceLocator;
-            CloseTabCommand = new RelayCommand<object>(CloseTab);
             SaveProjectCommand = new RelayCommand(SaveProject, CanSaveProject);
             SaveProjectAsCommand = new RelayCommand(SaveProjectAs, CanSaveProject);
         }
@@ -35,15 +31,17 @@ namespace MainApplication
         #region Services
 
         private readonly IRegionManager _regionManager;
-        private readonly IEventAggregator _eventAggregator;
-        private readonly IDialogCoordinator _dialogCoordinator;
-        private readonly IServiceLocator _serviceLocator;
 
         #endregion
 
         #region Commands
 
-        public RelayCommand<object> CloseTabCommand { get; }
+        private ICommand _closeTabCommand;
+
+        public ICommand CloseTabCommand
+        {
+            get { return _closeTabCommand ?? (_closeTabCommand = new RelayCommand<object>(CloseTab)); }
+        }
 
         public RelayCommand SaveProjectCommand { get; }
 
@@ -53,7 +51,12 @@ namespace MainApplication
 
         #region Properties
 
+        private readonly string _defaultTitle;
+
         private object _curentSelectedItem;
+
+        [Aspect(typeof(AspectINotifyPropertyChanged))]
+        public string Title { get; set; }
 
         [Aspect(typeof(AspectINotifyPropertyChanged))]
         public object CurentSelectedItem
@@ -66,14 +69,11 @@ namespace MainApplication
                 SaveProjectAsCommand.RaiseCanExecuteChanged();
                 var b = (CurentSelectedItem as FrameworkElement)?.DataContext;
                 if (b is MainEditorViewModel)
-                    Title = $"{(b as MainEditorViewModel).FirstData.ModuleInformation.Name}: {_defautlTitle}";
+                    Title = $"{(b as MainEditorViewModel).FirstData.ModuleInformation.Name}: {_defaultTitle}";
                 else
-                    Title = _defautlTitle;
+                    Title = _defaultTitle;
             }
         }
-
-        [Aspect(typeof(AspectINotifyPropertyChanged))]
-        public string Title { get; set; }
 
         #endregion
 
@@ -99,6 +99,7 @@ namespace MainApplication
             ////removeView.Finalize();
             ////GC.SuppressFinalize(removeView);
             ((MainEditorViewModel)p).Dispose();
+            // ReSharper disable once RedundantAssignment
             removeView = null;
             GC.Collect();
         }
@@ -109,7 +110,7 @@ namespace MainApplication
             vm.IsNeedSave = false;
             vm.Save();
             foreach (var projectRoot in vm.Data)
-                _eventAggregator.GetEvent<OpenProjectEvent>().Publish(projectRoot);
+                EventAggregator.GetEvent<OpenProjectEvent>().Publish(projectRoot);
         }
 
         private void SaveProjectAs()
@@ -118,14 +119,18 @@ namespace MainApplication
             vm.IsNeedSave = false;
             vm.SaveAs();
             foreach (var projectRoot in vm.Data)
-                _eventAggregator.GetEvent<OpenProjectEvent>().Publish(projectRoot);
+                EventAggregator.GetEvent<OpenProjectEvent>().Publish(projectRoot);
         }
 
-        private bool CanSaveProject() => (CurentSelectedItem as FrameworkElement)?.DataContext is MainEditorViewModel;
+        private bool CanSaveProject()
+        {
+            return (CurentSelectedItem as FrameworkElement)?.DataContext is MainEditorViewModel;
+        }
 
-        private async Task<bool> CofirmDialogAsync() => 
-            await _dialogCoordinator.ShowMessageAsync(this, "Close", "Save project before closing?", MessageDialogStyle.AffirmativeAndNegative,
-            _serviceLocator.GetInstance<MetroDialogSettings>()) == MessageDialogResult.Affirmative; //TODO: Localize
+        private async Task<bool> CofirmDialogAsync() //TODO: Localize
+        {
+            return await DialogCoordinator.ShowMessageAsync(this, "Close", "Save project before closing?", MessageDialogStyle.AffirmativeAndNegative, ServiceLocator.GetInstance<MetroDialogSettings>()) == MessageDialogResult.Affirmative;
+        }
 
         #endregion
     }

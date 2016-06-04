@@ -117,7 +117,7 @@
                             ToolTip="Refresh patterns numbers" />
                     <Button Margin="3"
                             HorizontalAlignment="Right"
-                            Command="{Binding AddPaternCommand,
+                            Command="{Binding AddPatternCommand,
                                               RelativeSource={RelativeSource Mode=FindAncestor,
                                                                              AncestorType=UserControl}}"
                             Style="{StaticResource AddButton}" />
@@ -138,7 +138,7 @@
                                            DockPanel.Dock="Left"
                                            FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome"
                                            Text="&#xf277;" />
-                                <Button Command="{Binding RemovePaternCommand,
+                                <Button Command="{Binding RemovePatternCommand,
                                                           RelativeSource={RelativeSource Mode=FindAncestor,
                                                                                          AncestorType=UserControl}}"
                                         CommandParameter="{Binding}"

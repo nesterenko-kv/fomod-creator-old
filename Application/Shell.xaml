@@ -196,14 +196,16 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File">
-                    <MenuItem Header="Create project">
+                    <MenuItem Command="{Binding CreateProjectCommand}"
+                              Header="Create project">
                         <MenuItem.Icon>
                             <ContentControl Width="15"
                                             Height="15"
                                             Content="{StaticResource NewFile}" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Open project">
+                    <MenuItem Command="{Binding OpenProjectCommand}"
+                        Header="Open project">
                         <MenuItem.Icon>
                             <ContentControl Width="15"
                                             Height="15"
@@ -228,7 +230,8 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Header="Close program">
+                    <MenuItem Command="{Binding CloseApplicationCommand}"
+                        Header="Close program">
                         <MenuItem.Icon>
                             <ContentControl Width="14"
                                             Height="12"

@@ -9,9 +9,9 @@ using MahApps.Metro.Controls.Dialogs;
 
 namespace Module.Editor.ViewModel
 {
-    public class FileWorkerBaseViewModel<T> : BaseViewModel<T> where T : class
+    public abstract class FileWorkerBaseViewModel<T> : BaseViewModel<T> where T : class
     {
-        public FileWorkerBaseViewModel(IFileBrowserDialog fileBrowserDialog, IFolderBrowserDialog folderBrowserDialog, IDialogCoordinator dialogCoordinator)
+        protected FileWorkerBaseViewModel(IFileBrowserDialog fileBrowserDialog, IFolderBrowserDialog folderBrowserDialog, IDialogCoordinator dialogCoordinator)
         {
             _fileBrowserDialog = fileBrowserDialog;
             _folderBrowserDialog = folderBrowserDialog;
@@ -21,6 +21,28 @@ namespace Module.Editor.ViewModel
             AddFileMethod = AddFileMethodPrivate;
             AddFolderMethod = AddFolderMethodPrivate;
         }
+
+        #region Services
+
+        private readonly IFileBrowserDialog _fileBrowserDialog;
+
+        private readonly IFolderBrowserDialog _folderBrowserDialog;
+
+        private readonly IDialogCoordinator _dialogCoordinator;
+
+        #endregion
+
+        #region Properties
+
+        public Func<List<string>, List<SystemItem>> AddFileSystemItemsMethod { get; }
+
+        public Func<List<string>> AddFileMethod { get; }
+
+        public Func<List<string>> AddFolderMethod { get; }
+
+        #endregion
+
+        #region Methods
 
         private List<string> AddFolderMethodPrivate()
         {
@@ -51,7 +73,9 @@ namespace Module.Editor.ViewModel
             if (filesAndFolders.Any(path => path == FolderPath))
                 _dialogCoordinator.ShowMessageAsync(this, "Error", "You can't add root project path."); //TODO: Localize
             else
+            {
                 if (filesAndFolders.All(fileName => fileName.StartsWith(FolderPath)))
+                {
                     foreach (var path in filesAndFolders)
                     {
                         var source = path.Substring(FolderPath.Length + 1);
@@ -60,34 +84,20 @@ namespace Module.Editor.ViewModel
                         if (File.Exists(path))
                             item = FileSystemItem.Create(source, destination);
                         else
+                        {
                             if (Directory.Exists(path))
                                 item = FolderSystemItem.Create(source, destination);
                             else
                                 throw new NotImplementedException();
+                        }
                         returnList.Add(item);
                     }
+                }
                 else
                     _dialogCoordinator.ShowMessageAsync(this, "Error", "Allowed to add files and folders only from the project directory."); //TODO: Localize
+            }
             return returnList;
         }
-
-        #region Services
-
-        private readonly IFileBrowserDialog _fileBrowserDialog;
-
-        private readonly IFolderBrowserDialog _folderBrowserDialog;
-
-        private readonly IDialogCoordinator _dialogCoordinator;
-
-        #endregion
-
-        #region Methods
-
-        public Func<List<string>, List<SystemItem>> AddFileSystemItemsMethod { get; }
-
-        public Func<List<string>> AddFileMethod { get; }
-
-        public Func<List<string>> AddFolderMethod { get; }
 
         protected async void AddFile(ObservableCollection<SystemItem> itemSource, List<string> paths)
         {

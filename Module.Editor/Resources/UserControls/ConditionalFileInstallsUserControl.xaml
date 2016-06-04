@@ -27,7 +27,7 @@
                                                                          RelativeSource={RelativeSource AncestorType=UserControl,
                                                                                                         Mode=FindAncestor}}"
                                                FileList="{Binding Files}"
-                                               Header="File list" />
+                                               Header="File list" /> <!--TODO LOCALIZE-->
                     <local:CompositeDependencyUserControl CompositeDependency="{Binding Dependencies}" />
                 </StackPanel>
             </DataTemplate>
@@ -36,7 +36,7 @@
                 <GroupBox Padding="0">
                     <GroupBox.Header>
                         <DockPanel>
-                            <Button Command="{Binding RemoveConditionalFileInstalls,
+                            <Button Command="{Binding RemoveConditionalFileCommand,
                                                       RelativeSource={RelativeSource Mode=FindAncestor,
                                                                                      AncestorType=UserControl}}"
                                     DockPanel.Dock="Right"
@@ -81,7 +81,7 @@
                                         ToolTip="Refresh patterns numbers" />
                                 <Button Margin="3"
                                         HorizontalAlignment="Right"
-                                        Command="{Binding AddPaternCommand,
+                                        Command="{Binding AddPatternCommand,
                                                           RelativeSource={RelativeSource Mode=FindAncestor,
                                                                                          AncestorType=UserControl}}"
                                         Style="{StaticResource AddButton}" />
@@ -104,7 +104,7 @@
                                                        DockPanel.Dock="Left"
                                                        FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome"
                                                        Text="&#xf277;" />
-                                            <Button Command="{Binding RemovePaternCommand,
+                                            <Button Command="{Binding RemovePatternCommand,
                                                                       RelativeSource={RelativeSource Mode=FindAncestor,
                                                                                                      AncestorType=UserControl}}"
                                                     CommandParameter="{Binding}"
@@ -139,8 +139,7 @@
                                     <GroupBox Background="Gray">
                                         <GroupBox.Header>
                                             <DockPanel>
-
-                                                <Button Command="{Binding CreateConditionalFileInstalls,
+                                                <Button Command="{Binding CreateConditionalFileCommand,
                                                                           RelativeSource={RelativeSource Mode=FindAncestor,
                                                                                                          AncestorType=UserControl}}"
                                                         DockPanel.Dock="Right"
@@ -149,7 +148,7 @@
                                                            VerticalAlignment="Center"
                                                            Padding="0"
                                                            Style="{StaticResource TextBlockHeaderStyle}"
-                                                           Text="Conditional File Installs" />
+                                                           Text="Conditional File Installs" /> <!--TODO LOCALIZE-->
                                             </DockPanel>
                                         </GroupBox.Header>
                                     </GroupBox>

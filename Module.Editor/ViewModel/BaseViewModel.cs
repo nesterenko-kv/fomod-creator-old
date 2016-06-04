@@ -6,11 +6,11 @@ using Prism.Regions;
 namespace Module.Editor.ViewModel
 {
     [Aspect(typeof(AspectINotifyPropertyChanged))]
-    public class BaseViewModel<T> : INavigationAware where T : class
+    public abstract class BaseViewModel<T> : INavigationAware where T : class
     {
         private readonly string _curentParamName;
 
-        public BaseViewModel()
+        protected BaseViewModel()
         {
             _curentParamName = GetType().Name.Replace("ViewModel", string.Empty);
         }

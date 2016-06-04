@@ -111,68 +111,6 @@ namespace Module.Editor.ViewModel
 
         #endregion
 
-        #region Commands
-
-        private ICommand _addStepCommand;
-
-        public ICommand AddStepCommand
-        {
-            get
-            {
-                return _addStepCommand ?? (_addStepCommand = new RelayCommand<ProjectRoot>(p =>
-                {
-                    if (p.ModuleConfiguration.InstallSteps == null)
-                        p.ModuleConfiguration.InstallSteps = StepList.Create();
-                    if (p.ModuleConfiguration.InstallSteps.InstallStep == null)
-                        p.ModuleConfiguration.InstallSteps.InstallStep = new ObservableCollection<InstallStep>();
-                    p.ModuleConfiguration.InstallSteps.InstallStep.Add(InstallStep.Create());
-                }));
-            }
-        }
-
-        private ICommand _addGroupCommand;
-
-        public ICommand AddGroupCommand
-        {
-            get
-            {
-                return _addGroupCommand ?? (_addGroupCommand = new RelayCommand<InstallStep>(p =>
-                {
-                    if (p.OptionalFileGroups == null)
-                        p.OptionalFileGroups = GroupList.Create();
-                    if (p.OptionalFileGroups.Group == null)
-                        p.OptionalFileGroups.Group = new ObservableCollection<Group>();
-                    p.OptionalFileGroups.Group.Add(Group.Create());
-                }));
-            }
-        }
-
-        private ICommand _addPluginCommand;
-
-        public ICommand AddPluginCommand
-        {
-            get
-            {
-                return _addPluginCommand ?? (_addPluginCommand = new RelayCommand<Group>(p =>
-                {
-                    if (p.Plugins == null)
-                        p.Plugins = PluginList.Create();
-                    if (p.Plugins.Plugin == null)
-                        p.Plugins.Plugin = new ObservableCollection<Plugin>();
-                    p.Plugins.Plugin.Add(Plugin.Create());
-                }));
-            }
-        }
-
-        private ICommand _deleteDialogCommand;
-
-        public ICommand DeleteDialogCommand
-        {
-            get { return _deleteDialogCommand ?? (_deleteDialogCommand = new RelayCommand<object[]>(DeleteDialog)); }
-        }
-
-        #endregion
-
         #region Methods
 
         public void Save()
@@ -217,6 +155,65 @@ namespace Module.Editor.ViewModel
                     }
                 }
             });
+        }
+
+        private void AddStep(ProjectRoot p)
+        {
+            if (p.ModuleConfiguration.InstallSteps == null)
+                p.ModuleConfiguration.InstallSteps = StepList.Create();
+            if (p.ModuleConfiguration.InstallSteps.InstallStep == null)
+                p.ModuleConfiguration.InstallSteps.InstallStep = new ObservableCollection<InstallStep>();
+            p.ModuleConfiguration.InstallSteps.InstallStep.Add(InstallStep.Create());
+        }
+
+        private void AddGroup(InstallStep p)
+        {
+            if (p.OptionalFileGroups == null)
+                p.OptionalFileGroups = GroupList.Create();
+            if (p.OptionalFileGroups.Group == null)
+                p.OptionalFileGroups.Group = new ObservableCollection<Group>();
+            p.OptionalFileGroups.Group.Add(Group.Create());
+        }
+
+        private void AddPlugin(Group p)
+        {
+            if (p.Plugins == null)
+                p.Plugins = PluginList.Create();
+            if (p.Plugins.Plugin == null)
+                p.Plugins.Plugin = new ObservableCollection<Plugin>();
+            p.Plugins.Plugin.Add(Plugin.Create());
+        }
+
+        #endregion
+
+        #region Commands
+
+        private ICommand _addStepCommand;
+
+        public ICommand AddStepCommand
+        {
+            get { return _addStepCommand ?? (_addStepCommand = new RelayCommand<ProjectRoot>(AddStep)); }
+        }
+
+        private ICommand _addGroupCommand;
+
+        public ICommand AddGroupCommand
+        {
+            get { return _addGroupCommand ?? (_addGroupCommand = new RelayCommand<InstallStep>(AddGroup)); }
+        }
+
+        private ICommand _addPluginCommand;
+
+        public ICommand AddPluginCommand
+        {
+            get { return _addPluginCommand ?? (_addPluginCommand = new RelayCommand<Group>(AddPlugin)); }
+        }
+
+        private ICommand _deleteDialogCommand;
+
+        public ICommand DeleteDialogCommand
+        {
+            get { return _deleteDialogCommand ?? (_deleteDialogCommand = new RelayCommand<object[]>(DeleteDialog)); }
         }
 
         #endregion
