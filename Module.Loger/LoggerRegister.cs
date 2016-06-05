@@ -6,9 +6,9 @@ using StructureMap;
 
 namespace Module.Loger
 {
-    public class Register : IModule
+    public class LoggerRegister : IModule
     {
-        public Register(IRegionManager regionManager, IContainer container)
+        public LoggerRegister(IRegionManager regionManager, IContainer container)
         {
             _regionManager = regionManager;
             _container = container;
