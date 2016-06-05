@@ -12,7 +12,7 @@
              mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="270" />
+            <ColumnDefinition Width="300" />
             <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
         <Rectangle Grid.ColumnSpan="2" VerticalAlignment="Top"

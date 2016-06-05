@@ -1,20 +1,23 @@
 ﻿<controls:MetroWindow x:Class="MainApplication.Shell"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:selector="clr-namespace:MainApplication.Selectors"
-                      xmlns:names="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:region="http://prismlibrary.com/"
-                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:behavior="clr-namespace:FomodInfrastructure.MvvmLibrary.Behavior;assembly=FomodInfrastructure"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       xmlns:editor="clr-namespace:Module.Editor.ViewModel;assembly=Module.Editor"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:names="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
+                      xmlns:region="http://prismlibrary.com/"
+                      xmlns:selector="clr-namespace:MainApplication.Selectors"
                       Title="{Binding Title}"
                       Width="1000"
                       Height="800"
+                      behavior:DropBehavior.PreviewDropCommand="{Binding DropFolderCommand}"
                       dialogs:DialogParticipation.Register="{Binding}"
-                      WindowStartupLocation="CenterScreen"
+                      AllowDrop="True"
                       Style="{DynamicResource MyVsWindowStyleKey}"
+                      WindowStartupLocation="CenterScreen"
                       mc:Ignorable="d">
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -22,8 +25,7 @@
                 <ResourceDictionary Source="/Resources/VS Style/Colors.xaml" />
                 <ResourceDictionary Source="Resources/VS Style/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="CloseTabButton"
-                   TargetType="{x:Type Button}">
+            <Style x:Key="CloseTabButton" TargetType="{x:Type Button}">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="Focusable" Value="False" />
@@ -45,12 +47,8 @@
                             <ControlTemplate.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition
-                                            Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}"
-                                            Value="false" />
-                                        <Condition
-                                            Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}"
-                                            Value="false" />
+                                        <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
+                                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
                                     </MultiDataTrigger.Conditions>
                                     <MultiDataTrigger.Setters>
                                         <Setter Property="Visibility" Value="Hidden" />
@@ -60,25 +58,20 @@
                                     <Setter Property="Visibility" Value="Hidden" />
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background"
-                                            Value="{DynamicResource CloseButtonBackgroundHighlighted}" />
-                                    <Setter TargetName="ButtonPath" Property="Stroke"
-                                            Value="{DynamicResource CloseButtonStrokeHighlighted}" />
+                                    <Setter Property="Background" Value="{DynamicResource CloseButtonBackgroundHighlighted}" />
+                                    <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStrokeHighlighted}" />
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="true">
-                                    <Setter Property="Background"
-                                            Value="{DynamicResource CloseButtonBackgroundPressed}" />
+                                    <Setter Property="Background" Value="{DynamicResource CloseButtonBackgroundPressed}" />
                                     <Setter TargetName="ButtonPath" Property="Margin" Value="2.5 2.5 1.5 1.5" />
-                                    <Setter TargetName="ButtonPath" Property="Stroke"
-                                            Value="{DynamicResource CloseButtonStroke}" />
+                                    <Setter TargetName="ButtonPath" Property="Stroke" Value="{DynamicResource CloseButtonStroke}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="BaseTabStyle"
-                   TargetType="{x:Type TabItem}">
+            <Style x:Key="BaseTabStyle" TargetType="{x:Type TabItem}">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                 <Setter Property="Foreground" Value="{StaticResource Foreground}" />
@@ -108,7 +101,9 @@
                                         Height="15"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Command="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:MetroWindow}}"
+                                        Command="{Binding DataContext.CloseTabCommand,
+                                                          RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                         AncestorType=controls:MetroWindow}}"
                                         CommandParameter="{Binding Content.DataContext}"
                                         DockPanel.Dock="Right"
                                         Style="{StaticResource CloseTabButton}" />
@@ -181,12 +176,9 @@
         </DataTemplate>
     </controls:MetroWindow.IconTemplate>
     <controls:MetroWindow.InputBindings>
-        <KeyBinding Command="{Binding SaveProjectCommand}"
-                    Gesture="Ctrl + S" />
-        <KeyBinding Command="{Binding SaveProjectAsCommand}"
-                    Gesture="Ctrl + Shift + S" />
-        <KeyBinding Command="{Binding OpenProjectCommand}"
-                    Gesture="Ctrl + O" />
+        <KeyBinding Command="{Binding SaveProjectCommand}" Gesture="Ctrl + S" />
+        <KeyBinding Command="{Binding SaveProjectAsCommand}" Gesture="Ctrl + Shift + S" />
+        <KeyBinding Command="{Binding OpenProjectCommand}" Gesture="Ctrl + O" />
     </controls:MetroWindow.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -196,16 +188,14 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File">
-                    <MenuItem Command="{Binding CreateProjectCommand}"
-                              Header="Create project">
+                    <MenuItem Command="{Binding CreateProjectCommand}" Header="Create project">
                         <MenuItem.Icon>
                             <ContentControl Width="15"
                                             Height="15"
                                             Content="{StaticResource NewFile}" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Command="{Binding OpenProjectCommand}"
-                        Header="Open project">
+                    <MenuItem Command="{Binding OpenProjectCommand}" Header="Open project">
                         <MenuItem.Icon>
                             <ContentControl Width="15"
                                             Height="15"
@@ -213,16 +203,14 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Command="{Binding SaveProjectCommand}"
-                              Header="Save">
+                    <MenuItem Command="{Binding SaveProjectCommand}" Header="Save">
                         <MenuItem.Icon>
                             <ContentControl Width="16"
                                             Height="16"
                                             Content="{StaticResource Save}" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Command="{Binding SaveProjectAsCommand}"
-                              Header="Save as">
+                    <MenuItem Command="{Binding SaveProjectAsCommand}" Header="Save as">
                         <MenuItem.Icon>
                             <ContentControl Width="16"
                                             Height="16"
@@ -230,8 +218,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Command="{Binding CloseApplicationCommand}"
-                        Header="Close program">
+                    <MenuItem Command="{Binding CloseApplicationCommand}" Header="Close program">
                         <MenuItem.Icon>
                             <ContentControl Width="14"
                                             Height="12"
@@ -246,15 +233,18 @@
                 <TabControl.ItemContainerStyleSelector>
                     <selector:TabItemTemplateSelector DefaultStyle="{StaticResource NotCloseTabStyle}">
                         <selector:TabItemTemplateSelector.TemplateList>
-                            <selector:SelectorItem DataType="{x:Type editor:MainEditorViewModel}"
-                                Style="{StaticResource CloseTabStyle}" />
+                            <selector:SelectorItem DataType="{x:Type editor:MainEditorViewModel}" Style="{StaticResource CloseTabStyle}" />
                         </selector:TabItemTemplateSelector.TemplateList>
                     </selector:TabItemTemplateSelector>
                 </TabControl.ItemContainerStyleSelector>
             </TabControl>
         </DockPanel>
-        <GridSplitter VerticalAlignment="Top" HorizontalAlignment="Stretch" Panel.ZIndex="100" Height="4" Grid.Row="1" ShowsPreview="True" />
-        <ContentControl Grid.Row="1"
-                        region:RegionManager.RegionName="{x:Static names:Names.LogerRegion}" />
+        <GridSplitter Grid.Row="1"
+                      Height="4"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Top"
+                      Panel.ZIndex="100"
+                      ShowsPreview="True" />
+        <ContentControl Grid.Row="1" region:RegionManager.RegionName="{x:Static names:Names.LogerRegion}" />
     </Grid>
 </controls:MetroWindow>

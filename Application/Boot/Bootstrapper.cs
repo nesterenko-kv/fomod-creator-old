@@ -54,9 +54,14 @@ namespace MainApplication.Boot
 
         protected override void InitializeModules()
         {
+            var welcome = Container.GetInstance<WelcomeRegister>() as WelcomeRegister;
+
             Container.GetInstance<Register>().Initialize();
-            Container.GetInstance<WelcomeRegister>().Initialize();
+            welcome.Initialize();
             Container.GetInstance<EditorRegister>().Initialize();
+
+            welcome.OpenProjectsFromCommandLine();
+
             ////Container.GetInstance<WelcomeNew.Register>().Initialize();
             ////Container.GetInstance<EditorNew.Register>().Initialize();
         }

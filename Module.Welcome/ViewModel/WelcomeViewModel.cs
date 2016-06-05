@@ -99,10 +99,12 @@ namespace Module.Welcome.ViewModel
                 switch (repository.RepositoryStatus)
                 {
                     case RepositoryStatus.CantUseFolder:
-                        await _dialogCoordinator.ShowMessageAsync(this, "Error", "The specified folder doesn't correspond to necessary requirements."); //TODO: Localize
+                        if(!_appService.IsOpenProjectsFromCommandLine)
+                            await _dialogCoordinator.ShowMessageAsync(this, "Error", "The specified folder doesn't correspond to necessary requirements."); //TODO: Localize
                         break;
                     case RepositoryStatus.Error:
-                        await _dialogCoordinator.ShowMessageAsync(this, "Error", "An error occured while loading the project folder."); //TODO: Localize
+                        if (!_appService.IsOpenProjectsFromCommandLine)
+                            await _dialogCoordinator.ShowMessageAsync(this, "Error", "An error occured while loading the project folder."); //TODO: Localize
                         break;
                     case RepositoryStatus.Cancel:
                         break;

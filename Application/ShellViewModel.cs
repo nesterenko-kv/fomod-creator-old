@@ -14,6 +14,7 @@ using Module.Editor.ViewModel;
 using Module.Welcome.PrismEvent;
 using Prism.Events;
 using Prism.Regions;
+using System.IO;
 
 namespace MainApplication
 {
@@ -37,10 +38,16 @@ namespace MainApplication
         #region Commands
 
         private ICommand _closeTabCommand;
+        private ICommand _dropFolderCommand;
 
         public ICommand CloseTabCommand
         {
             get { return _closeTabCommand ?? (_closeTabCommand = new RelayCommand<object>(CloseTab)); }
+        }
+
+        public ICommand DropFolderCommand
+        {
+            get { return _dropFolderCommand ?? (_dropFolderCommand = new RelayCommand<IDataObject>(OnDropItem, AcceptDrop)); }
         }
 
         public RelayCommand SaveProjectCommand { get; }
@@ -95,11 +102,7 @@ namespace MainApplication
             }
             removeView.DataContext = null;
             _regionManager.Regions[Names.MainContentRegion].Remove(removeView);
-
-            ////removeView.Finalize();
-            ////GC.SuppressFinalize(removeView);
             ((MainEditorViewModel)p).Dispose();
-            // ReSharper disable once RedundantAssignment
             removeView = null;
             GC.Collect();
         }
@@ -130,6 +133,21 @@ namespace MainApplication
         private async Task<bool> CofirmDialogAsync() //TODO: Localize
         {
             return await DialogCoordinator.ShowMessageAsync(this, "Close", "Save project before closing?", MessageDialogStyle.AffirmativeAndNegative, ServiceLocator.GetInstance<MetroDialogSettings>()) == MessageDialogResult.Affirmative;
+        }
+
+        private bool AcceptDrop(IDataObject data)
+        {
+            return data != null && data.GetDataPresent(DataFormats.FileDrop);
+        }
+
+        private void OnDropItem(IDataObject data)
+        {
+            var filePath = (string[])data.GetData(DataFormats.FileDrop);
+            foreach (var path in filePath)
+            {
+                if (Directory.Exists(path))
+                    EventAggregator.GetEvent<OpenLink>().Publish(path);
+            }
         }
 
         #endregion

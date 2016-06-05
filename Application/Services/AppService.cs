@@ -41,6 +41,8 @@ namespace MainApplication.Services
 
         public Version Version { get; } = Assembly.GetExecutingAssembly().GetName().Version;
 
+        public bool IsOpenProjectsFromCommandLine { get; set; } 
+
         public void CreateEditorModule<T>(IRepository<T> repository)
         {
             // ReSharper disable once LoopCanBePartlyConvertedToQuery
