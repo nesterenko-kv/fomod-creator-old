@@ -37,11 +37,16 @@
                    VerticalAlignment="Top"
                    Panel.ZIndex="99"
                    Fill="#11FFFFFF" />
-        <GridSplitter Grid.Column="0" 
-                      Width="1"
-                      HorizontalAlignment="Right"
-                      Panel.ZIndex="99"
-                      Background="#11FFFFFF" ShowsPreview="True" />
+        <Rectangle Grid.Column="0"
+                   Width="1"
+                   HorizontalAlignment="Right"
+                   Panel.ZIndex="99"
+                   Fill="{DynamicResource SeparatorBrush}" />
+        <GridSplitter Grid.Column="1" 
+                      Width="4"
+                      HorizontalAlignment="Left"
+                      Panel.ZIndex="100"
+                      Background="Transparent" ShowsPreview="True" />
         <TreeView Grid.Column="0" Padding="0"
                   attaches:TreeViewHelper.SelectedItem="{Binding SelectedNode, Mode=TwoWay}"
                   ItemsSource="{Binding Data}"
