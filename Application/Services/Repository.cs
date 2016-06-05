@@ -139,6 +139,18 @@ namespace MainApplication.Services
             return null;
         }
 
+        private void CopyFolder(string sourceDir, string destinationDir)
+        {
+            var path1 = Path.GetFullPath(sourceDir);
+            var path2 = Path.GetFullPath(destinationDir);
+            if (string.Equals(path1, path2, StringComparison.OrdinalIgnoreCase))
+                return;
+            foreach (var dir in Directory.GetDirectories(sourceDir, "*", SearchOption.AllDirectories))
+                Directory.CreateDirectory(destinationDir + dir.Substring(sourceDir.Length));
+            foreach (var file in Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories))
+                File.Copy(file, destinationDir + file.Substring(sourceDir.Length));
+        }
+
         private bool SaveDataIfPathNull()
         {
             if (_projectRoot == null)
@@ -146,6 +158,7 @@ namespace MainApplication.Services
             var folderPath = GetFolderPath();
             if (RepositoryStatus == RepositoryStatus.Cancel)
                 return false;
+            CopyFolder(_projectRoot.FolderPath, folderPath);
             if (!SaveDataToPath(folderPath))
                 return false;
             _projectRoot.FolderPath = folderPath;
@@ -185,7 +198,10 @@ namespace MainApplication.Services
             _folderBrowserDialog.CheckFolderExists = true;
             var result = _folderBrowserDialog.ShowDialog();
             if (result)
+            {
+                RepositoryStatus = RepositoryStatus.Ok;
                 return _folderBrowserDialog.SelectedPath;
+            }
             RepositoryStatus = RepositoryStatus.Cancel;
             return null;
         }

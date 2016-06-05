@@ -49,21 +49,12 @@ namespace MainApplication.Boot
                     .Ctor<string>("NegativeButtonText").Is("НЕТ ТЫ ЧЕ"); //TODO: Localize
             });
         }
-
-        ////protected override ILoggerFacade CreateLogger() => this.Container.GetInstance<Logger>();
-
+        
         protected override void InitializeModules()
         {
-            var welcome = Container.GetInstance<WelcomeRegister>() as WelcomeRegister;
-
-            Container.GetInstance<Register>().Initialize();
-            welcome.Initialize();
+            Container.GetInstance<LoggerRegister>().Initialize();
             Container.GetInstance<EditorRegister>().Initialize();
-
-            welcome.OpenProjectsFromCommandLine();
-
-            ////Container.GetInstance<WelcomeNew.Register>().Initialize();
-            ////Container.GetInstance<EditorNew.Register>().Initialize();
+            Container.GetInstance<WelcomeRegister>().Initialize();
         }
 
         #endregion

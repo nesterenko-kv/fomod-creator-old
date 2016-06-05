@@ -38,13 +38,13 @@ namespace MainApplication
         #region Commands
 
         private ICommand _closeTabCommand;
-        private ICommand _dropFolderCommand;
-
+        
         public ICommand CloseTabCommand
         {
             get { return _closeTabCommand ?? (_closeTabCommand = new RelayCommand<object>(CloseTab)); }
         }
 
+        private ICommand _dropFolderCommand;
         public ICommand DropFolderCommand
         {
             get { return _dropFolderCommand ?? (_dropFolderCommand = new RelayCommand<IDataObject>(OnDropItem, AcceptDrop)); }
@@ -103,6 +103,7 @@ namespace MainApplication
             removeView.DataContext = null;
             _regionManager.Regions[Names.MainContentRegion].Remove(removeView);
             ((MainEditorViewModel)p).Dispose();
+            // ReSharper disable once RedundantAssignment
             removeView = null;
             GC.Collect();
         }
@@ -143,11 +144,8 @@ namespace MainApplication
         private void OnDropItem(IDataObject data)
         {
             var filePath = (string[])data.GetData(DataFormats.FileDrop);
-            foreach (var path in filePath)
-            {
-                if (Directory.Exists(path))
-                    EventAggregator.GetEvent<OpenLink>().Publish(path);
-            }
+            foreach (var path in filePath.Where(Directory.Exists))
+                EventAggregator.GetEvent<OpenLink>().Publish(path);
         }
 
         #endregion

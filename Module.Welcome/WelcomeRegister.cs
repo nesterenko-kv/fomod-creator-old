@@ -1,4 +1,5 @@
-﻿using FomodInfrastructure;
+﻿using System;
+using FomodInfrastructure;
 using FomodInfrastructure.Interface;
 using Module.Welcome.PrismEvent;
 using Module.Welcome.View;
@@ -22,17 +23,19 @@ namespace Module.Welcome
 
         public void OpenProjectsFromCommandLine()
         {
-            
-
             var commandLineArgs = _appService.CommandLineArgs;
             if (commandLineArgs.Length == 1) return;
 
             _appService.IsOpenProjectsFromCommandLine = true;
-
-            for (int i = 1; i < commandLineArgs.Length; i++)
-                _eventAggregator.GetEvent<OpenLink>().Publish(commandLineArgs[i]);
-
-            _appService.IsOpenProjectsFromCommandLine = false;
+            try
+            {
+                for (var i = 1; i < commandLineArgs.Length; i++)
+                    _eventAggregator.GetEvent<OpenLink>().Publish(commandLineArgs[i]);
+            }
+            finally
+            {
+                _appService.IsOpenProjectsFromCommandLine = false;
+            }
         }
 
         #region IModule
@@ -47,6 +50,7 @@ namespace Module.Welcome
 
             _regionManager.Regions[Names.MainContentRegion].RequestNavigate(nameof(WelcomeView));
             _regionManager.Regions[Names.LeftRegion].RequestNavigate(nameof(LastProjectsView));
+            OpenProjectsFromCommandLine();
         }
 
         #endregion
