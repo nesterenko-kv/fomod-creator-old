@@ -112,7 +112,7 @@
                             CommandParameter="{Binding .,
                                                        ElementName=PatternsList}"
                             Content="&#xf021;"
-                            FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome"
+                            FontFamily="pack://application:,,,/MainApplication;component/Resources/#FontAwesome"
                             Style="{StaticResource ContentButton}"
                             ToolTip="Refresh patterns numbers" />
                     <Button Margin="3"
@@ -136,7 +136,7 @@
                                 <TextBlock Margin="0,0,6,0"
                                            VerticalAlignment="Center"
                                            DockPanel.Dock="Left"
-                                           FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome"
+                                           FontFamily="pack://application:,,,/MainApplication;component/Resources/#FontAwesome"
                                            Text="&#xf277;" />
                                 <Button Command="{Binding RemovePatternCommand,
                                                           RelativeSource={RelativeSource Mode=FindAncestor,
