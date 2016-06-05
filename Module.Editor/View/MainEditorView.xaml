@@ -8,16 +8,15 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mcd="clr-namespace:FomodModel.Base.ModuleCofiguration;assembly=FomodModel"
-             xmlns:regions="http://prismlibrary.com/"
              xmlns:names="clr-namespace:FomodInfrastructure;assembly=FomodInfrastructure"
+             xmlns:regions="http://prismlibrary.com/"
              d:DesignHeight="320"
              d:DesignWidth="1100"
              dialogs:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d">
     <i:Interaction.Triggers>
         <regions:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest, Mode=OneWay}">
-            <regions:PopupWindowAction CenterOverAssociatedObject="True"
-                                       IsModal="True" />
+            <regions:PopupWindowAction CenterOverAssociatedObject="True" IsModal="True" />
         </regions:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     <UserControl.Resources>
@@ -42,26 +41,24 @@
                    HorizontalAlignment="Right"
                    Panel.ZIndex="99"
                    Fill="{DynamicResource SeparatorBrush}" />
-        <GridSplitter Grid.Column="1" 
-                      Width="4"
-                      HorizontalAlignment="Left"
-                      Panel.ZIndex="100"
-                      Background="Transparent" ShowsPreview="True" />
-        <TreeView Grid.Column="0" Padding="0"
-                  attaches:TreeViewHelper.SelectedItem="{Binding SelectedNode, Mode=TwoWay}"
+        <TreeView Grid.Column="0"
+                  attaches:TreeViewHelper.SelectedItem="{Binding SelectedNode,
+                                                                 Mode=TwoWay}"
                   ItemsSource="{Binding Data}"
+                  Padding="0"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type mcd:Plugin}">
                     <DockPanel Background="Transparent">
                         <Button x:Name="delete_button"
-                                Style="{DynamicResource DeleteButton}"
+                                Command="{Binding DataContext.DeleteDialogCommand,
+                                                  RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                 AncestorType=TreeView}}"
                                 DockPanel.Dock="Right"
-                                Command="{Binding DataContext.DeleteDialogCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}">
+                                Style="{DynamicResource DeleteButton}">
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource MultiCommandParamsConverter}">
-                                    <Binding Path="Header"
-                                             RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
+                                    <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
                                     <Binding />
                                 </MultiBinding>
                             </Button.CommandParameter>
@@ -70,15 +67,17 @@
                                    Margin="0,0,6,0"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
+                                   DockPanel.Dock="Left"
+                                   FontFamily="pack://application:,,,/MainApplication;component/Resources/#FontAwesome"
+                                   FontSize="14"
                                    Text="&#xf12e;"
-                                   ToolTip="Plagun"
-                                   DockPanel.Dock="Left"
-                                   FontSize="14"
-                                   FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome" />
+                                   ToolTip="Plagun" />
                         <TextBlock Height="16"
-                                   Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
+                                   Text="{Binding Path=Name,
+                                                  UpdateSourceTrigger=PropertyChanged}"
                                    TextTrimming="CharacterEllipsis"
-                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                   ToolTip="{Binding Text,
+                                                     RelativeSource={RelativeSource Self}}" />
                     </DockPanel>
                     <HierarchicalDataTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="false">
@@ -86,17 +85,17 @@
                         </Trigger>
                     </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type mcd:Group}"
-                                          ItemsSource="{Binding Plugins.Plugin}">
+                <HierarchicalDataTemplate DataType="{x:Type mcd:Group}" ItemsSource="{Binding Plugins.Plugin}">
                     <DockPanel Background="Transparent">
                         <Button x:Name="delete_button"
-                                Style="{DynamicResource DeleteButton}"
+                                Command="{Binding DataContext.DeleteDialogCommand,
+                                                  RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                 AncestorType=TreeView}}"
                                 DockPanel.Dock="Right"
-                                Command="{Binding DataContext.DeleteDialogCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}">
+                                Style="{DynamicResource DeleteButton}">
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource MultiCommandParamsConverter}">
-                                    <Binding Path="Header"
-                                             RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
+                                    <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
                                     <Binding />
                                 </MultiBinding>
                             </Button.CommandParameter>
@@ -104,7 +103,9 @@
                         <Button x:Name="add_button"
                                 Margin="3"
                                 VerticalAlignment="Center"
-                                Command="{Binding DataContext.AddPluginCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                Command="{Binding DataContext.AddPluginCommand,
+                                                  RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                 AncestorType=TreeView}}"
                                 CommandParameter="{Binding}"
                                 DockPanel.Dock="Right"
                                 Style="{DynamicResource AddButton}" />
@@ -112,16 +113,21 @@
                                    Margin="0,0,6,0"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
+                                   DockPanel.Dock="Left"
+                                   FontFamily="pack://application:,,,/MainApplication;component/Resources/#FontAwesome"
+                                   FontSize="14"
                                    Text="&#xf248;"
-                                   ToolTip="Group"
-                                   DockPanel.Dock="Left"
-                                   FontSize="14"
-                                   FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome" />
+                                   ToolTip="Group" />
+
                         <TextBlock Height="16"
                                    VerticalAlignment="Center"
-                                   Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
+                                   Text="{Binding Path=Name,
+                                                  UpdateSourceTrigger=PropertyChanged}"
                                    TextTrimming="CharacterEllipsis"
-                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                   ToolTip="{Binding Text,
+                                                     RelativeSource={RelativeSource Self}}" />
+
+
                     </DockPanel>
                     <HierarchicalDataTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="false">
@@ -130,17 +136,17 @@
                         </Trigger>
                     </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type mcd:InstallStep}"
-                                          ItemsSource="{Binding OptionalFileGroups.Group}">
+                <HierarchicalDataTemplate DataType="{x:Type mcd:InstallStep}" ItemsSource="{Binding OptionalFileGroups.Group}">
                     <DockPanel Background="Transparent">
                         <Button x:Name="delete_button"
-                                Style="{DynamicResource DeleteButton}"
+                                Command="{Binding DataContext.DeleteDialogCommand,
+                                                  RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                 AncestorType=TreeView}}"
                                 DockPanel.Dock="Right"
-                                Command="{Binding DataContext.DeleteDialogCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}">
+                                Style="{DynamicResource DeleteButton}">
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource MultiCommandParamsConverter}">
-                                    <Binding Path="Header"
-                                             RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
+                                    <Binding Path="Header" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem, AncestorLevel=2}" />
                                     <Binding />
                                 </MultiBinding>
                             </Button.CommandParameter>
@@ -148,7 +154,9 @@
                         <Button x:Name="add_button"
                                 Margin="3"
                                 VerticalAlignment="Center"
-                                Command="{Binding DataContext.AddGroupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                Command="{Binding DataContext.AddGroupCommand,
+                                                  RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                 AncestorType=TreeView}}"
                                 CommandParameter="{Binding}"
                                 DockPanel.Dock="Right"
                                 Style="{DynamicResource AddButton}" />
@@ -156,16 +164,18 @@
                                    Margin="0,0,6,0"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   ToolTip="Install Step"
-                                   Text="&#xf233;"
                                    DockPanel.Dock="Left"
+                                   FontFamily="pack://application:,,,/MainApplication;component/Resources/#FontAwesome"
                                    FontSize="16"
-                                   FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome" />
+                                   Text="&#xf233;"
+                                   ToolTip="Install Step" />
                         <TextBlock Height="16"
                                    VerticalAlignment="Center"
-                                   Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
+                                   Text="{Binding Path=Name,
+                                                  UpdateSourceTrigger=PropertyChanged}"
                                    TextTrimming="CharacterEllipsis"
-                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                   ToolTip="{Binding Text,
+                                                     RelativeSource={RelativeSource Self}}" />
                     </DockPanel>
                     <HierarchicalDataTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="false">
@@ -174,13 +184,14 @@
                         </Trigger>
                     </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type base:ProjectRoot}"
-                                          ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
+                <HierarchicalDataTemplate DataType="{x:Type base:ProjectRoot}" ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
                     <DockPanel Background="Transparent">
                         <Button x:Name="add_button"
                                 Margin="3"
                                 VerticalAlignment="Center"
-                                Command="{Binding DataContext.AddStepCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}"
+                                Command="{Binding DataContext.AddStepCommand,
+                                                  RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                 AncestorType=TreeView}}"
                                 CommandParameter="{Binding}"
                                 DockPanel.Dock="Right"
                                 Style="{DynamicResource AddButton}" />
@@ -188,16 +199,18 @@
                                    Margin="0,0,6,0"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   Text="&#xf085;"
-                                   ToolTip="Project Root"
                                    DockPanel.Dock="Left"
+                                   FontFamily="pack://application:,,,/MainApplication;component/Resources/#FontAwesome"
                                    FontSize="14"
-                                   FontFamily="pack://application:,,,/Module.Editor;component/Resources/#FontAwesome" />
+                                   Text="&#xf085;"
+                                   ToolTip="Project Root" />
                         <TextBlock Height="16"
                                    VerticalAlignment="Center"
-                                   Text="{Binding ModuleInformation.Name, UpdateSourceTrigger=PropertyChanged}"
+                                   Text="{Binding ModuleInformation.Name,
+                                                  UpdateSourceTrigger=PropertyChanged}"
                                    TextTrimming="CharacterEllipsis"
-                                   ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                   ToolTip="{Binding Text,
+                                                     RelativeSource={RelativeSource Self}}" />
                     </DockPanel>
                     <HierarchicalDataTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="false">
@@ -207,13 +220,19 @@
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
             <TreeView.ItemContainerStyle>
-                <Style BasedOn="{StaticResource {x:Type TreeViewItem}}"
-                       TargetType="TreeViewItem">
+                <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
                     <Setter Property="IsExpanded" Value="True" />
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
-        <ContentControl Grid.Column="1" Margin="0,0,6,0"
+        <GridSplitter Grid.Column="1"
+                      Width="4"
+                      HorizontalAlignment="Left"
+                      Panel.ZIndex="100"
+                      Background="Transparent"
+                      ShowsPreview="True" />
+        <ContentControl Grid.Column="1"
+                        Margin="0,0,6,0"
                         regions:RegionManager.RegionName="{x:Static names:Names.NodeRegion}" />
     </Grid>
 </UserControl>

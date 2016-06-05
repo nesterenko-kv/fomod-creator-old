@@ -75,11 +75,14 @@ namespace MainApplication.Services
         public string CreateData()
         {
             var path = GetFolderPath();
+            if (string.IsNullOrWhiteSpace(path)) return null;
+
             if (CheckFiles(path))
             {
                 RepositoryStatus = RepositoryStatus.FolderIsAlreadyUsed;
                 return null;
             }
+
             try
             {
                 Directory.CreateDirectory(Path.Combine(path, ProjectFolder));

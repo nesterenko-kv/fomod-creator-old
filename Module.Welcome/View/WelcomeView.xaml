@@ -34,35 +34,71 @@
                       HorizontalAlignment="Left"
                       Panel.ZIndex="100"
                       Background="Transparent" />
-        <Border Grid.Column="1"
-                MinWidth="250"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                BorderBrush="#11FFFFFF"
-                BorderThickness="1"
-                CornerRadius="6"
-                Padding="42,21,42,18"
-                SnapsToDevicePixels="True">
-            <StackPanel>
-                <TextBlock Margin="0,0,0,21"
-                           HorizontalAlignment="Center"
-                           DockPanel.Dock="Top"
-                           FontFamily="Segoe UI Light"
-                           FontSize="18"
-                           Text="Welcome!" />
-                <Button Margin="3"
+
+        <StackPanel Grid.Column="1" VerticalAlignment="Top">
+            <TextBlock Margin="0,42,0,21"
+                       HorizontalAlignment="Center"
+                       DockPanel.Dock="Top"
+                       FontFamily="Segoe UI "
+                       FontSize="48"
+                       Foreground="White"
+                       Text="Welcome!"
+                       TextTrimming="CharacterEllipsis" />
+            <StackPanel HorizontalAlignment="Center">
+                <Button Margin="6" 
+                        HorizontalAlignment="Stretch"
                         Command="{Binding CreateProjectCommand}"
-                        Content="Create project"
-                        Style="{DynamicResource GreenButton}" />
-                <Button Margin="3"
+                        Style="{DynamicResource LinkButton}"
+                        TextBlock.FontSize="16">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+
+                        <TextBlock Height="16"
+                                   Margin="0,0,12,0"
+                                   FontFamily="pack://application:,,,/MainApplication;component/Resources/#FontAwesome"
+                                   Foreground="#FF999999"
+                                   Text="&#xf085;"
+                                   ToolTip="Project Root" />
+                        <TextBlock FontFamily="Segoe UI Light" Text="Create project" />
+                    </StackPanel>
+                </Button>
+                <Button Margin="6"
+                        HorizontalContentAlignment="Stretch"
                         Command="{Binding OpenProjectCommand}"
-                        Content="Open project"
-                        Style="{DynamicResource GreenButton}" />
-                <Button Margin="3"
+                        FontFamily="Segoe UI Light"
+                        Style="{DynamicResource LinkButton}"
+                        TextBlock.FontSize="16">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Height="16"
+                                   Margin="0,0,12,0"
+                                   FontFamily="pack://application:,,,/MainApplication;component/Resources/#FontAwesome"
+                                   Foreground="#FF999999"
+                                   Text="&#xf115;"
+                                   ToolTip="Project Root" />
+                        <TextBlock FontFamily="Segoe UI Light" Text="Open project" />
+                    </StackPanel>
+                </Button>
+                <Button Margin="6"
+                        HorizontalContentAlignment="Stretch"
                         Command="{Binding CloseApplicationCommand}"
-                        Content="Close program"
-                        Style="{DynamicResource RedButton}" />
+                        FontFamily="Segoe UI Light"
+                        Style="{DynamicResource LinkButton}"
+                        TextBlock.FontSize="16">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Height="16"
+                                   Margin="0,0,14,0"
+                                   FontFamily="pack://application:,,,/MainApplication;component/Resources/#FontAwesome"
+                                   Foreground="#FF999999"
+                                   Text="&#xf08b;"
+                                   ToolTip="Project Root" />
+                        <TextBlock FontFamily="Segoe UI Light" Text="Close program" />
+                    </StackPanel>
+                </Button>
+                
             </StackPanel>
-        </Border>
+        </StackPanel>
+
+
+
+
     </Grid>
 </UserControl>

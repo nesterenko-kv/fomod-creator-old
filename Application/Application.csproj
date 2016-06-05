@@ -227,6 +227,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Resources\FontAwesome.otf" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
