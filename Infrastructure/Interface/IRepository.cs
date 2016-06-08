@@ -5,9 +5,9 @@
     /// </summary>
     public interface IRepository<out T>
     {
-        string CurrentPath { get; set; }
+        string CurrentPath { get; }
 
-        RepositoryStatus RepositoryStatus { get; set; }
+        RepositoryStatus RepositoryStatus { get; }
 
         T LoadData(string path = null);
 

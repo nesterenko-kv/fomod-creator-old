@@ -9,8 +9,6 @@ namespace FomodInfrastructure.Interface
     {
         void CloseApp();
 
-        void InitilizeBaseModules();
-
         string[] CommandLineArgs { get; }
 
         Version Version { get; }

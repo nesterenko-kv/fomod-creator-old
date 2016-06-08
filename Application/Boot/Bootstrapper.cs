@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Markup;
 using FomodInfrastructure.Interface;
 using FomodModel.Base;
 using Module.Loger;
@@ -35,7 +34,6 @@ namespace MainApplication.Boot
             
             Container.Configure(r =>
             {
-                r.For<IComponentConnector>().OnCreationForAll(s => s.InitializeComponent());
                 r.For<IAppService>().Use<AppService>().Singleton();
                 r.For<IRepository<ProjectRoot>>().Use<Repository>();
                 r.For<IDataService>().Use<DataService>().Singleton();
@@ -45,8 +43,8 @@ namespace MainApplication.Boot
                 r.For<IMemoryService>().Use<MemoryService>();
                 r.For<ILogger>().Use<Logger>().Singleton();
                 r.ForConcreteType<MetroDialogSettings>().Configure
-                    .Ctor<string>("AffirmativeButtonText").Is("ЕПТЫ БЛЯ")
-                    .Ctor<string>("NegativeButtonText").Is("НЕТ ТЫ ЧЕ"); //TODO: Localize
+                    .Ctor<string>("AffirmativeButtonText").Is("Yes")
+                    .Ctor<string>("NegativeButtonText").Is("No"); //TODO: Localize
             });
         }
         

@@ -119,7 +119,21 @@
     <Compile Include="ViewModel\InstallStepViewModel.cs" />
     <Compile Include="ViewModel\ProjectRootViewModel.cs" />
     <Compile Include="ViewModel\PluginViewModel.cs" />
-    <Compile Include="View\GC_Loger.cs" />
+    <Compile Include="View\GroupView.xaml.cs">
+      <DependentUpon>GroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InstallStepView.xaml.cs">
+      <DependentUpon>InstallStepView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainEditorView.xaml.cs">
+      <DependentUpon>MainEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PluginView.xaml.cs">
+      <DependentUpon>PluginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProjectRootView.xaml.cs">
+      <DependentUpon>ProjectRootView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">

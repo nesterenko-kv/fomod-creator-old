@@ -25,12 +25,12 @@ namespace FomodInfrastructure.MvvmLibrary.Behavior
             };
         }
 
-        public static void SetPreviewDropCommand(this UIElement inUiElement, ICommand inCommand)
+        public static void SetPreviewDropCommand(this DependencyObject inUiElement, ICommand inCommand)
         {
             inUiElement.SetValue(PreviewDropCommandProperty, inCommand);
         }
         
-        private static ICommand GetPreviewDropCommand(UIElement inUiElement)
+        private static ICommand GetPreviewDropCommand(DependencyObject inUiElement)
         {
             return (ICommand)inUiElement.GetValue(PreviewDropCommandProperty);
         }
