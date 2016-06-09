@@ -39,12 +39,14 @@ namespace MainApplication.Boot
                 r.For<IDataService>().Use<DataService>().Singleton();
                 r.For<IDialogCoordinator>().Use<DialogCoordinator>().Singleton();
                 r.For<IFolderBrowserDialog>().Use<FolderBrowserDialog>().Singleton();
-                r.For<IFileBrowserDialog>().Use<FileBrowserDialog>();
+                r.For<IFileBrowserDialog>().Use<FileBrowserDialog>().Singleton();
                 r.For<IMemoryService>().Use<MemoryService>();
-                r.For<ILogger>().Use<Logger>().Singleton();
-                r.ForConcreteType<MetroDialogSettings>().Configure
-                    .Ctor<string>("AffirmativeButtonText").Is("Yes")
-                    .Ctor<string>("NegativeButtonText").Is("No"); //TODO: Localize
+                r.For<ILogger>().Use<Logger>().Singleton(); //TODO: Localize
+                r.ForConcreteType<MetroDialogSettings>().Configure.SetProperty(x=>
+                {
+                    x.AffirmativeButtonText = "Yes";
+                    x.NegativeButtonText = "No";
+                });
             });
         }
         
