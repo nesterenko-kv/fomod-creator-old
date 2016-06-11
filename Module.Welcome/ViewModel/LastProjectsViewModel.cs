@@ -3,8 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using AspectInjector.Broker;
-using FomodInfrastructure.Aspect;
-using FomodInfrastructure.Interface;
+using FomodInfrastructure.Aspects;
+using FomodInfrastructure.Interfaces;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.AppModel;
 using FomodModel.Base;
@@ -71,9 +71,9 @@ namespace Module.Welcome.ViewModel
 
         private void UpdateProjectList(ProjectRoot p)
         {
-            var item = ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p.FolderPath);
+            var item = ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p.DataSource);
             if (item == null)
-                ProjectLinkList.Links.Add(ProjectLinkModel.Create(p.ModuleInformation.Name, p.FolderPath));
+                ProjectLinkList.Links.Add(ProjectLinkModel.Create(p.ModuleInformation.Name, p.DataSource));
             else
                 item.ProjectName = p.ModuleInformation.Name;
             SaveProjectLinkListFile();
@@ -83,7 +83,7 @@ namespace Module.Welcome.ViewModel
         {
             if (!File.Exists(_personalPath + SubPath))
                 return null;
-            var link = _dataService.DeserializeObject<ProjectLinkList>(_personalPath + SubPath);
+            var link = _dataService.LoadData<ProjectLinkList>(_personalPath + SubPath);
             foreach (var item in link.Links.Where(item => string.IsNullOrWhiteSpace(item.FolderPath)))
                 link.Links.Remove(item);
             return link;
@@ -92,7 +92,7 @@ namespace Module.Welcome.ViewModel
         private void SaveProjectLinkListFile()
         {
             if (Directory.Exists(_personalPath))
-                _dataService.SerializeObject(ProjectLinkList, _personalPath + SubPath);
+                _dataService.SaveData(ProjectLinkList, _personalPath + SubPath);
         }
 
         #endregion

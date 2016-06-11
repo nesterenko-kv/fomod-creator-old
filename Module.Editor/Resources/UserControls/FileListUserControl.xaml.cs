@@ -4,6 +4,7 @@ using System.Windows.Input;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base.ModuleCofiguration;
 using System;
+using System.Threading.Tasks;
 
 namespace Module.Editor.Resources.UserControls
 {
@@ -16,9 +17,9 @@ namespace Module.Editor.Resources.UserControls
 
         #region Properties
         
-        public Func<List<string>, List<SystemItem>> AddFileSystemItemsMethod
+        public Func<List<string>, Task<List<SystemItem>>> AddFileSystemItemsMethod
         {
-            get { return (Func<List<string>, List<SystemItem>>)GetValue(AddFileSystemItemsMethodProperty); }
+            get { return (Func<List<string>, Task<List<SystemItem>>>)GetValue(AddFileSystemItemsMethodProperty); }
             set { SetValue(AddFileSystemItemsMethodProperty, value); }
         }
 
@@ -84,32 +85,32 @@ namespace Module.Editor.Resources.UserControls
 
         public ICommand DropItemCommand
         {
-            get { return _dropItemCommand ?? (_dropItemCommand = new RelayCommand<IDataObject>(OnDropItem, AcceptDrop)); }
+            get { return _dropItemCommand ?? (_dropItemCommand = new RelayCommand<IDataObject>(async o => { await OnDropItem(o); }, AcceptDrop)); }
         }
         
         #endregion
 
         #region Methods
 
-        private void AddFileLocal(List<string> path)
+        private async void AddFileLocal(List<string> path)
         {
             if (FileList == null)
                 FileList = FileList.Create();
             var fileList = AddFileMethod?.Invoke();
             if (fileList != null && AddFileSystemItemsMethod != null)
-                foreach (var item in AddFileSystemItemsMethod.Invoke(fileList))
+                foreach (var item in await AddFileSystemItemsMethod?.Invoke(fileList))
                     FileList.Items.Add(item);
             if (FileList.Items.Count == 0)
                 FileList = null;
         }
 
-        private void AddFolderLocal(List<string> path)
+        private async void AddFolderLocal(List<string> path)
         {
             if (FileList == null)
                 FileList = FileList.Create();
-            var folderList = AddFolderMethod?.Invoke();
-            if (folderList != null && AddFileSystemItemsMethod != null)
-                foreach (var item in AddFileSystemItemsMethod.Invoke(folderList))
+            var invoke = AddFolderMethod?.Invoke();
+            if (invoke != null && AddFileSystemItemsMethod != null)
+                foreach (var item in await AddFileSystemItemsMethod?.Invoke(invoke))
                     FileList.Items.Add(item);
             if (FileList.Items.Count == 0)
                 FileList = null;
@@ -124,22 +125,26 @@ namespace Module.Editor.Resources.UserControls
                 FileList = null;
         }
 
-        private bool AcceptDrop(IDataObject data)
+        private static bool AcceptDrop(IDataObject data)
         {
             return data != null && data.GetDataPresent(DataFormats.FileDrop);
         }
 
-        private void OnDropItem(IDataObject data)
+        private async Task OnDropItem(IDataObject data)
         {
             var filePath = (string[])data.GetData(DataFormats.FileDrop);
             var fileList = new List<string>(filePath);
-            var fileSystemItems = AddFileSystemItemsMethod?.Invoke(fileList);
-            if (fileSystemItems != null)
+            var invoke = AddFileSystemItemsMethod?.Invoke(fileList);
+            if (invoke != null)
             {
-                if (FileList == null)
-                    FileList = FileList.Create();
-                foreach (var item in fileSystemItems)
-                    FileList.Items.Add(item);
+                var fileSystemItems = await invoke;
+                if (fileSystemItems != null)
+                {
+                    if (FileList == null)
+                        FileList = FileList.Create();
+                    foreach (var item in fileSystemItems)
+                        FileList.Items.Add(item);
+                }
             }
             if (FileList.Items.Count == 0)
                 FileList = null;

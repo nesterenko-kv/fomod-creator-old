@@ -1,7 +1,7 @@
 using System;
 using System.Xml.Serialization;
 using AspectInjector.Broker;
-using FomodInfrastructure.Aspect;
+using FomodInfrastructure.Aspects;
 using FomodModel.Base.ModuleCofiguration.Enum;
 
 namespace FomodModel.Base.ModuleCofiguration

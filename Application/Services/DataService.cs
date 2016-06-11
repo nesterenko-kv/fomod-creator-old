@@ -1,53 +1,35 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
-using FomodInfrastructure.Interface;
+using FomodInfrastructure.Interfaces;
 
 namespace MainApplication.Services
 {
+    /// <summary>
+    /// Вспомогательный класс загрузки и сохранения данных в/из xml
+    /// </summary>
     public class DataService : IDataService
     {
         #region IDataService
-
-        public T DeserializeObject<T>(string path)
+        public TData LoadData<TData>(string path)
         {
             using (var fs = File.OpenRead(path))
             {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                return (T)xmlSerializer.Deserialize(fs);
+                var xmlSerializer = new XmlSerializer(typeof(TData));
+                return (TData)xmlSerializer.Deserialize(fs);
             }
         }
-
-        public T DeserializeObject<T>(Stream stream)
-        {
-            using (var s = stream)
-            {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                return (T)xmlSerializer.Deserialize(s);
-            }
-        }
-
-        public void SerializeObject<T>(T data, string path)
+        
+        public void SaveData<TData>(TData data, string path)
         {
             if (data == null)
                 return;
             using (var fs = File.Create(path))
             {
-                var xmlSerializer = new XmlSerializer(typeof(T));
+                var xmlSerializer = new XmlSerializer(typeof(TData));
                 xmlSerializer.Serialize(fs, data);
             }
         }
-
-        public void SerializeObject<T>(T data, Stream stream)
-        {
-            if (data == null)
-                return;
-            using (var fs = stream)
-            {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                xmlSerializer.Serialize(fs, data);
-            }
-        }
-
+        
         #endregion
     }
 }

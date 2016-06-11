@@ -1,16 +1,17 @@
 ﻿using System;
 using AspectInjector.Broker;
-using FomodInfrastructure.Aspect;
+using FomodInfrastructure.Aspects;
+using FomodInfrastructure.Interfaces;
 
 namespace FomodModel.Base
 {
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
-    public class ProjectRoot
+    public class ProjectRoot: IRepositoryData
     {
         #region Properties
 
-        public string FolderPath { get; set; }
-
+        public string DataSource { get; set; }
+        
         public ModuleInformation ModuleInformation { get; set; }
 
         public ModuleConfiguration ModuleConfiguration { get; set; }

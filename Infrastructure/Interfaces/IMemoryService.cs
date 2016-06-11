@@ -1,4 +1,4 @@
-﻿namespace FomodInfrastructure.Interface
+﻿namespace FomodInfrastructure.Interfaces
 {
     public interface IMemoryService
     {

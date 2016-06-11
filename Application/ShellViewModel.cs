@@ -5,8 +5,6 @@ using System.Windows;
 using System.Windows.Input;
 using AspectInjector.Broker;
 using FomodInfrastructure;
-using FomodInfrastructure.Aspect;
-using FomodInfrastructure.Interface;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Practices.ServiceLocation;
@@ -15,13 +13,16 @@ using Module.Welcome.PrismEvent;
 using Prism.Events;
 using Prism.Regions;
 using System.IO;
+using FomodInfrastructure.Aspects;
+using FomodInfrastructure.Interfaces;
+using Module.Welcome.ViewModel;
 
 namespace MainApplication
 {
     public class ShellViewModel : ProjectWorkerBaseViewModel
     {
-        public ShellViewModel(IRegionManager regionManager, IAppService appService, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator, IServiceLocator serviceLocator)
-            : base(eventAggregator, dialogCoordinator, serviceLocator, appService)
+        public ShellViewModel(IRegionManager regionManager, IAppService appService, IDialogCoordinator dialogCoordinator, IEventAggregator eventAggregator, IServiceLocator serviceLocator, IFolderBrowserDialog folderBrowserDialog)
+            : base(eventAggregator, dialogCoordinator, serviceLocator, appService, folderBrowserDialog)
         {
             Title = _defaultTitle = $"FOMOD Creator beta v{appService.Version}";
             _regionManager = regionManager;

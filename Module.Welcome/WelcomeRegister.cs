@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using FomodInfrastructure;
-using FomodInfrastructure.Interface;
+using FomodInfrastructure.Interfaces;
 using Module.Welcome.PrismEvent;
 using Module.Welcome.View;
 using Module.Welcome.ViewModel;

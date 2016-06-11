@@ -87,6 +87,7 @@
     <Compile Include="PrismEvent\OpenProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\LastProjectsViewModel.cs" />
+    <Compile Include="ViewModel\ProjectWorkerBaseViewModel.cs" />
     <Compile Include="ViewModel\WelcomeViewModel.cs" />
     <Compile Include="View\LastProjectsView.xaml.cs">
       <DependentUpon>LastProjectsView.xaml</DependentUpon>

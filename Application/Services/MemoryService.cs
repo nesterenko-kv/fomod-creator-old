@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using FomodInfrastructure.Interface;
+using FomodInfrastructure.Interfaces;
 
 namespace MainApplication.Services
 {

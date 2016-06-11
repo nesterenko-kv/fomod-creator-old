@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Windows.Forms;
-using FomodInfrastructure.Interface;
+using FomodInfrastructure.Interfaces;
 
 namespace MainApplication.Services
 {

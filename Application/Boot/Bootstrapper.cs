@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using FomodInfrastructure.Interface;
+using FomodInfrastructure.Interfaces;
 using FomodModel.Base;
 using Module.Loger;
 using MahApps.Metro.Controls.Dialogs;
@@ -35,7 +35,7 @@ namespace MainApplication.Boot
             Container.Configure(r =>
             {
                 r.For<IAppService>().Use<AppService>().Singleton();
-                r.For<IRepository<ProjectRoot>>().Use<Repository>();
+                r.For<IRepository<ProjectRoot>>().Use<ProjectRootRepository>();
                 r.For<IDataService>().Use<DataService>().Singleton();
                 r.For<IDialogCoordinator>().Use<DialogCoordinator>().Singleton();
                 r.For<IFolderBrowserDialog>().Use<FolderBrowserDialog>().Singleton();

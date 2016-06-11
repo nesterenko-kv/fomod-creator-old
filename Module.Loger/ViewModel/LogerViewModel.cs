@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using AspectInjector.Broker;
-using FomodInfrastructure.Aspect;
+using FomodInfrastructure.Aspects;
 using Module.Loger.PrismEvent;
 using Prism.Events;
 

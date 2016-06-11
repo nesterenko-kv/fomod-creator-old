@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using FomodInfrastructure.Interface;
+using System.Threading.Tasks;
+using FomodInfrastructure.Interfaces;
 using FomodModel.Base.ModuleCofiguration;
 using MahApps.Metro.Controls.Dialogs;
 
@@ -17,9 +18,9 @@ namespace Module.Editor.ViewModel
             _folderBrowserDialog = folderBrowserDialog;
             _dialogCoordinator = dialogCoordinator;
 
-            AddFileSystemItemsMethod = AddFileSystemItemsMethodPrivate;
-            AddFileMethod = AddFileMethodPrivate;
-            AddFolderMethod = AddFolderMethodPrivate;
+            AddFileSystemItemsMethod = AddFileSystemItems;
+            AddFileMethod = AddFile;
+            AddFolderMethod = AddFolder;
         }
 
         #region Services
@@ -34,7 +35,7 @@ namespace Module.Editor.ViewModel
 
         #region Properties
 
-        public Func<List<string>, List<SystemItem>> AddFileSystemItemsMethod { get; }
+        public Func<List<string>, Task<List<SystemItem>>> AddFileSystemItemsMethod { get; }
 
         public Func<List<string>> AddFileMethod { get; }
 
@@ -44,7 +45,7 @@ namespace Module.Editor.ViewModel
 
         #region Methods
 
-        private List<string> AddFolderMethodPrivate()
+        private List<string> AddFolder()
         {
             _folderBrowserDialog.CheckFolderExists = true;
             if (_folderBrowserDialog.ShowDialog() && !string.IsNullOrWhiteSpace(_folderBrowserDialog.SelectedPath))
@@ -53,7 +54,7 @@ namespace Module.Editor.ViewModel
             return null;
         }
 
-        private List<string> AddFileMethodPrivate()
+        private List<string> AddFile()
         {
             _fileBrowserDialog.Multiselect = true;
             _fileBrowserDialog.CheckFileExists = true;
@@ -64,14 +65,14 @@ namespace Module.Editor.ViewModel
             return null;
         }
 
-        private List<SystemItem> AddFileSystemItemsMethodPrivate(List<string> paths)
+        private async Task<List<SystemItem>> AddFileSystemItems(List<string> paths)
         {
             if (paths == null)
                 return null;
             var returnList = new List<SystemItem>();
             var filesAndFolders = paths;
             if (filesAndFolders.Any(path => path == FolderPath))
-                _dialogCoordinator.ShowMessageAsync(this, "Error", "You can't add root project path."); //TODO: Localize
+                await _dialogCoordinator.ShowMessageAsync(this, "Error", "You can't add root project path."); //TODO: Localize
             else
             {
                 if (filesAndFolders.All(fileName => fileName.StartsWith(FolderPath)))
@@ -94,7 +95,7 @@ namespace Module.Editor.ViewModel
                     }
                 }
                 else
-                    _dialogCoordinator.ShowMessageAsync(this, "Error", "Allowed to add files and folders only from the project directory."); //TODO: Localize
+                    await _dialogCoordinator.ShowMessageAsync(this, "Error", "Allowed to add files and folders only from the project directory."); //TODO: Localize
             }
             return returnList;
         }

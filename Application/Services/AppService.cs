@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Xml.Linq;
 using FomodInfrastructure;
-using FomodInfrastructure.Interface;
+using FomodInfrastructure.Interfaces;
 using FomodModel.Base;
 using Microsoft.Practices.ServiceLocation;
 using Module.Editor.View;
@@ -43,13 +44,13 @@ namespace MainApplication.Services
 
         public bool IsOpenProjectsFromCommandLine { get; set; } 
 
-        public void CreateEditorModule<T>(IRepository<T> repository)
+        public void CreateEditorModule<T>(IRepository<T> repository) where T : IRepositoryData
         {
             // ReSharper disable once LoopCanBePartlyConvertedToQuery
             foreach (var o in _regionManager.Regions[Names.MainContentRegion].Views)
             {
                 var element = o as MainEditorView;
-                var b = (element?.DataContext as MainEditorViewModel)?.Data.FirstOrDefault(i => i.FolderPath == repository.CurrentPath);
+                var b = (element?.DataContext as MainEditorViewModel)?.Data.FirstOrDefault(i => i.DataSource == repository.Data?.DataSource);
                 if (b == null)
                     continue;
                 _regionManager.Regions[Names.MainContentRegion].Activate(element);
@@ -63,6 +64,13 @@ namespace MainApplication.Services
             var mainEditorViewModel = view.DataContext as MainEditorViewModel;
             mainEditorViewModel?.ConfigurateViewModel(detailsRegionManager, repository as IRepository<ProjectRoot>);
             detailsRegion.Activate(view);
+        }
+
+        public XElement GetXElementResource(string path)
+        {
+            var assembly = Assembly.GetAssembly(typeof(ProjectRoot));
+            using (var stream = assembly.GetManifestResourceStream(path))
+                return XElement.Load(stream);
         }
 
         #endregion

@@ -5,8 +5,8 @@ using System.Windows;
 using System.Windows.Input;
 using AspectInjector.Broker;
 using FomodInfrastructure;
-using FomodInfrastructure.Aspect;
-using FomodInfrastructure.Interface;
+using FomodInfrastructure.Aspects;
+using FomodInfrastructure.Interfaces;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base;
 using FomodModel.Base.ModuleCofiguration;
@@ -18,10 +18,11 @@ namespace Module.Editor.ViewModel
     [Aspect(typeof(AspectINotifyPropertyChanged))]
     public class MainEditorViewModel : IDisposable
     {
-        public MainEditorViewModel(IMemoryService memoryService, ILogger logger)
+        public MainEditorViewModel(IMemoryService memoryService, ILogger logger, IFolderBrowserDialog folderBrowserDialog)
         {
             _memoryService = memoryService;
             _logger = logger;
+            _folderBrowserDialog = folderBrowserDialog;
             _logger.LogCreate(this);
         }
 
@@ -46,12 +47,12 @@ namespace Module.Editor.ViewModel
                 throw new ArgumentNullException(nameof(repository));
             _repository = repository;
             _regionManager = regionManager;
-            var root = Data.FirstOrDefault(i => i.FolderPath == repository.CurrentPath);
+            var root = Data.FirstOrDefault(i => i.DataSource == repository.Data?.DataSource);
             if (root == null)
             {
-                Data.Add(repository.GetData());
+                Data.Add(repository.Data);
                 if (FirstData == null)
-                    FirstData = repository.GetData();
+                    FirstData = repository.Data;
             }
             _memoryService.GetMemorySize(Data);
             SelectedNode = FirstData;
@@ -64,6 +65,8 @@ namespace Module.Editor.ViewModel
         private IRepository<ProjectRoot> _repository;
 
         private readonly IMemoryService _memoryService;
+
+        private readonly IFolderBrowserDialog _folderBrowserDialog;
 
         private readonly ILogger _logger;
 
@@ -104,8 +107,11 @@ namespace Module.Editor.ViewModel
                 if (value == null)
                     return;
                 var name = value.GetType().Name;
-                var param = new NavigationParameters { { name, value }, { "FolderPath", _repository.CurrentPath } };
-                _regionManager.Regions[Names.NodeRegion].RequestNavigate(name + "View", param);
+                var param = new NavigationParameters {
+                    { name, value },
+                    { @"FolderPath", _repository.Data?.DataSource }
+                                                     };
+                _regionManager.Regions[Names.NodeRegion].RequestNavigate(name + @"View", param);
             }
         }
 
@@ -113,43 +119,54 @@ namespace Module.Editor.ViewModel
 
         #region Methods
 
+        private bool TryGetFolderPath(out string path)
+        {
+            _folderBrowserDialog.Reset();
+            _folderBrowserDialog.CheckFolderExists = true;
+            var result = _folderBrowserDialog.ShowDialog();
+            path = _folderBrowserDialog.SelectedPath;
+            return result;
+        }
+
         public void Save()
         {
-            _repository.SaveData(_repository.CurrentPath);
+            _repository.Save(_repository.Data.DataSource);
         }
 
         public void SaveAs()
         {
-            _repository.SaveData();
+            string path;
+            if (TryGetFolderPath(out path))
+                _repository.Save(path);
         }
 
         private void DeleteDialog(object[] objects)
         {
             //TODO: Localize
-            ConfirmationRequest.Raise(new Confirmation { Content = "You sure you want remove a node ?", Title = "Удалить узел?" }, c =>
+            ConfirmationRequest.Raise(new Confirmation { Content = "You sure you want remove a node ?", Title = "Удалить узел?" }, c => // Not L10N
             {
                 if (!c.Confirmed)
                     return;
-                if (objects[1] is InstallStep)
+                var installStep = objects[1] as InstallStep;
+                if (installStep != null)
                 {
                     var root = (ProjectRoot)objects[0];
-                    var step = (InstallStep)objects[1];
-                    root.ModuleConfiguration.InstallSteps.InstallStep.Remove(step);
+                    root.ModuleConfiguration.InstallSteps.InstallStep.Remove(installStep);
                 }
                 else
                 {
-                    if (objects[1] is Group)
+                    var group = objects[1] as Group;
+                    if (group != null)
                     {
                         var step = (InstallStep)objects[0];
-                        var group = (Group)objects[1];
-                        step.OptionalFileGroups.Group.Remove(@group);
+                        step.OptionalFileGroups.Group.Remove(group);
                     }
                     else
                     {
-                        if (objects[1] is Plugin)
+                        var plugin = objects[1] as Plugin;
+                        if (plugin != null)
                         {
-                            var group = (Group)objects[0];
-                            var plugin = (Plugin)objects[1];
+                            group = (Group)objects[0];
                             group.Plugins.Plugin.Remove(plugin);
                         }
                     }
@@ -157,7 +174,7 @@ namespace Module.Editor.ViewModel
             });
         }
 
-        private void AddStep(ProjectRoot p)
+        private static void AddStep(ProjectRoot p)
         {
             if (p.ModuleConfiguration.InstallSteps == null)
                 p.ModuleConfiguration.InstallSteps = StepList.Create();
@@ -166,7 +183,7 @@ namespace Module.Editor.ViewModel
             p.ModuleConfiguration.InstallSteps.InstallStep.Add(InstallStep.Create());
         }
 
-        private void AddGroup(InstallStep p)
+        private static void AddGroup(InstallStep p)
         {
             if (p.OptionalFileGroups == null)
                 p.OptionalFileGroups = GroupList.Create();
@@ -175,7 +192,7 @@ namespace Module.Editor.ViewModel
             p.OptionalFileGroups.Group.Add(Group.Create());
         }
 
-        private void AddPlugin(Group p)
+        private static void AddPlugin(Group p)
         {
             if (p.Plugins == null)
                 p.Plugins = PluginList.Create();
@@ -192,9 +209,12 @@ namespace Module.Editor.ViewModel
 
         public ICommand AddStepCommand
         {
-            get { return _addStepCommand ?? (_addStepCommand = new RelayCommand<ProjectRoot>(AddStep)); }
+            get
+            {
+                return _addStepCommand ?? (_addStepCommand = new RelayCommand<ProjectRoot>(AddStep));
+            }
         }
-
+        
         private ICommand _addGroupCommand;
 
         public ICommand AddGroupCommand

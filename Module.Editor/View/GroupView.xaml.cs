@@ -1,4 +1,4 @@
-using FomodInfrastructure.Interface;
+using FomodInfrastructure.Interfaces;
 
 namespace Module.Editor.View
 {

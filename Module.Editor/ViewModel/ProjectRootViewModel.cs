@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
-using FomodInfrastructure.Interface;
+using FomodInfrastructure.Interfaces;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base;
 using FomodModel.Base.ModuleCofiguration;

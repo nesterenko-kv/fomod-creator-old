@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using AspectInjector.Broker;
 
-namespace FomodInfrastructure.Aspect
+namespace FomodInfrastructure.Aspects
 {
     [Serializable, AdviceInterfaceProxy(typeof(INotifyPropertyChanged))]
     public class AspectINotifyPropertyChanged : INotifyPropertyChanged

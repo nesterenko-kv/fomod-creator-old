@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using AspectInjector.Broker;
 
-namespace FomodInfrastructure.Aspect
+namespace FomodInfrastructure.Aspects
 {
     public class AcpectDebugLoger
     {

@@ -51,20 +51,22 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aspect\AcpectDebugLoger.cs" />
-    <Compile Include="Aspect\AspectINotifyPropertyChanged.cs" />
+    <Compile Include="Aspects\AcpectDebugLoger.cs" />
+    <Compile Include="Aspects\AspectINotifyPropertyChanged.cs" />
     <Compile Include="Converters\CategoriesEnumConverter.cs" />
     <Compile Include="Converters\ItemControlIndexConverter.cs" />
     <Compile Include="Converters\ColorToSolidBrushConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\MultiCommandParamsConverter.cs" />
-    <Compile Include="Interface\IAppService.cs" />
-    <Compile Include="Interface\IFileBrowserDialog.cs" />
-    <Compile Include="Interface\IFolderBrowserDialog.cs" />
-    <Compile Include="Interface\IDataService.cs" />
-    <Compile Include="Interface\ILogger.cs" />
-    <Compile Include="Interface\IMemoryService.cs" />
-    <Compile Include="Interface\IRepository.cs" />
+    <Compile Include="Interfaces\IAppService.cs" />
+    <Compile Include="Interfaces\IFileBrowserDialog.cs" />
+    <Compile Include="Interfaces\IFolderBrowserDialog.cs" />
+    <Compile Include="Interfaces\IDataService.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IMemoryService.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IRepositoryData.cs" />
+    <Compile Include="Interfaces\RepositoryResult.cs" />
     <Compile Include="MvvmLibrary\Behavior\DropBehavior.cs" />
     <Compile Include="RepositoryStatus.cs" />
     <Compile Include="MvvmLibrary\Attaches\TreeViewHelper.cs" />

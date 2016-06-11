@@ -1,6 +1,6 @@
 ﻿using System;
 using AspectInjector.Broker;
-using FomodInfrastructure.Aspect;
+using FomodInfrastructure.Aspects;
 using Prism.Regions;
 
 namespace Module.Editor.ViewModel
