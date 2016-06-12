@@ -14,7 +14,7 @@ namespace FomodInfrastructure.Interfaces
 
         Version Version { get; }
 
-        void CreateEditorModule<T>(IRepository<T> repository) where T : IRepositoryData;
+        void CreateEditorModule<T>(IRepository<T> repository) where T : IData;
 
         /// <summary>
         /// Флаг для отслеживания, состояния загрузки проектов из командной строки. Основной целью флага служит отключение UI логики при закрузке проекта из командной строки

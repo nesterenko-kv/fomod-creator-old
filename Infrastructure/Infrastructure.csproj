@@ -68,7 +68,6 @@
     <Compile Include="Interfaces\IRepositoryData.cs" />
     <Compile Include="Interfaces\RepositoryResult.cs" />
     <Compile Include="MvvmLibrary\Behavior\DropBehavior.cs" />
-    <Compile Include="RepositoryStatus.cs" />
     <Compile Include="MvvmLibrary\Attaches\TreeViewHelper.cs" />
     <Compile Include="MvvmLibrary\Commands\IExecuteWithObject.cs" />
     <Compile Include="MvvmLibrary\Commands\IExecuteWithObjectAndResult.cs" />

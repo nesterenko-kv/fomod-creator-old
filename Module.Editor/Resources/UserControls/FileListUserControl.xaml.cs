@@ -4,7 +4,6 @@ using System.Windows.Input;
 using FomodInfrastructure.MvvmLibrary.Commands;
 using FomodModel.Base.ModuleCofiguration;
 using System;
-using System.Threading.Tasks;
 
 namespace Module.Editor.Resources.UserControls
 {
@@ -17,17 +16,17 @@ namespace Module.Editor.Resources.UserControls
 
         #region Properties
         
-        public Func<List<string>, Task<List<SystemItem>>> AddFileSystemItemsMethod
+        public Func<List<string>, List<SystemItem>> AddFileSystemItemsMethod
         {
-            get { return (Func<List<string>, Task<List<SystemItem>>>)GetValue(AddFileSystemItemsMethodProperty); }
+            get { return (Func<List<string>, List<SystemItem>>)GetValue(AddFileSystemItemsMethodProperty); }
             set { SetValue(AddFileSystemItemsMethodProperty, value); }
         }
 
         public static readonly DependencyProperty AddFileSystemItemsMethodProperty =
-            DependencyProperty.Register("AddFileSystemItemsMethod", typeof(Func<List<string>, List<SystemItem>>), typeof(FileListUserControl), new PropertyMetadata(null));
+            DependencyProperty.Register(@"AddFileSystemItemsMethod", typeof(Func<List<string>, List<SystemItem>>), typeof(FileListUserControl), new PropertyMetadata(null));
 
         public static readonly DependencyProperty AddFileMethodProperty =
-            DependencyProperty.Register("AddFileMethod", typeof(Func<List<string>>), typeof(FileListUserControl), new PropertyMetadata(null));
+            DependencyProperty.Register(@"AddFileMethod", typeof(Func<List<string>>), typeof(FileListUserControl), new PropertyMetadata(null));
 
         public Func<List<string>> AddFileMethod
         {
@@ -36,7 +35,7 @@ namespace Module.Editor.Resources.UserControls
         }
 
         public static readonly DependencyProperty AddFolderMethodProperty =
-           DependencyProperty.Register("AddFolderMethod", typeof(Func<List<string>>), typeof(FileListUserControl), new PropertyMetadata(null));
+           DependencyProperty.Register(@"AddFolderMethod", typeof(Func<List<string>>), typeof(FileListUserControl), new PropertyMetadata(null));
 
         public Func<List<string>> AddFolderMethod
         {
@@ -44,7 +43,7 @@ namespace Module.Editor.Resources.UserControls
             set { SetValue(AddFolderMethodProperty, value); }
         }
         
-        public static readonly DependencyProperty FileListProperty = DependencyProperty.Register("FileList", typeof(FileList), typeof(FileListUserControl), new FrameworkPropertyMetadata { BindsTwoWayByDefault = true, DefaultValue = null });
+        public static readonly DependencyProperty FileListProperty = DependencyProperty.Register(@"FileList", typeof(FileList), typeof(FileListUserControl), new FrameworkPropertyMetadata { BindsTwoWayByDefault = true, DefaultValue = null });
 
         public FileList FileList
         {
@@ -52,7 +51,7 @@ namespace Module.Editor.Resources.UserControls
             set { SetValue(FileListProperty, value); }
         }
 
-        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(string), typeof(FileListUserControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(@"Header", typeof(string), typeof(FileListUserControl), new PropertyMetadata(null));
 
         public string Header
         {
@@ -85,32 +84,32 @@ namespace Module.Editor.Resources.UserControls
 
         public ICommand DropItemCommand
         {
-            get { return _dropItemCommand ?? (_dropItemCommand = new RelayCommand<IDataObject>(async o => { await OnDropItem(o); }, AcceptDrop)); }
+            get { return _dropItemCommand ?? (_dropItemCommand = new RelayCommand<IDataObject>(OnDropItem, AcceptDrop)); }
         }
         
         #endregion
 
         #region Methods
 
-        private async void AddFileLocal(List<string> path)
+        private void AddFileLocal(List<string> path)
         {
             if (FileList == null)
                 FileList = FileList.Create();
             var fileList = AddFileMethod?.Invoke();
             if (fileList != null && AddFileSystemItemsMethod != null)
-                foreach (var item in await AddFileSystemItemsMethod?.Invoke(fileList))
+                foreach (var item in AddFileSystemItemsMethod?.Invoke(fileList))
                     FileList.Items.Add(item);
             if (FileList.Items.Count == 0)
                 FileList = null;
         }
 
-        private async void AddFolderLocal(List<string> path)
+        private void AddFolderLocal(List<string> path)
         {
             if (FileList == null)
                 FileList = FileList.Create();
             var invoke = AddFolderMethod?.Invoke();
             if (invoke != null && AddFileSystemItemsMethod != null)
-                foreach (var item in await AddFileSystemItemsMethod?.Invoke(invoke))
+                foreach (var item in AddFileSystemItemsMethod?.Invoke(invoke))
                     FileList.Items.Add(item);
             if (FileList.Items.Count == 0)
                 FileList = null;
@@ -130,21 +129,17 @@ namespace Module.Editor.Resources.UserControls
             return data != null && data.GetDataPresent(DataFormats.FileDrop);
         }
 
-        private async Task OnDropItem(IDataObject data)
+        private void OnDropItem(IDataObject data)
         {
             var filePath = (string[])data.GetData(DataFormats.FileDrop);
             var fileList = new List<string>(filePath);
-            var invoke = AddFileSystemItemsMethod?.Invoke(fileList);
-            if (invoke != null)
+            var fileSystemItems = AddFileSystemItemsMethod?.Invoke(fileList);
+            if (fileSystemItems != null)
             {
-                var fileSystemItems = await invoke;
-                if (fileSystemItems != null)
-                {
-                    if (FileList == null)
-                        FileList = FileList.Create();
-                    foreach (var item in fileSystemItems)
-                        FileList.Items.Add(item);
-                }
+                if (FileList == null)
+                    FileList = FileList.Create();
+                foreach (var item in fileSystemItems)
+                    FileList.Items.Add(item);
             }
             if (FileList.Items.Count == 0)
                 FileList = null;

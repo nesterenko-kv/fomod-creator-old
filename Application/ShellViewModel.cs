@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using AspectInjector.Broker;
@@ -87,7 +85,7 @@ namespace MainApplication
 
         #region Methods
 
-        private async void CloseTab(object p)
+        private void CloseTab(object p)
         {
             if (!(p is MainEditorViewModel))
                 return;
@@ -97,16 +95,14 @@ namespace MainApplication
             var needSave = ((MainEditorViewModel)p).IsNeedSave;
             if (needSave)
             {
-                var result = await CofirmDialogAsync();
-                if (result)
+                var result = DialogCoordinator.ShowMessageAsync(this, "Close", "Save project before closing?", MessageDialogStyle.AffirmativeAndNegative, ServiceLocator.GetInstance<MetroDialogSettings>());
+                result.Wait();
+                if (result.Result == MessageDialogResult.Affirmative)
                     SaveProject();
             }
             removeView.DataContext = null;
             _regionManager.Regions[Names.MainContentRegion].Remove(removeView);
             ((MainEditorViewModel)p).Dispose();
-            // ReSharper disable once RedundantAssignment
-            removeView = null;
-            GC.Collect();
         }
 
         private void SaveProject()
@@ -131,12 +127,7 @@ namespace MainApplication
         {
             return (CurentSelectedItem as FrameworkElement)?.DataContext is MainEditorViewModel;
         }
-
-        private async Task<bool> CofirmDialogAsync() //TODO: Localize
-        {
-            return await DialogCoordinator.ShowMessageAsync(this, "Close", "Save project before closing?", MessageDialogStyle.AffirmativeAndNegative, ServiceLocator.GetInstance<MetroDialogSettings>()) == MessageDialogResult.Affirmative;
-        }
-
+        
         private bool AcceptDrop(IDataObject data)
         {
             return data != null && data.GetDataPresent(DataFormats.FileDrop);

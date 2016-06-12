@@ -3,7 +3,7 @@ namespace FomodInfrastructure.Interfaces
     /// <summary>
     /// Модель данных репозитория
     /// </summary>
-    public interface IRepositoryData
+    public interface IData
     {
         /// <summary>
         ///   Путь к данным

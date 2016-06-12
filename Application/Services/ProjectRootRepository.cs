@@ -2,7 +2,6 @@
 using System.IO;
 using FomodInfrastructure.Interfaces;
 using FomodModel.Base;
-using Microsoft.Practices.ServiceLocation;
 
 namespace MainApplication.Services
 {
@@ -13,12 +12,9 @@ namespace MainApplication.Services
         private readonly IDataService _dataService;
 
         private readonly ILogger _logger;
-
-        private readonly IServiceLocator _serviceLocator;
-
-        public ProjectRootRepository(IServiceLocator serviceLocator, IDataService dataService, IAppService appService, ILogger logger)
+        
+        public ProjectRootRepository(IDataService dataService, IAppService appService, ILogger logger)
         {
-            _serviceLocator = serviceLocator;
             _dataService = dataService;
             _appService = appService;
             _logger = logger;
@@ -32,8 +28,7 @@ namespace MainApplication.Services
 
         protected override ProjectRoot LoadData(string path)
         {
-            var projectRoot = _serviceLocator.GetInstance<ProjectRoot>();
-            projectRoot.DataSource = path;
+            var projectRoot = ProjectRoot.Create(path);
             projectRoot.ModuleInformation = _dataService.LoadData<ModuleInformation>(Path.Combine(path, InfoSubPath));
             projectRoot.ModuleConfiguration = _dataService.LoadData<ModuleConfiguration>(Path.Combine(path, ConfigurationSubPath));
             return projectRoot;
@@ -62,31 +57,12 @@ namespace MainApplication.Services
             Directory.CreateDirectory(Path.Combine(path, ProjectFolder));
             _appService.GetXElementResource(InfoResourcePath).Save(Path.Combine(path, InfoSubPath));
             _appService.GetXElementResource(ConfigResourcePath).Save(Path.Combine(path, ConfigurationSubPath));
-            var projectRoot = _serviceLocator.GetInstance<ProjectRoot>();
-            projectRoot.DataSource = path;
+            var projectRoot = ProjectRoot.Create(path);
             projectRoot.ModuleInformation = _dataService.LoadData<ModuleInformation>(Path.Combine(path, InfoSubPath));
             projectRoot.ModuleConfiguration = _dataService.LoadData<ModuleConfiguration>(Path.Combine(path, ConfigurationSubPath));
             return projectRoot;
         }
-
-        protected override void AfterCreate(RepositoryResult<ProjectRoot> result)
-        {
-            if (!result.Success)
-                _logger.Log(result.Exception);
-        }
-
-        protected override void AfterLoad(RepositoryResult<ProjectRoot> result)
-        {
-            if (!result.Success)
-                _logger.Log(result.Exception);
-        }
-
-        protected override void AfterSave(RepositoryResult result)
-        {
-            if (!result.Success)
-                _logger.Log(result.Exception);
-        }
-
+        
         #region Constants
 
         private const string ProjectFolder = @"fomod";

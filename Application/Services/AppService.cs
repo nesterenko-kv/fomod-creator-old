@@ -35,16 +35,14 @@ namespace MainApplication.Services
         {
             Application.Current.MainWindow.Close();
         }
-
-        public void InitilizeBaseModules() {}
-
+        
         public string[] CommandLineArgs { get; } = Environment.GetCommandLineArgs();
 
         public Version Version { get; } = Assembly.GetExecutingAssembly().GetName().Version;
 
         public bool IsOpenProjectsFromCommandLine { get; set; } 
 
-        public void CreateEditorModule<T>(IRepository<T> repository) where T : IRepositoryData
+        public void CreateEditorModule<T>(IRepository<T> repository) where T : IData
         {
             // ReSharper disable once LoopCanBePartlyConvertedToQuery
             foreach (var o in _regionManager.Regions[Names.MainContentRegion].Views)

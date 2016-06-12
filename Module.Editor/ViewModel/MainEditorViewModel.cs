@@ -137,7 +137,9 @@ namespace Module.Editor.ViewModel
         {
             string path;
             if (TryGetFolderPath(out path))
+            {
                 _repository.Save(path);
+            }
         }
 
         private void DeleteDialog(object[] objects)

@@ -35,7 +35,7 @@ namespace Module.Editor.ViewModel
 
         #region Properties
 
-        public Func<List<string>, Task<List<SystemItem>>> AddFileSystemItemsMethod { get; }
+        public Func<List<string>, List<SystemItem>> AddFileSystemItemsMethod { get; }
 
         public Func<List<string>> AddFileMethod { get; }
 
@@ -65,14 +65,14 @@ namespace Module.Editor.ViewModel
             return null;
         }
 
-        private async Task<List<SystemItem>> AddFileSystemItems(List<string> paths)
+        private List<SystemItem> AddFileSystemItems(List<string> paths)
         {
             if (paths == null)
                 return null;
             var returnList = new List<SystemItem>();
             var filesAndFolders = paths;
             if (filesAndFolders.Any(path => path == FolderPath))
-                await _dialogCoordinator.ShowMessageAsync(this, "Error", "You can't add root project path."); //TODO: Localize
+                _dialogCoordinator.ShowMessageAsync(this, "Error", "You can't add root project path.").Wait(); //TODO: Localize
             else
             {
                 if (filesAndFolders.All(fileName => fileName.StartsWith(FolderPath)))
@@ -95,12 +95,12 @@ namespace Module.Editor.ViewModel
                     }
                 }
                 else
-                    await _dialogCoordinator.ShowMessageAsync(this, "Error", "Allowed to add files and folders only from the project directory."); //TODO: Localize
+                    _dialogCoordinator.ShowMessageAsync(this, "Error", "Allowed to add files and folders only from the project directory.").Wait(); //TODO: Localize
             }
             return returnList;
         }
 
-        protected async void AddFile(ObservableCollection<SystemItem> itemSource, List<string> paths)
+        protected void AddFile(ObservableCollection<SystemItem> itemSource, List<string> paths)
         {
             var files = paths;
             if (files == null)
@@ -125,10 +125,10 @@ namespace Module.Editor.ViewModel
                 }
             }
             else
-                await _dialogCoordinator.ShowMessageAsync(this, "Error", "Allowed to add files and folders only from the project directory."); //TODO: Localize
+                _dialogCoordinator.ShowMessageAsync(this, "Error", "Allowed to add files and folders only from the project directory.").Wait(); //TODO: Localize
         }
 
-        protected async void AddFolders(ObservableCollection<SystemItem> itemSource, List<string> paths)
+        protected void AddFolders(ObservableCollection<SystemItem> itemSource, List<string> paths)
         {
             var folders = paths;
             if (folders == null)
@@ -151,7 +151,7 @@ namespace Module.Editor.ViewModel
                 }
             }
             else
-                await _dialogCoordinator.ShowMessageAsync(this, "Error", "Allowed to add files and folders only from the project directory."); //TODO: Localize
+                _dialogCoordinator.ShowMessageAsync(this, "Error", "Allowed to add files and folders only from the project directory.").Wait(); //TODO: Localize
         }
 
         protected bool TryGetImage(out string result)

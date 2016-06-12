@@ -2,45 +2,28 @@
 
 namespace FomodInfrastructure.Interfaces
 {
-    public class RepositoryResult
+    public class RepositoryResult<TData> where TData : IData
     {
-        #region Constructors
-
-        public RepositoryResult(Exception exception = null)
-        {
-            Exception = exception;
-        }
-
-        #endregion
-
         #region Properties
 
         public Exception Exception { get; }
 
+        public TData Data { get; }
+
         public bool Success => Exception == null;
 
         #endregion
-    }
-
-    public class RepositoryResult<TData> : RepositoryResult where TData : IRepositoryData
-    {
-        #region Properties
-
-        public TData Data { get; }
-
-        #endregion
-
+        
         #region Constructors
 
-        public RepositoryResult(TData data)
+        public RepositoryResult(TData data): this(null)
         {
             Data = data;
         }
 
         public RepositoryResult(Exception exception)
-            : base(exception)
         {
-            
+            Exception = exception;
         }
 
         #endregion

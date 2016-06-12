@@ -4,7 +4,7 @@ using FomodInfrastructure.Interfaces;
 
 namespace MainApplication.Services
 {
-    public abstract class BaseRepository<TData> : IRepository<TData> where TData : IRepositoryData
+    public abstract class BaseRepository<TData> : IRepository<TData> where TData : IData
     {
         public TData Data { get; private set; }
 
@@ -20,7 +20,6 @@ namespace MainApplication.Services
             {
                 result = new RepositoryResult<TData>(e);
             }
-            AfterCreate(result);
             return result;
         }
         
@@ -36,30 +35,25 @@ namespace MainApplication.Services
             {
                 result = new RepositoryResult<TData>(e);
             }
-            AfterLoad(result);
             return result;
         }
 
         
-        public RepositoryResult Save(string path)
+        public RepositoryResult<TData> Save(string path)
         {
-            RepositoryResult result;
+            RepositoryResult<TData> result;
             try
             {
                 SaveData(Data, path);
-                result = new RepositoryResult();
+                result = new RepositoryResult<TData>(Data);
             }
             catch (Exception e)
             {
-                result = new RepositoryResult(e);
+                result = new RepositoryResult<TData>(e);
             }
-            AfterSave(result);
             return result;
         }
-
-        protected abstract void AfterCreate(RepositoryResult<TData> result);
-        protected abstract void AfterLoad(RepositoryResult<TData> result);
-        protected abstract void AfterSave(RepositoryResult result);
+        
         protected abstract TData LoadData(string path);
         protected abstract TData CreateData(string path);
         protected abstract void SaveData(TData data, string path);
