@@ -4,7 +4,7 @@
     {
         bool IsMemorySizeChanged { get; }
 
-        long GetMemorySize(object obj);
+        void GetMemorySize(object obj);
 
         void Reset(object obj);
     }

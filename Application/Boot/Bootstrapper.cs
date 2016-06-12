@@ -35,7 +35,7 @@ namespace MainApplication.Boot
             Container.Configure(r =>
             {
                 r.For<IAppService>().Use<AppService>().Singleton();
-                r.For<IRepository<ProjectRoot>>().Use<ProjectRootRepository>();
+                r.For<IRepository<Project>>().Use<ProjectRepository>();
                 r.For<IDataService>().Use<DataService>().Singleton();
                 r.For<IDialogCoordinator>().Use<DialogCoordinator>().Singleton();
                 r.For<IFolderBrowserDialog>().Use<FolderBrowserDialog>().Singleton();

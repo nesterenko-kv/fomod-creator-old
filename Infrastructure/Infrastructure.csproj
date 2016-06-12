@@ -65,8 +65,8 @@
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IMemoryService.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IRepositoryData.cs" />
-    <Compile Include="Interfaces\RepositoryResult.cs" />
+    <Compile Include="Interfaces\IData.cs" />
+    <Compile Include="Interfaces\Result.cs" />
     <Compile Include="MvvmLibrary\Behavior\DropBehavior.cs" />
     <Compile Include="MvvmLibrary\Attaches\TreeViewHelper.cs" />
     <Compile Include="MvvmLibrary\Commands\IExecuteWithObject.cs" />

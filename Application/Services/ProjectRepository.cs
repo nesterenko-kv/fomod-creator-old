@@ -5,7 +5,7 @@ using FomodModel.Base;
 
 namespace MainApplication.Services
 {
-    public class ProjectRootRepository : BaseRepository<ProjectRoot>
+    public class ProjectRepository : BaseRepository<Project>
     {
         private readonly IAppService _appService;
 
@@ -13,7 +13,7 @@ namespace MainApplication.Services
 
         private readonly ILogger _logger;
         
-        public ProjectRootRepository(IDataService dataService, IAppService appService, ILogger logger)
+        public ProjectRepository(IDataService dataService, IAppService appService, ILogger logger)
         {
             _dataService = dataService;
             _appService = appService;
@@ -21,30 +21,30 @@ namespace MainApplication.Services
             _logger.LogCreate(this);
         }
 
-        ~ProjectRootRepository()
+        ~ProjectRepository()
         {
             _logger.LogDisposable(this);
         }
 
-        protected override ProjectRoot LoadData(string path)
+        protected override Project LoadData(string path)
         {
-            var projectRoot = ProjectRoot.Create(path);
-            projectRoot.ModuleInformation = _dataService.LoadData<ModuleInformation>(Path.Combine(path, InfoSubPath));
-            projectRoot.ModuleConfiguration = _dataService.LoadData<ModuleConfiguration>(Path.Combine(path, ConfigurationSubPath));
-            return projectRoot;
+            var project = Project.Create(path);
+            project.ModuleInformation = _dataService.LoadData<ModuleInformation>(Path.Combine(path, InfoSubPath));
+            project.ModuleConfiguration = _dataService.LoadData<ModuleConfiguration>(Path.Combine(path, ConfigurationSubPath));
+            return project;
         }
 
-        protected override void SaveData(ProjectRoot data, string path)
+        protected override void SaveData(Project data, string path)
         {
             _dataService.SaveData(Data.ModuleInformation, Path.Combine(path, InfoSubPath));
             _dataService.SaveData(Data.ModuleConfiguration, Path.Combine(path, ConfigurationSubPath));
         }
 
-        protected override ProjectRoot CreateData(string path)
+        protected override Project CreateData(string path)
         {
             if (Data != null)
             {
-                var sourceDir = Path.GetFullPath(Data.DataSource);
+                var sourceDir = Path.GetFullPath(Data.Source);
                 var destinationDir = Path.GetFullPath(path);
                 if (!string.Equals(sourceDir, destinationDir, StringComparison.OrdinalIgnoreCase))
                 {
@@ -57,10 +57,10 @@ namespace MainApplication.Services
             Directory.CreateDirectory(Path.Combine(path, ProjectFolder));
             _appService.GetXElementResource(InfoResourcePath).Save(Path.Combine(path, InfoSubPath));
             _appService.GetXElementResource(ConfigResourcePath).Save(Path.Combine(path, ConfigurationSubPath));
-            var projectRoot = ProjectRoot.Create(path);
-            projectRoot.ModuleInformation = _dataService.LoadData<ModuleInformation>(Path.Combine(path, InfoSubPath));
-            projectRoot.ModuleConfiguration = _dataService.LoadData<ModuleConfiguration>(Path.Combine(path, ConfigurationSubPath));
-            return projectRoot;
+            var project = Project.Create(path);
+            project.ModuleInformation = _dataService.LoadData<ModuleInformation>(Path.Combine(path, InfoSubPath));
+            project.ModuleConfiguration = _dataService.LoadData<ModuleConfiguration>(Path.Combine(path, ConfigurationSubPath));
+            return project;
         }
         
         #region Constants

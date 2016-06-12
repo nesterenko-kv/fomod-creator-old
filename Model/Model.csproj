@@ -58,7 +58,7 @@
     <Compile Include="Base\ModuleCofiguration\FolderSystemItem.cs" />
     <Compile Include="Base\ModuleCofiguration\SystemItem.cs" />
     <Compile Include="Base\ModuleInformation.cs" />
-    <Compile Include="Base\ProjectRoot.cs" />
+    <Compile Include="Base\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\ModuleCofiguration\CompositeDependency.cs" />
     <Compile Include="Base\ModuleCofiguration\ConditionalFileInstallList.cs" />

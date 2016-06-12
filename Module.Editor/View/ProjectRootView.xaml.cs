@@ -2,18 +2,18 @@ using FomodInfrastructure.Interfaces;
 
 namespace Module.Editor.View
 {
-    public partial class ProjectRootView
+    public partial class ProjectView
     {
         private readonly ILogger _logger;
 
-        public ProjectRootView(ILogger logger)
+        public ProjectView(ILogger logger)
         {
             InitializeComponent();
             _logger = logger;
             _logger.LogCreate(this);
         }
 
-        ~ProjectRootView()
+        ~ProjectView()
         {
             _logger.LogDisposable(this);
         }

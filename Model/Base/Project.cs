@@ -6,16 +6,16 @@ using FomodInfrastructure.Interfaces;
 namespace FomodModel.Base
 {
     [Aspect(typeof(AspectINotifyPropertyChanged)), Serializable]
-    public class ProjectRoot: IData
+    public class Project: IData
     {
-        public ProjectRoot(string dataSource)
+        public Project(string source)
         {
-            DataSource = dataSource;
+            Source = source;
         }
 
         #region Properties
 
-        public string DataSource { get; }
+        public string Source { get; }
         
         public ModuleInformation ModuleInformation { get; set; }
 
@@ -23,9 +23,9 @@ namespace FomodModel.Base
 
         #endregion
 
-        public static ProjectRoot Create(string source)
+        public static Project Create(string source)
         {
-            return new ProjectRoot(source);
+            return new Project(source);
         }
     }
 }

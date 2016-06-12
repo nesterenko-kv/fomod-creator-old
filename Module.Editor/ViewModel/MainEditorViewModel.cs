@@ -41,13 +41,13 @@ namespace Module.Editor.ViewModel
             _logger.LogDisposable(this);
         }
 
-        public void ConfigurateViewModel(IRegionManager regionManager, IRepository<ProjectRoot> repository)
+        public void ConfigurateViewModel(IRegionManager regionManager, IRepository<Project> repository)
         {
             if (repository == null)
                 throw new ArgumentNullException(nameof(repository));
             _repository = repository;
             _regionManager = regionManager;
-            var root = Data.FirstOrDefault(i => i.DataSource == repository.Data?.DataSource);
+            var root = Data.FirstOrDefault(i => i.Source == repository.Data?.Source);
             if (root == null)
             {
                 Data.Add(repository.Data);
@@ -62,7 +62,7 @@ namespace Module.Editor.ViewModel
 
         private IRegionManager _regionManager;
 
-        private IRepository<ProjectRoot> _repository;
+        private IRepository<Project> _repository;
 
         private readonly IMemoryService _memoryService;
 
@@ -90,9 +90,9 @@ namespace Module.Editor.ViewModel
 
         public InteractionRequest<IConfirmation> ConfirmationRequest { get; } = new InteractionRequest<IConfirmation>();
 
-        public ObservableCollection<ProjectRoot> Data { get; } = new ObservableCollection<ProjectRoot>();
+        public ObservableCollection<Project> Data { get; } = new ObservableCollection<Project>();
 
-        public ProjectRoot FirstData { get; private set; }
+        public Project FirstData { get; private set; }
 
         //TODO: Не забыть про очищение свойства при закрытии или удалении проекта, или сделать слабую ссылку
 
@@ -109,7 +109,7 @@ namespace Module.Editor.ViewModel
                 var name = value.GetType().Name;
                 var param = new NavigationParameters {
                     { name, value },
-                    { @"FolderPath", _repository.Data?.DataSource }
+                    { @"FolderPath", _repository.Data?.Source }
                                                      };
                 _regionManager.Regions[Names.NodeRegion].RequestNavigate(name + @"View", param);
             }
@@ -130,7 +130,7 @@ namespace Module.Editor.ViewModel
 
         public void Save()
         {
-            _repository.Save(_repository.Data.DataSource);
+            _repository.Save(_repository.Data.Source);
         }
 
         public void SaveAs()
@@ -152,7 +152,7 @@ namespace Module.Editor.ViewModel
                 var installStep = objects[1] as InstallStep;
                 if (installStep != null)
                 {
-                    var root = (ProjectRoot)objects[0];
+                    var root = (Project)objects[0];
                     root.ModuleConfiguration.InstallSteps.InstallStep.Remove(installStep);
                 }
                 else
@@ -176,7 +176,7 @@ namespace Module.Editor.ViewModel
             });
         }
 
-        private static void AddStep(ProjectRoot p)
+        private static void AddStep(Project p)
         {
             if (p.ModuleConfiguration.InstallSteps == null)
                 p.ModuleConfiguration.InstallSteps = StepList.Create();
@@ -213,7 +213,7 @@ namespace Module.Editor.ViewModel
         {
             get
             {
-                return _addStepCommand ?? (_addStepCommand = new RelayCommand<ProjectRoot>(AddStep));
+                return _addStepCommand ?? (_addStepCommand = new RelayCommand<Project>(AddStep));
             }
         }
         

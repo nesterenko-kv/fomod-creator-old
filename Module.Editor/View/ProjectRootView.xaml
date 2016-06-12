@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Module.Editor.View.ProjectRootView"
+﻿<UserControl x:Class="Module.Editor.View.ProjectView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:FomodInfrastructure.Converters;assembly=FomodInfrastructure"

@@ -16,7 +16,7 @@ namespace MainApplication.Services
 
         public bool IsMemorySizeChanged { get; private set; }
 
-        public long GetMemorySize(object obj)
+        public void GetMemorySize(object obj)
         {
             using (var ms = new MemoryStream())
             {
@@ -25,7 +25,7 @@ namespace MainApplication.Services
                 var size = ms.Length;
                 if (_lastMemorySize != -1 && _lastMemorySize != size)
                     IsMemorySizeChanged = true;
-                return _lastMemorySize = size;
+                _lastMemorySize = size;
             }
         }
 

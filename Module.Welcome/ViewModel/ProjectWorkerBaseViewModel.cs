@@ -47,7 +47,7 @@ namespace Module.Welcome.ViewModel
 
         public void CreateProject()
         {
-            var repository = ServiceLocator.GetInstance<IRepository<ProjectRoot>>();
+            var repository = ServiceLocator.GetInstance<IRepository<Project>>();
             string path;
             if (!TryGetFolderPath(out path))
                 return;
@@ -60,7 +60,7 @@ namespace Module.Welcome.ViewModel
 
         public void OpenProject(string path = null)
         {
-            var repository = ServiceLocator.GetInstance<IRepository<ProjectRoot>>();
+            var repository = ServiceLocator.GetInstance<IRepository<Project>>();
             if (string.IsNullOrEmpty(path))
                 if (!TryGetFolderPath(out path))
                     return;

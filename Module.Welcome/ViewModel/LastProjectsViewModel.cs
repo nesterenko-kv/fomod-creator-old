@@ -69,11 +69,11 @@ namespace Module.Welcome.ViewModel
             SaveProjectLinkListFile();
         }
 
-        private void UpdateProjectList(ProjectRoot p)
+        private void UpdateProjectList(Project p)
         {
-            var item = ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p.DataSource);
+            var item = ProjectLinkList.Links.FirstOrDefault(i => i.FolderPath == p.Source);
             if (item == null)
-                ProjectLinkList.Links.Add(ProjectLinkModel.Create(p.ModuleInformation.Name, p.DataSource));
+                ProjectLinkList.Links.Add(ProjectLinkModel.Create(p.ModuleInformation.Name, p.Source));
             else
                 item.ProjectName = p.ModuleInformation.Name;
             SaveProjectLinkListFile();

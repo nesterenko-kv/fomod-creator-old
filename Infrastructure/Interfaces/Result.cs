@@ -2,7 +2,7 @@
 
 namespace FomodInfrastructure.Interfaces
 {
-    public class RepositoryResult<TData> where TData : IData
+    public class Result<TData> where TData : IData
     {
         #region Properties
 
@@ -16,12 +16,12 @@ namespace FomodInfrastructure.Interfaces
         
         #region Constructors
 
-        public RepositoryResult(TData data): this(null)
+        public Result(TData data): this(null)
         {
             Data = data;
         }
 
-        public RepositoryResult(Exception exception)
+        public Result(Exception exception)
         {
             Exception = exception;
         }

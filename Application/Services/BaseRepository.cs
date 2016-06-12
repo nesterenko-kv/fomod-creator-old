@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using FomodInfrastructure.Interfaces;
 
 namespace MainApplication.Services
@@ -8,48 +7,48 @@ namespace MainApplication.Services
     {
         public TData Data { get; private set; }
 
-        public RepositoryResult<TData> Create(string path)
+        public Result<TData> Create(string path)
         {
-            RepositoryResult<TData> result;
+            Result<TData> result;
             try
             {
                 Data = CreateData(path);
-                result = new RepositoryResult<TData>(Data);
+                result = new Result<TData>(Data);
             }
             catch (Exception e)
             {
-                result = new RepositoryResult<TData>(e);
+                result = new Result<TData>(e);
             }
             return result;
         }
         
-        public RepositoryResult<TData> Load(string path)
+        public Result<TData> Load(string path)
         {
-            RepositoryResult<TData> result;
+            Result<TData> result;
             try
             {
                 Data = LoadData(path);
-                result = new RepositoryResult<TData>(Data);
+                result = new Result<TData>(Data);
             }
             catch (Exception e)
             {
-                result = new RepositoryResult<TData>(e);
+                result = new Result<TData>(e);
             }
             return result;
         }
 
         
-        public RepositoryResult<TData> Save(string path)
+        public Result<TData> Save(string path)
         {
-            RepositoryResult<TData> result;
+            Result<TData> result;
             try
             {
                 SaveData(Data, path);
-                result = new RepositoryResult<TData>(Data);
+                result = new Result<TData>(Data);
             }
             catch (Exception e)
             {
-                result = new RepositoryResult<TData>(e);
+                result = new Result<TData>(e);
             }
             return result;
         }

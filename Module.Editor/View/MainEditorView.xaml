@@ -184,7 +184,7 @@
                         </Trigger>
                     </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type base:ProjectRoot}" ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
+                <HierarchicalDataTemplate DataType="{x:Type base:Project}" ItemsSource="{Binding ModuleConfiguration.InstallSteps.InstallStep}">
                     <DockPanel Background="Transparent">
                         <Button x:Name="add_button"
                                 Margin="3"

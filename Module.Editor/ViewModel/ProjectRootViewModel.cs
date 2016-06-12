@@ -8,9 +8,9 @@ using MahApps.Metro.Controls.Dialogs;
 
 namespace Module.Editor.ViewModel
 {
-    public class ProjectRootViewModel : FileWorkerBaseViewModel<ProjectRoot>
+    public class ProjectViewModel : FileWorkerBaseViewModel<Project>
     {
-        public ProjectRootViewModel(IFileBrowserDialog fileBrowserDialog, IFolderBrowserDialog folderBrowserDialog, IDialogCoordinator dialogCoordinator)
+        public ProjectViewModel(IFileBrowserDialog fileBrowserDialog, IFolderBrowserDialog folderBrowserDialog, IDialogCoordinator dialogCoordinator)
             : base(fileBrowserDialog, folderBrowserDialog, dialogCoordinator) {}
 
         #region Methods

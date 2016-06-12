@@ -8,6 +8,6 @@ namespace FomodInfrastructure.Interfaces
         /// <summary>
         ///   ѕуть к данным
         ///   </summary>
-        string DataSource { get; }
+        string Source { get; }
     }
 }

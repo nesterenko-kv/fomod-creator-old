@@ -48,7 +48,7 @@ namespace MainApplication.Services
             foreach (var o in _regionManager.Regions[Names.MainContentRegion].Views)
             {
                 var element = o as MainEditorView;
-                var b = (element?.DataContext as MainEditorViewModel)?.Data.FirstOrDefault(i => i.DataSource == repository.Data?.DataSource);
+                var b = (element?.DataContext as MainEditorViewModel)?.Data.FirstOrDefault(i => i.Source == repository.Data?.Source);
                 if (b == null)
                     continue;
                 _regionManager.Regions[Names.MainContentRegion].Activate(element);
@@ -60,13 +60,13 @@ namespace MainApplication.Services
             if (view == null)
                 return;
             var mainEditorViewModel = view.DataContext as MainEditorViewModel;
-            mainEditorViewModel?.ConfigurateViewModel(detailsRegionManager, repository as IRepository<ProjectRoot>);
+            mainEditorViewModel?.ConfigurateViewModel(detailsRegionManager, repository as IRepository<Project>);
             detailsRegion.Activate(view);
         }
 
         public XElement GetXElementResource(string path)
         {
-            var assembly = Assembly.GetAssembly(typeof(ProjectRoot));
+            var assembly = Assembly.GetAssembly(typeof(Project));
             using (var stream = assembly.GetManifestResourceStream(path))
                 return XElement.Load(stream);
         }

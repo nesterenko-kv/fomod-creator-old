@@ -115,7 +115,7 @@
     </ApplicationDefinition>
     <Compile Include="Selectors\TabItemTemplateSelector.cs" />
     <Compile Include="Services\BaseRepository.cs" />
-    <Compile Include="Services\ProjectRootRepository.cs" />
+    <Compile Include="Services\ProjectRepository.cs" />
     <Compile Include="Services\MemoryService.cs" />
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>

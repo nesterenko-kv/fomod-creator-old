@@ -110,8 +110,8 @@ namespace MainApplication
             var vm = (MainEditorViewModel)((FrameworkElement)CurentSelectedItem).DataContext;
             vm.IsNeedSave = false;
             vm.Save();
-            foreach (var projectRoot in vm.Data)
-                EventAggregator.GetEvent<OpenProjectEvent>().Publish(projectRoot);
+            foreach (var Project in vm.Data)
+                EventAggregator.GetEvent<OpenProjectEvent>().Publish(Project);
         }
 
         private void SaveProjectAs()
@@ -119,8 +119,8 @@ namespace MainApplication
             var vm = (MainEditorViewModel)((FrameworkElement)CurentSelectedItem).DataContext;
             vm.IsNeedSave = false;
             vm.SaveAs();
-            foreach (var projectRoot in vm.Data)
-                EventAggregator.GetEvent<OpenProjectEvent>().Publish(projectRoot);
+            foreach (var Project in vm.Data)
+                EventAggregator.GetEvent<OpenProjectEvent>().Publish(Project);
         }
 
         private bool CanSaveProject()
