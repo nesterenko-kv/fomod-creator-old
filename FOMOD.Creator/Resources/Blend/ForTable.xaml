@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Globals.xaml" />
+        <ResourceDictionary Source="ComboBoxDefault.xaml" />
+        <ResourceDictionary Source="TextBoxDefault.xaml" />
+        <ResourceDictionary Source="TextBlockDefault.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+
+    <Style x:Key="TextBlockForTable"
+           BasedOn="{StaticResource TextBlockDefault}"
+           TargetType="{x:Type TextBlock}" />
+
+
+    <Style x:Key="TextBoxForTable"
+           BasedOn="{StaticResource TextBoxDefault}"
+           TargetType="{x:Type TextBox}">
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="Margin" Value="0,1,0,0" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+    </Style>
+
+    <Style x:Key="ComboBoxForTable"
+           BasedOn="{StaticResource ComboBoxDefault}"
+           TargetType="{x:Type ComboBox}">
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="Margin" Value="0,1,0,0" />
+    </Style>
+
+</ResourceDictionary>

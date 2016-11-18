@@ -1,0 +1,58 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="TableHeaderBackGroundColor"
+                     Color="#FF235180" />
+    <SolidColorBrush x:Key="TableTopHeaderBackGroundColor"
+                     Color="#7FFFFFFF" />
+
+    <SolidColorBrush x:Key="ForegroundColor"
+                     Color="White" />
+
+
+    <SolidColorBrush x:Key="GroupBoxBackGroundColor"
+                     Color="#FF556B2F" />
+    <SolidColorBrush x:Key="GroupBoxForeGroundColor"
+                     Color="#FFFFFFFF" />
+
+    <Thickness x:Key="DefMargin"
+               Left="6"
+               Top="3"
+               Right="6"
+               Bottom="3" />
+
+    <Thickness x:Key="DefItemsMargin"
+               Left="6"
+               Top="3"
+               Right="6"
+               Bottom="3" />
+
+
+    <Style x:Key="DefTestBlockStyle"
+           TargetType="{x:Type TextBlock}">
+        <Setter Property="Margin" Value="{StaticResource DefMargin}" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+    </Style>
+    <Style x:Key="DefTestBoxStyle"
+           TargetType="{x:Type TextBox}">
+        <Setter Property="Margin" Value="{StaticResource DefMargin}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+
+    <!--  BasedOn="{StaticResource {x:Type ComboBox}}"  -->
+    <Style x:Key="DefComboBoxStyle"
+           TargetType="{x:Type ComboBox}">
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="{StaticResource DefMargin}" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+
+</ResourceDictionary>

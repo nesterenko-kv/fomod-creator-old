@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="FOMOD.Creator.Views.GroupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:FOMOD.Creator.ViewModels"
+             d:DesignHeight="250"
+             d:DesignWidth="1000"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:GroupViewModel, IsDesignTimeCreatable=False}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Enums.xaml" />
+                <ResourceDictionary Source="../Resources/Blend/_Package.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Grid.IsSharedSizeScope="True">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+            <StackPanel MaxWidth="1000">
+                <GroupBox Header="Group Info" DataContext="{Binding Data}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.Resources>
+                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                                <Style BasedOn="{StaticResource TextBoxDefault}" TargetType="{x:Type TextBox}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                                <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Group name" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Group type" />
+                            <TextBox Grid.Row="0" Grid.Column="1"
+                                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                            <ComboBox Grid.Row="1" Grid.Column="1"
+                                      ItemsSource="{Binding Source={StaticResource GroupTypeEnum}}"
+                                      SelectedItem="{Binding Type, Mode=TwoWay}">
+                                <ComboBox.Resources>
+                                    <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
+                                </ComboBox.Resources>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Other Settings" DataContext="{Binding Data}">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
+                            <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
+                                <Setter Property="Margin" Value="{StaticResource Margin}" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="Plugins Order" />
+                        <ComboBox Grid.Row="0" Grid.Column="1"
+                                  ItemsSource="{Binding Source={StaticResource OrderEnum}}"
+                                  SelectedItem="{Binding Plugins.Order}">
+                            <ComboBox.Resources>
+                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
+                            </ComboBox.Resources>
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

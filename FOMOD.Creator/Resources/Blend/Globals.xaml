@@ -1,0 +1,47 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+
+    <sys:Double x:Key="FontSize">14</sys:Double>
+    <sys:Double x:Key="MinWidth">200</sys:Double>
+    <GridLength x:Key="GridColumn1Width">150</GridLength>
+    <SolidColorBrush x:Key="Foreground"
+                     Color="White" />
+    <SolidColorBrush x:Key="BorderIsMouseOver"
+                     Color="#FF7EB4EA" />
+    <SolidColorBrush x:Key="BackgroundIsFocused"
+                     Color="#FF23486E" />
+    <SolidColorBrush x:Key="GroupBoxBackGroundColor"
+                     Color="#FF556B2F" />
+    <SolidColorBrush x:Key="GroupBoxForeGroundColor"
+                     Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="TableHeaderBackGroundColor"
+                     Color="#FF235180" />
+    <SolidColorBrush x:Key="TableTopHeaderBackGroundColor"
+                     Color="#7FFFFFFF" />
+    <SolidColorBrush x:Key="TableIsMouseOverBackGroundColor"
+                     Color="#FFB40800" />
+    <Thickness x:Key="Margin"
+               Bottom="6"
+               Left="3"
+               Right="3"
+               Top="6" />
+    <Thickness x:Key="MarginGroupBox"
+               Bottom="10"
+               Left="10"
+               Right="10"
+               Top="10" />
+    <Thickness x:Key="Pading"
+               Bottom="6"
+               Left="12"
+               Right="12"
+               Top="6" />
+    <CornerRadius x:Key="CornerRadius"
+                  BottomLeft="1"
+                  BottomRight="1"
+                  TopLeft="1"
+                  TopRight="1" />
+
+
+</ResourceDictionary>

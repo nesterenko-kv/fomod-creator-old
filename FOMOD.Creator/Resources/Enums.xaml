@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:enum="clr-namespace:FOMOD.Creator.Domain.Enums;assembly=FOMOD.Creator.Domain">
+    <ObjectDataProvider x:Key="OrderEnum" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enum:OrderEnum" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="ModuleTitlePositionEnum" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enum:ModuleTitlePosition" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="CompositeDependencyOperator" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enum:CompositeDependencyOperator" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="FileDependencyState" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enum:FileDependencyState" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="GroupTypeEnum" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enum:GroupType" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="PluginTypeEnum" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enum:PluginTypeEnum" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+</ResourceDictionary>
