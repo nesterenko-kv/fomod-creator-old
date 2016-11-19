@@ -1,0 +1,23 @@
+﻿<Application x:Class="FOMOD.Creator.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:FOMOD.Creator.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="Resources/UI/CustomStyles.xaml" />
+                <ResourceDictionary Source="Resources/UI/Icons/Icons.xaml" />
+                <ResourceDictionary Source="Resources/UI/DataGrid/DataGridStyle.xaml" />
+                <ResourceDictionary Source="Resources/UI/DataGrid/ComboBoxStyle.xaml" />
+                <ResourceDictionary Source="Resources/UI/ScrollViewerStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:ItemControlIndexConverter x:Key="ItemControlIndexConverter" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

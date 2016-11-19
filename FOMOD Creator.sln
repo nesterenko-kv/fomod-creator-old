@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.25914.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FOMOD.Creator", "FOMOD.Creator\FOMOD.Creator.csproj", "{9F358316-1F2A-4071-86BE-920BF1689C79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FOMOD.Creator", "src\FOMOD.Creator\FOMOD.Creator.csproj", "{9F358316-1F2A-4071-86BE-920BF1689C79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FOMOD.Creator.Domain", "FOMOD.Creator.Domain\FOMOD.Creator.Domain.csproj", "{344ABC62-3D14-4471-A8A0-D4D2AD7D3E99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FOMOD.Creator.Domain", "src\FOMOD.Creator.Domain\FOMOD.Creator.Domain.csproj", "{344ABC62-3D14-4471-A8A0-D4D2AD7D3E99}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{157C76B1-7266-4468-AE80-BDF145A23514}"
+	ProjectSection(SolutionItems) = preProject
+		src\GlobalAssemblyInfo.cs = src\GlobalAssemblyInfo.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +29,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9F358316-1F2A-4071-86BE-920BF1689C79} = {157C76B1-7266-4468-AE80-BDF145A23514}
+		{344ABC62-3D14-4471-A8A0-D4D2AD7D3E99} = {157C76B1-7266-4468-AE80-BDF145A23514}
 	EndGlobalSection
 EndGlobal

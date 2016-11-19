@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="FOMOD.Creator.Views.PluginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:moduleCofiguration="clr-namespace:FOMOD.Creator.Domain.Models.ModuleCofiguration;assembly=FOMOD.Creator.Domain"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:userControls="clr-namespace:FOMOD.Creator.Resources.UserControls"
+             xmlns:viewModels="clr-namespace:FOMOD.Creator.ViewModels"
+             dialog:DialogParticipation.Register="{Binding}"
+             d:DesignHeight="400"
+             d:DesignWidth="1000"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:PluginViewModel, IsDesignTimeCreatable=False}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Enums.xaml" />
+                <ResourceDictionary Source="../Resources/Blend/_Package.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Grid.IsSharedSizeScope="True">
+        <Grid.Resources>
+
+            <Style BasedOn="{StaticResource TextBlockDefault}"
+                   TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="{StaticResource Margin}" />
+            </Style>
+            <Style BasedOn="{StaticResource TextBoxDefault}"
+                   TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="{StaticResource Margin}" />
+            </Style>
+            <Style BasedOn="{StaticResource ComboBoxDefault}"
+                   TargetType="{x:Type ComboBox}">
+                <Setter Property="Margin" Value="{StaticResource Margin}" />
+            </Style>
+
+            <DataTemplate DataType="{x:Type moduleCofiguration:SetConditionFlag}">
+                <Border Margin="0,0,0,-1"
+                        BorderBrush="#59FFFFFF"
+                        BorderThickness="0,0,0,1">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style BasedOn="{StaticResource TextBlockDefault}"
+                                   TargetType="{x:Type TextBlock}" />
+                            <Style BasedOn="{StaticResource TextBoxDefault}"
+                                   TargetType="{x:Type TextBox}">
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="MinWidth" Value="0" />
+                                <Setter Property="Margin" Value="0,1,0,0" />
+                                <Setter Property="VerticalAlignment" Value="Stretch" />
+                            </Style>
+
+                            <DataTemplate DataType="{x:Type sys:String}">
+                                <TextBlock Style="{StaticResource TextBlockDefault}"
+                                           Text="{Binding}" />
+                            </DataTemplate>
+                        </Grid.Resources>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="u1" />
+                            <ColumnDefinition />
+                            <ColumnDefinition SharedSizeGroup="u3" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
+                                 Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Column="2"
+                                Width="14"
+                                Height="14"
+                                Command="{Binding DataContext.RemoveFlagDependencyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource DeleteButton}" />
+                    </Grid>
+                </Border>
+            </DataTemplate>
+
+        </Grid.Resources>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <GroupBox DataContext="{Binding Data}"
+                          Header="Plugin info">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="Plugin name" />
+                        <TextBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="0"
+                                   Text="Description" />
+                        <TextBox Grid.Row="2"
+                                 Grid.Column="1"
+                                 HorizontalScrollBarVisibility="Disabled"
+                                 Text="{Binding Description}"
+                                 VerticalScrollBarVisibility="Disabled"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap" />
+                    </Grid>
+                </GroupBox>
+                <ContentControl>
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Data.Image}"
+                                             Value="{x:Null}">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <GroupBox Background="Gray">
+                                                    <GroupBox.Header>
+                                                        <DockPanel>
+                                                            <Button
+                                                                Command="{Binding DataContext.AddImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                                                DockPanel.Dock="Right"
+                                                                Style="{StaticResource AddButton}" />
+                                                            <TextBlock Margin="0"
+                                                                       VerticalAlignment="Center"
+                                                                       Style="{StaticResource TextBlockHeaderStyle}"
+                                                                       Text="Image" />
+                                                        </DockPanel>
+                                                    </GroupBox.Header>
+                                                </GroupBox>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+
+                    <GroupBox>
+                        <GroupBox.Header>
+                            <DockPanel>
+                                <Button
+                                    Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                    DockPanel.Dock="Right"
+                                    Style="{StaticResource DeleteButton}" />
+                                <TextBlock Margin="0"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource TextBlockHeaderStyle}"
+                                           Text="Image" />
+                            </DockPanel>
+                        </GroupBox.Header>
+                        <userControls:ImageUserControl ImageSource="{Binding Data.Image}"
+                                                       ProjectFolderPath="{Binding FolderPath}"
+                                                       BrowseImageCommand="{Binding DataContext.BrowseImageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+                    </GroupBox>
+                </ContentControl>
+                <userControls:FileListUserControl Margin="{StaticResource MarginGroupBox}"
+                                                  Header="Files and folders"
+                                                  FileList="{Binding Data.Files}"
+                                                  FolderPath="{Binding FolderPath}" />
+                <userControls:SetConditionFlagUserControl Margin="{StaticResource MarginGroupBox}"
+                                                          Header="Condition Flags"
+                                                          ConditionFlagList="{Binding Data.ConditionFlags}" />
+                <userControls:PluginTypeDescriptorUserControl Descriptor="{Binding Data.TypeDescriptor}" />
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
