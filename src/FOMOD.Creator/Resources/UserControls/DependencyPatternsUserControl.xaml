@@ -5,6 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:moduleCofiguration="clr-namespace:FOMOD.Creator.Domain.Models.ModuleCofiguration;assembly=FOMOD.Creator.Domain"
              xmlns:userControls="clr-namespace:FOMOD.Creator.Resources.UserControls"
+             xmlns:loc="http://wpflocalizeextension.codeplex.com"
+             xmlns:converters="clr-namespace:FOMOD.Creator.Converters"
+             xmlns:enum="clr-namespace:FOMOD.Creator.Domain.Enums;assembly=FOMOD.Creator.Domain"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -14,9 +17,7 @@
                 <ResourceDictionary Source="../Enums.xaml" />
                 <ResourceDictionary Source="../Blend/_Package.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
             <DataTemplate DataType="{x:Type moduleCofiguration:DependencyPattern}">
-
                 <Grid>
                     <Grid.Resources>
                         <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
@@ -28,6 +29,13 @@
                         </Style>
                         <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
                             <Setter Property="Margin" Value="{StaticResource MarginGroupBox}" />
+                            <Setter Property="ItemTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource TextBlockDefault}" Text="{Binding Converter={StaticResource EnumValueToDecriptionConverter}}"/>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </Grid.Resources>
                     <Grid.RowDefinitions>
@@ -40,15 +48,11 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0"
                                Grid.Column="0"
-                               Text="Plugin type*" />
+                               Text="{loc:Loc dependencyPattern-plugin-type}" ToolTip="{loc:Loc dependencyPattern-plugin-type-tooltip}" />
                     <ComboBox Grid.Row="0"
                               Grid.Column="1"
-                              ItemsSource="{Binding Source={StaticResource PluginTypeEnum}}"
-                              SelectedItem="{Binding Type.Name}">
-                        <ComboBox.Resources>
-                            <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
-                        </ComboBox.Resources>
-                    </ComboBox>
+                              ItemsSource="{converters:EnumValues enum:PluginTypeEnum}"
+                              SelectedItem="{Binding Type.Name}"/>
                     <userControls:CompositeDependencyUserControl Grid.Row="1" VerticalAlignment="Top"
                                                                  Grid.Column="0"
                                                                  Grid.ColumnSpan="2"
@@ -62,13 +66,13 @@
             <DockPanel>
                 <Button
                     Command="{Binding ChangeTypeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=2}}"
-                    Content="Change type"
+                    Content="{loc:Loc dependencyPattern-button-change-type}"
                     DockPanel.Dock="Right"
                     Style="{StaticResource DeleteButton}" />
                 <TextBlock Margin="0"
                            VerticalAlignment="Center"
                            Style="{StaticResource TextBlockHeaderStyle}"
-                           Text="Dependency Type" />
+                           Text="{loc:Loc dependencyPattern-dependency-type}" ToolTip="{loc:Loc dependencyPattern-dependency-type-tooltip}" />
             </DockPanel>
         </GroupBox.Header>
         <Grid>
@@ -77,9 +81,6 @@
                     <Setter Property="Margin" Value="{StaticResource Margin}" />
                 </Style>
                 <Style BasedOn="{StaticResource TextBoxDefault}" TargetType="{x:Type TextBox}">
-                    <Setter Property="Margin" Value="{StaticResource Margin}" />
-                </Style>
-                <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
                     <Setter Property="Margin" Value="{StaticResource Margin}" />
                 </Style>
             </Grid.Resources>
@@ -109,8 +110,8 @@
                             Content="&#xf021;"
                             FontFamily="pack://application:,,,/FOMOD.Creator;component/Resources/#FontAwesome"
                             Style="{StaticResource ContentButton}"
-                            ToolTip="Refresh patterns numbers" />
-                    <Button Margin="3"
+                            ToolTip="{loc:Loc dependencyPattern-button-refresh}" />
+                    <Button Margin="3 3 6 3"
                             HorizontalAlignment="Right"
                             Command="{Binding AddPatternCommand,
                                               RelativeSource={RelativeSource Mode=FindAncestor,
@@ -141,10 +142,12 @@
                                     DockPanel.Dock="Right"
                                     Style="{StaticResource DeleteButton}" />
                                 <TextBlock DockPanel.Dock="Left"
-                                           Text="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},
-                                                          Converter={StaticResource ItemControlIndexConverter},
-                                                          StringFormat=Pattern {0}}"
-                                           TextTrimming="CharacterEllipsis" />
+                                                       TextTrimming="CharacterEllipsis">
+                                                <Run Text="{loc:Loc dependencyPattern-pattern}"/>
+                                                <Run Text=" "/>
+                                                <Run Text="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},
+                                                                      Converter={StaticResource ItemControlIndexConverter}, Mode=OneWay}"/>
+                                </TextBlock>
                             </DockPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

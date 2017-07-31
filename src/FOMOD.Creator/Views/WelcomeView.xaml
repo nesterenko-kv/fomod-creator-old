@@ -9,6 +9,7 @@
              xmlns:domain="clr-namespace:FOMOD.Creator.Domain;assembly=FOMOD.Creator.Domain"
              d:DesignHeight="320"
              d:DesignWidth="1100"
+             xmlns:loc="http://wpflocalizeextension.codeplex.com"
              dialog:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:WelcomeViewModel, IsDesignTimeCreatable=False}">
@@ -43,7 +44,7 @@
                        FontFamily="Segoe UI "
                        FontSize="48"
                        Foreground="White"
-                       Text="Welcome!"
+                       Text="{loc:Loc app-welcome}"
                        TextTrimming="CharacterEllipsis" />
             <StackPanel HorizontalAlignment="Center">
                 <Button Margin="6"
@@ -57,7 +58,7 @@
                                    FontFamily="pack://application:,,,/FOMOD.Creator;component/Resources/#FontAwesome"
                                    Foreground="#FF999999"
                                    Text="&#xf085;" />
-                        <TextBlock FontFamily="Segoe UI Light" Text="Create project" />
+                        <TextBlock FontFamily="Segoe UI Light" Text="{loc:Loc app-new-project}" />
                     </StackPanel>
                 </Button>
                 <Button Margin="6"
@@ -72,7 +73,7 @@
                                    FontFamily="pack://application:,,,/FOMOD.Creator;component/Resources/#FontAwesome"
                                    Foreground="#FF999999"
                                    Text="&#xf115;" />
-                        <TextBlock FontFamily="Segoe UI Light" Text="Open project" />
+                        <TextBlock FontFamily="Segoe UI Light" Text="{loc:Loc app-open-project}" />
                     </StackPanel>
                 </Button>
                 <Button Margin="6"
@@ -87,7 +88,7 @@
                                    FontFamily="pack://application:,,,/FOMOD.Creator;component/Resources/#FontAwesome"
                                    Foreground="#FF999999"
                                    Text="&#xf08b;" />
-                        <TextBlock FontFamily="Segoe UI Light" Text="Close program" />
+                        <TextBlock FontFamily="Segoe UI Light" Text="{loc:Loc app-close-application}" />
                     </StackPanel>
                 </Button>
             </StackPanel>

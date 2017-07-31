@@ -12,6 +12,7 @@
              xmlns:converters="clr-namespace:FOMOD.Creator.Converters"
              xmlns:attaches="clr-namespace:FOMOD.Creator.Attaches"
              xmlns:domain="clr-namespace:FOMOD.Creator.Domain;assembly=FOMOD.Creator.Domain"
+             xmlns:loc="http://wpflocalizeextension.codeplex.com"
              d:DesignHeight="320"
              d:DesignWidth="1100"
              dialogs:DialogParticipation.Register="{Binding}"
@@ -73,7 +74,7 @@
                                    FontFamily="pack://application:,,,/FOMOD.Creator;component/Resources/#FontAwesome"
                                    FontSize="14"
                                    Text="&#xf12e;"
-                                   ToolTip="Plagun" />
+                                   ToolTip="{loc:Loc tree-plugin-tooltip}" />
                         <TextBlock Height="16"
                                    Text="{Binding Path=Name,
                                                   UpdateSourceTrigger=PropertyChanged}"
@@ -119,7 +120,7 @@
                                    FontFamily="pack://application:,,,/FOMOD.Creator;component/Resources/#FontAwesome"
                                    FontSize="14"
                                    Text="&#xf248;"
-                                   ToolTip="Group" />
+                                   ToolTip="{loc:Loc tree-group-tooltip}" />
 
                         <TextBlock Height="16"
                                    VerticalAlignment="Center"
@@ -169,7 +170,7 @@
                                    FontFamily="pack://application:,,,/FOMOD.Creator;component/Resources/#FontAwesome"
                                    FontSize="16"
                                    Text="&#xf233;"
-                                   ToolTip="Install Step" />
+                                   ToolTip="{loc:Loc tree-install-step-tooltip}" />
                         <TextBlock Height="16"
                                    VerticalAlignment="Center"
                                    Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
@@ -200,7 +201,7 @@
                                    FontFamily="pack://application:,,,/FOMOD.Creator;component/Resources/#FontAwesome"
                                    FontSize="14"
                                    Text="&#xf085;"
-                                   ToolTip="Project Root" />
+                                   ToolTip="{loc:Loc tree-project-root-tooltip}" />
                         <TextBlock Height="16"
                                    VerticalAlignment="Center"
                                    Text="{Binding Info.Name, UpdateSourceTrigger=PropertyChanged}"

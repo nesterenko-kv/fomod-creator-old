@@ -64,6 +64,9 @@
       <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -132,6 +135,8 @@
     <Compile Include="Interfaces\IHaveDisplayName.cs" />
     <Compile Include="Interfaces\IMemoryService.cs" />
     <Compile Include="Interfaces\IProjectManager.cs" />
+    <Compile Include="Localize\ApplicationLocalize.cs" />
+    <Compile Include="Localize\JsonLocalizeProvider.cs" />
     <Compile Include="PrismEvent\OpenLink.cs" />
     <Compile Include="PrismEvent\OpenProject.cs" />
     <Compile Include="Resources\UserControls\CompositeDependencyUserControl.xaml.cs">
@@ -415,6 +420,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Resource Include="Resources\FontAwesome.otf" />
+    <None Include="Localize\Localize.ru.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Localize\Localize.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

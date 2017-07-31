@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:moduleCofiguration="clr-namespace:FOMOD.Creator.Domain.Models.ModuleCofiguration;assembly=FOMOD.Creator.Domain"
+             xmlns:loc="http://wpflocalizeextension.codeplex.com"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -56,6 +57,7 @@
     </UserControl.Resources>
     <StackPanel>
         <TextBlock Text="{Binding Header, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                   ToolTip="{Binding ToolTip, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
                    Style="{StaticResource TextBlockHeaderStyle}"
                    LineStackingStrategy="BlockLineHeight" />
         <ItemsControl
@@ -91,14 +93,12 @@
                                             Panel.ZIndex="-100"
                                             Background="{StaticResource TableHeaderBackGroundColor}"
                                             CornerRadius="{StaticResource CornerRadius}" />
-                                    <!--TODO Localize-->
                                     <TextBlock Grid.Row="1"
                                                Grid.Column="0"
-                                               Text="Value" />
-                                    <!--TODO Localize-->
+                                               Text="{loc:Loc conditionFlag-value}" ToolTip="{loc:Loc conditionFlag-value-tooltip}" />
                                     <TextBlock Grid.Row="1"
                                                Grid.Column="1"
-                                               Text="Flag Name" />
+                                               Text="{loc:Loc conditionFlag-name}" ToolTip="{loc:Loc conditionFlag-name-tooltip}" />
                                     <Button Grid.Row="1"
                                             Grid.Column="2"
                                             Margin="6,0"

@@ -5,6 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:userControls="clr-namespace:FOMOD.Creator.Resources.UserControls"
              xmlns:viewModels="clr-namespace:FOMOD.Creator.ViewModels"
+             xmlns:loc="http://wpflocalizeextension.codeplex.com"
+             xmlns:enum="clr-namespace:FOMOD.Creator.Domain.Enums;assembly=FOMOD.Creator.Domain"
+             xmlns:converters="clr-namespace:FOMOD.Creator.Converters"
              d:DesignHeight="300"
              d:DesignWidth="1000"
              mc:Ignorable="d"
@@ -21,7 +24,7 @@
     <Grid Grid.IsSharedSizeScope="True">
         <ScrollViewer>
             <StackPanel>
-                <GroupBox Header="Install Step Info"
+                <GroupBox Header="{loc:Loc installStep-info}" ToolTip="{loc:Loc installStep-info-tooltip}"
                           DataContext="{Binding Data}">
                     <StackPanel>
                         <Grid>
@@ -34,10 +37,6 @@
                                        TargetType="{x:Type TextBox}">
                                     <Setter Property="Margin" Value="{StaticResource Margin}" />
                                 </Style>
-                                <Style BasedOn="{StaticResource ComboBoxDefault}"
-                                       TargetType="{x:Type ComboBox}">
-                                    <Setter Property="Margin" Value="{StaticResource Margin}" />
-                                </Style>
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
@@ -45,7 +44,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0"
                                        Grid.Column="0"
-                                       Text="Step Name" />
+                                       Text="{loc:Loc installStep-step-name}" ToolTip="{loc:Loc installStep-step-name-tooltip}" />
                             <TextBox Grid.Row="0"
                                      Grid.Column="1"
                                      Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
@@ -53,7 +52,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Other Settings"
+                <GroupBox Header="{loc:Loc installStep-other-settings}" ToolTip="{loc:Loc installStep-other-settings-tooltip}"
                           DataContext="{Binding Data}">
                     <Grid>
                         <Grid.Resources>
@@ -62,8 +61,15 @@
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
                             </Style>
                             <Style BasedOn="{StaticResource ComboBoxDefault}"
-                                   TargetType="{x:Type ComboBox}">
+                                       TargetType="{x:Type ComboBox}">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                <Setter Property="ItemTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Style="{StaticResource TextBlockDefault}" Text="{Binding Converter={StaticResource EnumValueToDecriptionConverter}}"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
@@ -72,16 +78,11 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0"
                                    Grid.Column="0"
-                                   Text="Groups Order" />
+                                   Text="{loc:Loc installStep-groups-order}" ToolTip="{loc:Loc installStep-groups-order-tooltip}" />
                         <ComboBox Grid.Row="0"
                                   Grid.Column="1"
-                                  ItemsSource="{Binding Source={StaticResource OrderEnum}}"
-                                  SelectedValue="{Binding OptionalFileGroups.Order}">
-                            <ComboBox.Resources>
-                                <Style BasedOn="{StaticResource TextBlockDefault}"
-                                       TargetType="{x:Type TextBlock}" />
-                            </ComboBox.Resources>
-                        </ComboBox>
+                                  ItemsSource="{converters:EnumValues enum:OrderEnum}"
+                                  SelectedValue="{Binding OptionalFileGroups.Order}"/>
                     </Grid>
                 </GroupBox>
 

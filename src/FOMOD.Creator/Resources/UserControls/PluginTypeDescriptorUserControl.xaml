@@ -5,6 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:moduleCofiguration="clr-namespace:FOMOD.Creator.Domain.Models.ModuleCofiguration;assembly=FOMOD.Creator.Domain"
              xmlns:userControls="clr-namespace:FOMOD.Creator.Resources.UserControls"
+             xmlns:loc="http://wpflocalizeextension.codeplex.com"
+             xmlns:converters="clr-namespace:FOMOD.Creator.Converters"
+             xmlns:enum="clr-namespace:FOMOD.Creator.Domain.Enums;assembly=FOMOD.Creator.Domain"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -16,7 +19,7 @@
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type moduleCofiguration:PluginType}">
                 <StackPanel>
-                    <GroupBox Header="Plugin type">
+                    <GroupBox Header="{loc:Loc pluginTypeDescriptor-title}" ToolTip="{loc:Loc pluginTypeDescriptor-title-tooltip}">
                         <Grid>
                             <Grid.Resources>
                                 <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
@@ -24,20 +27,23 @@
                                 </Style>
                                 <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
                                     <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                    <Setter Property="ItemTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Style="{StaticResource TextBlockDefault}" Text="{Binding Converter={StaticResource EnumValueToDecriptionConverter}}"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
                                 </Style>
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Plugin type" />
+                            <TextBlock Grid.Column="0" Text="{loc:Loc pluginTypeDescriptor-plugin-type}" ToolTip="{loc:Loc pluginTypeDescriptor-plugin-type-tooltip}" />
                             <ComboBox Grid.Column="1"
-                                      ItemsSource="{Binding Source={StaticResource PluginTypeEnum}}"
-                                      SelectedItem="{Binding Name}">
-                                <ComboBox.Resources>
-                                    <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
-                                </ComboBox.Resources>
-                            </ComboBox>
+                                      ItemsSource="{converters:EnumValues enum:PluginTypeEnum}"
+                                      SelectedItem="{Binding Name}"/>
                         </Grid>
                     </GroupBox>
                     <GroupBox Background="Gray">
@@ -50,7 +56,7 @@
                                 <TextBlock Margin="0"
                                            VerticalAlignment="Center"
                                            Style="{StaticResource TextBlockHeaderStyle}"
-                                           Text="Dependency Type" />
+                                           Text="{loc:Loc pluginTypeDescriptor-dependency-type}" ToolTip="{loc:Loc pluginTypeDescriptor-dependency-type-tooltip}" />
                             </DockPanel>
                         </GroupBox.Header>
                     </GroupBox>
@@ -58,7 +64,7 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type moduleCofiguration:DependencyPluginType}">
                 <StackPanel>
-                    <GroupBox Header="Plugin type">
+                    <GroupBox Header="{loc:Loc pluginTypeDescriptor-title}" ToolTip="{loc:Loc pluginTypeDescriptor-title-tooltip}">
                         <Grid>
                             <Grid.Resources>
                                 <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
@@ -69,6 +75,13 @@
                                 </Style>
                                 <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
                                     <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                    <Setter Property="ItemTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Style="{StaticResource TextBlockDefault}" Text="{Binding Converter={StaticResource EnumValueToDecriptionConverter}}"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
                                 </Style>
                             </Grid.Resources>
                             <Grid.RowDefinitions>
@@ -81,15 +94,11 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0"
                                        Grid.Column="0"
-                                       Text="Default plugin type" />
+                                       Text="{loc:Loc pluginTypeDescriptor-default-plugin-type}" ToolTip="{loc:Loc pluginTypeDescriptor-default-plugin-type-tooltip}" />
                             <ComboBox Grid.Row="0"
                                       Grid.Column="1"
-                                      ItemsSource="{Binding Source={StaticResource PluginTypeEnum}}"
-                                      SelectedItem="{Binding DefaultType.Name}">
-                                <ComboBox.Resources>
-                                    <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
-                                </ComboBox.Resources>
-                            </ComboBox>
+                                      ItemsSource="{converters:EnumValues enum:PluginTypeEnum}"
+                                      SelectedItem="{Binding DefaultType.Name}"/>
                         </Grid>
                     </GroupBox>
                     <userControls:DependencyPatternsUserControl Patterns="{Binding Patterns}" />

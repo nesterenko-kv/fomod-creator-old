@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:moduleCofiguration="clr-namespace:FOMOD.Creator.Domain.Models.ModuleCofiguration;assembly=FOMOD.Creator.Domain"
-             d:DesignHeight="300"
+             d:DesignHeight="300" 
+             xmlns:loc="http://wpflocalizeextension.codeplex.com"
              d:DesignWidth="300"
              mc:Ignorable="d">
     <UserControl.Resources>
@@ -79,10 +80,10 @@
                                         CornerRadius="{StaticResource CornerRadius}" />
                                 <TextBlock Grid.Row="1"
                                            Grid.Column="0"
-                                           Text="Value" />
+                                           Text="{loc:Loc compositeDependency-flag-value}" ToolTip="{loc:Loc compositeDependency-flag-value-tooltip}" />
                                 <TextBlock Grid.Row="1"
                                            Grid.Column="1"
-                                           Text="Flag Name" />
+                                           Text="{loc:Loc compositeDependency-flag-name}" ToolTip="{loc:Loc compositeDependency-flag-name-tooltip}" />
                                 <Button Grid.Row="1"
                                         Grid.Column="2"
                                         Margin="6,0"

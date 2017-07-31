@@ -13,6 +13,9 @@
                       Title="{Binding Title}"
                       Width="1000"
                       Height="800"
+                      xmlns:loc="http://wpflocalizeextension.codeplex.com"
+                      xmlns:localize="clr-namespace:FOMOD.Creator.Localize"
+                      loc:LocalizeDictionary.DefaultProvider="{x:Static localize:JsonLocalizeProvider.Default}"
                       behaviors:DropBehavior.PreviewDropCommand="{Binding DropFolderCommand}"
                       dialogs:DialogParticipation.Register="{Binding}"
                       AllowDrop="True"
@@ -25,6 +28,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/VS Style/Colors.xaml" />
                 <ResourceDictionary Source="/Resources/VS Style/Styles.xaml" />
+                <ResourceDictionary Source="/Resources/Blend/_Package.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="CloseTabButton" TargetType="{x:Type Button}">
                 <Setter Property="Background" Value="Transparent" />
@@ -195,14 +199,14 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File">
-                    <MenuItem Command="{Binding CreateProjectCommand}" Header="Create project">
+                    <MenuItem Command="{Binding CreateProjectCommand}" Header="{loc:Loc app-new-project}">
                         <MenuItem.Icon>
                             <ContentControl Width="15"
                                             Height="15"
                                             Content="{StaticResource NewFile}" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Command="{Binding OpenProjectCommand}" Header="Open project">
+                    <MenuItem Command="{Binding OpenProjectCommand}" Header="{loc:Loc app-open-project}">
                         <MenuItem.Icon>
                             <ContentControl Width="15"
                                             Height="15"
@@ -210,14 +214,14 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Command="{Binding SaveProjectCommand}" Header="Save">
+                    <MenuItem Command="{Binding SaveProjectCommand}" Header="{loc:Loc app-save-project}">
                         <MenuItem.Icon>
                             <ContentControl Width="16"
                                             Height="16"
                                             Content="{StaticResource Save}" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Command="{Binding SaveProjectAsCommand}" Header="Save as">
+                    <MenuItem Command="{Binding SaveProjectAsCommand}" Header="{loc:Loc app-save-as-project}">
                         <MenuItem.Icon>
                             <ContentControl Width="16"
                                             Height="16"
@@ -225,7 +229,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Command="{Binding CloseApplicationCommand}" Header="Close program">
+                    <MenuItem Command="{Binding CloseApplicationCommand}" Header="{loc:Loc app-close-application}">
                         <MenuItem.Icon>
                             <ContentControl Width="14"
                                             Height="12"
@@ -233,6 +237,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
+                <ComboBox Style="{StaticResource ComboBoxDefault}" ItemsSource="{Binding Cultures}" DisplayMemberPath="DisplayName" MinWidth="120" SelectedItem="{Binding SelectedCulture, UpdateSourceTrigger=PropertyChanged}"/>
             </Menu>
             <TabControl region:RegionManager.RegionName="{x:Static domain:Names.MainContentRegion}"
                         IsSynchronizedWithCurrentItem="True"

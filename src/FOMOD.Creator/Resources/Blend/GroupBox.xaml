@@ -27,7 +27,7 @@
                     BorderThickness="0"
                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                     UseLayoutRounding="True">
-                <ContentControl Content="{TemplateBinding Header}"
+                <ContentControl Content="{TemplateBinding Header}" ToolTip="{TemplateBinding ToolTip}"
                                 Style="{StaticResource TextBlockHeaderStyle}" />
             </Border>
             <Border Grid.Row="1"
@@ -51,5 +51,6 @@
         <Setter Property="BorderBrush" Value="{StaticResource GroupBoxBackGroundColor}" />
         <Setter Property="Foreground" Value="{StaticResource GroupBoxForeGroundColor}" />
         <Setter Property="Margin" Value="{StaticResource MarginGroupBox}" />
+        <Setter Property="ToolTipService.IsEnabled" Value="False"/>
     </Style>
 </ResourceDictionary>

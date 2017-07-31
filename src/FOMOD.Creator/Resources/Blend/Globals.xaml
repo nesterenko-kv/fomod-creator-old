@@ -1,11 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:loc="http://wpflocalizeextension.codeplex.com"
+                    xmlns:localize="clr-namespace:FOMOD.Creator.Localize"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
 
     <sys:Double x:Key="FontSize">14</sys:Double>
     <sys:Double x:Key="MinWidth">200</sys:Double>
-    <GridLength x:Key="GridColumn1Width">150</GridLength>
+    <GridLength x:Key="GridColumn1Width" >200</GridLength>
     <SolidColorBrush x:Key="Foreground"
                      Color="White" />
     <SolidColorBrush x:Key="BorderIsMouseOver"

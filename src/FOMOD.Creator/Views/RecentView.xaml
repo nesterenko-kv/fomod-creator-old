@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:base="clr-namespace:FOMOD.Creator.Domain.Models;assembly=FOMOD.Creator.Domain"
              xmlns:viewModels="clr-namespace:FOMOD.Creator.ViewModels"
-             d:DesignHeight="300"
+             xmlns:loc="http://wpflocalizeextension.codeplex.com"
+             d:DesignHeight="300" 
              d:DesignWidth="300"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:RecentViewModel, IsDesignTimeCreatable=False}">
@@ -14,13 +15,13 @@
         <TextBlock Margin="12 0 0 6"
                    DockPanel.Dock="Top"
                    FontSize="34"
-                   Text="FOMOD Creator"
+                   Text="{loc:Loc app-recent-header}"
                    TextTrimming="CharacterEllipsis" />
         <TextBlock Margin="12 0 0 6"
                    DockPanel.Dock="Top"
                    FontSize="24"
                    FontWeight="Light"
-                   Text="Recent"
+                   Text="{loc:Loc app-recent}"
                    TextTrimming="CharacterEllipsis" />
         <ListBox HorizontalContentAlignment="Stretch"
                  Background="Transparent"

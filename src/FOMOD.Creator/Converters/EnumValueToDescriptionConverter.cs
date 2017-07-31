@@ -1,9 +1,7 @@
 ﻿namespace FOMOD.Creator.Converters
 {
     using System;
-    using System.ComponentModel;
     using System.Globalization;
-    using System.Linq;
     using System.Windows;
     using System.Windows.Data;
 
@@ -14,13 +12,10 @@
             if (value == null)
                 return null;
             var type = value.GetType();
-            if (!type.IsEnum)
+            if (!type.IsEnum && type != typeof(bool))
                 return null;
-            var field = type.GetField(value.ToString());
-            var attr = field.GetCustomAttributes(typeof(DescriptionAttribute), true).Cast<DescriptionAttribute>().FirstOrDefault();
-            return attr != null
-                ? attr.Description
-                : field.Name;
+            var field = type == typeof(bool) ? value.ToString() : type.GetField(value.ToString()).Name;
+            return Localize.JsonLocalizeProvider.Default.GetLocalizedObject($"{type.Name}-{field}");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
