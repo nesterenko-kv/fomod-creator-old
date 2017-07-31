@@ -19,7 +19,9 @@
         {
             get
             {
-                return "Welcome";
+                return Localize.JsonLocalizeProvider.Default
+                    .GetLocalizedObject("app-main-tab-name", null, WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture)
+                    .ToString();
             }
         }
     }

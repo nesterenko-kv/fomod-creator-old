@@ -8,6 +8,8 @@
              xmlns:userControls="clr-namespace:FOMOD.Creator.Resources.UserControls"
              xmlns:viewModels="clr-namespace:FOMOD.Creator.ViewModels"
              xmlns:converters="clr-namespace:FOMOD.Creator.Converters"
+             xmlns:loc="http://wpflocalizeextension.codeplex.com"
+             xmlns:localize="clr-namespace:FOMOD.Creator.Localize"
              d:DesignHeight="1000"
              d:DesignWidth="1000"
              dialog:DialogParticipation.Register="{Binding}"
@@ -19,14 +21,13 @@
                 <ResourceDictionary Source="../Resources/Enums.xaml" />
                 <ResourceDictionary Source="../Resources/Blend/_Package.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converters:EnumValueToDescriptionConverter x:Key="EnumValueToDecriptionConverter" />
             <converters:ColorToSolidBrushConverter x:Key="ColorToSolidBrushConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Grid.IsSharedSizeScope="True">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
-                <GroupBox DataContext="{Binding Data.Info}" Header="Mod Info Settings">
+                <GroupBox DataContext="{Binding Data.Info}" Header="{loc:Loc project-mod-info-settings}" ToolTip="{loc:Loc project-mod-info-settings-tooltip}">
                     <Grid>
                         <Grid.Resources>
                             <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
@@ -37,6 +38,13 @@
                             </Style>
                             <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                <Setter Property="ItemTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Style="{StaticResource TextBlockDefault}" Text="{Binding Converter={StaticResource EnumValueToDecriptionConverter}}"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
@@ -53,35 +61,35 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0"
                                    Grid.Column="0"
-                                   Text="Module name" />
+                                   Text="{loc:Loc project-module-name}" ToolTip="{loc:Loc project-module-name-tooltip}"/>
                         <TextBox Grid.Row="0"
                                  Grid.Column="1"
                                  Text="{Binding Name,
                                                 UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="1"
                                    Grid.Column="0"
-                                   Text="Author" />
+                                   Text="{loc:Loc project-author}" ToolTip="{loc:Loc project-author-tooltip}" />
                         <TextBox Grid.Row="1"
                                  Grid.Column="1"
                                  Text="{Binding Author,
                                                 UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="2"
                                    Grid.Column="0"
-                                   Text="Version" />
+                                   Text="{loc:Loc project-version}" ToolTip="{loc:Loc project-version-tooltip}" />
                         <TextBox Grid.Row="2"
                                  Grid.Column="1"
                                  Text="{Binding Version,
                                                 UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="3"
                                    Grid.Column="0"
-                                   Text="Website" />
+                                   Text="{loc:Loc project-website}" ToolTip="{loc:Loc project-website-tooltip}" />
                         <TextBox Grid.Row="3"
                                  Grid.Column="1"
                                  Text="{Binding Website,
                                                 UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="4"
                                    Grid.Column="0"
-                                   Text="Category" />
+                                   Text="{loc:Loc project-category}" ToolTip="{loc:Loc project-category-tooltip}" />
                         <ComboBox Grid.Row="4"
                                   Grid.Column="1"
                                   DisplayMemberPath=""
@@ -92,13 +100,13 @@
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Style="{StaticResource TextBlockDefault}"
-                                               Text="{Binding Mode=OneTime, Converter={StaticResource EnumValueToDecriptionConverter}}" />
+                                               Text="{Binding Converter={StaticResource EnumValueToDecriptionConverter}}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                         <TextBlock Grid.Row="5"
                                    Grid.Column="0"
-                                   Text="Description" />
+                                   Text="{loc:Loc project-description}" ToolTip="{loc:Loc project-description-tooltip}" />
                         <TextBox Grid.Row="5"
                                  Grid.Column="1"
                                  AcceptsReturn="True"
@@ -109,7 +117,7 @@
                                  VerticalScrollBarVisibility="Disabled" />
                     </Grid>
                 </GroupBox>
-                <GroupBox DataContext="{Binding Data.Config.ModuleName}" Header="Module Title Settings">
+                <GroupBox DataContext="{Binding Data.Config.ModuleName}" Header="{loc:Loc project-module-title}" ToolTip="{loc:Loc project-module-title-tooltip}">
                     <Grid>
                         <Grid.Resources>
                             <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
@@ -123,6 +131,13 @@
                             </Style>
                             <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                <Setter Property="ItemTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Style="{StaticResource TextBlockDefault}" Text="{Binding Converter={StaticResource EnumValueToDecriptionConverter}}"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
@@ -136,14 +151,14 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0"
                                    Grid.Column="0"
-                                   Text="Title" />
+                                   Text="{loc:Loc project-module-title-field}" ToolTip="{loc:Loc project-module-title-field-tooltip}" />
                         <TextBox Grid.Row="0"
                                  Grid.Column="1"
                                  Text="{Binding Value,
                                                 UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="1"
                                    Grid.Column="0"
-                                   Text="Color" />
+                                   Text="{loc:Loc project-color}" ToolTip="{loc:Loc project-color-tooltip}" />
                         <DockPanel Grid.Row="1" Grid.Column="1">
                             <Border Width="31"
                                     Height="31"
@@ -156,19 +171,15 @@
                         </DockPanel>
                         <TextBlock Grid.Row="2"
                                    Grid.Column="0"
-                                   Text="Position" />
-                        <ComboBox Grid.Row="2"
+                                   Text="{loc:Loc project-position}" ToolTip="{loc:Loc project-position-tooltip}" />
+                        <ComboBox Grid.Row="2" 
+                                  ItemsSource="{converters:EnumValues {x:Type enum:ModuleTitlePosition}}"
                                   Grid.Column="1"
-                                  ItemsSource="{Binding Source={StaticResource ModuleTitlePositionEnum}}"
-                                  SelectedValue="{Binding Position,
-                                                          UpdateSourceTrigger=PropertyChanged}">
-                            <ComboBox.Resources>
-                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
-                            </ComboBox.Resources>
+                                  SelectedItem="{Binding Position, UpdateSourceTrigger=PropertyChanged}">    
                         </ComboBox>
                     </Grid>
                 </GroupBox>
-                <GroupBox DataContext="{Binding Data.Config.InstallSteps}" Header="Other Settings">
+                <GroupBox DataContext="{Binding Data.Config.InstallSteps}" Header="{loc:Loc project-other-settings-title}" ToolTip="{loc:Loc project-other-settings-title-tooltip}">
                     <Grid>
                         <Grid.Resources>
                             <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}">
@@ -176,6 +187,13 @@
                             </Style>
                             <Style BasedOn="{StaticResource ComboBoxDefault}" TargetType="{x:Type ComboBox}">
                                 <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                <Setter Property="ItemTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Style="{StaticResource TextBlockDefault}" Text="{Binding Converter={StaticResource EnumValueToDecriptionConverter}}"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
@@ -184,15 +202,12 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0"
                                    Grid.Column="0"
-                                   Text="InstallStep Order" />
+                                   Text="{loc:Loc project-install-step-order}" ToolTip="{loc:Loc project-install-step-order-tooltip}" />
                         <ComboBox Grid.Row="0"
-                                  Grid.Column="1"
-                                  ItemsSource="{Binding Source={StaticResource OrderEnum}}"
-                                  SelectedValue="{Binding Order,
+                                  Grid.Column="1" 
+                                  ItemsSource="{converters:EnumValues {x:Type enum:OrderEnum}}"
+                                  SelectedItem="{Binding Order,
                                                           UpdateSourceTrigger=PropertyChanged}">
-                            <ComboBox.Resources>
-                                <Style BasedOn="{StaticResource TextBlockDefault}" TargetType="{x:Type TextBlock}" />
-                            </ComboBox.Resources>
                         </ComboBox>
                     </Grid>
                 </GroupBox>
@@ -215,7 +230,7 @@
                                                             <TextBlock Margin="0"
                                                                        VerticalAlignment="Center"
                                                                        Style="{StaticResource TextBlockHeaderStyle}"
-                                                                       Text="Image" />
+                                                                       Text="{loc:Loc project-image}" ToolTip="{loc:Loc project-image-tooltip}" />
                                                         </DockPanel>
                                                     </GroupBox.Header>
                                                 </GroupBox>
@@ -239,7 +254,7 @@
                                 <TextBlock Margin="0"
                                            VerticalAlignment="Center"
                                            Style="{StaticResource TextBlockHeaderStyle}"
-                                           Text="Image" />
+                                           Text="{loc:Loc project-image}" ToolTip="{loc:Loc project-image-tooltip}" />
                             </DockPanel>
                         </GroupBox.Header>
                         <userControls:ImageUserControl
@@ -255,7 +270,7 @@
                 <userControls:FileListUserControl Margin="{StaticResource MarginGroupBox}"
                                                   FolderPath="{Binding FolderPath}"
                                                   FileList="{Binding Data.Config.RequiredInstallFiles}"
-                                                  Header="Files and folders" />
+                                                  Header="{loc:Loc project-files-and-folder-title}" ToolTip="{loc:Loc project-files-and-folder-title-tooltip}" />
                 <userControls:ConditionalFileInstallsUserControl
                     FileInstallList="{Binding Data.Config.ConditionalFileInstalls}" />
             </StackPanel>

@@ -1,12 +1,11 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile />
-  </Profiles>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FOMOD.Creator.Properties" GeneratedClassName="Settings">
+  <Profiles />
   <Settings>
-    <Setting Name="RecentDocuments"
-             Type="FOMOD.Creator.Domain.Models.ProjectLinkList" Scope="User">
+    <Setting Name="RecentDocuments" Type="FOMOD.Creator.Domain.Models.ProjectLinkList" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Culture" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

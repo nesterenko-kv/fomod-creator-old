@@ -13,7 +13,7 @@
             BindsTwoWayByDefault = true
         });
 
-        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(string), typeof(SetConditionFlagUserControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(string), typeof(SetConditionFlagUserControl));
 
         private ICommand _addDependencyCommand;
 

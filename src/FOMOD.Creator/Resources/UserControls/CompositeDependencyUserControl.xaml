@@ -6,6 +6,8 @@
              xmlns:moduleCofiguration="clr-namespace:FOMOD.Creator.Domain.Models.ModuleCofiguration;assembly=FOMOD.Creator.Domain"
              xmlns:userControls="clr-namespace:FOMOD.Creator.Resources.UserControls"
              xmlns:converters="clr-namespace:FOMOD.Creator.Converters"
+             xmlns:loc="http://wpflocalizeextension.codeplex.com"
+             xmlns:enum="clr-namespace:FOMOD.Creator.Domain.Enums;assembly=FOMOD.Creator.Domain"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -37,7 +39,7 @@
                                            VerticalAlignment="Center"
                                            Padding="0"
                                            Style="{StaticResource TextBlockHeaderStyle}"
-                                           Text="Composite dependency" />
+                                           Text="{loc:Loc compositeDependency-title}" ToolTip="{loc:Loc compositeDependency-title-tooltip}" />
                             </DockPanel>
                         </GroupBox.Header>
                         <Grid>
@@ -53,6 +55,13 @@
                                 <Style BasedOn="{StaticResource ComboBoxDefault}"
                                        TargetType="{x:Type ComboBox}">
                                     <Setter Property="Margin" Value="{StaticResource Margin}" />
+                                    <Setter Property="ItemTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Style="{StaticResource TextBlockDefault}" Text="{Binding Converter={StaticResource EnumValueToDecriptionConverter}}"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
                                 </Style>
                             </Grid.Resources>
                             <Grid.RowDefinitions>
@@ -66,21 +75,14 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0"
                                        Grid.Column="0"
-                                       Text="Operator" />
+                                       Text="{loc:Loc compositeDependency-operator}" ToolTip="{loc:Loc compositeDependency-operator-tooltip}" />
                             <ComboBox Grid.Row="0"
                                       Grid.Column="1"
-                                      ItemsSource="{Binding Source={StaticResource CompositeDependencyOperator}}"
-                                      SelectedValue="{Binding Operator}">
-                                <ComboBox.Resources>
-                                    <Style BasedOn="{StaticResource TextBlockDefault}"
-                                           TargetType="{x:Type TextBlock}" />
-                                </ComboBox.Resources>
-                            </ComboBox>
-
-
+                                      ItemsSource="{converters:EnumValues enum:CompositeDependencyOperator}"
+                                      SelectedValue="{Binding Operator}"/>
                             <TextBlock Grid.Row="1"
                                        Grid.Column="0"
-                                       Text="Files dependency" />
+                                       Text="{loc:Loc compositeDependency-files-dependency}" ToolTip="{loc:Loc compositeDependency-files-dependency-tooltip}" />
 
                             <userControls:FileDependencyUserControl Grid.Row="1"
                                                                     Grid.Column="1"
@@ -89,7 +91,7 @@
 
                             <TextBlock Grid.Row="2"
                                        Grid.Column="0"
-                                       Text="Flag dependency" />
+                                       Text="{loc:Loc compositeDependency-flag-dependency}" ToolTip="{loc:Loc compositeDependency-flag-dependency-tooltip}" />
 
                             <userControls:FlagDependencyUserControl Grid.Row="2"
                                                                     Grid.Column="1"
@@ -122,7 +124,7 @@
                                                            VerticalAlignment="Center"
                                                            Padding="0"
                                                            Style="{StaticResource TextBlockHeaderStyle}"
-                                                           Text="Composite dependency" />
+                                                           Text="{loc:Loc compositeDependency-title}" ToolTip="{loc:Loc compositeDependency-title-tooltip}" />
                                             </DockPanel>
                                         </GroupBox.Header>
                                     </GroupBox>

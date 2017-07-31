@@ -8,6 +8,9 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:userControls="clr-namespace:FOMOD.Creator.Resources.UserControls"
              xmlns:viewModels="clr-namespace:FOMOD.Creator.ViewModels"
+             xmlns:loc="http://wpflocalizeextension.codeplex.com"
+             xmlns:enum="clr-namespace:FOMOD.Creator.Domain.Enums;assembly=FOMOD.Creator.Domain"
+             xmlns:converters="clr-namespace:FOMOD.Creator.Converters"
              dialog:DialogParticipation.Register="{Binding}"
              d:DesignHeight="400"
              d:DesignWidth="1000"
@@ -32,11 +35,6 @@
                    TargetType="{x:Type TextBox}">
                 <Setter Property="Margin" Value="{StaticResource Margin}" />
             </Style>
-            <Style BasedOn="{StaticResource ComboBoxDefault}"
-                   TargetType="{x:Type ComboBox}">
-                <Setter Property="Margin" Value="{StaticResource Margin}" />
-            </Style>
-
             <DataTemplate DataType="{x:Type moduleCofiguration:SetConditionFlag}">
                 <Border Margin="0,0,0,-1"
                         BorderBrush="#59FFFFFF"
@@ -83,7 +81,7 @@
         <ScrollViewer HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
                 <GroupBox DataContext="{Binding Data}"
-                          Header="Plugin info">
+                          Header="{loc:Loc plugin-info}" ToolTip="{loc:Loc plugin-info-tooltip}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{StaticResource GridColumn1Width}" />
@@ -96,13 +94,13 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0"
                                    Grid.Column="0"
-                                   Text="Plugin name" />
+                                   Text="{loc:Loc plugin-name}" ToolTip="{loc:Loc plugin-name-tooltip}" />
                         <TextBox Grid.Row="0"
                                  Grid.Column="1"
                                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="2"
                                    Grid.Column="0"
-                                   Text="Description" />
+                                   Text="{loc:Loc plugin-description}" ToolTip="{loc:Loc plugin-description-tooltip}" />
                         <TextBox Grid.Row="2"
                                  Grid.Column="1"
                                  HorizontalScrollBarVisibility="Disabled"
@@ -131,7 +129,7 @@
                                                             <TextBlock Margin="0"
                                                                        VerticalAlignment="Center"
                                                                        Style="{StaticResource TextBlockHeaderStyle}"
-                                                                       Text="Image" />
+                                                                       Text="{loc:Loc plugin-image}" ToolTip="{loc:Loc plugin-image-tooltip}" />
                                                         </DockPanel>
                                                     </GroupBox.Header>
                                                 </GroupBox>
@@ -153,7 +151,7 @@
                                 <TextBlock Margin="0"
                                            VerticalAlignment="Center"
                                            Style="{StaticResource TextBlockHeaderStyle}"
-                                           Text="Image" />
+                                           Text="{loc:Loc plugin-image}" ToolTip="{loc:Loc plugin-image-tooltip}" />
                             </DockPanel>
                         </GroupBox.Header>
                         <userControls:ImageUserControl ImageSource="{Binding Data.Image}"
@@ -162,11 +160,11 @@
                     </GroupBox>
                 </ContentControl>
                 <userControls:FileListUserControl Margin="{StaticResource MarginGroupBox}"
-                                                  Header="Files and folders"
+                                                  Header="{loc:Loc plugin-files-and-folders}" ToolTip="{loc:Loc plugin-files-and-folders-tooltip}"
                                                   FileList="{Binding Data.Files}"
                                                   FolderPath="{Binding FolderPath}" />
                 <userControls:SetConditionFlagUserControl Margin="{StaticResource MarginGroupBox}"
-                                                          Header="Condition Flags"
+                                                          Header="{loc:Loc plugin-condition-flags}" ToolTip="{loc:Loc plugin-condition-flags-tooltip}"
                                                           ConditionFlagList="{Binding Data.ConditionFlags}" />
                 <userControls:PluginTypeDescriptorUserControl Descriptor="{Binding Data.TypeDescriptor}" />
 

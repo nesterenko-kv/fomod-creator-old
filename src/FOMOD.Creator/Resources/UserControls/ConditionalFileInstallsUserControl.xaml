@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:moduleCofiguration="clr-namespace:FOMOD.Creator.Domain.Models.ModuleCofiguration;assembly=FOMOD.Creator.Domain"
              xmlns:userControls="clr-namespace:FOMOD.Creator.Resources.UserControls"
+             xmlns:loc="http://wpflocalizeextension.codeplex.com"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -16,11 +17,10 @@
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type moduleCofiguration:ConditionalInstallPattern}">
                 <StackPanel x:Name="parent">
-                    <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
                     <userControls:FileListUserControl Margin="{StaticResource MarginGroupBox}"
                                                       FolderPath="{Binding DataContext.FolderPath, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
                                                       FileList="{Binding Files}"
-                                                      Header="File list" />
+                                                      Header="{loc:Loc conditionalFileInstall-file-list-title}" ToolTip="{loc:Loc conditionalFileInstall-file-list-title-tooltip}"/>
                     <userControls:CompositeDependencyUserControl CompositeDependency="{Binding Dependencies}" />
                 </StackPanel>
             </DataTemplate>
@@ -38,7 +38,7 @@
                                        VerticalAlignment="Center"
                                        Padding="0"
                                        Style="{StaticResource TextBlockHeaderStyle}"
-                                       Text="Conditional File Installs" />
+                                       Text="{loc:Loc conditionalFileInstall-title}" ToolTip="{loc:Loc conditionalFileInstall-title-tooltip}" />
                         </DockPanel>
                     </GroupBox.Header>
                     <Grid>
@@ -71,7 +71,7 @@
                                         Content="&#xf021;"
                                         FontFamily="pack://application:,,,/FOMOD.Creator;component/Resources/#FontAwesome"
                                         Style="{StaticResource ContentButton}"
-                                        ToolTip="Refresh patterns numbers" />
+                                        ToolTip="{loc:Loc conditionalFileInstall-button-refresh}" />
                                 <Button Margin="3"
                                         HorizontalAlignment="Right"
                                         Command="{Binding AddPatternCommand,
@@ -105,10 +105,12 @@
                                                 DockPanel.Dock="Right"
                                                 Style="{StaticResource DeleteButton}" />
                                             <TextBlock DockPanel.Dock="Left"
-                                                       Text="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},
-                                                                      Converter={StaticResource ItemControlIndexConverter},
-                                                                      StringFormat=Pattern {0}}"
-                                                       TextTrimming="CharacterEllipsis" />
+                                                       TextTrimming="CharacterEllipsis">
+                                                <Run Text="{loc:Loc conditionalFileInstall-pattern}"/>
+                                                <Run Text=" "/>
+                                                <Run Text="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},
+                                                                      Converter={StaticResource ItemControlIndexConverter}, Mode=OneWay}"/>
+                                            </TextBlock>
                                         </DockPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -118,10 +120,8 @@
                     </Grid>
                 </GroupBox>
             </DataTemplate>
-
         </ResourceDictionary>
     </UserControl.Resources>
-
     <ContentControl
         Content="{Binding FileInstallList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
         <ContentControl.Style>
@@ -144,7 +144,7 @@
                                                            VerticalAlignment="Center"
                                                            Padding="0"
                                                            Style="{StaticResource TextBlockHeaderStyle}"
-                                                           Text="Conditional File Installs" />
+                                                           Text="{loc:Loc conditionalFileInstall-title}" ToolTip="{loc:Loc conditionalFileInstall-title-tooltip}" />
                                             </DockPanel>
                                         </GroupBox.Header>
                                     </GroupBox>
@@ -156,5 +156,4 @@
             </Style>
         </ContentControl.Style>
     </ContentControl>
-
 </UserControl>
