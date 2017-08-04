@@ -19,7 +19,7 @@ namespace FOMOD.Creator.ViewModels
     [ImplementPropertyChanged]
     public class ShellViewModel : ProjectWorkerBaseViewModel
     {
-        private static readonly string DefaultTitle = $"FOMOD Creator beta v{Assembly.GetExecutingAssembly().GetName().Version}";
+        private static readonly string DefaultTitle = $"FOMOD Creator beta v1.0.1";
 
         private ICommand _closeTabCommand;
         private ICommand _dropFolderCommand;

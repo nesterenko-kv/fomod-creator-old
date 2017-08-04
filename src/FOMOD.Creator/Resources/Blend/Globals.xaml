@@ -36,8 +36,8 @@
                Top="10" />
     <Thickness x:Key="Pading"
                Bottom="6"
-               Left="12"
-               Right="12"
+               Left="6"
+               Right="3"
                Top="6" />
     <CornerRadius x:Key="CornerRadius"
                   BottomLeft="1"

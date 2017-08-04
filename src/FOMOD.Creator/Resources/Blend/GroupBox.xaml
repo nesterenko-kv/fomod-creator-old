@@ -51,6 +51,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource GroupBoxBackGroundColor}" />
         <Setter Property="Foreground" Value="{StaticResource GroupBoxForeGroundColor}" />
         <Setter Property="Margin" Value="{StaticResource MarginGroupBox}" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="ToolTipService.IsEnabled" Value="False"/>
     </Style>
 </ResourceDictionary>
