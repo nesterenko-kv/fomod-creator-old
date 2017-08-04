@@ -26,28 +26,10 @@ namespace FOMOD.Creator.ViewModels
         private ICommand _saveProjectAsCommand;
         private ICommand _saveProjectCommand;
 
-        public System.Collections.ObjectModel.ObservableCollection<System.Globalization.CultureInfo> Cultures { get; set; }
-        public CultureInfo SelectedCulture { get; set; }
-        void OnSelectedCultureChanged()
-        {
-            LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
-            LocalizeDictionary.Instance.Culture = SelectedCulture;
-            SaveSettings();
-        }
 
         public ShellViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator, IContainer container, IEventAggregator eventAggregator)
             : base(dialogCoordinator, container, eventAggregator, regionManager)
         {
-            Cultures = new System.Collections.ObjectModel.ObservableCollection<System.Globalization.CultureInfo>(Localize.JsonLocalizeProvider.Default.GetCultures());
-            var curent = Properties.Settings.Default.Culture;
-            if(string.IsNullOrWhiteSpace(curent))
-            {
-                SelectedCulture = CultureInfo.InvariantCulture;
-            }
-            else
-            {
-                SelectedCulture = CultureInfo.GetCultureInfo(curent);
-            }
         }
 
         public ICommand CloseTabCommand
@@ -159,14 +141,6 @@ namespace FOMOD.Creator.ViewModels
             viewModel.IsNeedSave = false;
             viewModel.SaveAs();
             EventAggregator.GetEvent<OpenProjectEvent>().Publish(viewModel.Data);
-        }
-
-
-
-        private void SaveSettings()
-        {
-            Properties.Settings.Default.Culture = SelectedCulture?.Name;
-            Properties.Settings.Default.Save();
         }
     }
 }

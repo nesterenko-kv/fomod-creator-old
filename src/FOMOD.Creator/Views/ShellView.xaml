@@ -197,48 +197,50 @@
             <RowDefinition Height="0" />
         </Grid.RowDefinitions>
         <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="File">
-                    <MenuItem Command="{Binding CreateProjectCommand}" Header="{loc:Loc app-new-project}">
-                        <MenuItem.Icon>
-                            <ContentControl Width="15"
+            <DockPanel LastChildFill="False" DockPanel.Dock="Top">
+                <Menu DockPanel.Dock="Left" VerticalAlignment="Center">
+                    <MenuItem Header="File" Height="22">
+                        <MenuItem Command="{Binding CreateProjectCommand}" Header="{loc:Loc app-new-project}">
+                            <MenuItem.Icon>
+                                <ContentControl Width="15"
                                             Height="15"
                                             Content="{StaticResource NewFile}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Command="{Binding OpenProjectCommand}" Header="{loc:Loc app-open-project}">
-                        <MenuItem.Icon>
-                            <ContentControl Width="15"
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Command="{Binding OpenProjectCommand}" Header="{loc:Loc app-open-project}">
+                            <MenuItem.Icon>
+                                <ContentControl Width="15"
                                             Height="15"
                                             Content="{StaticResource OpenFolder}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Command="{Binding SaveProjectCommand}" Header="{loc:Loc app-save-project}">
-                        <MenuItem.Icon>
-                            <ContentControl Width="16"
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Command="{Binding SaveProjectCommand}" Header="{loc:Loc app-save-project}">
+                            <MenuItem.Icon>
+                                <ContentControl Width="16"
                                             Height="16"
                                             Content="{StaticResource Save}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Command="{Binding SaveProjectAsCommand}" Header="{loc:Loc app-save-as-project}">
-                        <MenuItem.Icon>
-                            <ContentControl Width="16"
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Command="{Binding SaveProjectAsCommand}" Header="{loc:Loc app-save-as-project}">
+                            <MenuItem.Icon>
+                                <ContentControl Width="16"
                                             Height="16"
                                             Content="{StaticResource SaveAs}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Command="{Binding CloseApplicationCommand}" Header="{loc:Loc app-close-application}">
-                        <MenuItem.Icon>
-                            <ContentControl Width="14"
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Command="{Binding CloseApplicationCommand}" Header="{loc:Loc app-close-application}">
+                            <MenuItem.Icon>
+                                <ContentControl Width="14"
                                             Height="12"
                                             Content="{StaticResource CloseSolution}" />
-                        </MenuItem.Icon>
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </MenuItem>
-                </MenuItem>
-                <ComboBox Style="{StaticResource ComboBoxDefault}" ItemsSource="{Binding Cultures}" DisplayMemberPath="DisplayName" MinWidth="120" SelectedItem="{Binding SelectedCulture, UpdateSourceTrigger=PropertyChanged}"/>
-            </Menu>
+                </Menu>
+
+            </DockPanel>
             <TabControl region:RegionManager.RegionName="{x:Static domain:Names.MainContentRegion}"
                         IsSynchronizedWithCurrentItem="True"
                         SelectedItem="{Binding SelectedItem}">

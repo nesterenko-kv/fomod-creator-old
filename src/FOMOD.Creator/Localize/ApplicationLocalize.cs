@@ -32,7 +32,7 @@
             }
         }
 
-       
+
 
         [JsonProperty("app-welcome")] public string app_welcome { get; set; } = "Welcome!";
         [JsonProperty("app-open-project")] public string app_open_project { get; set; } = "Open project";
@@ -43,7 +43,7 @@
         [JsonProperty("app-recent")] public string app_recent { get; set; } = "Recent";
         [JsonProperty("app-recent-header")] public string app_recent_header { get; set; } = "FOMOD Creator";
         [JsonProperty("app-main-tab-name")] public string app_main_tab_name { get; set; } = "Welcome!";
-        [JsonProperty("tree-plugin-tooltip")] public string tree_plagin_tooltip { get; set; } = "Plagin";
+        [JsonProperty("tree-plugin-tooltip")] public string tree_plugin_tooltip { get; set; } = "Plagin";
         [JsonProperty("tree-group-tooltip")] public string tree_group_tooltip { get; set; } = "Group";
         [JsonProperty("tree-install-step-tooltip")] public string tree_install_step_tooltip { get; set; } = "Install Step";
         [JsonProperty("tree-project-root-tooltip")] public string tree_project_root_tooltip { get; set; } = "Project Root";
@@ -67,12 +67,12 @@
         [JsonProperty("compositeDependency-flag-dependency")] public string compositeDependency_flag_dependency { get; set; } = "Flag dependency";
         [JsonProperty("compositeDependency-flag-value")] public string compositeDependency_flag_value { get; set; } = "Value";
         [JsonProperty("compositeDependency-flag-name")] public string compositeDependency_flag_name { get; set; } = "Flag Name";
-        [JsonProperty("plugin-info")] public string plagin_info { get; set; } = "Plugin info";
-        [JsonProperty("plugin-name")] public string plagin_name { get; set; } = "Plugin name";
-        [JsonProperty("plugin-description")] public string plagin_description { get; set; } = "Description";
-        [JsonProperty("plugin-image")] public string plagin_image { get; set; } = "Image";
-        [JsonProperty("plugin-files-and-folders")] public string plagin_files_and_folders { get; set; } = "Files and folders";
-        [JsonProperty("plugin-condition-flags")] public string plagin_condition_flags { get; set; } = "Condition Flags";
+        [JsonProperty("plugin-info")] public string plugin_info { get; set; } = "Plugin info";
+        [JsonProperty("plugin-name")] public string plugin_name { get; set; } = "Plugin name";
+        [JsonProperty("plugin-description")] public string plugin_description { get; set; } = "Description";
+        [JsonProperty("plugin-image")] public string plugin_image { get; set; } = "Image";
+        [JsonProperty("plugin-files-and-folders")] public string plugin_files_and_folders { get; set; } = "Files and folders";
+        [JsonProperty("plugin-condition-flags")] public string plugin_condition_flags { get; set; } = "Condition Flags";
         [JsonProperty("image-path")] public string image_path { get; set; } = "Path";
         [JsonProperty("image-show")] public string image_show { get; set; } = "Show Image";
         [JsonProperty("image-height")] public string image_height { get; set; } = "Height";
@@ -86,7 +86,7 @@
         [JsonProperty("conditionFlag-value")] public string conditionFlag_value { get; set; } = "Value";
         [JsonProperty("conditionFlag-name")] public string conditionFlag_name { get; set; } = "Flag Name";
         [JsonProperty("pluginTypeDescriptor-title")] public string pluginTypeDescriptor_title { get; set; } = "Plugin type";
-        [JsonProperty("pluginTypeDescriptor-plugin-type")] public string pluginTypeDescriptor_plagin_type { get; set; } = "Plugin type";
+        [JsonProperty("pluginTypeDescriptor-plugin-type")] public string pluginTypeDescriptor_plugin_type { get; set; } = "Plugin type";
         [JsonProperty("pluginTypeDescriptor-dependency-type")] public string pluginTypeDescriptor_dependency_type { get; set; } = "Dependency Type";
         [JsonProperty("pluginTypeDescriptor-default-plugin-type")] public string pluginTypeDescriptor_default_plugin_type { get; set; } = "Default plugin type";
         [JsonProperty("dependencyPattern-plugin-type")] public string dependencyPattern_plugin_type { get; set; } = "Plugin type*";
@@ -108,7 +108,7 @@
         [JsonProperty("project-image")] public string project_image { get; set; } = "Image";
         [JsonProperty("project-files-and-folder-title")] public string project_files_and_folder_title { get; set; } = "Files and folders";
         [JsonProperty("conditionalFileInstall-title")] public string conditionalFileInstall_title { get; set; } = "Conditional File Installs";
-        [JsonProperty("conditionalFileInstall-pattern")] public string conditionalFileInstall_pattern { get; set; } = "Pattern {0}";
+        [JsonProperty("conditionalFileInstall-pattern")] public string conditionalFileInstall_pattern { get; set; } = "Pattern";
         [JsonProperty("conditionalFileInstall-file-list-title")] public string conditionalFileInstall_file_list_title { get; set; } = "File list";
         [JsonProperty("group-info-tooltip")] public string group_info_tooltip { get; set; } = "with out description";
         [JsonProperty("group-name-tooltip")] public string group_name_tooltip { get; set; } = "with out description";
@@ -127,13 +127,16 @@
         [JsonProperty("compositeDependency-flag-dependency-tooltip")] public string compositeDependency_flag_dependency_tooltip { get; set; } = "with out description";
         [JsonProperty("compositeDependency-flag-value-tooltip")] public string compositeDependency_flag_value_tooltip { get; set; } = "with out description";
         [JsonProperty("compositeDependency-flag-name-tooltip")] public string compositeDependency_flag_name_tooltip { get; set; } = "with out description";
-        [JsonProperty("plugin-info-tooltip")] public string plagin_info_tooltip { get; set; } = "with out description";
-        [JsonProperty("plugin-name-tooltip")] public string plagin_name_tooltip { get; set; } = "with out description";
-        [JsonProperty("plugin-description-tooltip")] public string plagin_description_tooltip { get; set; } = "with out description";
-        [JsonProperty("plugin-image-tooltip")] public string plagin_image_tooltip { get; set; } = "with out description";
+        [JsonProperty("plugin-info-tooltip")] public string plugin_info_tooltip { get; set; } = "with out description";
+        [JsonProperty("plugin-name-tooltip")] public string plugin_name_tooltip { get; set; } = "with out description";
+        [JsonProperty("plugin-description-tooltip")] public string plugin_description_tooltip { get; set; } = "with out description";
+        [JsonProperty("plugin-image-tooltip")] public string plugin_image_tooltip { get; set; } = "with out description";
+        [JsonProperty("plugin-files-and-folders-tooltip")] public string plugin_files_and_folders_tooltip { get; set; } = "with out description";
+        [JsonProperty("plugin-condition-flags-tooltip")] public string plugin_condition_flags_tooltip { get; set; } = "with out description";
         [JsonProperty("image-path-tooltip")] public string image_path_tooltip { get; set; } = "with out description";
         [JsonProperty("image-show-tooltip")] public string image_show_tooltip { get; set; } = "with out description";
         [JsonProperty("image-height-tooltip")] public string image_height_tooltip { get; set; } = "with out description";
+        [JsonProperty("image-show-fade-tooltip")] public string image_show_fade_tooltip { get; set; } = "with out description";
         [JsonProperty("fileList-destination-button-ok-tooltip")] public string fileList_destination_button_ok_tooltip { get; set; } = "with out description";
         [JsonProperty("fileList-source-tooltip")] public string fileList_source_tooltip { get; set; } = "with out description";
         [JsonProperty("fileList-destination-tooltip")] public string fileList_destination_tooltip { get; set; } = "with out description";
@@ -143,7 +146,7 @@
         [JsonProperty("conditionFlag-value-tooltip")] public string conditionFlag_value_tooltip { get; set; } = "with out description";
         [JsonProperty("conditionFlag-name-tooltip")] public string conditionFlag_name_tooltip { get; set; } = "with out description";
         [JsonProperty("pluginTypeDescriptor-title-tooltip")] public string pluginTypeDescriptor_title_tooltip { get; set; } = "with out description";
-        [JsonProperty("pluginTypeDescriptor-plugin-type-tooltip")] public string pluginTypeDescriptor_plagin_type_tooltip { get; set; } = "with out description";
+        [JsonProperty("pluginTypeDescriptor-plugin-type-tooltip")] public string pluginTypeDescriptor_plugin_type_tooltip { get; set; } = "with out description";
         [JsonProperty("pluginTypeDescriptor-dependency-type-tooltip")] public string pluginTypeDescriptor_dependency_type_tooltip { get; set; } = "with out description";
         [JsonProperty("pluginTypeDescriptor-default-plugin-type-tooltip")] public string pluginTypeDescriptor_default_plugin_type_tooltip { get; set; } = "with out description";
         [JsonProperty("dependencyPattern-plugin-type-tooltip")] public string dependencyPattern_plugin_type_tooltip { get; set; } = "with out description";
@@ -254,5 +257,6 @@
         [JsonProperty("CategoriesEnum-Category55")] public string CategoriesEnum_Category55 { get; set; } = "ReShadePresets";
         [JsonProperty("CategoriesEnum-Category56")] public string CategoriesEnum_Category56 { get; set; } = "Weather";
         [JsonProperty("CategoriesEnum-Category57")] public string CategoriesEnum_Category57 { get; set; } = "Tattoos";
+
     }
 }
